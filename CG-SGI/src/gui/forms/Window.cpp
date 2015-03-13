@@ -1,6 +1,6 @@
 #include "gui/forms/Window.h"
 
-Window::Window(QWidget *parent) : QWidget(parent) { }
+Window::Window(QDialog *parent) : QDialog(parent) { }
 
 void Window::moveToCenter() {
 	QRect position = frameGeometry();
