@@ -7,7 +7,7 @@
 class MainWindow : public Window, private Ui::MainWindow {
 
 public:
-	MainWindow(QWidget *parent = 0);
+	MainWindow(QDialog *parent = 0);
 
 };
 
