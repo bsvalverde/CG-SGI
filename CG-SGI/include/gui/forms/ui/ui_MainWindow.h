@@ -150,6 +150,16 @@ public:
 
         horizontalLayout->addWidget(graphicsView);
 
+        QWidget::setTabOrder(graphicsView, btnZoomOut);
+        QWidget::setTabOrder(btnZoomOut, zoomControl);
+        QWidget::setTabOrder(zoomControl, btnZoomIn);
+        QWidget::setTabOrder(btnZoomIn, btnUp);
+        QWidget::setTabOrder(btnUp, btnLeft);
+        QWidget::setTabOrder(btnLeft, btnCenter);
+        QWidget::setTabOrder(btnCenter, btnRight);
+        QWidget::setTabOrder(btnRight, btnDown);
+        QWidget::setTabOrder(btnDown, displayFIle);
+        QWidget::setTabOrder(displayFIle, btnInsertObject);
 
         retranslateUi(MainWindow);
 
