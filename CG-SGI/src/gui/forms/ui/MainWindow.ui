@@ -297,6 +297,19 @@
    </layout>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>graphicsView</tabstop>
+  <tabstop>btnZoomOut</tabstop>
+  <tabstop>zoomControl</tabstop>
+  <tabstop>btnZoomIn</tabstop>
+  <tabstop>btnUp</tabstop>
+  <tabstop>btnLeft</tabstop>
+  <tabstop>btnCenter</tabstop>
+  <tabstop>btnRight</tabstop>
+  <tabstop>btnDown</tabstop>
+  <tabstop>displayFIle</tabstop>
+  <tabstop>btnInsertObject</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

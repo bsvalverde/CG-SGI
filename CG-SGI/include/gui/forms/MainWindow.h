@@ -6,16 +6,18 @@
 #include <iostream>
 
 class MainWindow : public Window, private Ui::MainWindow {
+	Q_OBJECT
 
 public:
 	MainWindow(QDialog *parent = 0, Qt::WindowFlags flags = Qt::Widget);
 
-protected:
+private:
 	void connectSignalsAndSlots();
 
 private slots:
-     void on_btnZoomIn_pressed();
-     void on_btnZoomOut_pressed();
+     void btnZoomInPressed();
+     void btnZoomOutPressed();
+     void zoomControlValueChanged(int currentValue);
 
 };
 

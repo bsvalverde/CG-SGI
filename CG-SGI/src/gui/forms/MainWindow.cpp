@@ -4,18 +4,24 @@ MainWindow::MainWindow(QDialog *parent, Qt::WindowFlags flags) : Window(parent, 
 	this->setupUi(this);
 	this->moveToCenter();
 	this->connectSignalsAndSlots();
-	this->zoomControl->setRange(0, 100);
 }
 
 void MainWindow::connectSignalsAndSlots() {
-	QObject::connect(btnZoomIn, SIGNAL(pressed()), this, SLOT(on_btnZoomIn_pressed()));
-	QObject::connect(btnZoomOut, SIGNAL(pressed()), this, SLOT(on_btnZoomOut_pressed()));
+	QObject::connect(btnZoomIn, SIGNAL(pressed()), this, SLOT(btnZoomInPressed()));
+	QObject::connect(btnZoomOut, SIGNAL(pressed()), this, SLOT(btnZoomOutPressed()));
+	QObject::connect(zoomControl, SIGNAL(valueChanged(int)), this, SLOT(zoomControlValueChanged(int)));
 }
 
-void MainWindow::on_btnZoomIn_pressed() {
-	this->zoomControl->setValue(this->zoomControl->value() + 5);
+void MainWindow::btnZoomInPressed() {
+	int position = this->zoomControl->value();
+	this->zoomControl->setValue(position + 5);
 }
 
-void MainWindow::on_btnZoomOut_pressed() {
-	this->zoomControl->setValue(this->zoomControl->value() - 5);
+void MainWindow::btnZoomOutPressed() {
+	int position = this->zoomControl->value();
+	this->zoomControl->setValue(position - 5);
+}
+
+void MainWindow::zoomControlValueChanged(int currentValue) {
+	std::cout << "Value changed: " << currentValue << std::endl;
 }
