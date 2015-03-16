@@ -30,10 +30,10 @@ void SGIApp::test() {
 	std::cout << p2.getPontos().at(0).getNome() << std::endl;
 
 	Reta r("r1", p1, p2);
-	std::cout << r.getNome() << r.toString() << std::endl;
+	std::cout << r.getNome() << r << std::endl;
 	QList<Ponto> ps = r.getPontos();
-	std::cout << ps.at(0).toString() << std::endl;
-	std::cout << ps.at(1).toString() << std::endl;
+	std::cout << ps.at(0) << std::endl;
+	std::cout << ps.at(1) << std::endl;
 
 	Ponto p3("p3", 10, 10, 10);
 
@@ -43,6 +43,6 @@ void SGIApp::test() {
 	pts.insert(2, p3);
 
 	Poligono pol("pol1", pts);
-	std::cout << pol.getNome() << pol.toString() << std::endl;
+	std::cout << pol.getNome() << pol << std::endl;
 
 }
