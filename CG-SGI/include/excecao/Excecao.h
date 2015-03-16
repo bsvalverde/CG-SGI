@@ -1,5 +1,5 @@
-#ifndef EXCEPTION_H_
-#define EXCEPTION_H_
+#ifndef EXCECAO_H_
+#define EXCECAO_H_
 
 #include <exception>
 #include <string>
@@ -7,28 +7,28 @@
 /**
  * Exceção
  */
-class Exception : public std::exception {
+class Excecao : public std::exception {
 
 public:
 	/**
 	 * Destrutor
 	 */
-	virtual ~Exception() throw() { }
+	virtual ~Excecao() throw() { }
 
 	/**
 	 * Obter a mensagem da exceção como string de C
 	 * @return A mensagem correspondente
 	 */
 	virtual const char* what() const throw() {
-		return this->getMessage().c_str();
+		return this->getMensagem().c_str();
 	}
 
 	/**
 	 * Obter a mensagem da exceção como string de C++
 	 * @return A mensagem correspondente
 	 */
-	virtual std::string getMessage() const = 0;
+	virtual std::string getMensagem() const = 0;
 
 };
 
-#endif /* EXCEPTION_H_ */
+#endif /* EXCECAO_H_ */

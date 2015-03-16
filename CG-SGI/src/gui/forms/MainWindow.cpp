@@ -1,6 +1,6 @@
 #include "gui/forms/MainWindow.h"
 
-MainWindow::MainWindow(QDialog *parent, Qt::WindowFlags flags) : Window(parent, flags) {
+MainWindow::MainWindow(QDialog* parent, Qt::WindowFlags flags) : Window(parent, flags) {
 	this->setupUi(this);
 	this->moveToCenter();
 	this->connectSignalsAndSlots();

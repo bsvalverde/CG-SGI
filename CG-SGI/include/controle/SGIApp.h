@@ -3,7 +3,7 @@
 
 #include <qt5/QtWidgets/qapplication.h>
 
-#include "gui/forms/MainWindow.h"
+#include "controle/ControladorUI.h"
 
 /**
  * Sistema Gráfico Interativo.
@@ -28,6 +28,8 @@ public:
 	 * @return inteiro indicando o retorno da execução.
 	 */
 	static int exec();
+
+	void test();
 
 };
 
