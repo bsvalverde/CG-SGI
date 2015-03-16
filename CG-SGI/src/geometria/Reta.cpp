@@ -1,7 +1,5 @@
 #include "geometria/Reta.h"
 
-using namespace std;
-
 Reta::Reta(const String& nome, const Ponto& inicial, const Ponto& final) : ObjetoGeometrico(nome) {
 	this->v_inicial = inicial;
 	this->v_final = final;
