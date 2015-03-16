@@ -2,7 +2,6 @@
 #define OBJETOGEOMETRICO_H_
 
 #include <QtCore/qlist.h>
-#include <list>
 #include <string>
 
 typedef std::string String;
@@ -20,6 +19,10 @@ public:
 	const String& getNome() const;
 	virtual QList<Ponto> getPontos();
 	virtual const String toString() const;
+
+	friend std::ostream& operator<<(std::ostream& out, const ObjetoGeometrico& o){
+		return out << o.toString();
+	}
 
 protected:
 	String nome;

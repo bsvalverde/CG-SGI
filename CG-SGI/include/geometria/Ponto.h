@@ -2,10 +2,6 @@
 #define PONTO_H_
 
 #include "geometria/ObjetoGeometrico.h"
-#include <sstream>
-#include <QtCore/qstring.h>
-
-typedef std::string String;
 
 class Ponto : public ObjetoGeometrico {
 
