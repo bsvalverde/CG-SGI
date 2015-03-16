@@ -9,15 +9,17 @@ class MainWindow : public Window, private Ui::MainWindow {
 	Q_OBJECT
 
 public:
-	MainWindow(QDialog* parent = 0, Qt::WindowFlags flags = Qt::Widget);
+	MainWindow(ControladorUI* controladorUI, QDialog* parent = 0, Qt::WindowFlags flags = Qt::Widget);
 
-private:
+protected:
 	void connectSignalsAndSlots();
 
 private slots:
      void btnZoomInPressed();
      void btnZoomOutPressed();
      void zoomControlValueChanged(int currentValue);
+     void btnInsertObjectClicked();
+     void btnRemoveObjectClicked();
 
 };
 

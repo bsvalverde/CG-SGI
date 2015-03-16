@@ -44,6 +44,7 @@ public:
     QPushButton *btnCenter;
     QWidget *pageObjects;
     QListView *displayFIle;
+    QPushButton *btnRemoveObject;
     QPushButton *btnInsertObject;
     QGraphicsView *graphicsView;
 
@@ -133,9 +134,12 @@ public:
         displayFIle = new QListView(pageObjects);
         displayFIle->setObjectName(QStringLiteral("displayFIle"));
         displayFIle->setGeometry(QRect(10, 1, 241, 371));
+        btnRemoveObject = new QPushButton(pageObjects);
+        btnRemoveObject->setObjectName(QStringLiteral("btnRemoveObject"));
+        btnRemoveObject->setGeometry(QRect(10, 380, 121, 31));
         btnInsertObject = new QPushButton(pageObjects);
         btnInsertObject->setObjectName(QStringLiteral("btnInsertObject"));
-        btnInsertObject->setGeometry(QRect(8, 380, 241, 27));
+        btnInsertObject->setGeometry(QRect(140, 380, 111, 31));
         toolBox->addItem(pageObjects, QStringLiteral("Objetos"));
 
         horizontalLayout->addWidget(toolBox);
@@ -159,7 +163,7 @@ public:
         QWidget::setTabOrder(btnCenter, btnRight);
         QWidget::setTabOrder(btnRight, btnDown);
         QWidget::setTabOrder(btnDown, displayFIle);
-        QWidget::setTabOrder(displayFIle, btnInsertObject);
+        QWidget::setTabOrder(displayFIle, btnRemoveObject);
 
         retranslateUi(MainWindow);
 
@@ -182,6 +186,7 @@ public:
         btnLeft->setText(QApplication::translate("MainWindow", "\342\227\200", 0));
         btnCenter->setText(QApplication::translate("MainWindow", "\342\227\211", 0));
         toolBox->setItemText(toolBox->indexOf(pageWindow), QApplication::translate("MainWindow", "Controle da Window", 0));
+        btnRemoveObject->setText(QApplication::translate("MainWindow", "Remover Objeto", 0));
         btnInsertObject->setText(QApplication::translate("MainWindow", "Inserir Objeto", 0));
         toolBox->setItemText(toolBox->indexOf(pageObjects), QApplication::translate("MainWindow", "Objetos", 0));
     } // retranslateUi

@@ -268,13 +268,26 @@
          </rect>
         </property>
        </widget>
+       <widget class="QPushButton" name="btnRemoveObject">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>380</y>
+          <width>121</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Remover Objeto</string>
+        </property>
+       </widget>
        <widget class="QPushButton" name="btnInsertObject">
         <property name="geometry">
          <rect>
-          <x>8</x>
+          <x>140</x>
           <y>380</y>
-          <width>241</width>
-          <height>27</height>
+          <width>111</width>
+          <height>31</height>
          </rect>
         </property>
         <property name="text">
@@ -308,7 +321,7 @@
   <tabstop>btnRight</tabstop>
   <tabstop>btnDown</tabstop>
   <tabstop>displayFIle</tabstop>
-  <tabstop>btnInsertObject</tabstop>
+  <tabstop>btnRemoveObject</tabstop>
  </tabstops>
  <resources/>
  <connections/>

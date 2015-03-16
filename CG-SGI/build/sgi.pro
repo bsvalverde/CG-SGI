@@ -6,7 +6,7 @@ QT += core gui
 
 QMAKE_CXX = g++
 QMAKE_CXXFLAGS_WARN_ON = -Wall
-QMAKE_CXXFLAGS_RELEASE = -O2 -std=c++11
+QMAKE_CXXFLAGS_RELEASE = -std=c++11
 QMAKE_CXXFLAGS_DEBUG = -std=c++11 -g
 
 INCLUDEPATH += include

@@ -4,7 +4,8 @@
 #include "geometria/Reta.h"
 #include "geometria/Poligono.h"
 
-SGIApp::SGIApp(int argc, char *argv[]) : QApplication(argc, argv) {}
+SGIApp::SGIApp(int argc, char *argv[]) : QApplication(argc, argv) {
+}
 
 SGIApp::~SGIApp() {}
 
