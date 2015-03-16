@@ -4,6 +4,11 @@ TEMPLATE = app
 LANGUAGE = C++
 QT += core gui
 
+QMAKE_CXX = g++
+QMAKE_CXXFLAGS_WARN_ON = -Wall
+QMAKE_CXXFLAGS_RELEASE = -O2 -std=c++11
+QMAKE_CXXFLAGS_DEBUG = -std=c++11 -g
+
 INCLUDEPATH += include
 LIBS +=
 
@@ -16,6 +21,7 @@ TARGET = SGI.app
 HEADERS  += include/gui/forms/*.h \
 
 SOURCES += src/gui/forms/*.cpp \
-src/control/*.cpp \
+src/controle/*.cpp \
+src/geometria/*.cpp \
 
 FORMS    += src/gui/forms/ui/*.ui \
