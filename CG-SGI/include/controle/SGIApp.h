@@ -2,6 +2,7 @@
 #define SGIAPP_H_
 
 #include <qt5/QtWidgets/qapplication.h>
+#include <iostream>
 
 #include "controle/ControladorUI.h"
 

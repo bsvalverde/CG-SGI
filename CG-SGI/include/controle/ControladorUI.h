@@ -1,7 +1,8 @@
 #ifndef CONTROLADORUI_H_
 #define CONTROLADORUI_H_
 
-#include "gui/forms/MainWindow.h"
+class MainWindow;
+class ObjectInsertionWindow;
 
 /**
  * Controlador da Interface Gráfica.
@@ -24,8 +25,11 @@ public:
 	 */
 	void executar();
 
+	void showObjectInsertionWindow();
+
 private:
-	MainWindow *mainWindow;
+	MainWindow* mainWindow;
+	ObjectInsertionWindow* objectInsertionWindow;
 
 };
 
