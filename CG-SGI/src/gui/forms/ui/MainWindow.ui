@@ -258,7 +258,7 @@
        <attribute name="label">
         <string>Objetos</string>
        </attribute>
-       <widget class="QListView" name="displayFIle">
+       <widget class="QListView" name="displayFile">
         <property name="geometry">
          <rect>
           <x>10</x>
@@ -320,7 +320,7 @@
   <tabstop>btnCenter</tabstop>
   <tabstop>btnRight</tabstop>
   <tabstop>btnDown</tabstop>
-  <tabstop>displayFIle</tabstop>
+  <tabstop>displayFile</tabstop>
   <tabstop>btnRemoveObject</tabstop>
  </tabstops>
  <resources/>

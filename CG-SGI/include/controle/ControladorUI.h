@@ -1,11 +1,16 @@
 #ifndef CONTROLADORUI_H_
 #define CONTROLADORUI_H_
 
+#include "geometria/DisplayFile.h"
+#include "geometria/Poligono.h"
+#include "geometria/Ponto.h"
+#include "geometria/Reta.h"
+
 class MainWindow;
 class ObjectInsertionWindow;
 
 /**
- * Controlador da Interface Gr·fica.
+ * Controlador da Interface Gr√°fica.
  */
 class ControladorUI {
 
@@ -21,13 +26,16 @@ public:
 	virtual ~ControladorUI();
 
 	/**
-	 * Executar a interface gr·fica.
+	 * Executar a interface gr√°fica.
 	 */
 	void executar();
 
-	void showObjectInsertionWindow();
+	void exibirObjectInsertionWindow();
+
+	void inserirObjeto(String nome, QList<Ponto> pontos);
 
 private:
+	DisplayFile displayFile;
 	MainWindow* mainWindow;
 	ObjectInsertionWindow* objectInsertionWindow;
 

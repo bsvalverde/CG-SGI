@@ -10,7 +10,7 @@
 typedef std::string String;
 
 /**
- * Lista de objetos geométricos.
+ * Lista de objetos geomÃ©tricos.
  */
 class DisplayFile {
 
@@ -26,28 +26,28 @@ public:
 	virtual ~DisplayFile();
 
 	/**
-	 * Adicionar um objeto geométrico.
+	 * Adicionar um objeto geomÃ©trico.
 	 * @param objeto objeto a ser adicionado.
 	 */
 	void adicionarObjeto(const ObjetoGeometrico& objeto);
 
 	/**
-	 * Remover um objeto geométrico.
+	 * Remover um objeto geomÃ©trico.
 	 * @param nome nome do objeto a ser removido.
 	 * @return o objeto removido.
 	 */
 	ObjetoGeometrico removerObjeto(const String& nome);
 
 	/**
-	 * Verificar se a lista contém um objeto.
+	 * Verificar se a lista contÃ©m um objeto.
 	 * @param nome nome do a ser verificado.
 	 * @return true caso o objeto esteja na lista.
 	 */
 	bool contem(const String& nome);
 
 	/**
-	 * Obter a lista de objetos geométricos.
-	 * @return mapa contendo os objetos geométricos.
+	 * Obter a lista de objetos geomÃ©tricos.
+	 * @return mapa contendo os objetos geomÃ©tricos.
 	 */
 	std::map<String, ObjetoGeometrico> getObjetos();
 

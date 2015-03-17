@@ -7,14 +7,14 @@
 #include "controle/ControladorUI.h"
 
 /**
- * Sistema Gráfico Interativo.
+ * Sistema GrÃ¡fico Interativo.
  */
 class SGIApp : public QApplication {
 
 public:
 	/**
 	 * Construtor.
-	 * @param argc número de argumentos.
+	 * @param argc nÃºmero de argumentos.
 	 * @param argv vetor de argumentos.
 	 */
 	SGIApp(int argc, char *argv[]);
@@ -25,8 +25,8 @@ public:
 	virtual ~SGIApp();
 
 	/**
-	 * Executar a aplicação.
-	 * @return inteiro indicando o retorno da execução.
+	 * Executar a aplicaÃ§Ã£o.
+	 * @return inteiro indicando o retorno da execuÃ§Ã£o.
 	 */
 	static int exec();
 

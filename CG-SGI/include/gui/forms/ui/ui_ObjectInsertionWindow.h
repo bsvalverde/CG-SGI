@@ -127,6 +127,7 @@ public:
         sizePolicy1.setVerticalStretch(30);
         sizePolicy1.setHeightForWidth(fieldName->sizePolicy().hasHeightForWidth());
         fieldName->setSizePolicy(sizePolicy1);
+        fieldName->setMaxLength(25);
 
         formLayout->setWidget(0, QFormLayout::FieldRole, fieldName);
 
@@ -193,6 +194,7 @@ public:
         sizePolicy2.setHeightForWidth(fieldPointX->sizePolicy().hasHeightForWidth());
         fieldPointX->setSizePolicy(sizePolicy2);
         fieldPointX->setMaximumSize(QSize(16777214, 30));
+        fieldPointX->setMaxLength(50);
 
         formLayout_2->setWidget(0, QFormLayout::FieldRole, fieldPointX);
 
@@ -212,6 +214,7 @@ public:
         sizePolicy2.setHeightForWidth(fieldPointY->sizePolicy().hasHeightForWidth());
         fieldPointY->setSizePolicy(sizePolicy2);
         fieldPointY->setMaximumSize(QSize(16777215, 30));
+        fieldPointY->setMaxLength(50);
 
         formLayout_3->setWidget(0, QFormLayout::FieldRole, fieldPointY);
 
@@ -231,6 +234,7 @@ public:
         sizePolicy2.setHeightForWidth(fieldPointZ->sizePolicy().hasHeightForWidth());
         fieldPointZ->setSizePolicy(sizePolicy2);
         fieldPointZ->setMaximumSize(QSize(16777215, 30));
+        fieldPointZ->setMaxLength(50);
 
         formLayout_4->setWidget(0, QFormLayout::FieldRole, fieldPointZ);
 
@@ -274,6 +278,7 @@ public:
         sizePolicy2.setHeightForWidth(fieldLineX1->sizePolicy().hasHeightForWidth());
         fieldLineX1->setSizePolicy(sizePolicy2);
         fieldLineX1->setMaximumSize(QSize(16777214, 30));
+        fieldLineX1->setMaxLength(50);
 
         formLayout_5->setWidget(0, QFormLayout::FieldRole, fieldLineX1);
 
@@ -293,6 +298,7 @@ public:
         sizePolicy2.setHeightForWidth(fieldLineY1->sizePolicy().hasHeightForWidth());
         fieldLineY1->setSizePolicy(sizePolicy2);
         fieldLineY1->setMaximumSize(QSize(16777215, 30));
+        fieldLineY1->setMaxLength(50);
 
         formLayout_6->setWidget(0, QFormLayout::FieldRole, fieldLineY1);
 
@@ -312,6 +318,7 @@ public:
         sizePolicy2.setHeightForWidth(fieldLineZ1->sizePolicy().hasHeightForWidth());
         fieldLineZ1->setSizePolicy(sizePolicy2);
         fieldLineZ1->setMaximumSize(QSize(16777215, 30));
+        fieldLineZ1->setMaxLength(50);
 
         formLayout_7->setWidget(0, QFormLayout::FieldRole, fieldLineZ1);
 
@@ -352,6 +359,7 @@ public:
         sizePolicy2.setHeightForWidth(fieldLineX2->sizePolicy().hasHeightForWidth());
         fieldLineX2->setSizePolicy(sizePolicy2);
         fieldLineX2->setMaximumSize(QSize(16777214, 30));
+        fieldLineX2->setMaxLength(50);
 
         formLayout_8->setWidget(0, QFormLayout::FieldRole, fieldLineX2);
 
@@ -371,6 +379,7 @@ public:
         sizePolicy2.setHeightForWidth(fieldLineY2->sizePolicy().hasHeightForWidth());
         fieldLineY2->setSizePolicy(sizePolicy2);
         fieldLineY2->setMaximumSize(QSize(16777215, 30));
+        fieldLineY2->setMaxLength(50);
 
         formLayout_9->setWidget(0, QFormLayout::FieldRole, fieldLineY2);
 
@@ -390,6 +399,7 @@ public:
         sizePolicy2.setHeightForWidth(fieldLineZ2->sizePolicy().hasHeightForWidth());
         fieldLineZ2->setSizePolicy(sizePolicy2);
         fieldLineZ2->setMaximumSize(QSize(16777215, 30));
+        fieldLineZ2->setMaxLength(50);
 
         formLayout_10->setWidget(0, QFormLayout::FieldRole, fieldLineZ2);
 
@@ -442,8 +452,20 @@ public:
 
         gridLayout->addWidget(tabObjects, 5, 0, 1, 1);
 
-        QWidget::setTabOrder(tabObjects, tablePoligonPoints);
-        QWidget::setTabOrder(tablePoligonPoints, btnCancel);
+        QWidget::setTabOrder(fieldName, tabObjects);
+        QWidget::setTabOrder(tabObjects, fieldPointX);
+        QWidget::setTabOrder(fieldPointX, fieldPointY);
+        QWidget::setTabOrder(fieldPointY, fieldPointZ);
+        QWidget::setTabOrder(fieldPointZ, fieldLineX1);
+        QWidget::setTabOrder(fieldLineX1, fieldLineY1);
+        QWidget::setTabOrder(fieldLineY1, fieldLineZ1);
+        QWidget::setTabOrder(fieldLineZ1, fieldLineX2);
+        QWidget::setTabOrder(fieldLineX2, fieldLineY2);
+        QWidget::setTabOrder(fieldLineY2, fieldLineZ2);
+        QWidget::setTabOrder(fieldLineZ2, tablePoligonPoints);
+        QWidget::setTabOrder(tablePoligonPoints, btnRemovePoint);
+        QWidget::setTabOrder(btnRemovePoint, btnInsertPoint);
+        QWidget::setTabOrder(btnInsertPoint, btnCancel);
         QWidget::setTabOrder(btnCancel, btnInsert);
 
         retranslateUi(ObjectInsertionWindow);
@@ -458,6 +480,8 @@ public:
     {
         ObjectInsertionWindow->setWindowTitle(QApplication::translate("ObjectInsertionWindow", "Inserir Objeto", 0));
         labelName->setText(QApplication::translate("ObjectInsertionWindow", "Nome", 0));
+        fieldName->setInputMask(QString());
+        fieldName->setText(QString());
         btnCancel->setText(QApplication::translate("ObjectInsertionWindow", "Cancelar", 0));
         btnInsert->setText(QApplication::translate("ObjectInsertionWindow", "Ok", 0));
         groupBox->setTitle(QApplication::translate("ObjectInsertionWindow", "Coordenadas", 0));
