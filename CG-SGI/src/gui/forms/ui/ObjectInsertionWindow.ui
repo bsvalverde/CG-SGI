@@ -85,6 +85,15 @@
           <verstretch>30</verstretch>
          </sizepolicy>
         </property>
+        <property name="inputMask">
+         <string/>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="maxLength">
+         <number>25</number>
+        </property>
        </widget>
       </item>
      </layout>
@@ -196,6 +205,9 @@ QGroupBox::title  {
                 <height>30</height>
                </size>
               </property>
+              <property name="maxLength">
+               <number>50</number>
+              </property>
              </widget>
             </item>
            </layout>
@@ -229,6 +241,9 @@ QGroupBox::title  {
                 <height>30</height>
                </size>
               </property>
+              <property name="maxLength">
+               <number>50</number>
+              </property>
              </widget>
             </item>
            </layout>
@@ -261,6 +276,9 @@ QGroupBox::title  {
                 <width>16777215</width>
                 <height>30</height>
                </size>
+              </property>
+              <property name="maxLength">
+               <number>50</number>
               </property>
              </widget>
             </item>
@@ -341,6 +359,9 @@ QGroupBox::title  {
                 <height>30</height>
                </size>
               </property>
+              <property name="maxLength">
+               <number>50</number>
+              </property>
              </widget>
             </item>
            </layout>
@@ -374,6 +395,9 @@ QGroupBox::title  {
                 <height>30</height>
                </size>
               </property>
+              <property name="maxLength">
+               <number>50</number>
+              </property>
              </widget>
             </item>
            </layout>
@@ -406,6 +430,9 @@ QGroupBox::title  {
                 <width>16777215</width>
                 <height>30</height>
                </size>
+              </property>
+              <property name="maxLength">
+               <number>50</number>
               </property>
              </widget>
             </item>
@@ -481,6 +508,9 @@ QGroupBox::title  {
                 <height>30</height>
                </size>
               </property>
+              <property name="maxLength">
+               <number>50</number>
+              </property>
              </widget>
             </item>
            </layout>
@@ -514,6 +544,9 @@ QGroupBox::title  {
                 <height>30</height>
                </size>
               </property>
+              <property name="maxLength">
+               <number>50</number>
+              </property>
              </widget>
             </item>
            </layout>
@@ -546,6 +579,9 @@ QGroupBox::title  {
                 <width>16777215</width>
                 <height>30</height>
                </size>
+              </property>
+              <property name="maxLength">
+               <number>50</number>
               </property>
              </widget>
             </item>
@@ -653,8 +689,20 @@ QGroupBox::title  {
   </widget>
  </widget>
  <tabstops>
+  <tabstop>fieldName</tabstop>
   <tabstop>tabObjects</tabstop>
+  <tabstop>fieldPointX</tabstop>
+  <tabstop>fieldPointY</tabstop>
+  <tabstop>fieldPointZ</tabstop>
+  <tabstop>fieldLineX1</tabstop>
+  <tabstop>fieldLineY1</tabstop>
+  <tabstop>fieldLineZ1</tabstop>
+  <tabstop>fieldLineX2</tabstop>
+  <tabstop>fieldLineY2</tabstop>
+  <tabstop>fieldLineZ2</tabstop>
   <tabstop>tablePoligonPoints</tabstop>
+  <tabstop>btnRemovePoint</tabstop>
+  <tabstop>btnInsertPoint</tabstop>
   <tabstop>btnCancel</tabstop>
   <tabstop>btnInsert</tabstop>
  </tabstops>

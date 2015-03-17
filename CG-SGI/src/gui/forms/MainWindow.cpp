@@ -7,6 +7,12 @@ MainWindow::MainWindow(ControladorUI* controladorUI, QDialog* parent,
 	this->connectSignalsAndSlots();
 }
 
+void MainWindow::updateObjects(std::map<String, ObjetoGeometrico>& objects) {
+	for(unsigned int i = 0; i < objects.size(); i++) {
+		// something
+	}
+}
+
 void MainWindow::connectSignalsAndSlots() {
 	QObject::connect(btnZoomIn, SIGNAL(pressed()), this, SLOT(btnZoomInPressed()));
 	QObject::connect(btnZoomOut, SIGNAL(pressed()), this, SLOT(btnZoomOutPressed()));
@@ -30,7 +36,7 @@ void MainWindow::zoomControlValueChanged(int currentValue) {
 }
 
 void MainWindow::btnInsertObjectClicked() {
-	this->controladorUI->showObjectInsertionWindow();
+	this->controladorUI->exibirObjectInsertionWindow();
 }
 
 void MainWindow::btnRemoveObjectClicked() {

@@ -13,7 +13,7 @@ Ponto::Ponto(const Ponto& ponto) : ObjetoGeometrico(ponto) {
 	this->coord_z = ponto.coord_z;
 }
 
-Ponto::Ponto(const String& nome, const int x, const int y, const int z) : ObjetoGeometrico(nome) {
+Ponto::Ponto(const String& nome, const double x, const double y, const double z) : ObjetoGeometrico(nome) {
 	this->coord_x = x;
 	this->coord_y = y;
 	this->coord_z = z;
@@ -33,15 +33,15 @@ QList<Ponto> Ponto::getPontos() {
 	return pontos;
 }
 
-int Ponto::getX() const {
+double Ponto::getX() const {
 	return this->coord_x;
 }
 
-int Ponto::getY() const {
+double Ponto::getY() const {
 	return this->coord_y;
 }
 
-int Ponto::getZ() const {
+double Ponto::getZ() const {
 	return this->coord_z;
 }
 

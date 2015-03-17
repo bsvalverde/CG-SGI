@@ -43,7 +43,7 @@ public:
     QPushButton *btnLeft;
     QPushButton *btnCenter;
     QWidget *pageObjects;
-    QListView *displayFIle;
+    QListView *displayFile;
     QPushButton *btnRemoveObject;
     QPushButton *btnInsertObject;
     QGraphicsView *graphicsView;
@@ -131,9 +131,9 @@ public:
         pageObjects = new QWidget();
         pageObjects->setObjectName(QStringLiteral("pageObjects"));
         pageObjects->setGeometry(QRect(0, 0, 256, 415));
-        displayFIle = new QListView(pageObjects);
-        displayFIle->setObjectName(QStringLiteral("displayFIle"));
-        displayFIle->setGeometry(QRect(10, 1, 241, 371));
+        displayFile = new QListView(pageObjects);
+        displayFile->setObjectName(QStringLiteral("displayFile"));
+        displayFile->setGeometry(QRect(10, 1, 241, 371));
         btnRemoveObject = new QPushButton(pageObjects);
         btnRemoveObject->setObjectName(QStringLiteral("btnRemoveObject"));
         btnRemoveObject->setGeometry(QRect(10, 380, 121, 31));
@@ -162,8 +162,8 @@ public:
         QWidget::setTabOrder(btnLeft, btnCenter);
         QWidget::setTabOrder(btnCenter, btnRight);
         QWidget::setTabOrder(btnRight, btnDown);
-        QWidget::setTabOrder(btnDown, displayFIle);
-        QWidget::setTabOrder(displayFIle, btnRemoveObject);
+        QWidget::setTabOrder(btnDown, displayFile);
+        QWidget::setTabOrder(displayFile, btnRemoveObject);
 
         retranslateUi(MainWindow);
 

@@ -1,9 +1,12 @@
 #ifndef OBJECTINSERTIONWINDOW_H_
 #define OBJECTINSERTIONWINDOW_H_
 
+#include <iostream>
+#include <QtWidgets/qmessagebox.h>
+
+#include "geometria/Ponto.h"
 #include "gui/forms/ui/ui_ObjectInsertionWindow.h"
 #include "gui/forms/Window.h"
-#include <iostream>
 
 class ObjectInsertionWindow : public Window, private Ui::ObjectInsertionWindow {
 	Q_OBJECT
@@ -14,6 +17,7 @@ public:
 
 protected:
 	void connectSignalsAndSlots();
+	bool validateFields();
 
 private slots:
 	void insertObject();

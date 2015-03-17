@@ -5,7 +5,7 @@
 #include <string>
 
 /**
- * Exceção
+ * ExceÃ§Ã£o
  */
 class Excecao : public std::exception {
 
@@ -16,7 +16,7 @@ public:
 	virtual ~Excecao() throw() { }
 
 	/**
-	 * Obter a mensagem da exceção como string de C
+	 * Obter a mensagem da excÃ§Ã£o como string de C
 	 * @return A mensagem correspondente
 	 */
 	virtual const char* what() const throw() {
@@ -24,7 +24,7 @@ public:
 	}
 
 	/**
-	 * Obter a mensagem da exceção como string de C++
+	 * Obter a mensagem da exceÃ§Ã£o como string de C++
 	 * @return A mensagem correspondente
 	 */
 	virtual std::string getMensagem() const = 0;
