@@ -20,7 +20,7 @@ void ControladorUI::exibirObjectInsertionWindow() {
 	this->objectInsertionWindow->show();
 }
 
-void ControladorUI::inserirObjeto(String nome, QList<Ponto> pontos) {
+void ControladorUI::inserirObjeto(String& nome, QList<Ponto> pontos) {
 	int numeroPontos = pontos.size();
 
 	if(numeroPontos == 1) {

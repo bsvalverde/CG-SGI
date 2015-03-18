@@ -33,7 +33,7 @@ public:
 
 	void exibirObjectInsertionWindow();
 
-	void inserirObjeto(String nome, QList<Ponto> pontos);
+	void inserirObjeto(String& nome, QList<Ponto> pontos);
 
 	Mundo getMundo() const;
 

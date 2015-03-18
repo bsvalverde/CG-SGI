@@ -10,7 +10,7 @@ void Mundo::adicionarObjeto(const ObjetoGeometrico objeto) {
 	this->displayFile.adicionarObjeto(objeto);
 }
 
-Window Mundo::getWindow() const {
+const Window& Mundo::getWindow() const {
 	return this->window;
 }
 

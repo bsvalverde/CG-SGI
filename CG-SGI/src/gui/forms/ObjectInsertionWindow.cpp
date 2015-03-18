@@ -95,6 +95,7 @@ void ObjectInsertionWindow::insertObject() {
 
 	switch(this->tabObjects->currentIndex()) {
 		case 0:
+			std::cout << "ponto" << std::endl;
 			x = this->fieldPointX->text().toDouble();
 			y = this->fieldPointY->text().toDouble();
 			z = 1;//this->fieldPointZ->text().toDouble();
@@ -102,6 +103,7 @@ void ObjectInsertionWindow::insertObject() {
 			pontos.insert(0, p);
 			break;
 		case 1:
+			std::cout << "reta" << std::endl;
 			x = this->fieldLineX1->text().toDouble();
 			y = this->fieldLineY1->text().toDouble();
 			z = 1;//this->fieldLineZ1->text().toDouble();
@@ -115,6 +117,7 @@ void ObjectInsertionWindow::insertObject() {
 			pontos.insert(1, p);
 			break;
 		default:
+			std::cout << "poligono" << std::endl;
 			for(int i = 0; i < this->tablePoligonPoints->rowCount(); i++) {
 				String nomePonto = this->fieldName->text().toStdString();
 
@@ -124,6 +127,7 @@ void ObjectInsertionWindow::insertObject() {
 
 				p = Ponto(nomePonto, x, y, z);
 				pontos.insert(i, p);
+				break;
 			}
 	}
 
