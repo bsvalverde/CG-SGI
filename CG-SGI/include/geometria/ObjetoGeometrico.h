@@ -40,12 +40,31 @@ public:
 	 * @param nome nome do objeto.
 	 * @param tipo tipo do objeto.
 	 */
-	ObjetoGeometrico(const String& nome, Tipo tipo);
+	ObjetoGeometrico(const String& nome, const Tipo tipo);
 
 	/**
 	 * Destrutor.
 	 */
 	virtual ~ObjetoGeometrico();
+
+	/**
+	 * Operador de atribuição.
+	 * @param objeto objeto a ser copiado.
+	 * @return objeto geométrico copiado.
+	 */
+	ObjetoGeometrico& operator=(const ObjetoGeometrico& objeto);
+
+	/**
+	 * Obter os pontos do objeto.
+	 * @return lista de pontos.
+	 */
+	virtual QList<Ponto> getPontos() const;
+
+	/**
+	 * Converter o objeto em string.
+	 * @return string representando o objeto.
+	 */
+	virtual const String toString() const;
 
 	/**
 	 * Obter o nome.
@@ -69,25 +88,7 @@ public:
 	 * Obter o centro geométrico do objeto.
 	 * @return o ponto correspondento ao centro.
 	 */
-	Ponto getCentroGeometrico() const;
-
-	/**
-	 * Obter os pontos do objeto.
-	 * @return lista de pontos.
-	 */
-	virtual QList<Ponto> getPontos() const;
-
-	/**
-	 * Converter o objeto em string.
-	 * @return string representando o objeto.
-	 */
-	virtual const String toString() const;
-
-	/**
-	 * Operador de atribuição.
-	 * @param objeto objeto a ser copiado.
-	 */
-	void operator=(const ObjetoGeometrico& objeto);
+	const Ponto getCentroGeometrico() const;
 
 	/**
 	 * Operador de stream de saída.

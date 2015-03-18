@@ -25,6 +25,13 @@ public:
 	virtual ~DisplayFile();
 
 	/**
+	 * Operador de atribuição.
+	 * @param displayFile objeto a ser copiado.
+	 * @return display file copiado.
+	 */
+	DisplayFile& operator=(const DisplayFile& displayFile);
+
+	/**
 	 * Adicionar um objeto geométrico.
 	 * @param objeto objeto a ser adicionado.
 	 */
@@ -36,6 +43,13 @@ public:
 	 * @return o objeto removido.
 	 */
 	ObjetoGeometrico removerObjeto(const String& nome);
+
+	/**
+	 * Obter um objeto geométrico.
+	 * @param nome nome do objeto a ser removido.
+	 * @return o objeto removido.
+	 */
+	ObjetoGeometrico getObjeto(const String& nome);
 
 	/**
 	 * Verificar se a lista contém um objeto.

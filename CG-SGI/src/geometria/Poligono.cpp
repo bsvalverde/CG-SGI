@@ -1,14 +1,25 @@
 #include "geometria/Poligono.h"
 
-Poligono::Poligono(const String& nome, const QList<Ponto> pontos) :
+Poligono::Poligono() {}
+
+Poligono::Poligono(const Poligono& poligono) : ObjetoGeometrico(poligono) {
+	this->pontos = poligono.pontos;
+}
+
+Poligono::Poligono(const String& nome, const QList<Ponto>& pontos) :
 					ObjetoGeometrico(nome, Tipo::POLIGONO) {
 	this->pontos = pontos;
 }
 
 Poligono::~Poligono() {}
 
+Poligono& Poligono::operator=(const Poligono& poligono) {
+	this->ObjetoGeometrico::operator =(poligono);
+	this->pontos = poligono.pontos;
+	return *this;
+}
 
-QList<Ponto> Poligono::getPontos() {
+QList<Ponto> Poligono::getPontos() const {
 	return this->pontos;
 }
 

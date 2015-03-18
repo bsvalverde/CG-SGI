@@ -21,13 +21,15 @@ Ponto::Ponto(const String& nome, const double x, const double y, const double z)
 
 Ponto::~Ponto() {}
 
-void Ponto::operator=(const Ponto& ponto) {
+Ponto& Ponto::operator=(const Ponto& ponto) {
+	this->ObjetoGeometrico::operator =(ponto);
 	this->coord_x = ponto.coord_x;
 	this->coord_y = ponto.coord_y;
 	this->coord_z = ponto.coord_z;
+	return *this;
 }
 
-QList<Ponto> Ponto::getPontos() {
+QList<Ponto> Ponto::getPontos() const {
 	QList<Ponto> pontos;
 	pontos.insert(0, *this);
 	return pontos;
