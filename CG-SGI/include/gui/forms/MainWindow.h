@@ -1,6 +1,8 @@
 #ifndef MAINWINDOW_H_
 #define MAINWINDOW_H_
 
+#include <QtWidgets/qmessagebox.h>
+
 #include "gui/forms/DefaultWindow.h"
 #include "gui/forms/ui/ui_MainWindow.h"
 #include "geometria/Mundo.h"
@@ -23,13 +25,14 @@ private slots:
      void btnZoomInPressed();
      void btnZoomOutPressed();
      void zoomControlValueChanged(int currentValue);
-     void btnInsertObjectClicked();
-     void btnRemoveObjectClicked();
      void btnNavigationUpPressed();
      void btnNavigationLeftPressed();
      void btnNavigationCenterPressed();
      void btnNavigationRightPressed();
      void btnNavigationDownPressed();
+     void btnInsertObjectClicked();
+     void btnRemoveObjectClicked();
+     void btnTransformObjectClicked();
 
 private:
      double viewportWidth;

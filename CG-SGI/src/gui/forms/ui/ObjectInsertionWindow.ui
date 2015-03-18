@@ -617,7 +617,7 @@ QGroupBox::title  {
       </widget>
       <widget class="QWidget" name="tabPoligon">
        <attribute name="title">
-        <string>Poligono</string>
+        <string>Polígono</string>
        </attribute>
        <widget class="QTableWidget" name="tablePoligonPoints">
         <property name="geometry">

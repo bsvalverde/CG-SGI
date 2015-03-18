@@ -17,9 +17,9 @@
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
-#include <QtWidgets/QListView>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSlider>
+#include <QtWidgets/QTableWidget>
 #include <QtWidgets/QToolBox>
 #include <QtWidgets/QWidget>
 
@@ -43,9 +43,10 @@ public:
     QPushButton *btnLeft;
     QPushButton *btnCenter;
     QWidget *pageObjects;
-    QListView *displayFile;
     QPushButton *btnRemoveObject;
     QPushButton *btnInsertObject;
+    QTableWidget *tableObjects;
+    QPushButton *btnTransformObject;
     QGraphicsView *graphicsView;
 
     void setupUi(QWidget *MainWindow)
@@ -88,6 +89,7 @@ public:
         zoomControl->setObjectName(QStringLiteral("zoomControl"));
         zoomControl->setGeometry(QRect(60, 40, 141, 31));
         zoomControl->setMaximum(100);
+        zoomControl->setValue(50);
         zoomControl->setOrientation(Qt::Horizontal);
         labelZoom = new QLabel(pageWindow);
         labelZoom->setObjectName(QStringLiteral("labelZoom"));
@@ -113,33 +115,72 @@ public:
         labelNavigation->setFont(font1);
         btnUp = new QPushButton(pageWindow);
         btnUp->setObjectName(QStringLiteral("btnUp"));
-        btnUp->setGeometry(QRect(100, 110, 41, 41));
+        btnUp->setGeometry(QRect(110, 110, 41, 41));
         btnRight = new QPushButton(pageWindow);
         btnRight->setObjectName(QStringLiteral("btnRight"));
-        btnRight->setGeometry(QRect(150, 160, 41, 41));
+        btnRight->setGeometry(QRect(160, 160, 41, 41));
         btnDown = new QPushButton(pageWindow);
         btnDown->setObjectName(QStringLiteral("btnDown"));
-        btnDown->setGeometry(QRect(100, 210, 41, 41));
+        btnDown->setGeometry(QRect(110, 210, 41, 41));
         btnLeft = new QPushButton(pageWindow);
         btnLeft->setObjectName(QStringLiteral("btnLeft"));
-        btnLeft->setGeometry(QRect(50, 160, 41, 41));
+        btnLeft->setGeometry(QRect(60, 160, 41, 41));
         btnCenter = new QPushButton(pageWindow);
         btnCenter->setObjectName(QStringLiteral("btnCenter"));
-        btnCenter->setGeometry(QRect(100, 160, 41, 41));
+        btnCenter->setGeometry(QRect(110, 160, 41, 41));
         btnCenter->setFont(font2);
         toolBox->addItem(pageWindow, QStringLiteral("Controle da Window"));
         pageObjects = new QWidget();
         pageObjects->setObjectName(QStringLiteral("pageObjects"));
         pageObjects->setGeometry(QRect(0, 0, 256, 415));
-        displayFile = new QListView(pageObjects);
-        displayFile->setObjectName(QStringLiteral("displayFile"));
-        displayFile->setGeometry(QRect(10, 1, 241, 371));
         btnRemoveObject = new QPushButton(pageObjects);
         btnRemoveObject->setObjectName(QStringLiteral("btnRemoveObject"));
-        btnRemoveObject->setGeometry(QRect(10, 380, 121, 31));
+        btnRemoveObject->setGeometry(QRect(110, 380, 71, 31));
+        QFont font3;
+        font3.setPointSize(10);
+        btnRemoveObject->setFont(font3);
         btnInsertObject = new QPushButton(pageObjects);
         btnInsertObject->setObjectName(QStringLiteral("btnInsertObject"));
-        btnInsertObject->setGeometry(QRect(140, 380, 111, 31));
+        btnInsertObject->setGeometry(QRect(190, 380, 61, 31));
+        btnInsertObject->setFont(font3);
+        tableObjects = new QTableWidget(pageObjects);
+        if (tableObjects->columnCount() < 2)
+            tableObjects->setColumnCount(2);
+        QTableWidgetItem *__qtablewidgetitem = new QTableWidgetItem();
+        tableObjects->setHorizontalHeaderItem(0, __qtablewidgetitem);
+        QTableWidgetItem *__qtablewidgetitem1 = new QTableWidgetItem();
+        tableObjects->setHorizontalHeaderItem(1, __qtablewidgetitem1);
+        tableObjects->setObjectName(QStringLiteral("tableObjects"));
+        tableObjects->setGeometry(QRect(10, 1, 241, 371));
+        QFont font4;
+        font4.setPointSize(10);
+        font4.setItalic(false);
+        tableObjects->setFont(font4);
+        tableObjects->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+        tableObjects->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        tableObjects->setSizeAdjustPolicy(QAbstractScrollArea::AdjustIgnored);
+        tableObjects->setEditTriggers(QAbstractItemView::NoEditTriggers);
+        tableObjects->setTabKeyNavigation(false);
+        tableObjects->setSelectionMode(QAbstractItemView::SingleSelection);
+        tableObjects->setSelectionBehavior(QAbstractItemView::SelectRows);
+        tableObjects->setShowGrid(true);
+        tableObjects->setGridStyle(Qt::DotLine);
+        tableObjects->setWordWrap(true);
+        tableObjects->setCornerButtonEnabled(false);
+        tableObjects->horizontalHeader()->setVisible(false);
+        tableObjects->horizontalHeader()->setCascadingSectionResizes(false);
+        tableObjects->horizontalHeader()->setDefaultSectionSize(80);
+        tableObjects->horizontalHeader()->setHighlightSections(false);
+        tableObjects->horizontalHeader()->setMinimumSectionSize(50);
+        tableObjects->horizontalHeader()->setStretchLastSection(true);
+        tableObjects->verticalHeader()->setVisible(false);
+        tableObjects->verticalHeader()->setDefaultSectionSize(17);
+        tableObjects->verticalHeader()->setMinimumSectionSize(15);
+        tableObjects->verticalHeader()->setStretchLastSection(false);
+        btnTransformObject = new QPushButton(pageObjects);
+        btnTransformObject->setObjectName(QStringLiteral("btnTransformObject"));
+        btnTransformObject->setGeometry(QRect(10, 380, 91, 31));
+        btnTransformObject->setFont(font3);
         toolBox->addItem(pageObjects, QStringLiteral("Objetos"));
 
         horizontalLayout->addWidget(toolBox);
@@ -162,8 +203,7 @@ public:
         QWidget::setTabOrder(btnLeft, btnCenter);
         QWidget::setTabOrder(btnCenter, btnRight);
         QWidget::setTabOrder(btnRight, btnDown);
-        QWidget::setTabOrder(btnDown, displayFile);
-        QWidget::setTabOrder(displayFile, btnRemoveObject);
+        QWidget::setTabOrder(btnDown, btnRemoveObject);
 
         retranslateUi(MainWindow);
 
@@ -178,16 +218,31 @@ public:
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "Sistema Gr\303\241fico Interativo", 0));
         labelZoom->setText(QApplication::translate("MainWindow", "Zoom", 0));
         btnZoomIn->setText(QApplication::translate("MainWindow", "+", 0));
+        btnZoomIn->setShortcut(QApplication::translate("MainWindow", "Alt+I", 0));
         btnZoomOut->setText(QApplication::translate("MainWindow", "-", 0));
+        btnZoomOut->setShortcut(QApplication::translate("MainWindow", "Alt+O", 0));
         labelNavigation->setText(QApplication::translate("MainWindow", "Navega\303\247\303\243o", 0));
         btnUp->setText(QApplication::translate("MainWindow", "\342\226\262", 0));
+        btnUp->setShortcut(QApplication::translate("MainWindow", "Up", 0));
         btnRight->setText(QApplication::translate("MainWindow", "\342\226\266", 0));
+        btnRight->setShortcut(QApplication::translate("MainWindow", "Right", 0));
         btnDown->setText(QApplication::translate("MainWindow", "\342\226\274", 0));
+        btnDown->setShortcut(QApplication::translate("MainWindow", "Down", 0));
         btnLeft->setText(QApplication::translate("MainWindow", "\342\227\200", 0));
+        btnLeft->setShortcut(QApplication::translate("MainWindow", "Left", 0));
         btnCenter->setText(QApplication::translate("MainWindow", "\342\227\211", 0));
+        btnCenter->setShortcut(QApplication::translate("MainWindow", "Home", 0));
         toolBox->setItemText(toolBox->indexOf(pageWindow), QApplication::translate("MainWindow", "Controle da Window", 0));
-        btnRemoveObject->setText(QApplication::translate("MainWindow", "Remover Objeto", 0));
-        btnInsertObject->setText(QApplication::translate("MainWindow", "Inserir Objeto", 0));
+        btnRemoveObject->setText(QApplication::translate("MainWindow", "Remover", 0));
+        btnRemoveObject->setShortcut(QApplication::translate("MainWindow", "Ctrl+R", 0));
+        btnInsertObject->setText(QApplication::translate("MainWindow", "Inserir", 0));
+        btnInsertObject->setShortcut(QApplication::translate("MainWindow", "Ctrl+I", 0));
+        QTableWidgetItem *___qtablewidgetitem = tableObjects->horizontalHeaderItem(0);
+        ___qtablewidgetitem->setText(QApplication::translate("MainWindow", "Tipo", 0));
+        QTableWidgetItem *___qtablewidgetitem1 = tableObjects->horizontalHeaderItem(1);
+        ___qtablewidgetitem1->setText(QApplication::translate("MainWindow", "Nome", 0));
+        btnTransformObject->setText(QApplication::translate("MainWindow", "Transformar", 0));
+        btnTransformObject->setShortcut(QApplication::translate("MainWindow", "Ctrl+T", 0));
         toolBox->setItemText(toolBox->indexOf(pageObjects), QApplication::translate("MainWindow", "Objetos", 0));
     } // retranslateUi
 
