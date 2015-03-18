@@ -2,7 +2,6 @@
 #define DISPLAYFILE_H_
 
 #include <QtCore/qmap.h>
-#include <map>
 #include <string>
 
 #include "geometria/ObjetoGeometrico.h"
@@ -49,7 +48,7 @@ public:
 	 * Obter a lista de objetos geométricos.
 	 * @return mapa contendo os objetos geométricos.
 	 */
-	std::map<String, ObjetoGeometrico> getObjetos();
+	QList<ObjetoGeometrico> getObjetos();
 
 private:
 	QMap<String, ObjetoGeometrico> objetos;

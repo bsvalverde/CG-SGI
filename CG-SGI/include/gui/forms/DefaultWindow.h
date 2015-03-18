@@ -6,12 +6,13 @@
 
 #include "controle/ControladorUI.h"
 
-class Window : public QDialog {
+class DefaultWindow : public QDialog {
 
 public:
-	Window(ControladorUI* controladorUI, QDialog* parent = 0, Qt::WindowFlags flags = Qt::Widget);
-	virtual ~Window();
+	DefaultWindow(ControladorUI* controladorUI, QDialog* parent = 0, Qt::WindowFlags flags = Qt::Widget);
+	virtual ~DefaultWindow();
 	void moveToCenter();
+	ControladorUI* getControladorUI();
 
 protected:
 	virtual void connectSignalsAndSlots() = 0;

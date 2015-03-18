@@ -6,9 +6,9 @@
 
 #include "geometria/Ponto.h"
 #include "gui/forms/ui/ui_ObjectInsertionWindow.h"
-#include "gui/forms/Window.h"
+#include "gui/forms/DefaultWindow.h"
 
-class ObjectInsertionWindow : public Window, private Ui::ObjectInsertionWindow {
+class ObjectInsertionWindow : public DefaultWindow, private Ui::ObjectInsertionWindow {
 	Q_OBJECT
 
 public:

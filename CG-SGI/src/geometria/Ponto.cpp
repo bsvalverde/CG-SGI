@@ -13,7 +13,8 @@ Ponto::Ponto(const Ponto& ponto) : ObjetoGeometrico(ponto) {
 	this->coord_z = ponto.coord_z;
 }
 
-Ponto::Ponto(const String& nome, const double x, const double y, const double z) : ObjetoGeometrico(nome) {
+Ponto::Ponto(const String& nome, const double x, const double y, const double z) :
+				ObjetoGeometrico(nome, Tipo::PONTO) {
 	this->coord_x = x;
 	this->coord_y = y;
 	this->coord_z = z;
