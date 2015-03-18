@@ -20,20 +20,33 @@ void ControladorUI::exibirObjectInsertionWindow() {
 	this->objectInsertionWindow->show();
 }
 
-void ControladorUI::inserirObjeto(String& nome, QList<Ponto> pontos) {
+void ControladorUI::exibirObjectTransformationWindow() {
+
+}
+
+void ControladorUI::inserirObjeto(const String& nome, const QList<Ponto> pontos) {
 	int numeroPontos = pontos.size();
 
 	if(numeroPontos == 1) {
-		this->mundo.adicionarObjeto(pontos.at(0));
+		this->mundo.inserirObjeto(pontos.at(0));
 	} else if(numeroPontos == 2) {
-		this->mundo.adicionarObjeto(Reta(nome, pontos.at(0), pontos.at(1)));
+		this->mundo.inserirObjeto(Reta(nome, pontos.at(0), pontos.at(1)));
 	} else if(numeroPontos > 2) {
-		this->mundo.adicionarObjeto(Poligono(nome, pontos));
+		this->mundo.inserirObjeto(Poligono(nome, pontos));
 	}
 
 	this->mainWindow->updateObjects(this->mundo.getObjetos());
 }
 
-Mundo ControladorUI::getMundo() const {
-	return this->mundo;
+void ControladorUI::removerObjeto(const String& nome) {
+	this->mundo.removerObjeto(nome);
+	this->mainWindow->updateObjects(this->mundo.getObjetos());
+}
+
+bool ControladorUI::contemObjeto(const String& nome) {
+	return this->mundo.contemObjeto(nome);
+}
+
+QList<Ponto> ControladorUI::getPontosWindow() const {
+	return this->mundo.getWindow().getPontos();
 }

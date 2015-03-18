@@ -57,16 +57,16 @@ bool ObjectInsertionWindow::validateFields() {
 
 			return ok && ok1 && ok2 && ok3;
 		default:
-			if(this->tablePoligonPoints->rowCount() == 0)
+			if(this->tablePoligonPoints->rowCount() < 3)
 				return false;
 
 			for(int i = 0; i < this->tablePoligonPoints->rowCount(); i++) {
-				QTableWidgetItem *i1, *i2, *i3;
-				i1 = this->tablePoligonPoints->item(i, 1);
-				i2 = this->tablePoligonPoints->item(i, 2);
-				//i3 = this->tablePoligonPoints->item(i, 3);
+				QTableWidgetItem *i1, *i2;//, *i3;
+				i1 = this->tablePoligonPoints->item(i, 0);
+				i2 = this->tablePoligonPoints->item(i, 1);
+				//i3 = this->tablePoligonPoints->item(i, 2);
 
-				if(!i1 || !i2 || !i3)
+				if(!i1 || !i2)
 					return false;
 
 				i1->text().toDouble(&ok1);
@@ -76,9 +76,8 @@ bool ObjectInsertionWindow::validateFields() {
 				if(!(ok1 && ok2))
 					return false;
 			}
+			return true;
 	}
-
-	return true;
 }
 
 void ObjectInsertionWindow::insertObject() {
@@ -93,9 +92,14 @@ void ObjectInsertionWindow::insertObject() {
 	double x, y, z;
 	String nome = this->fieldName->text().toStdString();
 
+	if(this->controladorUI->contemObjeto(nome)) {
+		QMessageBox messageBox;
+		messageBox.critical(this, "Erro", "Um objeto com este nome já existe!");
+		return;
+	}
+
 	switch(this->tabObjects->currentIndex()) {
 		case 0:
-			std::cout << "ponto" << std::endl;
 			x = this->fieldPointX->text().toDouble();
 			y = this->fieldPointY->text().toDouble();
 			z = 1;//this->fieldPointZ->text().toDouble();
@@ -103,7 +107,6 @@ void ObjectInsertionWindow::insertObject() {
 			pontos.insert(0, p);
 			break;
 		case 1:
-			std::cout << "reta" << std::endl;
 			x = this->fieldLineX1->text().toDouble();
 			y = this->fieldLineY1->text().toDouble();
 			z = 1;//this->fieldLineZ1->text().toDouble();
@@ -117,18 +120,17 @@ void ObjectInsertionWindow::insertObject() {
 			pontos.insert(1, p);
 			break;
 		default:
-			std::cout << "poligono" << std::endl;
 			for(int i = 0; i < this->tablePoligonPoints->rowCount(); i++) {
 				String nomePonto = this->fieldName->text().toStdString();
 
-				x = this->tablePoligonPoints->item(i, 1)->text().toDouble();
-				y = this->tablePoligonPoints->item(i, 2)->text().toDouble();
-				z = 1;//this->tablePoligonPoints->item(i, 3)->text().toDouble();
+				x = this->tablePoligonPoints->item(i, 0)->text().toDouble();
+				y = this->tablePoligonPoints->item(i, 1)->text().toDouble();
+				z = 1;//this->tablePoligonPoints->item(i, 2)->text().toDouble();
 
 				p = Ponto(nomePonto, x, y, z);
 				pontos.insert(i, p);
-				break;
 			}
+			break;
 	}
 
 	this->controladorUI->inserirObjeto(nome, pontos);

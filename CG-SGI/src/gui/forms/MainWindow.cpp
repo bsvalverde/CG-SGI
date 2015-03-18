@@ -59,7 +59,7 @@ void MainWindow::updateObjects(QList<ObjetoGeometrico> objects) {
 
 QList<ObjetoGeometrico> MainWindow::viewportTransformation(QList<ObjetoGeometrico> objects) {
 	QList<ObjetoGeometrico> newObjects;
-	QList<Ponto> windowPoints = this->controladorUI->getMundo().getWindow().getPontos();
+	QList<Ponto> windowPoints = this->controladorUI->getPontosWindow();
 
 	double xwMin = windowPoints.at(0).getX();
 	double xwMax = windowPoints.at(1).getX();
@@ -176,8 +176,7 @@ void MainWindow::btnRemoveObjectClicked() {
 	    this->tableObjects->removeRow(index.row());
 	}
 
-	// TODO remover objeto da lista pelo objectName
-	std::cout << objectName << " removed" << std::endl;
+	this->controladorUI->removerObjeto(objectName);
 }
 
 void MainWindow::btnTransformObjectClicked() {
