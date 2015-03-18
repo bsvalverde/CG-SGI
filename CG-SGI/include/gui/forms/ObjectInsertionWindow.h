@@ -1,9 +1,9 @@
 #ifndef OBJECTINSERTIONWINDOW_H_
 #define OBJECTINSERTIONWINDOW_H_
 
-#include <iostream>
 #include <QtWidgets/qmessagebox.h>
 
+#include "controle/ControladorUI.h"
 #include "geometria/Ponto.h"
 #include "gui/forms/ui/ui_ObjectInsertionWindow.h"
 #include "gui/forms/DefaultWindow.h"

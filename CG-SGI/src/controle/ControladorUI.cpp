@@ -1,6 +1,8 @@
 #include "controle/ControladorUI.h"
 #include "gui/forms/MainWindow.h"
 #include "gui/forms/ObjectInsertionWindow.h"
+#include "geometria/Reta.h"
+#include "geometria/Poligono.h"
 
 ControladorUI::ControladorUI() {
 	this->mainWindow = new MainWindow(this);
@@ -22,10 +24,16 @@ void ControladorUI::inserirObjeto(String nome, QList<Ponto> pontos) {
 	int numeroPontos = pontos.size();
 
 	if(numeroPontos == 1) {
-		std::cout << "inserir ponto" << std::endl;
+		this->mundo.adicionarObjeto(pontos.at(0));
 	} else if(numeroPontos == 2) {
-		std::cout << "inserir reta" << std::endl;
+		this->mundo.adicionarObjeto(Reta(nome, pontos.at(0), pontos.at(1)));
 	} else if(numeroPontos > 2) {
-		std::cout << "inserir poligono" << std::endl;
+		this->mundo.adicionarObjeto(Poligono(nome, pontos));
 	}
+
+	this->mainWindow->updateObjects(this->mundo.getObjetos());
+}
+
+Mundo ControladorUI::getMundo() const {
+	return this->mundo;
 }

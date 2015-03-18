@@ -12,10 +12,13 @@ MainWindow::MainWindow(ControladorUI* controladorUI, QDialog* parent,
     this->viewportHeight = 475;
 }
 
-void MainWindow::updateObjects(Window& window, QList<ObjetoGeometrico> objects) {
+MainWindow::~MainWindow() {}
+
+void MainWindow::updateObjects(QList<ObjetoGeometrico> objects) {
+	std::cout << "Objeto inserido. Falha ao atualizar" << std::endl;
 	QGraphicsView* g = this->graphicsView;
 	QGraphicsScene* scene = g->scene();
-	QList<ObjetoGeometrico> objs = this->viewportTransformation(window, objects);
+	QList<ObjetoGeometrico> objs = this->viewportTransformation(objects);
 
 	if(scene)
 		delete scene;
@@ -40,13 +43,12 @@ void MainWindow::updateObjects(Window& window, QList<ObjetoGeometrico> objects) 
 
 	this->graphicsView->setScene(scene);
 	this->graphicsView->repaint();
-
 }
 
-QList<ObjetoGeometrico> MainWindow::viewportTransformation(Window& window,
-										QList<ObjetoGeometrico> objects) {
+QList<ObjetoGeometrico> MainWindow::viewportTransformation(QList<ObjetoGeometrico> objects) {
 	QList<ObjetoGeometrico> newObjects;
-	QList<Ponto> windowPoints = window.getPontos();
+	QList<Ponto> windowPoints = this->controladorUI->getMundo().getWindow().getPontos();
+
 	double xwMin = windowPoints.at(0).getX();
 	double xwMax = windowPoints.at(1).getX();
 	double ywMin = windowPoints.at(0).getY();
@@ -56,6 +58,7 @@ QList<ObjetoGeometrico> MainWindow::viewportTransformation(Window& window,
 		ObjetoGeometrico obj = objects.at(i);
 		QList<Ponto> points = obj.getPontos();
 		QList<Ponto> newPoints;
+		Ponto p1, p2;
 
 		switch(obj.getTipo()) {
 			case ObjetoGeometrico::PONTO:
@@ -63,9 +66,9 @@ QList<ObjetoGeometrico> MainWindow::viewportTransformation(Window& window,
 				newObjects.insert(i, obj);
 				break;
 			case ObjetoGeometrico::RETA:
-				obj = Reta(obj.getNome(),
-						this->pointTransformation(points.at(0), xwMin, xwMax, ywMin, ywMax),
-						this->pointTransformation(points.at(1), xwMin, xwMax, ywMin, ywMax));
+				p1 = this->pointTransformation(points.at(0), xwMin, xwMax, ywMin, ywMax);
+				p2 = this->pointTransformation(points.at(1), xwMin, xwMax, ywMin, ywMax);
+				obj = Reta(obj.getNome(), p1, p2);
 				newObjects.insert(i, obj);
 				break;
 			case ObjetoGeometrico::POLIGONO:
@@ -83,15 +86,15 @@ QList<ObjetoGeometrico> MainWindow::viewportTransformation(Window& window,
 	return newObjects;
 }
 
-Ponto MainWindow::pointTransformation(Ponto point, double xwMin, double xwMax, double ywMin, double ywMax) {
-	double xp = (point.getX() - xwMin) / (xwMax - xwMin) * this->viewportWidth;
+Ponto MainWindow::pointTransformation(const Ponto& point, double xwMin, double xwMax, double ywMin, double ywMax) {
+	double xp = ((point.getX() - xwMin) / (xwMax - xwMin)) * this->viewportWidth;
 	double yp = (1 - (point.getY() - ywMin) / (ywMax - ywMin)) * this->viewportHeight;
 	Ponto newPoint(point.getNome(), xp, yp, 1);
 	return newPoint;
 }
 
 void MainWindow::connectSignalsAndSlots() {
-/*	QObject::connect(btnZoomIn, SIGNAL(pressed()), this, SLOT(btnZoomInPressed()));
+	QObject::connect(btnZoomIn, SIGNAL(pressed()), this, SLOT(btnZoomInPressed()));
 	QObject::connect(btnZoomOut, SIGNAL(pressed()), this, SLOT(btnZoomOutPressed()));
 	QObject::connect(zoomControl, SIGNAL(valueChanged(int)), this, SLOT(zoomControlValueChanged(int)));
 	QObject::connect(btnInsertObject, SIGNAL(clicked()), this, SLOT(btnInsertObjectClicked()));
@@ -101,18 +104,11 @@ void MainWindow::connectSignalsAndSlots() {
 	QObject::connect(btnCenter, SIGNAL(clicked()), this, SLOT(btnNavigationCenterPressed()));
 	QObject::connect(btnRight, SIGNAL(clicked()), this, SLOT(btnNavigationRightPressed()));
 	QObject::connect(btnDown, SIGNAL(clicked()), this, SLOT(btnNavigationDownPressed()));
-	*/
 }
 
 void MainWindow::btnZoomInPressed() {
 	int position = this->zoomControl->value();
 	this->zoomControl->setValue(position + 5);
-
-	QList<ObjetoGeometrico> list;
-	Ponto p1("", 0, 0, 0);
-	Ponto p2("", 510, 475, 0);
-	Window w(p1, p2);
-	this->updateObjects(w, list);
 }
 
 void MainWindow::btnZoomOutPressed() {
