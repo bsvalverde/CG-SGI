@@ -18,6 +18,6 @@ bool DisplayFile::contem(const String& nome) {
 	return this->objetos.contains(nome);
 }
 
-std::map<String, ObjetoGeometrico> DisplayFile::getObjetos() {
-	return this->objetos.toStdMap();
+QList<ObjetoGeometrico> DisplayFile::getObjetos() {
+	return this->objetos.values();
 }

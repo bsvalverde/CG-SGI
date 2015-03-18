@@ -1,13 +1,14 @@
 #ifndef CONTROLADORUI_H_
 #define CONTROLADORUI_H_
 
-#include "geometria/DisplayFile.h"
-#include "geometria/Poligono.h"
+#include <string>
 #include "geometria/Ponto.h"
-#include "geometria/Reta.h"
 
+class DefaultWindow;
 class MainWindow;
 class ObjectInsertionWindow;
+
+typedef std::string String;
 
 /**
  * Controlador da Interface Gráfica.
@@ -35,7 +36,6 @@ public:
 	void inserirObjeto(String nome, QList<Ponto> pontos);
 
 private:
-	DisplayFile displayFile;
 	MainWindow* mainWindow;
 	ObjectInsertionWindow* objectInsertionWindow;
 

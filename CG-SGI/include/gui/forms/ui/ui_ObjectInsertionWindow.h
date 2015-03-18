@@ -188,6 +188,7 @@ public:
 
         fieldPointX = new QLineEdit(layoutWidget);
         fieldPointX->setObjectName(QStringLiteral("fieldPointX"));
+        fieldPointX->setEnabled(true);
         QSizePolicy sizePolicy2(QSizePolicy::Expanding, QSizePolicy::Expanding);
         sizePolicy2.setHorizontalStretch(0);
         sizePolicy2.setVerticalStretch(0);
@@ -231,6 +232,7 @@ public:
 
         fieldPointZ = new QLineEdit(layoutWidget);
         fieldPointZ->setObjectName(QStringLiteral("fieldPointZ"));
+        fieldPointZ->setEnabled(false);
         sizePolicy2.setHeightForWidth(fieldPointZ->sizePolicy().hasHeightForWidth());
         fieldPointZ->setSizePolicy(sizePolicy2);
         fieldPointZ->setMaximumSize(QSize(16777215, 30));
@@ -315,6 +317,7 @@ public:
 
         fieldLineZ1 = new QLineEdit(layoutWidget_3);
         fieldLineZ1->setObjectName(QStringLiteral("fieldLineZ1"));
+        fieldLineZ1->setEnabled(false);
         sizePolicy2.setHeightForWidth(fieldLineZ1->sizePolicy().hasHeightForWidth());
         fieldLineZ1->setSizePolicy(sizePolicy2);
         fieldLineZ1->setMaximumSize(QSize(16777215, 30));
@@ -396,6 +399,7 @@ public:
 
         fieldLineZ2 = new QLineEdit(layoutWidget_4);
         fieldLineZ2->setObjectName(QStringLiteral("fieldLineZ2"));
+        fieldLineZ2->setEnabled(false);
         sizePolicy2.setHeightForWidth(fieldLineZ2->sizePolicy().hasHeightForWidth());
         fieldLineZ2->setSizePolicy(sizePolicy2);
         fieldLineZ2->setMaximumSize(QSize(16777215, 30));
@@ -410,16 +414,12 @@ public:
         tabPoligon = new QWidget();
         tabPoligon->setObjectName(QStringLiteral("tabPoligon"));
         tablePoligonPoints = new QTableWidget(tabPoligon);
-        if (tablePoligonPoints->columnCount() < 4)
-            tablePoligonPoints->setColumnCount(4);
+        if (tablePoligonPoints->columnCount() < 2)
+            tablePoligonPoints->setColumnCount(2);
         QTableWidgetItem *__qtablewidgetitem = new QTableWidgetItem();
         tablePoligonPoints->setHorizontalHeaderItem(0, __qtablewidgetitem);
         QTableWidgetItem *__qtablewidgetitem1 = new QTableWidgetItem();
         tablePoligonPoints->setHorizontalHeaderItem(1, __qtablewidgetitem1);
-        QTableWidgetItem *__qtablewidgetitem2 = new QTableWidgetItem();
-        tablePoligonPoints->setHorizontalHeaderItem(2, __qtablewidgetitem2);
-        QTableWidgetItem *__qtablewidgetitem3 = new QTableWidgetItem();
-        tablePoligonPoints->setHorizontalHeaderItem(3, __qtablewidgetitem3);
         tablePoligonPoints->setObjectName(QStringLiteral("tablePoligonPoints"));
         tablePoligonPoints->setGeometry(QRect(10, 11, 351, 201));
         tablePoligonPoints->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -427,7 +427,7 @@ public:
         tablePoligonPoints->setSelectionBehavior(QAbstractItemView::SelectRows);
         tablePoligonPoints->setGridStyle(Qt::SolidLine);
         tablePoligonPoints->setCornerButtonEnabled(true);
-        tablePoligonPoints->horizontalHeader()->setDefaultSectionSize(80);
+        tablePoligonPoints->horizontalHeader()->setDefaultSectionSize(100);
         layoutWidget_2 = new QWidget(tabPoligon);
         layoutWidget_2->setObjectName(QStringLiteral("layoutWidget_2"));
         layoutWidget_2->setGeometry(QRect(10, 220, 351, 31));
@@ -486,26 +486,26 @@ public:
         btnInsert->setText(QApplication::translate("ObjectInsertionWindow", "Ok", 0));
         groupBox->setTitle(QApplication::translate("ObjectInsertionWindow", "Coordenadas", 0));
         labelPointX->setText(QApplication::translate("ObjectInsertionWindow", "X", 0));
+        fieldPointX->setText(QString());
         labelPointY1->setText(QApplication::translate("ObjectInsertionWindow", "Y", 0));
         labelPointZ1->setText(QApplication::translate("ObjectInsertionWindow", "Z", 0));
+        fieldPointZ->setText(QApplication::translate("ObjectInsertionWindow", "1", 0));
         tabObjects->setTabText(tabObjects->indexOf(tabPoint), QApplication::translate("ObjectInsertionWindow", "Ponto", 0));
         groupBox_2->setTitle(QApplication::translate("ObjectInsertionWindow", "Ponto Inicial", 0));
         labelPointX1_2->setText(QApplication::translate("ObjectInsertionWindow", "x1", 0));
         labelPointY1_2->setText(QApplication::translate("ObjectInsertionWindow", "y1", 0));
         labelPointZ1_2->setText(QApplication::translate("ObjectInsertionWindow", "z1", 0));
+        fieldLineZ1->setText(QApplication::translate("ObjectInsertionWindow", "1", 0));
         groupBox_3->setTitle(QApplication::translate("ObjectInsertionWindow", "Ponto Final", 0));
         labelPointX1_3->setText(QApplication::translate("ObjectInsertionWindow", "x2", 0));
         labelPointY1_3->setText(QApplication::translate("ObjectInsertionWindow", "y2", 0));
         labelPointZ1_3->setText(QApplication::translate("ObjectInsertionWindow", "z2", 0));
+        fieldLineZ2->setText(QApplication::translate("ObjectInsertionWindow", "1", 0));
         tabObjects->setTabText(tabObjects->indexOf(tabLine), QApplication::translate("ObjectInsertionWindow", "Reta", 0));
         QTableWidgetItem *___qtablewidgetitem = tablePoligonPoints->horizontalHeaderItem(0);
-        ___qtablewidgetitem->setText(QApplication::translate("ObjectInsertionWindow", "Nome", 0));
+        ___qtablewidgetitem->setText(QApplication::translate("ObjectInsertionWindow", "X", 0));
         QTableWidgetItem *___qtablewidgetitem1 = tablePoligonPoints->horizontalHeaderItem(1);
-        ___qtablewidgetitem1->setText(QApplication::translate("ObjectInsertionWindow", "X", 0));
-        QTableWidgetItem *___qtablewidgetitem2 = tablePoligonPoints->horizontalHeaderItem(2);
-        ___qtablewidgetitem2->setText(QApplication::translate("ObjectInsertionWindow", "Y", 0));
-        QTableWidgetItem *___qtablewidgetitem3 = tablePoligonPoints->horizontalHeaderItem(3);
-        ___qtablewidgetitem3->setText(QApplication::translate("ObjectInsertionWindow", "Z", 0));
+        ___qtablewidgetitem1->setText(QApplication::translate("ObjectInsertionWindow", "Y", 0));
         btnRemovePoint->setText(QApplication::translate("ObjectInsertionWindow", "Remover Ponto", 0));
         btnInsertPoint->setText(QApplication::translate("ObjectInsertionWindow", "Inserir Ponto", 0));
         tabObjects->setTabText(tabObjects->indexOf(tabPoligon), QApplication::translate("ObjectInsertionWindow", "Poligono", 0));

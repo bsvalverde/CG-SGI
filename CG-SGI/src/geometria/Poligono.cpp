@@ -1,6 +1,7 @@
 #include "geometria/Poligono.h"
 
-Poligono::Poligono(const String& nome, const QList<Ponto> pontos) : ObjetoGeometrico(nome) {
+Poligono::Poligono(const String& nome, const QList<Ponto> pontos) :
+					ObjetoGeometrico(nome, Tipo::POLIGONO) {
 	this->pontos = pontos;
 }
 

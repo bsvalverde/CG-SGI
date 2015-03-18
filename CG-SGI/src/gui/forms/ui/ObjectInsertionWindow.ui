@@ -193,6 +193,9 @@ QGroupBox::title  {
             </item>
             <item row="0" column="1">
              <widget class="QLineEdit" name="fieldPointX">
+              <property name="enabled">
+               <bool>true</bool>
+              </property>
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -204,6 +207,9 @@ QGroupBox::title  {
                 <width>16777214</width>
                 <height>30</height>
                </size>
+              </property>
+              <property name="text">
+               <string/>
               </property>
               <property name="maxLength">
                <number>50</number>
@@ -265,6 +271,9 @@ QGroupBox::title  {
             </item>
             <item row="0" column="1">
              <widget class="QLineEdit" name="fieldPointZ">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -276,6 +285,9 @@ QGroupBox::title  {
                 <width>16777215</width>
                 <height>30</height>
                </size>
+              </property>
+              <property name="text">
+               <string>1</string>
               </property>
               <property name="maxLength">
                <number>50</number>
@@ -419,6 +431,9 @@ QGroupBox::title  {
             </item>
             <item row="0" column="1">
              <widget class="QLineEdit" name="fieldLineZ1">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -430,6 +445,9 @@ QGroupBox::title  {
                 <width>16777215</width>
                 <height>30</height>
                </size>
+              </property>
+              <property name="text">
+               <string>1</string>
               </property>
               <property name="maxLength">
                <number>50</number>
@@ -568,6 +586,9 @@ QGroupBox::title  {
             </item>
             <item row="0" column="1">
              <widget class="QLineEdit" name="fieldLineZ2">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -579,6 +600,9 @@ QGroupBox::title  {
                 <width>16777215</width>
                 <height>30</height>
                </size>
+              </property>
+              <property name="text">
+               <string>1</string>
               </property>
               <property name="maxLength">
                <number>50</number>
@@ -620,13 +644,8 @@ QGroupBox::title  {
          <bool>true</bool>
         </property>
         <attribute name="horizontalHeaderDefaultSectionSize">
-         <number>80</number>
+         <number>100</number>
         </attribute>
-        <column>
-         <property name="text">
-          <string>Nome</string>
-         </property>
-        </column>
         <column>
          <property name="text">
           <string>X</string>
@@ -635,11 +654,6 @@ QGroupBox::title  {
         <column>
          <property name="text">
           <string>Y</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Z</string>
          </property>
         </column>
        </widget>
