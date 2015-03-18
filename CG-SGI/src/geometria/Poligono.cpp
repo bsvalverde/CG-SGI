@@ -1,6 +1,6 @@
 #include "geometria/Poligono.h"
 
-Poligono::Poligono() {}
+Poligono::Poligono() : ObjetoGeometrico() {}
 
 Poligono::Poligono(const Poligono& poligono) : ObjetoGeometrico(poligono) {
 	this->pontos = poligono.pontos;

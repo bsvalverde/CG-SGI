@@ -32,10 +32,10 @@ public:
 	DisplayFile& operator=(const DisplayFile& displayFile);
 
 	/**
-	 * Adicionar um objeto geométrico.
+	 * Inserir um objeto geométrico.
 	 * @param objeto objeto a ser adicionado.
 	 */
-	void adicionarObjeto(const ObjetoGeometrico& objeto);
+	void inserirObjeto(const ObjetoGeometrico& objeto);
 
 	/**
 	 * Remover um objeto geométrico.
