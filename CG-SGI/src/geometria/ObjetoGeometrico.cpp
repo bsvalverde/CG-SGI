@@ -11,25 +11,31 @@ ObjetoGeometrico::ObjetoGeometrico() {
 	this->tipo = Tipo::POLIGONO;
 }
 
-ObjetoGeometrico::ObjetoGeometrico(const String& nome, Tipo tipo) {
+ObjetoGeometrico::ObjetoGeometrico(const String& nome, const Tipo tipo) {
 	this->nome = nome;
 	this->tipo = tipo;
 }
 
 ObjetoGeometrico::~ObjetoGeometrico() {}
 
-void ObjetoGeometrico::operator=(const ObjetoGeometrico& objeto) {
+ObjetoGeometrico& ObjetoGeometrico::operator=(const ObjetoGeometrico& objeto) {
 	this->nome = objeto.nome;
+	this->tipo = objeto.tipo;
+	return *this;
+}
+
+QList<Ponto> ObjetoGeometrico::getPontos() const {
+	return QList<Ponto>();
+}
+
+const String ObjetoGeometrico::toString() const {
+	return this->nome;
 }
 
 const String& ObjetoGeometrico::getNome() const {
 	return this->nome;
 }
 
-/**
- * Obter o tipo.
- * @return tipo do objeto.
- */
 ObjetoGeometrico::Tipo ObjetoGeometrico::getTipo() const {
 	return this->tipo;
 }
@@ -47,7 +53,7 @@ const String ObjetoGeometrico::getTipoString() const {
 	}
 }
 
-Ponto ObjetoGeometrico::getCentroGeometrico() const {
+const Ponto ObjetoGeometrico::getCentroGeometrico() const {
 	QList<Ponto> pontos = this->getPontos();
 	int numPontos = pontos.size();
 	double x = 0;
@@ -65,14 +71,6 @@ Ponto ObjetoGeometrico::getCentroGeometrico() const {
 	z = z/numPontos;
 
 	return Ponto("CentroG-" + this->getNome(), x, y, z);
-}
-
-QList<Ponto> ObjetoGeometrico::getPontos() const {
-	return QList<Ponto>();
-}
-
-const String ObjetoGeometrico::toString() const {
-	return this->nome;
 }
 
 QList<Ponto> ObjetoGeometrico::aplicarTransformacao(double matriz[3][3]) {

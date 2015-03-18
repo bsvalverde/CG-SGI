@@ -1,5 +1,12 @@
 #include "geometria/Reta.h"
 
+Reta::Reta() : ObjetoGeometrico() {}
+
+Reta::Reta(const Reta& reta) : ObjetoGeometrico(reta) {
+	this->v_inicial = reta.v_inicial;
+	this->v_final = reta.v_final;
+}
+
 Reta::Reta(const String& nome, const Ponto& inicial, const Ponto& final) :
 			ObjetoGeometrico(nome, Tipo::RETA) {
 	this->v_inicial = inicial;
@@ -8,7 +15,14 @@ Reta::Reta(const String& nome, const Ponto& inicial, const Ponto& final) :
 
 Reta::~Reta() {}
 
-QList<Ponto> Reta::getPontos() {
+Reta& Reta::operator=(const Reta& reta) {
+	this->ObjetoGeometrico::operator =(reta);
+	this->v_inicial = reta.v_inicial;
+	this->v_final = reta.v_final;
+	return *this;
+}
+
+QList<Ponto> Reta::getPontos() const {
 	QList<Ponto> pontos;
 	pontos.insert(0, this->v_inicial);
 	pontos.insert(1, this->v_final);

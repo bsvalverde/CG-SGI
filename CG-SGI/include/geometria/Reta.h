@@ -3,12 +3,53 @@
 
 #include "geometria/Ponto.h"
 
+/**
+ * Reta
+ */
 class Reta : public ObjetoGeometrico {
 
 public:
+	/**
+	 * Construtor.
+	 */
+	Reta();
+
+	/**
+	 * Construtor.
+	 * @param reta objeto a ser copiado.
+	 */
+	Reta(const Reta& reta);
+
+	/**
+	 * Construtor.
+	 * @param nome nome do objeto.
+	 * @param inicial ponto inicial.
+	 * @param final ponto final.
+	 */
 	Reta(const String& nome, const Ponto& inicial, const Ponto& final);
+
+	/**
+	 * Destrutor.
+	 */
 	virtual ~Reta();
-	QList<Ponto> getPontos();
+
+	/**
+	 * Operador de atribuição.
+	 * @param reta objeto a ser copiado.
+	 * @return reta copiada.
+	 */
+	Reta& operator=(const Reta& reta);
+
+	/**
+	 * Obter os pontos do objeto.
+	 * @return lista de pontos.
+	 */
+	QList<Ponto> getPontos() const;
+
+	/**
+	 * Converter o objeto em string.
+	 * @return string representando o objeto.
+	 */
 	const String toString() const;
 
 protected:
