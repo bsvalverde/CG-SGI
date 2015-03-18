@@ -4,13 +4,16 @@
 #include "geometria/DisplayFile.h"
 #include "geometria/Window.h"
 
+/**
+ * Mundo de representação dos objetos reais.
+ */
 class Mundo {
 
 public:
 	Mundo();
 	virtual ~Mundo();
 	void adicionarObjeto(const ObjetoGeometrico objeto);
-	Window getWindow() const;
+	const Window& getWindow() const;
 	QList<ObjetoGeometrico> getObjetos() const;
 
 private:

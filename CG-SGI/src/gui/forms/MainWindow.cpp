@@ -20,15 +20,12 @@ void MainWindow::updateObjects(QList<ObjetoGeometrico> objects) {
 
 	for(ObjetoGeometrico obj : objects) {
 		this->tableObjects->insertRow(this->tableObjects->rowCount());
-		QTableWidgetItem type(QString::fromStdString(obj.getTipoString()));
-		QTableWidgetItem name(QString::fromStdString(obj.getNome()));
-		std::cout << obj.getNome() << std::endl;
-		std::cout << obj.getTipoString() << std::endl;
-		this->tableObjects->setItem(this->tableObjects->rowCount() - 1, 0, &type);
-		this->tableObjects->setItem(this->tableObjects->rowCount() - 1, 1, &name);
+		QTableWidgetItem* type = new QTableWidgetItem(QString::fromStdString(obj.getTipoString()));
+		QTableWidgetItem* name = new QTableWidgetItem(QString::fromStdString(obj.getNome()));
+		this->tableObjects->setItem(this->tableObjects->rowCount() - 1, 0, type);
+		this->tableObjects->setItem(this->tableObjects->rowCount() - 1, 1, name);
 	}
 
-	std::cout << "Objeto inserido. Falha ao atualizar" << std::endl;
 	return;
 
 	QGraphicsView* g = this->graphicsView;
