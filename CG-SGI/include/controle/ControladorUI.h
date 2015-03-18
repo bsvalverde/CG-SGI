@@ -31,11 +31,41 @@ public:
 	 */
 	void executar();
 
+	/**
+	 * Exibir janela de inserção de objetos.
+	 */
 	void exibirObjectInsertionWindow();
 
-	void inserirObjeto(String& nome, QList<Ponto> pontos);
+	/**
+	 * Exibir janela de transformação de objetos.
+	 */
+	void exibirObjectTransformationWindow();
 
-	Mundo getMundo() const;
+	/**
+	 * Inserir objeto geométrico.
+	 * @param nome nome do objeto.
+	 * @param pontos pontos do objeto.
+	 */
+	void inserirObjeto(const String& nome, const QList<Ponto> pontos);
+
+	/**
+	 * Remover objeto geométrico.
+	 * @param nome nome do objeto.
+	 */
+	void removerObjeto(const String& nome);
+
+	/**
+	 * Verificar se o mundo contém um objeto.
+	 * @param nome nome do objeto.
+	 * @return true se o objeto existe.
+	 */
+	bool contemObjeto(const String& nome);
+
+	/**
+	 * Obter as coordenadas da window do mundo.
+	 * @return lista de pontos.
+	 */
+	QList<Ponto> getPontosWindow() const;
 
 private:
 	Mundo mundo;
