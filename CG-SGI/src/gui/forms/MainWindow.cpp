@@ -15,7 +15,22 @@ MainWindow::MainWindow(ControladorUI* controladorUI, QDialog* parent,
 MainWindow::~MainWindow() {}
 
 void MainWindow::updateObjects(QList<ObjetoGeometrico> objects) {
+	while(this->tableObjects->rowCount() > 0)
+		this->tableObjects->removeRow(0);
+
+	for(ObjetoGeometrico obj : objects) {
+		this->tableObjects->insertRow(this->tableObjects->rowCount());
+		QTableWidgetItem type(QString::fromStdString(obj.getTipoString()));
+		QTableWidgetItem name(QString::fromStdString(obj.getNome()));
+		std::cout << obj.getNome() << std::endl;
+		std::cout << obj.getTipoString() << std::endl;
+		this->tableObjects->setItem(this->tableObjects->rowCount() - 1, 0, &type);
+		this->tableObjects->setItem(this->tableObjects->rowCount() - 1, 1, &name);
+	}
+
 	std::cout << "Objeto inserido. Falha ao atualizar" << std::endl;
+	return;
+
 	QGraphicsView* g = this->graphicsView;
 	QGraphicsScene* scene = g->scene();
 	QList<ObjetoGeometrico> objs = this->viewportTransformation(objects);
@@ -97,13 +112,14 @@ void MainWindow::connectSignalsAndSlots() {
 	QObject::connect(btnZoomIn, SIGNAL(pressed()), this, SLOT(btnZoomInPressed()));
 	QObject::connect(btnZoomOut, SIGNAL(pressed()), this, SLOT(btnZoomOutPressed()));
 	QObject::connect(zoomControl, SIGNAL(valueChanged(int)), this, SLOT(zoomControlValueChanged(int)));
-	QObject::connect(btnInsertObject, SIGNAL(clicked()), this, SLOT(btnInsertObjectClicked()));
-	QObject::connect(btnRemoveObject, SIGNAL(clicked()), this, SLOT(btnRemoveObjectClicked()));
 	QObject::connect(btnUp, SIGNAL(clicked()), this, SLOT(btnNavigationUpPressed()));
 	QObject::connect(btnLeft, SIGNAL(clicked()), this, SLOT(btnNavigationLeftPressed()));
 	QObject::connect(btnCenter, SIGNAL(clicked()), this, SLOT(btnNavigationCenterPressed()));
 	QObject::connect(btnRight, SIGNAL(clicked()), this, SLOT(btnNavigationRightPressed()));
 	QObject::connect(btnDown, SIGNAL(clicked()), this, SLOT(btnNavigationDownPressed()));
+	QObject::connect(btnInsertObject, SIGNAL(clicked()), this, SLOT(btnInsertObjectClicked()));
+	QObject::connect(btnRemoveObject, SIGNAL(clicked()), this, SLOT(btnRemoveObjectClicked()));
+	QObject::connect(btnTransformObject, SIGNAL(clicked()), this, SLOT(btnTransformObjectClicked()));
 }
 
 void MainWindow::btnZoomInPressed() {
@@ -117,14 +133,6 @@ void MainWindow::btnZoomOutPressed() {
 }
 
 void MainWindow::zoomControlValueChanged(int currentValue) {
-
-}
-
-void MainWindow::btnInsertObjectClicked() {
-	this->controladorUI->exibirObjectInsertionWindow();
-}
-
-void MainWindow::btnRemoveObjectClicked() {
 
 }
 
@@ -148,3 +156,50 @@ void MainWindow::btnNavigationDownPressed() {
 
 }
 
+void MainWindow::btnInsertObjectClicked() {
+	this->controladorUI->exibirObjectInsertionWindow();
+}
+
+void MainWindow::btnRemoveObjectClicked() {
+	QItemSelectionModel *selectionModel = this->tableObjects->selectionModel();
+	String objectName = "";
+
+	if(selectionModel->selectedRows().size() == 0) {
+		QMessageBox messageBox;
+		messageBox.critical(this, "Erro", "É necessário selecionar um objeto para ser removido!");
+		return;
+	}
+
+	for(QModelIndex index : selectionModel->selectedRows()) {
+		QTableWidgetItem *item = this->tableObjects->item(index.row(), 1);
+
+		if(item)
+			objectName = item->text().toStdString();
+
+	    this->tableObjects->removeRow(index.row());
+	}
+
+	// TODO remover objeto da lista pelo objectName
+	std::cout << objectName << " removed" << std::endl;
+}
+
+void MainWindow::btnTransformObjectClicked() {
+	QItemSelectionModel *selectionModel = this->tableObjects->selectionModel();
+	String objectName = "";
+
+	if(selectionModel->selectedRows().size() == 0) {
+		QMessageBox messageBox;
+		messageBox.critical(this, "Erro", "É necessário selecionar um objeto para aplicar uma transformação!");
+		return;
+	}
+
+	for(QModelIndex index : selectionModel->selectedRows()) {
+		QTableWidgetItem *item = this->tableObjects->item(index.row(), 1);
+
+		if(item)
+			objectName = item->text().toStdString();
+	}
+
+	// TODO abrir janela de transformação pelo objectName
+	std::cout << objectName << " transformed" << std::endl;
+}

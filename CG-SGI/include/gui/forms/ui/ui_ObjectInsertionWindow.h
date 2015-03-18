@@ -508,7 +508,7 @@ public:
         ___qtablewidgetitem1->setText(QApplication::translate("ObjectInsertionWindow", "Y", 0));
         btnRemovePoint->setText(QApplication::translate("ObjectInsertionWindow", "Remover Ponto", 0));
         btnInsertPoint->setText(QApplication::translate("ObjectInsertionWindow", "Inserir Ponto", 0));
-        tabObjects->setTabText(tabObjects->indexOf(tabPoligon), QApplication::translate("ObjectInsertionWindow", "Poligono", 0));
+        tabObjects->setTabText(tabObjects->indexOf(tabPoligon), QApplication::translate("ObjectInsertionWindow", "Pol\303\255gono", 0));
     } // retranslateUi
 
 };
