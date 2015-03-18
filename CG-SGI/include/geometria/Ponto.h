@@ -11,9 +11,9 @@ public:
 	Ponto(const String& nome, const double x, const double y, const double z);
 	virtual ~Ponto();
 	void operator=(const Ponto& ponto);
-	double getX() const;
-	double getY() const;
-	double getZ() const;
+	const double getX() const;
+	const double getY() const;
+	const double getZ() const;
 	QList<Ponto> getPontos();
 	const String toString() const;
 

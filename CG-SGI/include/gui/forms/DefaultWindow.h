@@ -1,5 +1,5 @@
-#ifndef WINDOW_H_
-#define WINDOW_H_
+#ifndef DEFAULTWINDOW_H_
+#define DEFAULTWINDOW_H_
 
 #include <QtWidgets/qdialog.h>
 #include <QtWidgets/qdesktopwidget.h>

@@ -3,8 +3,8 @@
 
 #include <string>
 #include "geometria/Ponto.h"
+#include "geometria/Mundo.h"
 
-class DefaultWindow;
 class MainWindow;
 class ObjectInsertionWindow;
 
@@ -35,7 +35,10 @@ public:
 
 	void inserirObjeto(String nome, QList<Ponto> pontos);
 
+	Mundo getMundo() const;
+
 private:
+	Mundo mundo;
 	MainWindow* mainWindow;
 	ObjectInsertionWindow* objectInsertionWindow;
 

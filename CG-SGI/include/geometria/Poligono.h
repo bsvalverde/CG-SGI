@@ -1,7 +1,6 @@
 #ifndef POLIGONO_H_
 #define POLIGONO_H_
 
-#include "geometria/ObjetoGeometrico.h"
 #include "geometria/Ponto.h"
 
 class Poligono : public ObjetoGeometrico {

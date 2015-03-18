@@ -18,6 +18,6 @@ bool DisplayFile::contem(const String& nome) {
 	return this->objetos.contains(nome);
 }
 
-QList<ObjetoGeometrico> DisplayFile::getObjetos() {
+QList<ObjetoGeometrico> DisplayFile::getObjetos() const {
 	return this->objetos.values();
 }

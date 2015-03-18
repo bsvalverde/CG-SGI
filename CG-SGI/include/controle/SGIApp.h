@@ -2,7 +2,6 @@
 #define SGIAPP_H_
 
 #include <qt5/QtWidgets/qapplication.h>
-#include <iostream>
 
 #include "controle/ControladorUI.h"
 
@@ -29,8 +28,6 @@ public:
 	 * @return inteiro indicando o retorno da execução.
 	 */
 	static int exec();
-
-	void test();
 
 };
 

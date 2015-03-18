@@ -1,7 +1,6 @@
 #ifndef RETA_H_
 #define RETA_H_
 
-#include "geometria/ObjetoGeometrico.h"
 #include "geometria/Ponto.h"
 
 class Reta : public ObjetoGeometrico {

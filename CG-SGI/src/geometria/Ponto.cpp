@@ -1,5 +1,4 @@
 #include "geometria/Ponto.h"
-#include "geometria/ObjetoGeometrico.h"
 
 Ponto::Ponto() {
 	this->coord_x = 0;
@@ -34,15 +33,15 @@ QList<Ponto> Ponto::getPontos() {
 	return pontos;
 }
 
-double Ponto::getX() const {
+const double Ponto::getX() const {
 	return this->coord_x;
 }
 
-double Ponto::getY() const {
+const double Ponto::getY() const {
 	return this->coord_y;
 }
 
-double Ponto::getZ() const {
+const double Ponto::getZ() const {
 	return this->coord_z;
 }
 

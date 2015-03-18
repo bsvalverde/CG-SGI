@@ -48,7 +48,7 @@ public:
 	 * Obter a lista de objetos geométricos.
 	 * @return mapa contendo os objetos geométricos.
 	 */
-	QList<ObjetoGeometrico> getObjetos();
+	QList<ObjetoGeometrico> getObjetos() const;
 
 private:
 	QMap<String, ObjetoGeometrico> objetos;
