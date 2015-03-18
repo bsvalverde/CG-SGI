@@ -9,7 +9,7 @@ DisplayFile& DisplayFile::operator=(const DisplayFile& displayFile) {
 	return *this;
 }
 
-void DisplayFile::adicionarObjeto(const ObjetoGeometrico& objeto) {
+void DisplayFile::inserirObjeto(const ObjetoGeometrico& objeto) {
 	this->objetos.insert(objeto.getNome(), objeto);
 }
 
