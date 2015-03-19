@@ -22,6 +22,7 @@ void ObjectTransformationWindow::clearFields(){
 	this->fieldScaleFactorX->clear();
 	this->fieldScaleFactorY->clear();
 	this->fieldScaleFactorZ->clear();
+	this->fieldRotateDegree->clear();
 	this->fieldRotatePointX->clear();
 	this->fieldRotatePointY->clear();
 	this->fieldRotatePointZ->clear();
