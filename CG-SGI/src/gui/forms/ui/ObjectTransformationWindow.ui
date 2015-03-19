@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>ObjectInsertionWindow</class>
- <widget class="QWidget" name="ObjectInsertionWindow">
+ <class>ObjectTransformationWindow</class>
+ <widget class="QWidget" name="ObjectTransformationWindow">
   <property name="windowModality">
    <enum>Qt::NonModal</enum>
   </property>
@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>400</height>
+    <height>321</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -22,7 +22,7 @@
   <property name="minimumSize">
    <size>
     <width>400</width>
-    <height>400</height>
+    <height>0</height>
    </size>
   </property>
   <property name="maximumSize">
@@ -38,7 +38,7 @@
    </font>
   </property>
   <property name="windowTitle">
-   <string>Inserir Objeto</string>
+   <string>Transformar Objeto</string>
   </property>
   <property name="autoFillBackground">
    <bool>false</bool>
@@ -49,56 +49,11 @@
      <x>9</x>
      <y>9</y>
      <width>381</width>
-     <height>381</height>
+     <height>301</height>
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0">
-     <layout class="QFormLayout" name="formLayout">
-      <property name="fieldGrowthPolicy">
-       <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
-      </property>
-      <property name="leftMargin">
-       <number>10</number>
-      </property>
-      <property name="topMargin">
-       <number>5</number>
-      </property>
-      <property name="rightMargin">
-       <number>10</number>
-      </property>
-      <property name="bottomMargin">
-       <number>10</number>
-      </property>
-      <item row="0" column="0">
-       <widget class="QLabel" name="labelName">
-        <property name="text">
-         <string>Nome</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QLineEdit" name="fieldName">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>30</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="inputMask">
-         <string/>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="maxLength">
-         <number>25</number>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item row="6" column="0">
+    <item row="5" column="0">
      <layout class="QGridLayout" name="gridLayout2">
       <item row="0" column="0">
        <widget class="QPushButton" name="btnCancel">
@@ -108,7 +63,7 @@
        </widget>
       </item>
       <item row="0" column="2">
-       <widget class="QPushButton" name="btnInsert">
+       <widget class="QPushButton" name="btnTransform">
         <property name="text">
          <string>Ok</string>
         </property>
@@ -129,16 +84,16 @@
       </item>
      </layout>
     </item>
-    <item row="5" column="0">
-     <widget class="QTabWidget" name="tabObjects">
+    <item row="4" column="0">
+     <widget class="QTabWidget" name="tabTransformations">
       <property name="currentIndex">
        <number>0</number>
       </property>
-      <widget class="QWidget" name="tabPoint">
+      <widget class="QWidget" name="tabScale">
        <attribute name="title">
-        <string>Ponto</string>
+        <string>Escalonar</string>
        </attribute>
-       <widget class="QGroupBox" name="groupBox">
+       <widget class="QGroupBox" name="groupScaleFactors">
         <property name="geometry">
          <rect>
           <x>10</x>
@@ -161,7 +116,7 @@ QGroupBox::title  {
 }</string>
         </property>
         <property name="title">
-         <string>Coordenadas</string>
+         <string>Fatores de Escalonamento</string>
         </property>
         <widget class="QWidget" name="layoutWidget">
          <property name="geometry">
@@ -185,14 +140,14 @@ QGroupBox::title  {
              <number>5</number>
             </property>
             <item row="0" column="0">
-             <widget class="QLabel" name="labelPointX">
+             <widget class="QLabel" name="labelScaleFactorX">
               <property name="text">
-               <string>X</string>
+               <string>Sx</string>
               </property>
              </widget>
             </item>
             <item row="0" column="1">
-             <widget class="QLineEdit" name="fieldPointX">
+             <widget class="QLineEdit" name="fieldScaleFactorX">
               <property name="enabled">
                <bool>true</bool>
               </property>
@@ -227,14 +182,14 @@ QGroupBox::title  {
              <number>5</number>
             </property>
             <item row="0" column="0">
-             <widget class="QLabel" name="labelPointY1">
+             <widget class="QLabel" name="labelScaleFactorY">
               <property name="text">
-               <string>Y</string>
+               <string>Sy</string>
               </property>
              </widget>
             </item>
             <item row="0" column="1">
-             <widget class="QLineEdit" name="fieldPointY">
+             <widget class="QLineEdit" name="fieldScaleFactorY">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -263,17 +218,17 @@ QGroupBox::title  {
              <number>5</number>
             </property>
             <item row="0" column="0">
-             <widget class="QLabel" name="labelPointZ1">
+             <widget class="QLabel" name="labelScaleFactorZ">
               <property name="enabled">
                <bool>false</bool>
               </property>
               <property name="text">
-               <string>Z</string>
+               <string>Sz</string>
               </property>
              </widget>
             </item>
             <item row="0" column="1">
-             <widget class="QLineEdit" name="fieldPointZ">
+             <widget class="QLineEdit" name="fieldScaleFactorZ">
               <property name="enabled">
                <bool>false</bool>
               </property>
@@ -303,11 +258,11 @@ QGroupBox::title  {
         </widget>
        </widget>
       </widget>
-      <widget class="QWidget" name="tabLine">
+      <widget class="QWidget" name="tabRotate">
        <attribute name="title">
-        <string>Reta</string>
+        <string>Rotacionar</string>
        </attribute>
-       <widget class="QGroupBox" name="groupBox_2">
+       <widget class="QGroupBox" name="groupRotateDegree">
         <property name="geometry">
          <rect>
           <x>10</x>
@@ -330,148 +285,63 @@ QGroupBox::title  {
 }</string>
         </property>
         <property name="title">
-         <string>Ponto Inicial</string>
+         <string>Grau de Rotação</string>
         </property>
-        <widget class="QWidget" name="layoutWidget_3">
+        <widget class="QWidget" name="layoutWidget">
          <property name="geometry">
           <rect>
-           <x>10</x>
-           <y>20</y>
-           <width>331</width>
-           <height>41</height>
+           <x>91</x>
+           <y>21</y>
+           <width>171</width>
+           <height>37</height>
           </rect>
          </property>
-         <layout class="QHBoxLayout" name="horizontalLayout_2">
-          <property name="sizeConstraint">
-           <enum>QLayout::SetNoConstraint</enum>
+         <layout class="QFormLayout" name="formLayout_5">
+          <property name="fieldGrowthPolicy">
+           <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
           </property>
-          <item>
-           <layout class="QFormLayout" name="formLayout_5">
-            <property name="topMargin">
-             <number>5</number>
+          <property name="topMargin">
+           <number>5</number>
+          </property>
+          <property name="bottomMargin">
+           <number>5</number>
+          </property>
+          <item row="0" column="0">
+           <widget class="QLabel" name="labelRotateDegree">
+            <property name="text">
+             <string>Grau (º)</string>
             </property>
-            <property name="bottomMargin">
-             <number>5</number>
-            </property>
-            <item row="0" column="0">
-             <widget class="QLabel" name="labelPointX1_2">
-              <property name="text">
-               <string>x1</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <widget class="QLineEdit" name="fieldLineX1">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>16777214</width>
-                <height>30</height>
-               </size>
-              </property>
-              <property name="maxLength">
-               <number>50</number>
-              </property>
-             </widget>
-            </item>
-           </layout>
+           </widget>
           </item>
-          <item>
-           <layout class="QFormLayout" name="formLayout_6">
-            <property name="topMargin">
-             <number>5</number>
+          <item row="0" column="1">
+           <widget class="QLineEdit" name="fieldRotateDegree">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
             </property>
-            <property name="bottomMargin">
-             <number>5</number>
+            <property name="maximumSize">
+             <size>
+              <width>16777214</width>
+              <height>30</height>
+             </size>
             </property>
-            <item row="0" column="0">
-             <widget class="QLabel" name="labelPointY1_2">
-              <property name="text">
-               <string>y1</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <widget class="QLineEdit" name="fieldLineY1">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>16777215</width>
-                <height>30</height>
-               </size>
-              </property>
-              <property name="maxLength">
-               <number>50</number>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <layout class="QFormLayout" name="formLayout_7">
-            <property name="topMargin">
-             <number>5</number>
+            <property name="maxLength">
+             <number>50</number>
             </property>
-            <property name="bottomMargin">
-             <number>5</number>
-            </property>
-            <item row="0" column="0">
-             <widget class="QLabel" name="labelPointZ1_2">
-              <property name="enabled">
-               <bool>false</bool>
-              </property>
-              <property name="text">
-               <string>z1</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <widget class="QLineEdit" name="fieldLineZ1">
-              <property name="enabled">
-               <bool>false</bool>
-              </property>
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>16777215</width>
-                <height>30</height>
-               </size>
-              </property>
-              <property name="text">
-               <string>1</string>
-              </property>
-              <property name="maxLength">
-               <number>50</number>
-              </property>
-             </widget>
-            </item>
-           </layout>
+           </widget>
           </item>
          </layout>
         </widget>
        </widget>
-       <widget class="QGroupBox" name="groupBox_3">
+       <widget class="QGroupBox" name="groupRotatePoint">
         <property name="geometry">
          <rect>
           <x>10</x>
           <y>90</y>
           <width>351</width>
-          <height>71</height>
+          <height>131</height>
          </rect>
         </property>
         <property name="styleSheet">
@@ -488,13 +358,13 @@ QGroupBox::title  {
 }</string>
         </property>
         <property name="title">
-         <string>Ponto Final</string>
+         <string>Ponto de Rotação</string>
         </property>
         <widget class="QWidget" name="layoutWidget_4">
          <property name="geometry">
           <rect>
            <x>10</x>
-           <y>20</y>
+           <y>80</y>
            <width>331</width>
            <height>41</height>
           </rect>
@@ -512,14 +382,20 @@ QGroupBox::title  {
              <number>5</number>
             </property>
             <item row="0" column="0">
-             <widget class="QLabel" name="labelPointX1_3">
+             <widget class="QLabel" name="labelRotatePointX">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
               <property name="text">
-               <string>x2</string>
+               <string>X</string>
               </property>
              </widget>
             </item>
             <item row="0" column="1">
-             <widget class="QLineEdit" name="fieldLineX2">
+             <widget class="QLineEdit" name="fieldRotatePointX">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -548,14 +424,20 @@ QGroupBox::title  {
              <number>5</number>
             </property>
             <item row="0" column="0">
-             <widget class="QLabel" name="labelPointY1_3">
+             <widget class="QLabel" name="labelRotatePointY">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
               <property name="text">
-               <string>y2</string>
+               <string>Y</string>
               </property>
              </widget>
             </item>
             <item row="0" column="1">
-             <widget class="QLineEdit" name="fieldLineY2">
+             <widget class="QLineEdit" name="fieldRotatePointY">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -584,17 +466,218 @@ QGroupBox::title  {
              <number>5</number>
             </property>
             <item row="0" column="0">
-             <widget class="QLabel" name="labelPointZ1_3">
+             <widget class="QLabel" name="labelRotatePointZ">
               <property name="enabled">
                <bool>false</bool>
               </property>
               <property name="text">
-               <string>z2</string>
+               <string>Z</string>
               </property>
              </widget>
             </item>
             <item row="0" column="1">
-             <widget class="QLineEdit" name="fieldLineZ2">
+             <widget class="QLineEdit" name="fieldRotatePointZ">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>1</string>
+              </property>
+              <property name="maxLength">
+               <number>50</number>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="layoutWidget">
+         <property name="geometry">
+          <rect>
+           <x>16</x>
+           <y>21</y>
+           <width>321</width>
+           <height>52</height>
+          </rect>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <item>
+           <widget class="QRadioButton" name="radBtnGeometricCenter">
+            <property name="text">
+             <string>Centro Geométrico</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="radBtnSpecificPoint">
+            <property name="text">
+             <string>Ponto Específico</string>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="tabTranslate">
+       <attribute name="title">
+        <string>Transladar</string>
+       </attribute>
+       <widget class="QGroupBox" name="groupTranslateFactors">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>10</y>
+          <width>351</width>
+          <height>71</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QGroupBox  {
+    border: 1px solid gray;
+    border-radius: 5px;
+    margin-top: 1ex;
+}
+ 
+QGroupBox::title  {
+    subcontrol-origin: margin;
+    subcontrol-position: top left;
+    padding: 0 8px;
+}</string>
+        </property>
+        <property name="title">
+         <string>Fatores de Translação</string>
+        </property>
+        <widget class="QWidget" name="layoutWidget_2">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>20</y>
+           <width>331</width>
+           <height>41</height>
+          </rect>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_4">
+          <property name="sizeConstraint">
+           <enum>QLayout::SetNoConstraint</enum>
+          </property>
+          <item>
+           <layout class="QFormLayout" name="formLayout_11">
+            <property name="topMargin">
+             <number>5</number>
+            </property>
+            <property name="bottomMargin">
+             <number>5</number>
+            </property>
+            <item row="0" column="0">
+             <widget class="QLabel" name="labelTranslateFactorX">
+              <property name="text">
+               <string>Sx</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QLineEdit" name="fieldTranslateFactorX">
+              <property name="enabled">
+               <bool>true</bool>
+              </property>
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777214</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="maxLength">
+               <number>50</number>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QFormLayout" name="formLayout_12">
+            <property name="topMargin">
+             <number>5</number>
+            </property>
+            <property name="bottomMargin">
+             <number>5</number>
+            </property>
+            <item row="0" column="0">
+             <widget class="QLabel" name="labelTranslateFactorY">
+              <property name="text">
+               <string>Sy</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QLineEdit" name="fieldTranslateFactorY">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="maxLength">
+               <number>50</number>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QFormLayout" name="formLayout_13">
+            <property name="topMargin">
+             <number>5</number>
+            </property>
+            <property name="bottomMargin">
+             <number>5</number>
+            </property>
+            <item row="0" column="0">
+             <widget class="QLabel" name="labelTranslateFactorZ">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="text">
+               <string>Sz</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QLineEdit" name="fieldTranslateFactorZ">
               <property name="enabled">
                <bool>false</bool>
               </property>
@@ -624,110 +707,22 @@ QGroupBox::title  {
         </widget>
        </widget>
       </widget>
-      <widget class="QWidget" name="tabPoligon">
-       <attribute name="title">
-        <string>Polígono</string>
-       </attribute>
-       <widget class="QTableWidget" name="tablePoligonPoints">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>11</y>
-          <width>351</width>
-          <height>201</height>
-         </rect>
-        </property>
-        <property name="horizontalScrollBarPolicy">
-         <enum>Qt::ScrollBarAlwaysOff</enum>
-        </property>
-        <property name="selectionMode">
-         <enum>QAbstractItemView::SingleSelection</enum>
-        </property>
-        <property name="selectionBehavior">
-         <enum>QAbstractItemView::SelectRows</enum>
-        </property>
-        <property name="gridStyle">
-         <enum>Qt::SolidLine</enum>
-        </property>
-        <property name="cornerButtonEnabled">
-         <bool>true</bool>
-        </property>
-        <attribute name="horizontalHeaderDefaultSectionSize">
-         <number>100</number>
-        </attribute>
-        <column>
-         <property name="text">
-          <string>X</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Y</string>
-         </property>
-        </column>
-       </widget>
-       <widget class="QWidget" name="layoutWidget_2">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>220</y>
-          <width>351</width>
-          <height>31</height>
-         </rect>
-        </property>
-        <layout class="QGridLayout" name="gridLayout2_2">
-         <item row="0" column="0">
-          <widget class="QPushButton" name="btnRemovePoint">
-           <property name="text">
-            <string>Remover Ponto</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="3">
-          <widget class="QPushButton" name="btnInsertPoint">
-           <property name="text">
-            <string>Inserir Ponto</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="2">
-          <spacer name="horizontalSpacer_2">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-        </layout>
-       </widget>
-      </widget>
      </widget>
     </item>
    </layout>
   </widget>
  </widget>
  <tabstops>
-  <tabstop>fieldName</tabstop>
-  <tabstop>tabObjects</tabstop>
-  <tabstop>fieldPointX</tabstop>
-  <tabstop>fieldPointY</tabstop>
-  <tabstop>fieldPointZ</tabstop>
-  <tabstop>fieldLineX1</tabstop>
-  <tabstop>fieldLineY1</tabstop>
-  <tabstop>fieldLineZ1</tabstop>
-  <tabstop>fieldLineX2</tabstop>
-  <tabstop>fieldLineY2</tabstop>
-  <tabstop>fieldLineZ2</tabstop>
-  <tabstop>tablePoligonPoints</tabstop>
-  <tabstop>btnRemovePoint</tabstop>
-  <tabstop>btnInsertPoint</tabstop>
+  <tabstop>tabTransformations</tabstop>
+  <tabstop>fieldScaleFactorX</tabstop>
+  <tabstop>fieldScaleFactorY</tabstop>
+  <tabstop>fieldScaleFactorZ</tabstop>
+  <tabstop>fieldRotateDegree</tabstop>
+  <tabstop>fieldRotatePointX</tabstop>
+  <tabstop>fieldRotatePointY</tabstop>
+  <tabstop>fieldRotatePointZ</tabstop>
   <tabstop>btnCancel</tabstop>
-  <tabstop>btnInsert</tabstop>
+  <tabstop>btnTransform</tabstop>
  </tabstops>
  <resources/>
  <connections/>
