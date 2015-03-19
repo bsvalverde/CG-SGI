@@ -44,7 +44,7 @@ bool ObjectTransformationWindow::validateFields() {
 			return ok1 && ok2 && ok3;
 		case 1:
 			this->fieldRotateDegree->text().toDouble(&ok);
-			ok1, ok2, ok3 = true;
+			ok1 = true, ok2 = true, ok3 = true;
 
 			if(this->radBtnSpecificPoint->isChecked()) {
 				this->fieldRotatePointX->text().toDouble(&ok1);

@@ -127,12 +127,13 @@ public:
         btnLeft->setGeometry(QRect(60, 160, 41, 41));
         btnCenter = new QPushButton(pageWindow);
         btnCenter->setObjectName(QStringLiteral("btnCenter"));
+        btnCenter->setEnabled(false);
         btnCenter->setGeometry(QRect(110, 160, 41, 41));
         btnCenter->setFont(font2);
         toolBox->addItem(pageWindow, QStringLiteral("Controle da Window"));
         pageObjects = new QWidget();
         pageObjects->setObjectName(QStringLiteral("pageObjects"));
-        pageObjects->setGeometry(QRect(0, 0, 256, 415));
+        pageObjects->setGeometry(QRect(0, 0, 100, 30));
         btnRemoveObject = new QPushButton(pageObjects);
         btnRemoveObject->setObjectName(QStringLiteral("btnRemoveObject"));
         btnRemoveObject->setGeometry(QRect(110, 380, 71, 31));

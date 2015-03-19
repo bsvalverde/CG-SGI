@@ -55,13 +55,14 @@ public:
 	 * Escalonar a window.
 	 * @param f fator de escalonamento.
 	 */
-	void escalonar(double f);
+	void escalonar(const double f);
 
 	/**
 	 * Transladar a window.
-	 * @param f fator de translação
+	 * @param x fator de translação do eixo x
+	 * @param y fator de translação do eixo y
 	 */
-	void transladar(double f);
+	void transladar(const double x, const double y);
 
 private:
 	Ponto pontoInferiorEsquerdo;

@@ -10,6 +10,14 @@
 class Mundo {
 
 public:
+
+	enum Direcao {
+		CIMA,
+		BAIXO,
+		ESQUERDA,
+		DIREITA
+	};
+
 	/**
 	 * Construtor.
 	 */
@@ -24,7 +32,7 @@ public:
 	 * Inserir objeto ao mundo.
 	 * @param objeto objeto a ser inserido.
 	 */
-	void inserirObjeto(const ObjetoGeometrico& objeto);
+	void inserirObjeto(ObjetoGeometrico* const objeto);
 
 	/**
 	 * Remover objeto do mundo.
@@ -49,7 +57,20 @@ public:
 	 * Obter os objetos do mundo.
 	 * @return lista de objetos do mundo.
 	 */
-	QList<ObjetoGeometrico> getObjetos() const;
+	QList<ObjetoGeometrico*> getObjetos() const;
+
+	/**
+	 * Navegar no mundo (mover a window).
+	 * @param direcao direção de navegação.
+	 * @param fator fator de navegação.
+	 */
+	void navegar(const Direcao direcao, const double fator);
+
+	/**
+	 * Redimensionar a window do mundo (aplicação de zoom).
+	 * @param fator fator de escalonamento.
+	 */
+	void redimensionarWindow(const double fator);
 
 private:
 	DisplayFile displayFile;

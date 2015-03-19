@@ -80,7 +80,7 @@ QList<Ponto> ObjetoGeometrico::aplicarTransformacao(double matriz[3][3]) {
 	for(int i = 0; i < pontos.size(); i++) {
 		Ponto p = pontos.at(i);
 		double coordenadas[3] = {0, 0, 0};
-		for (int j = 0; j < 3; i++) {
+		for (int j = 0; j < 3; j++) {
 			coordenadas[j] = p.getX() * matriz[0][j] +
 							 p.getY() * matriz[1][j] +
 							 1 * matriz[2][j]; // Coord Homog

@@ -9,17 +9,17 @@ DisplayFile& DisplayFile::operator=(const DisplayFile& displayFile) {
 	return *this;
 }
 
-void DisplayFile::inserirObjeto(const ObjetoGeometrico& objeto) {
-	this->objetos.insert(objeto.getNome(), objeto);
+void DisplayFile::inserirObjeto(ObjetoGeometrico* const objeto) {
+	this->objetos.insert(objeto->getNome(), objeto);
 }
 
-ObjetoGeometrico DisplayFile::removerObjeto(const String& nome) {
-	ObjetoGeometrico obj = this->objetos[nome];
+ObjetoGeometrico* DisplayFile::removerObjeto(const String& nome) {
+	ObjetoGeometrico* obj = this->objetos[nome];
 	this->objetos.remove(nome);
 	return obj;
 }
 
-ObjetoGeometrico DisplayFile::getObjeto(const String& nome) {
+ObjetoGeometrico* DisplayFile::getObjeto(const String& nome) {
 	return this->objetos[nome];
 }
 
@@ -27,6 +27,6 @@ bool DisplayFile::contem(const String& nome) {
 	return this->objetos.contains(nome);
 }
 
-QList<ObjetoGeometrico> DisplayFile::getObjetos() const {
+QList<ObjetoGeometrico*> DisplayFile::getObjetos() const {
 	return this->objetos.values();
 }
