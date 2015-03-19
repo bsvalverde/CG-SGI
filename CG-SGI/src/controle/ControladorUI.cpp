@@ -1,12 +1,14 @@
 #include "controle/ControladorUI.h"
 #include "gui/forms/MainWindow.h"
 #include "gui/forms/ObjectInsertionWindow.h"
+#include "gui/forms/ObjectTransformationWindow.h"
 #include "geometria/Reta.h"
 #include "geometria/Poligono.h"
 
 ControladorUI::ControladorUI() {
 	this->mainWindow = new MainWindow(this);
 	this->objectInsertionWindow = new ObjectInsertionWindow(this, this->mainWindow);
+	this->objectTransformationWindow = new ObjectTransformationWindow(this, this->mainWindow);
 }
 
 ControladorUI::~ControladorUI() {}
@@ -20,8 +22,9 @@ void ControladorUI::exibirObjectInsertionWindow() {
 	this->objectInsertionWindow->show();
 }
 
-void ControladorUI::exibirObjectTransformationWindow() {
-
+void ControladorUI::exibirObjectTransformationWindow(const String& nomeObjeto) {
+	this->objectTransformationWindow->clearFields();
+	this->objectTransformationWindow->show(nomeObjeto);
 }
 
 void ControladorUI::inserirObjeto(const String& nome, const QList<Ponto> pontos) {

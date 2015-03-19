@@ -15,9 +15,11 @@ MainWindow::MainWindow(ControladorUI* controladorUI, QDialog* parent,
 MainWindow::~MainWindow() {}
 
 void MainWindow::updateObjects(QList<ObjetoGeometrico> objects) {
+	// Remover todos os objetos da tabela
 	while(this->tableObjects->rowCount() > 0)
 		this->tableObjects->removeRow(0);
 
+	// Inserir todos os objetos atualizados na tabela
 	for(ObjetoGeometrico obj : objects) {
 		this->tableObjects->insertRow(this->tableObjects->rowCount());
 		QTableWidgetItem* type = new QTableWidgetItem(QString::fromStdString(obj.getTipoString()));
@@ -25,8 +27,6 @@ void MainWindow::updateObjects(QList<ObjetoGeometrico> objects) {
 		this->tableObjects->setItem(this->tableObjects->rowCount() - 1, 0, type);
 		this->tableObjects->setItem(this->tableObjects->rowCount() - 1, 1, name);
 	}
-
-	return;
 
 	QGraphicsView* g = this->graphicsView;
 	QGraphicsScene* scene = g->scene();
@@ -196,6 +196,5 @@ void MainWindow::btnTransformObjectClicked() {
 			objectName = item->text().toStdString();
 	}
 
-	// TODO abrir janela de transformação pelo objectName
-	std::cout << objectName << " transformed" << std::endl;
+	this->controladorUI->exibirObjectTransformationWindow(objectName);
 }

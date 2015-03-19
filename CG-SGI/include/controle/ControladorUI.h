@@ -7,6 +7,7 @@
 
 class MainWindow;
 class ObjectInsertionWindow;
+class ObjectTransformationWindow;
 
 typedef std::string String;
 
@@ -38,8 +39,9 @@ public:
 
 	/**
 	 * Exibir janela de transformação de objetos.
+	 * @param nomeObjeto nome do objeto a ser transformado.
 	 */
-	void exibirObjectTransformationWindow();
+	void exibirObjectTransformationWindow(const String& nomeObjeto);
 
 	/**
 	 * Inserir objeto geométrico.
@@ -71,6 +73,7 @@ private:
 	Mundo mundo;
 	MainWindow* mainWindow;
 	ObjectInsertionWindow* objectInsertionWindow;
+	ObjectTransformationWindow* objectTransformationWindow;
 
 };
 
