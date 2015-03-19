@@ -14,11 +14,13 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QGraphicsView>
+#include <QtWidgets/QGridLayout>
+#include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
-#include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSlider>
+#include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QTableWidget>
 #include <QtWidgets/QToolBox>
 #include <QtWidgets/QWidget>
@@ -32,16 +34,23 @@ public:
     QHBoxLayout *horizontalLayout;
     QToolBox *toolBox;
     QWidget *pageWindow;
-    QSlider *zoomControl;
-    QLabel *labelZoom;
-    QPushButton *btnZoomIn;
+    QGroupBox *groupZoom;
+    QWidget *horizontalLayoutWidget_2;
+    QHBoxLayout *horizontalLayout_2;
     QPushButton *btnZoomOut;
-    QLabel *labelNavigation;
+    QSlider *zoomControl;
+    QPushButton *btnZoomIn;
+    QGroupBox *groupNavigation;
+    QWidget *horizontalLayoutWidget_3;
+    QHBoxLayout *horizontalLayout_3;
+    QSpacerItem *horizontalSpacer;
+    QGridLayout *gridLayout;
+    QPushButton *btnCenter;
     QPushButton *btnUp;
     QPushButton *btnRight;
-    QPushButton *btnDown;
     QPushButton *btnLeft;
-    QPushButton *btnCenter;
+    QPushButton *btnDown;
+    QSpacerItem *horizontalSpacer2;
     QWidget *pageObjects;
     QPushButton *btnRemoveObject;
     QPushButton *btnInsertObject;
@@ -85,52 +94,143 @@ public:
         pageWindow = new QWidget();
         pageWindow->setObjectName(QStringLiteral("pageWindow"));
         pageWindow->setGeometry(QRect(0, 0, 256, 415));
-        zoomControl = new QSlider(pageWindow);
+        groupZoom = new QGroupBox(pageWindow);
+        groupZoom->setObjectName(QStringLiteral("groupZoom"));
+        groupZoom->setGeometry(QRect(9, 0, 241, 61));
+        groupZoom->setStyleSheet(QLatin1String("QGroupBox  {\n"
+"    border: 1px solid gray;\n"
+"    border-radius: 5px;\n"
+"    margin-top: 1ex;\n"
+"}\n"
+" \n"
+"QGroupBox::title  {\n"
+"    subcontrol-origin: margin;\n"
+"    subcontrol-position: top left;\n"
+"    padding: 0 8px;\n"
+"}"));
+        horizontalLayoutWidget_2 = new QWidget(groupZoom);
+        horizontalLayoutWidget_2->setObjectName(QStringLiteral("horizontalLayoutWidget_2"));
+        horizontalLayoutWidget_2->setGeometry(QRect(9, 20, 221, 35));
+        horizontalLayout_2 = new QHBoxLayout(horizontalLayoutWidget_2);
+        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
+        horizontalLayout_2->setContentsMargins(0, 0, 0, 0);
+        btnZoomOut = new QPushButton(horizontalLayoutWidget_2);
+        btnZoomOut->setObjectName(QStringLiteral("btnZoomOut"));
+        QSizePolicy sizePolicy2(QSizePolicy::Ignored, QSizePolicy::Expanding);
+        sizePolicy2.setHorizontalStretch(35);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(btnZoomOut->sizePolicy().hasHeightForWidth());
+        btnZoomOut->setSizePolicy(sizePolicy2);
+        QFont font1;
+        font1.setFamily(QStringLiteral("Arial"));
+        font1.setPointSize(14);
+        font1.setItalic(false);
+        btnZoomOut->setFont(font1);
+
+        horizontalLayout_2->addWidget(btnZoomOut);
+
+        zoomControl = new QSlider(horizontalLayoutWidget_2);
         zoomControl->setObjectName(QStringLiteral("zoomControl"));
-        zoomControl->setGeometry(QRect(60, 40, 141, 31));
+        QSizePolicy sizePolicy3(QSizePolicy::Expanding, QSizePolicy::Preferred);
+        sizePolicy3.setHorizontalStretch(90);
+        sizePolicy3.setVerticalStretch(0);
+        sizePolicy3.setHeightForWidth(zoomControl->sizePolicy().hasHeightForWidth());
+        zoomControl->setSizePolicy(sizePolicy3);
         zoomControl->setMaximum(100);
         zoomControl->setValue(50);
         zoomControl->setOrientation(Qt::Horizontal);
-        labelZoom = new QLabel(pageWindow);
-        labelZoom->setObjectName(QStringLiteral("labelZoom"));
-        labelZoom->setGeometry(QRect(16, 6, 231, 31));
-        QFont font1;
-        font1.setBold(true);
-        font1.setWeight(75);
-        labelZoom->setFont(font1);
-        btnZoomIn = new QPushButton(pageWindow);
+
+        horizontalLayout_2->addWidget(zoomControl);
+
+        btnZoomIn = new QPushButton(horizontalLayoutWidget_2);
         btnZoomIn->setObjectName(QStringLiteral("btnZoomIn"));
-        btnZoomIn->setGeometry(QRect(210, 40, 41, 31));
+        QSizePolicy sizePolicy4(QSizePolicy::Ignored, QSizePolicy::Fixed);
+        sizePolicy4.setHorizontalStretch(35);
+        sizePolicy4.setVerticalStretch(0);
+        sizePolicy4.setHeightForWidth(btnZoomIn->sizePolicy().hasHeightForWidth());
+        btnZoomIn->setSizePolicy(sizePolicy4);
+        btnZoomIn->setFont(font1);
+
+        horizontalLayout_2->addWidget(btnZoomIn);
+
+        groupNavigation = new QGroupBox(pageWindow);
+        groupNavigation->setObjectName(QStringLiteral("groupNavigation"));
+        groupNavigation->setGeometry(QRect(9, 70, 241, 161));
+        groupNavigation->setStyleSheet(QLatin1String("QGroupBox  {\n"
+"    border: 1px solid gray;\n"
+"    border-radius: 5px;\n"
+"    margin-top: 1ex;\n"
+"}\n"
+" \n"
+"QGroupBox::title  {\n"
+"    subcontrol-origin: margin;\n"
+"    subcontrol-position: top left;\n"
+"    padding: 0 8px;\n"
+"}"));
+        horizontalLayoutWidget_3 = new QWidget(groupNavigation);
+        horizontalLayoutWidget_3->setObjectName(QStringLiteral("horizontalLayoutWidget_3"));
+        horizontalLayoutWidget_3->setGeometry(QRect(9, 19, 221, 131));
+        horizontalLayout_3 = new QHBoxLayout(horizontalLayoutWidget_3);
+        horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
+        horizontalLayout_3->setContentsMargins(0, 0, 0, 0);
+        horizontalSpacer = new QSpacerItem(30, 20, QSizePolicy::Preferred, QSizePolicy::Minimum);
+
+        horizontalLayout_3->addItem(horizontalSpacer);
+
+        gridLayout = new QGridLayout();
+        gridLayout->setObjectName(QStringLiteral("gridLayout"));
+        gridLayout->setSizeConstraint(QLayout::SetDefaultConstraint);
+        btnCenter = new QPushButton(horizontalLayoutWidget_3);
+        btnCenter->setObjectName(QStringLiteral("btnCenter"));
+        btnCenter->setEnabled(false);
+        QSizePolicy sizePolicy5(QSizePolicy::Ignored, QSizePolicy::Minimum);
+        sizePolicy5.setHorizontalStretch(35);
+        sizePolicy5.setVerticalStretch(0);
+        sizePolicy5.setHeightForWidth(btnCenter->sizePolicy().hasHeightForWidth());
+        btnCenter->setSizePolicy(sizePolicy5);
         QFont font2;
         font2.setPointSize(14);
         font2.setItalic(true);
-        btnZoomIn->setFont(font2);
-        btnZoomOut = new QPushButton(pageWindow);
-        btnZoomOut->setObjectName(QStringLiteral("btnZoomOut"));
-        btnZoomOut->setGeometry(QRect(10, 40, 41, 31));
-        btnZoomOut->setFont(font2);
-        labelNavigation = new QLabel(pageWindow);
-        labelNavigation->setObjectName(QStringLiteral("labelNavigation"));
-        labelNavigation->setGeometry(QRect(10, 80, 241, 31));
-        labelNavigation->setFont(font1);
-        btnUp = new QPushButton(pageWindow);
-        btnUp->setObjectName(QStringLiteral("btnUp"));
-        btnUp->setGeometry(QRect(110, 110, 41, 41));
-        btnRight = new QPushButton(pageWindow);
-        btnRight->setObjectName(QStringLiteral("btnRight"));
-        btnRight->setGeometry(QRect(160, 160, 41, 41));
-        btnDown = new QPushButton(pageWindow);
-        btnDown->setObjectName(QStringLiteral("btnDown"));
-        btnDown->setGeometry(QRect(110, 210, 41, 41));
-        btnLeft = new QPushButton(pageWindow);
-        btnLeft->setObjectName(QStringLiteral("btnLeft"));
-        btnLeft->setGeometry(QRect(60, 160, 41, 41));
-        btnCenter = new QPushButton(pageWindow);
-        btnCenter->setObjectName(QStringLiteral("btnCenter"));
-        btnCenter->setEnabled(false);
-        btnCenter->setGeometry(QRect(110, 160, 41, 41));
         btnCenter->setFont(font2);
-        toolBox->addItem(pageWindow, QStringLiteral("Controle da Window"));
+
+        gridLayout->addWidget(btnCenter, 1, 1, 1, 1);
+
+        btnUp = new QPushButton(horizontalLayoutWidget_3);
+        btnUp->setObjectName(QStringLiteral("btnUp"));
+        sizePolicy5.setHeightForWidth(btnUp->sizePolicy().hasHeightForWidth());
+        btnUp->setSizePolicy(sizePolicy5);
+
+        gridLayout->addWidget(btnUp, 0, 1, 1, 1);
+
+        btnRight = new QPushButton(horizontalLayoutWidget_3);
+        btnRight->setObjectName(QStringLiteral("btnRight"));
+        sizePolicy5.setHeightForWidth(btnRight->sizePolicy().hasHeightForWidth());
+        btnRight->setSizePolicy(sizePolicy5);
+
+        gridLayout->addWidget(btnRight, 1, 2, 1, 1);
+
+        btnLeft = new QPushButton(horizontalLayoutWidget_3);
+        btnLeft->setObjectName(QStringLiteral("btnLeft"));
+        sizePolicy5.setHeightForWidth(btnLeft->sizePolicy().hasHeightForWidth());
+        btnLeft->setSizePolicy(sizePolicy5);
+
+        gridLayout->addWidget(btnLeft, 1, 0, 1, 1);
+
+        btnDown = new QPushButton(horizontalLayoutWidget_3);
+        btnDown->setObjectName(QStringLiteral("btnDown"));
+        sizePolicy5.setHeightForWidth(btnDown->sizePolicy().hasHeightForWidth());
+        btnDown->setSizePolicy(sizePolicy5);
+
+        gridLayout->addWidget(btnDown, 2, 1, 1, 1);
+
+
+        horizontalLayout_3->addLayout(gridLayout);
+
+        horizontalSpacer2 = new QSpacerItem(30, 20, QSizePolicy::Preferred, QSizePolicy::Minimum);
+
+        horizontalLayout_3->addItem(horizontalSpacer2);
+
+        toolBox->addItem(pageWindow, QString::fromUtf8("Controle de Visualiza\303\247\303\243o"));
         pageObjects = new QWidget();
         pageObjects->setObjectName(QStringLiteral("pageObjects"));
         pageObjects->setGeometry(QRect(0, 0, 100, 30));
@@ -188,19 +288,18 @@ public:
 
         graphicsView = new QGraphicsView(horizontalLayoutWidget);
         graphicsView->setObjectName(QStringLiteral("graphicsView"));
-        QSizePolicy sizePolicy2(QSizePolicy::Preferred, QSizePolicy::Preferred);
-        sizePolicy2.setHorizontalStretch(200);
-        sizePolicy2.setVerticalStretch(0);
-        sizePolicy2.setHeightForWidth(graphicsView->sizePolicy().hasHeightForWidth());
-        graphicsView->setSizePolicy(sizePolicy2);
+        QSizePolicy sizePolicy6(QSizePolicy::Preferred, QSizePolicy::Preferred);
+        sizePolicy6.setHorizontalStretch(200);
+        sizePolicy6.setVerticalStretch(0);
+        sizePolicy6.setHeightForWidth(graphicsView->sizePolicy().hasHeightForWidth());
+        graphicsView->setSizePolicy(sizePolicy6);
 
         horizontalLayout->addWidget(graphicsView);
 
         QWidget::setTabOrder(graphicsView, btnZoomOut);
         QWidget::setTabOrder(btnZoomOut, zoomControl);
         QWidget::setTabOrder(zoomControl, btnZoomIn);
-        QWidget::setTabOrder(btnZoomIn, btnUp);
-        QWidget::setTabOrder(btnUp, btnLeft);
+        QWidget::setTabOrder(btnZoomIn, btnLeft);
         QWidget::setTabOrder(btnLeft, btnCenter);
         QWidget::setTabOrder(btnCenter, btnRight);
         QWidget::setTabOrder(btnRight, btnDown);
@@ -217,23 +316,23 @@ public:
     void retranslateUi(QWidget *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "Sistema Gr\303\241fico Interativo", 0));
-        labelZoom->setText(QApplication::translate("MainWindow", "Zoom", 0));
-        btnZoomIn->setText(QApplication::translate("MainWindow", "+", 0));
-        btnZoomIn->setShortcut(QApplication::translate("MainWindow", "Alt+I", 0));
+        groupZoom->setTitle(QApplication::translate("MainWindow", "Zoom", 0));
         btnZoomOut->setText(QApplication::translate("MainWindow", "-", 0));
         btnZoomOut->setShortcut(QApplication::translate("MainWindow", "Alt+O", 0));
-        labelNavigation->setText(QApplication::translate("MainWindow", "Navega\303\247\303\243o", 0));
+        btnZoomIn->setText(QApplication::translate("MainWindow", "+", 0));
+        btnZoomIn->setShortcut(QApplication::translate("MainWindow", "Alt+I", 0));
+        groupNavigation->setTitle(QApplication::translate("MainWindow", "Navega\303\247\303\243o", 0));
+        btnCenter->setText(QApplication::translate("MainWindow", "\342\227\211", 0));
+        btnCenter->setShortcut(QApplication::translate("MainWindow", "Home", 0));
         btnUp->setText(QApplication::translate("MainWindow", "\342\226\262", 0));
         btnUp->setShortcut(QApplication::translate("MainWindow", "Up", 0));
         btnRight->setText(QApplication::translate("MainWindow", "\342\226\266", 0));
         btnRight->setShortcut(QApplication::translate("MainWindow", "Right", 0));
-        btnDown->setText(QApplication::translate("MainWindow", "\342\226\274", 0));
-        btnDown->setShortcut(QApplication::translate("MainWindow", "Down", 0));
         btnLeft->setText(QApplication::translate("MainWindow", "\342\227\200", 0));
         btnLeft->setShortcut(QApplication::translate("MainWindow", "Left", 0));
-        btnCenter->setText(QApplication::translate("MainWindow", "\342\227\211", 0));
-        btnCenter->setShortcut(QApplication::translate("MainWindow", "Home", 0));
-        toolBox->setItemText(toolBox->indexOf(pageWindow), QApplication::translate("MainWindow", "Controle da Window", 0));
+        btnDown->setText(QApplication::translate("MainWindow", "\342\226\274", 0));
+        btnDown->setShortcut(QApplication::translate("MainWindow", "Down", 0));
+        toolBox->setItemText(toolBox->indexOf(pageWindow), QApplication::translate("MainWindow", "Controle de Visualiza\303\247\303\243o", 0));
         btnRemoveObject->setText(QApplication::translate("MainWindow", "Remover", 0));
         btnRemoveObject->setShortcut(QApplication::translate("MainWindow", "Ctrl+R", 0));
         btnInsertObject->setText(QApplication::translate("MainWindow", "Inserir", 0));
