@@ -10,27 +10,28 @@ MainWindow::MainWindow(ControladorUI* controladorUI, QDialog* parent,
 	this->zoomControl->setValue(50);
     this->viewportWidth = 510;
     this->viewportHeight = 475;
+    this->zoomValue = this->zoomControl->value();
 }
 
 MainWindow::~MainWindow() {}
 
-void MainWindow::updateObjects(QList<ObjetoGeometrico> objects) {
+void MainWindow::updateObjects(const QList<ObjetoGeometrico*>& objects) {
 	// Remover todos os objetos da tabela
 	while(this->tableObjects->rowCount() > 0)
 		this->tableObjects->removeRow(0);
 
 	// Inserir todos os objetos atualizados na tabela
-	for(ObjetoGeometrico obj : objects) {
+	for(ObjetoGeometrico* obj : objects) {
 		this->tableObjects->insertRow(this->tableObjects->rowCount());
-		QTableWidgetItem* type = new QTableWidgetItem(QString::fromStdString(obj.getTipoString()));
-		QTableWidgetItem* name = new QTableWidgetItem(QString::fromStdString(obj.getNome()));
+		QTableWidgetItem* type = new QTableWidgetItem(QString::fromStdString(obj->getTipoString()));
+		QTableWidgetItem* name = new QTableWidgetItem(QString::fromStdString(obj->getNome()));
 		this->tableObjects->setItem(this->tableObjects->rowCount() - 1, 0, type);
 		this->tableObjects->setItem(this->tableObjects->rowCount() - 1, 1, name);
 	}
 
 	QGraphicsView* g = this->graphicsView;
 	QGraphicsScene* scene = g->scene();
-	QList<ObjetoGeometrico> objs = this->viewportTransformation(objects);
+	QList<ObjetoGeometrico*> objs = this->viewportTransformation(objects);
 
 	if(scene)
 		delete scene;
@@ -39,26 +40,31 @@ void MainWindow::updateObjects(QList<ObjetoGeometrico> objects) {
 								this->viewportHeight - 6, this->graphicsView);
 
 	for(int i = 0; i < objs.size(); i++) {
-		QList<Ponto> pontos = objs.at(i).getPontos();
+		QList<Ponto> pontos = objs.at(i)->getPontos();
+		Ponto first = pontos.at(0);
 
 		if(pontos.size() > 1) {
-			Ponto ant = pontos.at(0);
+			Ponto ant = first;
 
 			for(int i = 1; i < pontos.size(); i++) {
 				scene->addLine(ant.getX(), ant.getY(), pontos.at(i).getX(), pontos.at(i).getY());
+				ant = pontos.at(i);
 			}
+			scene->addLine(ant.getX(), ant.getY(), first.getX(), first.getY());
 		} else {
-			Ponto p1 = pontos.at(0);
-			scene->addEllipse(p1.getX(), p1.getY(), 1, 1, Qt::SolidLine, Qt::SolidPattern);
+			scene->addEllipse(first.getX(), first.getY(), 1, 1, Qt::SolidLine, Qt::SolidPattern);
 		}
 	}
+
+	while(objs.size() > 0)
+		objs.removeAt(0);
 
 	this->graphicsView->setScene(scene);
 	this->graphicsView->repaint();
 }
 
-QList<ObjetoGeometrico> MainWindow::viewportTransformation(QList<ObjetoGeometrico> objects) {
-	QList<ObjetoGeometrico> newObjects;
+QList<ObjetoGeometrico*> MainWindow::viewportTransformation(const QList<ObjetoGeometrico*>& objects) {
+	QList<ObjetoGeometrico*> newObjects;
 	QList<Ponto> windowPoints = this->controladorUI->getPontosWindow();
 
 	double xwMin = windowPoints.at(0).getX();
@@ -67,28 +73,26 @@ QList<ObjetoGeometrico> MainWindow::viewportTransformation(QList<ObjetoGeometric
 	double ywMax = windowPoints.at(1).getY();
 
 	for(int i = 0; i < objects.size(); i++) {
-		ObjetoGeometrico obj = objects.at(i);
-		QList<Ponto> points = obj.getPontos();
+		ObjetoGeometrico* obj = objects.at(i);
+		QList<Ponto> points = obj->getPontos();
 		QList<Ponto> newPoints;
 		Ponto p1, p2;
 
-		switch(obj.getTipo()) {
+		switch(obj->getTipo()) {
 			case ObjetoGeometrico::PONTO:
-				obj = this->pointTransformation(points.at(0), xwMin, xwMax, ywMin, ywMax);
-				newObjects.insert(i, obj);
+				p1 = this->pointTransformation(points.at(0), xwMin, xwMax, ywMin, ywMax);
+				newObjects.insert(i, new Ponto(p1));
 				break;
 			case ObjetoGeometrico::RETA:
 				p1 = this->pointTransformation(points.at(0), xwMin, xwMax, ywMin, ywMax);
 				p2 = this->pointTransformation(points.at(1), xwMin, xwMax, ywMin, ywMax);
-				obj = Reta(obj.getNome(), p1, p2);
-				newObjects.insert(i, obj);
+				newObjects.insert(i, new Reta(obj->getNome(), p1, p2));
 				break;
 			case ObjetoGeometrico::POLIGONO:
-				for(int j = 0; j < points.size(); i++) {
+				for(int j = 0; j < points.size(); j++) {
 					newPoints.insert(j, this->pointTransformation(points.at(j), xwMin, xwMax, ywMin, ywMax));
 				}
-				obj = Poligono(obj.getNome(), newPoints);
-				newObjects.insert(i, obj);
+				newObjects.insert(i, new Poligono(obj->getNome(), newPoints));
 				break;
 			default:
 				break;
@@ -98,7 +102,9 @@ QList<ObjetoGeometrico> MainWindow::viewportTransformation(QList<ObjetoGeometric
 	return newObjects;
 }
 
-Ponto MainWindow::pointTransformation(const Ponto& point, double xwMin, double xwMax, double ywMin, double ywMax) {
+Ponto MainWindow::pointTransformation(const Ponto& point, const double xwMin, const double xwMax,
+									const double ywMin, const double ywMax) {
+	//std::cout << "transform: " << point.toString() << std::endl;
 	double xp = ((point.getX() - xwMin) / (xwMax - xwMin)) * this->viewportWidth;
 	double yp = (1 - (point.getY() - ywMin) / (ywMax - ywMin)) * this->viewportHeight;
 	Ponto newPoint(point.getNome(), xp, yp, 1);
@@ -130,27 +136,34 @@ void MainWindow::btnZoomOutPressed() {
 }
 
 void MainWindow::zoomControlValueChanged(int currentValue) {
+	int factor = currentValue - this->zoomValue;
+	double zoomFactor = (double) 1 / ((factor * 0.05) + 1);
 
+	if(factor < 0)
+		zoomFactor = (double) (factor * -0.05) + 1;
+
+	this->zoomValue = currentValue;
+	this->controladorUI->redimensionarWindow(zoomFactor);
 }
 
 void MainWindow::btnNavigationUpPressed() {
-
+	this->controladorUI->navegarNoMundo(Mundo::CIMA, 10);
 }
 
 void MainWindow::btnNavigationLeftPressed() {
-
+	this->controladorUI->navegarNoMundo(Mundo::ESQUERDA, 10);
 }
 
 void MainWindow::btnNavigationCenterPressed() {
-
+	// Nothing
 }
 
 void MainWindow::btnNavigationRightPressed() {
-
+	this->controladorUI->navegarNoMundo(Mundo::DIREITA, 10);
 }
 
 void MainWindow::btnNavigationDownPressed() {
-
+	this->controladorUI->navegarNoMundo(Mundo::BAIXO, 10);
 }
 
 void MainWindow::btnInsertObjectClicked() {

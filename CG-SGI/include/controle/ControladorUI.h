@@ -44,6 +44,19 @@ public:
 	void exibirObjectTransformationWindow(const String& nomeObjeto);
 
 	/**
+	 * Navegar no mundo (mover a window).
+	 * @param direcao direção de navegação.
+	 * @param fator fator de navegação.
+	 */
+	void navegarNoMundo(const Mundo::Direcao direcao, const double fator);
+
+	/**
+	 * Redimensionar a window do mundo (aplicação de zoom).
+	 * @param fator fator de escalonamento.
+	 */
+	void redimensionarWindow(const double fator);
+
+	/**
 	 * Inserir objeto geométrico.
 	 * @param nome nome do objeto.
 	 * @param pontos pontos do objeto.

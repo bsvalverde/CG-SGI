@@ -227,6 +227,7 @@ public:
         formLayout_4->setContentsMargins(-1, 5, -1, 5);
         labelPointZ1 = new QLabel(layoutWidget);
         labelPointZ1->setObjectName(QStringLiteral("labelPointZ1"));
+        labelPointZ1->setEnabled(false);
 
         formLayout_4->setWidget(0, QFormLayout::LabelRole, labelPointZ1);
 
@@ -312,6 +313,7 @@ public:
         formLayout_7->setContentsMargins(-1, 5, -1, 5);
         labelPointZ1_2 = new QLabel(layoutWidget_3);
         labelPointZ1_2->setObjectName(QStringLiteral("labelPointZ1_2"));
+        labelPointZ1_2->setEnabled(false);
 
         formLayout_7->setWidget(0, QFormLayout::LabelRole, labelPointZ1_2);
 
@@ -394,6 +396,7 @@ public:
         formLayout_10->setContentsMargins(-1, 5, -1, 5);
         labelPointZ1_3 = new QLabel(layoutWidget_4);
         labelPointZ1_3->setObjectName(QStringLiteral("labelPointZ1_3"));
+        labelPointZ1_3->setEnabled(false);
 
         formLayout_10->setWidget(0, QFormLayout::LabelRole, labelPointZ1_3);
 

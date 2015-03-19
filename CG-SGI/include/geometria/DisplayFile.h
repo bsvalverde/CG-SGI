@@ -35,21 +35,21 @@ public:
 	 * Inserir um objeto geométrico.
 	 * @param objeto objeto a ser adicionado.
 	 */
-	void inserirObjeto(const ObjetoGeometrico& objeto);
+	void inserirObjeto(ObjetoGeometrico* const objeto);
 
 	/**
 	 * Remover um objeto geométrico.
 	 * @param nome nome do objeto a ser removido.
 	 * @return o objeto removido.
 	 */
-	ObjetoGeometrico removerObjeto(const String& nome);
+	ObjetoGeometrico* removerObjeto(const String& nome);
 
 	/**
 	 * Obter um objeto geométrico.
 	 * @param nome nome do objeto a ser removido.
 	 * @return o objeto removido.
 	 */
-	ObjetoGeometrico getObjeto(const String& nome);
+	ObjetoGeometrico* getObjeto(const String& nome);
 
 	/**
 	 * Verificar se a lista contém um objeto.
@@ -60,12 +60,12 @@ public:
 
 	/**
 	 * Obter a lista de objetos geométricos.
-	 * @return mapa contendo os objetos geométricos.
+	 * @return lista contendo os objetos geométricos.
 	 */
-	QList<ObjetoGeometrico> getObjetos() const;
+	QList<ObjetoGeometrico*> getObjetos() const;
 
 private:
-	QMap<String, ObjetoGeometrico> objetos;
+	QMap<String, ObjetoGeometrico*> objetos;
 
 };
 
