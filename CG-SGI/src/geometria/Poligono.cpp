@@ -19,8 +19,13 @@ Poligono& Poligono::operator=(const Poligono& poligono) {
 	return *this;
 }
 
-QList<Ponto> Poligono::getPontos() const {
-	return this->pontos;
+QList<Ponto*> Poligono::getPontos() {
+	QList<Ponto*> lista;
+
+	for(int i = 0; i < this->pontos.size(); i++)
+		lista.insert(i, (Ponto*) &this->pontos.at(i));
+
+	return lista;
 }
 
 const String Poligono::toString() const {

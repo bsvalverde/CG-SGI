@@ -51,7 +51,7 @@ public:
 	 * Obter a window do mundo.
 	 * @return a window.
 	 */
-	const Window& getWindow() const;
+	Window* getWindow();
 
 	/**
 	 * Obter os objetos do mundo.
@@ -72,9 +72,42 @@ public:
 	 */
 	void redimensionarWindow(const double fator);
 
+	/**
+	 * Escalonar objeto.
+	 * @nome nome do objeto.
+	 * @param sX fator de escalonamento da coordenada x.
+	 * @param sY fator de escalonamento da coordenada y.
+	 * @param sZ fator de escalonamento da coordenada z.
+	 */
+	void escalonarObjeto(const String& nome, const double sX, const double sY, const double sZ);
+
+	/**
+	 * Transladar objeto.
+	 * @nome nome do objeto.
+	 * @param sX fator de translação da coordenada x.
+	 * @param sY fator de translação da coordenada y.
+	 * @param sZ fator de translação da coordenada z.
+	 */
+	void transladarObjeto(const String& nome, const double sX, const double sY, const double sZ);
+
+	/**
+	 * Rotacionar objeto em relação a um ponto específico.
+	 * @nome nome do objeto.
+	 * @param ponto ponto de rotação.
+	 * @param angulo ângulo de rotação em graus.
+	 */
+	void rotacionarObjetoPorPonto(const String& nome, const Ponto& ponto, const double angulo);
+
+	/**
+	 * Rotacionar objeto em relação ao centro geométrico.
+	 * @nome nome do objeto.
+	 * @param angulo ângulo de rotação em graus.
+	 */
+	void rotacionarObjetoPeloCentro(const String& nome, const double angulo);
+
 private:
 	DisplayFile displayFile;
-	Window window;
+	Window* window;
 
 };
 

@@ -2,6 +2,7 @@
 #define OBJETOGEOMETRICO_H_
 
 #include <QtCore/qlist.h>
+#include <cmath>
 #include <string>
 
 typedef std::string String;
@@ -58,7 +59,7 @@ public:
 	 * Obter os pontos do objeto.
 	 * @return lista de pontos.
 	 */
-	virtual QList<Ponto> getPontos() const;
+	virtual QList<Ponto*> getPontos();
 
 	/**
 	 * Converter o objeto em string.
@@ -88,7 +89,7 @@ public:
 	 * Obter o centro geométrico do objeto.
 	 * @return o ponto correspondento ao centro.
 	 */
-	const Ponto getCentroGeometrico() const;
+	const Ponto getCentroGeometrico();
 
 	/**
 	 * Operador de stream de saída.
@@ -100,10 +101,42 @@ public:
 		return out << o.toString();
 	}
 
-protected:
-	QList<Ponto> aplicarTransformacao(double matriz[3][3]);
+	/**
+	 * Transladar o objeto.
+	 * @param x fator de translação do eixo x.
+	 * @param y fator de translação do eixo y.
+	 * @param z fator de translação do eixo z.
+	 */
+	void transladar(const double x, const double y, const double z);
+
+	/**
+	 * Escalonar o objeto.
+	 * @param x fator de escalonamento do eixo x.
+	 * @param y fator de escalonamento do eixo y.
+	 * @param z fator de escalonamento do eixo z.
+	 */
+	void escalonar(const double x, const double y, const double z);
+
+	/**
+	 * Rotacionar em relação a um ponto específico.
+	 * @param ponto ponto de rotação.
+	 * @param angulo ângulo de rotação em graus.
+	 */
+	void rotacionarPorPonto(const Ponto& ponto, const double angulo);
+
+	/**
+	 * Rotacionar em relação ao centro geométrico.
+	 * @param angulo ângulo de rotação em graus.
+	 */
+	void rotacionarPeloCentro(const double angulo);
 
 protected:
+	/**
+	 * Aplicar uma transformação ao objeto.
+	 * @param matriz matriz de transformação.
+	 */
+	void aplicarTransformacao(const double matriz[4][4]);
+
 	String nome;
 	Tipo tipo;
 

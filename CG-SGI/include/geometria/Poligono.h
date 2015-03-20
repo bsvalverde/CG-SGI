@@ -40,7 +40,7 @@ public:
 	 * Obter os pontos do objeto.
 	 * @return lista de pontos.
 	 */
-	QList<Ponto> getPontos() const;
+	QList<Ponto*> getPontos();
 
 	/**
 	 * Converter o objeto em string.

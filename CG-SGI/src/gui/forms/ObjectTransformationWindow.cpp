@@ -69,54 +69,42 @@ void ObjectTransformationWindow::transformObject() {
 		messageBox.critical(this, "Erro", "Algum campo encontra-se vazio ou contém informação inválida!");
 		return;
 	}
-/*
-	QList<Ponto> pontos;
-	Ponto p;
-	double x, y, z;
-	String nome = this->fieldName->text().toStdString();
 
-	if(this->controladorUI->contemObjeto(nome)) {
+	double degree, x, y, z;
+
+	if(!this->controladorUI->contemObjeto(this->nomeObjeto)) {
 		QMessageBox messageBox;
-		messageBox.critical(this, "Erro", "Um objeto com este nome já existe!");
+		messageBox.critical(this, "Erro", "Nenhum objeto com este nome encontrado!");
 		return;
 	}
 
-	switch(this->tabObjects->currentIndex()) {
-		case 0:
-			x = this->fieldPointX->text().toDouble();
-			y = this->fieldPointY->text().toDouble();
-			z = 1;//this->fieldPointZ->text().toDouble();
-			p = Ponto(nome, x, y, z);
-			pontos.insert(0, p);
+	switch(this->tabTransformations->currentIndex()) {
+		case 0: // Escalonamento
+			x = this->fieldScaleFactorX->text().toDouble();
+			y = this->fieldScaleFactorY->text().toDouble();
+			z = 1;//this->fieldScaleFactorZ->text().toDouble();
+			this->controladorUI->escalonarObjeto(this->nomeObjeto, x, y, z);
 			break;
-		case 1:
-			x = this->fieldLineX1->text().toDouble();
-			y = this->fieldLineY1->text().toDouble();
-			z = 1;//this->fieldLineZ1->text().toDouble();
-			p = Ponto("", x, y, z);
-			pontos.insert(0, p);
+		case 1: // Rotação
+			degree = this->fieldRotateDegree->text().toDouble();
 
-			x = this->fieldLineX2->text().toDouble();
-			y = this->fieldLineY2->text().toDouble();
-			z = 1;//this->fieldLineZ2->text().toDouble();
-			p = Ponto("", x, y, z);
-			pontos.insert(1, p);
-			break;
-		default:
-			for(int i = 0; i < this->tablePoligonPoints->rowCount(); i++) {
-				String nomePonto = this->fieldName->text().toStdString();
-
-				x = this->tablePoligonPoints->item(i, 0)->text().toDouble();
-				y = this->tablePoligonPoints->item(i, 1)->text().toDouble();
-				z = 1;//this->tablePoligonPoints->item(i, 2)->text().toDouble();
-
-				p = Ponto(nomePonto, x, y, z);
-				pontos.insert(i, p);
+			if(this->radBtnSpecificPoint->isChecked()) {
+				x = this->fieldRotatePointX->text().toDouble();
+				y = this->fieldRotatePointY->text().toDouble();
+				z = 1;//this->fieldRotatePointZ->text().toDouble();
+				this->controladorUI->rotacionarObjetoPorPonto(this->nomeObjeto, Ponto("", x, y, z), degree);
+			} else {
+				this->controladorUI->rotacionarObjetoPeloCentro(this->nomeObjeto, degree);
 			}
+			break;
+		default: // Translação
+			x = this->fieldTranslateFactorX->text().toDouble();
+			y = this->fieldTranslateFactorY->text().toDouble();
+			z = 1;//this->fieldTranslateFactorZ->text().toDouble();
+			this->controladorUI->transladarObjeto(this->nomeObjeto, x, y, z);
 			break;
 	}
 
-	this->controladorUI->inserirObjeto(nome, pontos);*/
 	this->accept();
 }
 

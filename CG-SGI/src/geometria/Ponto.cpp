@@ -29,10 +29,16 @@ Ponto& Ponto::operator=(const Ponto& ponto) {
 	return *this;
 }
 
-QList<Ponto> Ponto::getPontos() const {
-	QList<Ponto> pontos;
-	pontos.insert(0, *this);
+QList<Ponto*> Ponto::getPontos() {
+	QList<Ponto*> pontos;
+	pontos.insert(0, this);
 	return pontos;
+}
+
+const String Ponto::toString() const {
+	String ponto = "(" + std::to_string(this->getX()) + ", " + std::to_string(this->getY()) + ", " +
+			std::to_string(this->getZ()) + ")";
+	return ponto;
 }
 
 const double Ponto::getX() const {
@@ -47,8 +53,14 @@ const double Ponto::getZ() const {
 	return this->coord_z;
 }
 
-const String Ponto::toString() const {
-	String ponto = "(" + std::to_string(this->getX()) + ", " + std::to_string(this->getY()) + ", " +
-			std::to_string(this->getZ()) + ")";
-	return ponto;
+void Ponto::setX(const double x){
+	this->coord_x = x;
+}
+
+void Ponto::setY(const double y){
+	this->coord_y = y;
+}
+
+void Ponto::setZ(const double z){
+	this->coord_z = z;
 }

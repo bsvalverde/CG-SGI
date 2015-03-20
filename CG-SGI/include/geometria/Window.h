@@ -6,7 +6,7 @@
 /**
  * Janela de visualização do mundo
  */
-class Window : ObjetoGeometrico {
+class Window : public ObjetoGeometrico {
 
 public:
 	/**
@@ -43,26 +43,13 @@ public:
 	 * Obter os pontos do objeto.
 	 * @return lista de pontos.
 	 */
-	QList<Ponto> getPontos() const;
+	QList<Ponto*> getPontos();
 
 	/**
 	 * Converter o objeto em string.
 	 * @return string representando o objeto.
 	 */
 	const String toString() const;
-
-	/**
-	 * Escalonar a window.
-	 * @param f fator de escalonamento.
-	 */
-	void escalonar(const double f);
-
-	/**
-	 * Transladar a window.
-	 * @param x fator de translação do eixo x
-	 * @param y fator de translação do eixo y
-	 */
-	void transladar(const double x, const double y);
 
 private:
 	Ponto pontoInferiorEsquerdo;
