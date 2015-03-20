@@ -22,10 +22,10 @@ Reta& Reta::operator=(const Reta& reta) {
 	return *this;
 }
 
-QList<Ponto> Reta::getPontos() const {
-	QList<Ponto> pontos;
-	pontos.insert(0, this->v_inicial);
-	pontos.insert(1, this->v_final);
+QList<Ponto*> Reta::getPontos() {
+	QList<Ponto*> pontos;
+	pontos.insert(0, &this->v_inicial);
+	pontos.insert(1, &this->v_final);
 	return pontos;
 }
 

@@ -37,6 +37,27 @@ void ControladorUI::redimensionarWindow(const double fator) {
 	this->mainWindow->updateObjects(this->mundo.getObjetos());
 }
 
+void ControladorUI::escalonarObjeto(const String& nome, const double sX, const double sY, const double sZ) {
+	this->mundo.escalonarObjeto(nome, sX, sY, sZ);
+	this->mainWindow->updateObjects(this->mundo.getObjetos());
+}
+
+void ControladorUI::transladarObjeto(const String& nome, const double sX, const double sY, const double sZ) {
+	this->mundo.transladarObjeto(nome, sX, sY, sZ);
+	this->mainWindow->updateObjects(this->mundo.getObjetos());
+
+}
+
+void ControladorUI::rotacionarObjetoPorPonto(const String& nome, const Ponto& ponto, const double angulo) {
+	this->mundo.rotacionarObjetoPorPonto(nome, ponto, angulo);
+	this->mainWindow->updateObjects(this->mundo.getObjetos());
+}
+
+void ControladorUI::rotacionarObjetoPeloCentro(const String& nome, const double angulo) {
+	this->mundo.rotacionarObjetoPeloCentro(nome, angulo);
+	this->mainWindow->updateObjects(this->mundo.getObjetos());
+}
+
 void ControladorUI::inserirObjeto(const String& nome, const QList<Ponto> pontos) {
 	int numeroPontos = pontos.size();
 
@@ -61,6 +82,6 @@ bool ControladorUI::contemObjeto(const String& nome) {
 	return this->mundo.contemObjeto(nome);
 }
 
-QList<Ponto> ControladorUI::getPontosWindow() const {
-	return this->mundo.getWindow().getPontos();
+QList<Ponto*> ControladorUI::getPontosWindow() {
+	return this->mundo.getWindow()->getPontos();
 }

@@ -40,19 +40,19 @@ void MainWindow::updateObjects(const QList<ObjetoGeometrico*>& objects) {
 								this->viewportHeight - 6, this->graphicsView);
 
 	for(int i = 0; i < objs.size(); i++) {
-		QList<Ponto> pontos = objs.at(i)->getPontos();
-		Ponto first = pontos.at(0);
+		QList<Ponto*> pontos = objs.at(i)->getPontos();
+		Ponto* first = pontos.at(0);
 
 		if(pontos.size() > 1) {
-			Ponto ant = first;
+			Ponto* ant = first;
 
 			for(int i = 1; i < pontos.size(); i++) {
-				scene->addLine(ant.getX(), ant.getY(), pontos.at(i).getX(), pontos.at(i).getY());
+				scene->addLine(ant->getX(), ant->getY(), pontos.at(i)->getX(), pontos.at(i)->getY());
 				ant = pontos.at(i);
 			}
-			scene->addLine(ant.getX(), ant.getY(), first.getX(), first.getY());
+			scene->addLine(ant->getX(), ant->getY(), first->getX(), first->getY());
 		} else {
-			scene->addEllipse(first.getX(), first.getY(), 1, 1, Qt::SolidLine, Qt::SolidPattern);
+			scene->addEllipse(first->getX(), first->getY(), 1, 1, Qt::SolidLine, Qt::SolidPattern);
 		}
 	}
 
@@ -65,32 +65,32 @@ void MainWindow::updateObjects(const QList<ObjetoGeometrico*>& objects) {
 
 QList<ObjetoGeometrico*> MainWindow::viewportTransformation(const QList<ObjetoGeometrico*>& objects) {
 	QList<ObjetoGeometrico*> newObjects;
-	QList<Ponto> windowPoints = this->controladorUI->getPontosWindow();
+	QList<Ponto*> windowPoints = this->controladorUI->getPontosWindow();
 
-	double xwMin = windowPoints.at(0).getX();
-	double xwMax = windowPoints.at(1).getX();
-	double ywMin = windowPoints.at(0).getY();
-	double ywMax = windowPoints.at(1).getY();
+	double xwMin = windowPoints.at(0)->getX();
+	double xwMax = windowPoints.at(1)->getX();
+	double ywMin = windowPoints.at(0)->getY();
+	double ywMax = windowPoints.at(1)->getY();
 
 	for(int i = 0; i < objects.size(); i++) {
 		ObjetoGeometrico* obj = objects.at(i);
-		QList<Ponto> points = obj->getPontos();
+		QList<Ponto*> points = obj->getPontos();
 		QList<Ponto> newPoints;
 		Ponto p1, p2;
 
 		switch(obj->getTipo()) {
 			case ObjetoGeometrico::PONTO:
-				p1 = this->pointTransformation(points.at(0), xwMin, xwMax, ywMin, ywMax);
+				p1 = this->pointTransformation(*points.at(0), xwMin, xwMax, ywMin, ywMax);
 				newObjects.insert(i, new Ponto(p1));
 				break;
 			case ObjetoGeometrico::RETA:
-				p1 = this->pointTransformation(points.at(0), xwMin, xwMax, ywMin, ywMax);
-				p2 = this->pointTransformation(points.at(1), xwMin, xwMax, ywMin, ywMax);
+				p1 = this->pointTransformation(*points.at(0), xwMin, xwMax, ywMin, ywMax);
+				p2 = this->pointTransformation(*points.at(1), xwMin, xwMax, ywMin, ywMax);
 				newObjects.insert(i, new Reta(obj->getNome(), p1, p2));
 				break;
 			case ObjetoGeometrico::POLIGONO:
 				for(int j = 0; j < points.size(); j++) {
-					newPoints.insert(j, this->pointTransformation(points.at(j), xwMin, xwMax, ywMin, ywMax));
+					newPoints.insert(j, this->pointTransformation(*points.at(j), xwMin, xwMax, ywMin, ywMax));
 				}
 				newObjects.insert(i, new Poligono(obj->getNome(), newPoints));
 				break;
