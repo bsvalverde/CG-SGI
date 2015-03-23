@@ -113,7 +113,7 @@ public:
 	 * Obter as coordenadas da window do mundo.
 	 * @return lista de pontos.
 	 */
-	QList<Ponto*> getPontosWindow();
+	QList<Ponto> getPontosWindow() const;
 
 private:
 	Mundo mundo;

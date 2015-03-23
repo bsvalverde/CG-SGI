@@ -82,6 +82,6 @@ bool ControladorUI::contemObjeto(const String& nome) {
 	return this->mundo.contemObjeto(nome);
 }
 
-QList<Ponto*> ControladorUI::getPontosWindow() {
+QList<Ponto> ControladorUI::getPontosWindow() const {
 	return this->mundo.getWindow()->getPontos();
 }

@@ -24,7 +24,7 @@ bool Mundo::contemObjeto(const String& nome) {
 	return this->displayFile.contem(nome);
 }
 
-Window* Mundo::getWindow() {
+Window* Mundo::getWindow() const {
 	return this->window;
 }
 

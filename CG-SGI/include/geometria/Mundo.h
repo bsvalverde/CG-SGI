@@ -51,7 +51,7 @@ public:
 	 * Obter a window do mundo.
 	 * @return a window.
 	 */
-	Window* getWindow();
+	Window* getWindow() const;
 
 	/**
 	 * Obter os objetos do mundo.

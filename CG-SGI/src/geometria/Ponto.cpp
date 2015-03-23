@@ -29,9 +29,9 @@ Ponto& Ponto::operator=(const Ponto& ponto) {
 	return *this;
 }
 
-QList<Ponto*> Ponto::getPontos() {
-	QList<Ponto*> pontos;
-	pontos.insert(0, this);
+QList<Ponto> Ponto::getPontos() const {
+	QList<Ponto> pontos;
+	pontos.insert(0, *this);
 	return pontos;
 }
 
@@ -63,4 +63,10 @@ void Ponto::setY(const double y){
 
 void Ponto::setZ(const double z){
 	this->coord_z = z;
+}
+
+QList<Ponto*> Ponto::getPontosObjeto() {
+	QList<Ponto*> pontos;
+	pontos.insert(0, this);
+	return pontos;
 }
