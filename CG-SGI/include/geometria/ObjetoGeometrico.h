@@ -57,9 +57,9 @@ public:
 
 	/**
 	 * Obter os pontos do objeto.
-	 * @return lista de pontos.
+	 * @return lista com a cópia dos pontos.
 	 */
-	virtual QList<Ponto*> getPontos();
+	virtual QList<Ponto> getPontos() const = 0;
 
 	/**
 	 * Converter o objeto em string.
@@ -89,7 +89,7 @@ public:
 	 * Obter o centro geométrico do objeto.
 	 * @return o ponto correspondento ao centro.
 	 */
-	const Ponto getCentroGeometrico();
+	const Ponto getCentroGeometrico() const;
 
 	/**
 	 * Operador de stream de saída.
@@ -102,20 +102,20 @@ public:
 	}
 
 	/**
-	 * Transladar o objeto.
-	 * @param x fator de translação do eixo x.
-	 * @param y fator de translação do eixo y.
-	 * @param z fator de translação do eixo z.
+	 * Escalonar o objeto.
+	 * @param sX fator de escalonamento do eixo x.
+	 * @param sY fator de escalonamento do eixo y.
+	 * @param sZ fator de escalonamento do eixo z.
 	 */
-	void transladar(const double x, const double y, const double z);
+	void escalonar(const double sX, const double sY, const double sZ);
 
 	/**
-	 * Escalonar o objeto.
-	 * @param x fator de escalonamento do eixo x.
-	 * @param y fator de escalonamento do eixo y.
-	 * @param z fator de escalonamento do eixo z.
+	 * Transladar o objeto.
+	 * @param sX fator de translação do eixo x.
+	 * @param sY fator de translação do eixo y.
+	 * @param sZ fator de translação do eixo z.
 	 */
-	void escalonar(const double x, const double y, const double z);
+	void transladar(const double sX, const double sY, const double sZ);
 
 	/**
 	 * Rotacionar em relação a um ponto específico.
@@ -131,6 +131,12 @@ public:
 	void rotacionarPeloCentro(const double angulo);
 
 protected:
+	/**
+	 * Obter os pontos do objeto.
+	 * @return lista de pontos.
+	 */
+	virtual QList<Ponto*> getPontosObjeto() = 0;
+
 	/**
 	 * Aplicar uma transformação ao objeto.
 	 * @param matriz matriz de transformação.

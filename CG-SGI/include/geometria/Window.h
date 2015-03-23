@@ -41,9 +41,9 @@ public:
 
 	/**
 	 * Obter os pontos do objeto.
-	 * @return lista de pontos.
+	 * @return lista com a cópia dos pontos.
 	 */
-	QList<Ponto*> getPontos();
+	QList<Ponto> getPontos() const;
 
 	/**
 	 * Converter o objeto em string.
@@ -51,7 +51,13 @@ public:
 	 */
 	const String toString() const;
 
-private:
+protected:
+	/**
+	 * Obter os pontos do objeto.
+	 * @return lista de pontos.
+	 */
+	QList<Ponto*> getPontosObjeto();
+
 	Ponto pontoInferiorEsquerdo;
 	Ponto pontoSuperiorDireito;
 

@@ -21,14 +21,21 @@ Window& Window::operator=(const Window& window) {
 	return *this;
 }
 
-QList<Ponto*> Window::getPontos() {
-	QList<Ponto*> pontos;
-	pontos.insert(0, &this->pontoInferiorEsquerdo);
-	pontos.insert(1, &this->pontoSuperiorDireito);
+QList<Ponto> Window::getPontos() const {
+	QList<Ponto> pontos;
+	pontos.insert(0, this->pontoInferiorEsquerdo);
+	pontos.insert(1, this->pontoSuperiorDireito);
 	return pontos;
 }
 
 const String Window::toString() const {
 	return this->nome + "[" + this->pontoInferiorEsquerdo.toString() +
 				", " + this->pontoSuperiorDireito.toString() + "]";
+}
+
+QList<Ponto*> Window::getPontosObjeto() {
+	QList<Ponto*> pontos;
+	pontos.insert(0, &this->pontoInferiorEsquerdo);
+	pontos.insert(1, &this->pontoSuperiorDireito);
+	return pontos;
 }
