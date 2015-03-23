@@ -24,14 +24,12 @@ QList<Ponto> Poligono::getPontos() const {
 }
 
 const String Poligono::toString() const {
-	String str = "[" + this->pontos.at(0).toString();
+	String str = this->pontos.at(0).toString();
 
 	for(int i = 1; i < this->pontos.size(); i++)
 		str += ", " + this->pontos.at(i).toString();
 
-	str += "]";
-
-	return str;
+	return "[" + str + "]";
 }
 
 QList<Ponto*> Poligono::getPontosObjeto() {

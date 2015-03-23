@@ -52,7 +52,7 @@ void MainWindow::updateObjects(const QList<ObjetoGeometrico*>& objects) {
 			}
 			scene->addLine(ant.getX(), ant.getY(), first.getX(), first.getY());
 		} else {
-			scene->addEllipse(first.getX(), first.getY(), 1, 1, Qt::SolidLine, Qt::SolidPattern);
+			scene->addEllipse(first.getX(), first.getY(), 2, 2);
 		}
 	}
 

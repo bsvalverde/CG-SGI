@@ -105,7 +105,7 @@ public:
 	 */
 	void rotacionarObjetoPeloCentro(const String& nome, const double angulo);
 
-private:
+protected:
 	DisplayFile displayFile;
 	Window* window;
 

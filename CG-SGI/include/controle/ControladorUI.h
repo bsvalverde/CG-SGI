@@ -115,7 +115,7 @@ public:
 	 */
 	QList<Ponto> getPontosWindow() const;
 
-private:
+protected:
 	Mundo mundo;
 	MainWindow* mainWindow;
 	ObjectInsertionWindow* objectInsertionWindow;
