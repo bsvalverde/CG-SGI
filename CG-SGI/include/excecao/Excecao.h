@@ -4,30 +4,32 @@
 #include <exception>
 #include <string>
 
+typedef std::string String;
+
 /**
- * Exceção
+ * Exceção.
  */
 class Excecao : public std::exception {
 
 public:
 	/**
-	 * Destrutor
+	 * Destrutor.
 	 */
 	virtual ~Excecao() throw() { }
 
 	/**
-	 * Obter a mensagem da excção como string de C
-	 * @return A mensagem correspondente
+	 * Obter a mensagem da excção como string de C.
+	 * @return A mensagem correspondente.
 	 */
 	virtual const char* what() const throw() {
 		return this->getMensagem().c_str();
 	}
 
 	/**
-	 * Obter a mensagem da exceção como string de C++
-	 * @return A mensagem correspondente
+	 * Obter a mensagem da exceção como string de C++.
+	 * @return A mensagem correspondente.
 	 */
-	virtual std::string getMensagem() const = 0;
+	virtual String getMensagem() const = 0;
 
 };
 

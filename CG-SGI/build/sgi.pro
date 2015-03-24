@@ -19,6 +19,7 @@ UI_DIR = include/gui/forms/ui
 TARGET = SGI.app
 
 HEADERS  += include/gui/forms/*.h \
+include/excecao/*.h \
 
 SOURCES += src/gui/forms/*.cpp \
 src/controle/*.cpp \
