@@ -23,5 +23,6 @@ HEADERS  += include/gui/forms/*.h \
 SOURCES += src/gui/forms/*.cpp \
 src/controle/*.cpp \
 src/geometria/*.cpp \
+src/persistencia/*.cpp \
 
 FORMS    += src/gui/forms/ui/*.ui \
