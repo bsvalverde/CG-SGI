@@ -6,7 +6,6 @@
 #include "gui/forms/DefaultWindow.h"
 #include "gui/forms/ui/ui_MainWindow.h"
 #include "geometria/Mundo.h"
-#include <iostream>
 
 class MainWindow : public DefaultWindow, private Ui::MainWindow {
 	Q_OBJECT

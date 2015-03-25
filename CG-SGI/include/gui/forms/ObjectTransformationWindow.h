@@ -7,7 +7,6 @@
 #include "geometria/Ponto.h"
 #include "gui/forms/ui/ui_ObjectTransformationWindow.h"
 #include "gui/forms/DefaultWindow.h"
-#include <iostream>
 
 class ObjectTransformationWindow : public DefaultWindow, private Ui::ObjectTransformationWindow {
 	Q_OBJECT

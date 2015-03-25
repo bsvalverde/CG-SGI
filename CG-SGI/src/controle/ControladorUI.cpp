@@ -58,16 +58,16 @@ void ControladorUI::rotacionarObjetoPeloCentro(const String& nome, const double 
 	this->mainWindow->updateObjects(this->mundo.getObjetos());
 }
 
-void ControladorUI::inserirObjeto(const String& nome, const QList<Ponto> pontos) {
+void ControladorUI::inserirObjeto(const String& nome, const QList<Ponto> pontos, const QColor& cor) {
 	int numeroPontos = pontos.size();
 
 	if(numeroPontos == 1) {
 		Ponto p = pontos.at(0);
-		this->mundo.inserirObjeto(new Ponto(nome, p.getX(), p.getY(), p.getZ()));
+		this->mundo.inserirObjeto(new Ponto(nome, p.getX(), p.getY(), p.getZ(), cor));
 	} else if(numeroPontos == 2) {
-		this->mundo.inserirObjeto(new Reta(nome, pontos.at(0), pontos.at(1)));
+		this->mundo.inserirObjeto(new Reta(nome, pontos.at(0), pontos.at(1), cor));
 	} else if(numeroPontos > 2) {
-		this->mundo.inserirObjeto(new Poligono(nome, pontos));
+		this->mundo.inserirObjeto(new Poligono(nome, pontos, cor));
 	}
 
 	this->mainWindow->updateObjects(this->mundo.getObjetos());

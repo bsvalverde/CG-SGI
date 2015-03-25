@@ -7,8 +7,8 @@ Reta::Reta(const Reta& reta) : ObjetoGeometrico(reta) {
 	this->v_final = reta.v_final;
 }
 
-Reta::Reta(const String& nome, const Ponto& inicial, const Ponto& final) :
-			ObjetoGeometrico(nome, Tipo::RETA) {
+Reta::Reta(const String& nome, const Ponto& inicial, const Ponto& final, const QColor& cor) :
+			ObjetoGeometrico(nome, Tipo::RETA, cor) {
 	this->v_inicial = inicial;
 	this->v_final = final;
 }

@@ -33,9 +33,6 @@ class Ui_ObjectInsertionWindow
 public:
     QWidget *gridLayoutWidget;
     QGridLayout *gridLayout;
-    QFormLayout *formLayout;
-    QLabel *labelName;
-    QLineEdit *fieldName;
     QGridLayout *gridLayout2;
     QPushButton *btnCancel;
     QPushButton *btnInsert;
@@ -86,6 +83,13 @@ public:
     QPushButton *btnRemovePoint;
     QPushButton *btnInsertPoint;
     QSpacerItem *horizontalSpacer_2;
+    QHBoxLayout *horizontalLayout_4;
+    QFormLayout *formLayout;
+    QLabel *labelName;
+    QLineEdit *fieldName;
+    QFormLayout *formLayout_11;
+    QLabel *labelColor;
+    QPushButton *btnColor;
 
     void setupUi(QWidget *ObjectInsertionWindow)
     {
@@ -111,29 +115,6 @@ public:
         gridLayout = new QGridLayout(gridLayoutWidget);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
         gridLayout->setContentsMargins(0, 0, 0, 0);
-        formLayout = new QFormLayout();
-        formLayout->setObjectName(QStringLiteral("formLayout"));
-        formLayout->setFieldGrowthPolicy(QFormLayout::AllNonFixedFieldsGrow);
-        formLayout->setContentsMargins(10, 5, 10, 10);
-        labelName = new QLabel(gridLayoutWidget);
-        labelName->setObjectName(QStringLiteral("labelName"));
-
-        formLayout->setWidget(0, QFormLayout::LabelRole, labelName);
-
-        fieldName = new QLineEdit(gridLayoutWidget);
-        fieldName->setObjectName(QStringLiteral("fieldName"));
-        QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Preferred);
-        sizePolicy1.setHorizontalStretch(0);
-        sizePolicy1.setVerticalStretch(30);
-        sizePolicy1.setHeightForWidth(fieldName->sizePolicy().hasHeightForWidth());
-        fieldName->setSizePolicy(sizePolicy1);
-        fieldName->setMaxLength(25);
-
-        formLayout->setWidget(0, QFormLayout::FieldRole, fieldName);
-
-
-        gridLayout->addLayout(formLayout, 0, 0, 1, 1);
-
         gridLayout2 = new QGridLayout();
         gridLayout2->setObjectName(QStringLiteral("gridLayout2"));
         btnCancel = new QPushButton(gridLayoutWidget);
@@ -151,7 +132,7 @@ public:
         gridLayout2->addItem(horizontalSpacer, 0, 1, 1, 1);
 
 
-        gridLayout->addLayout(gridLayout2, 6, 0, 1, 1);
+        gridLayout->addLayout(gridLayout2, 5, 0, 1, 1);
 
         tabObjects = new QTabWidget(gridLayoutWidget);
         tabObjects->setObjectName(QStringLiteral("tabObjects"));
@@ -189,11 +170,11 @@ public:
         fieldPointX = new QLineEdit(layoutWidget);
         fieldPointX->setObjectName(QStringLiteral("fieldPointX"));
         fieldPointX->setEnabled(true);
-        QSizePolicy sizePolicy2(QSizePolicy::Expanding, QSizePolicy::Expanding);
-        sizePolicy2.setHorizontalStretch(0);
-        sizePolicy2.setVerticalStretch(0);
-        sizePolicy2.setHeightForWidth(fieldPointX->sizePolicy().hasHeightForWidth());
-        fieldPointX->setSizePolicy(sizePolicy2);
+        QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(fieldPointX->sizePolicy().hasHeightForWidth());
+        fieldPointX->setSizePolicy(sizePolicy1);
         fieldPointX->setMaximumSize(QSize(16777214, 30));
         fieldPointX->setMaxLength(50);
 
@@ -212,8 +193,8 @@ public:
 
         fieldPointY = new QLineEdit(layoutWidget);
         fieldPointY->setObjectName(QStringLiteral("fieldPointY"));
-        sizePolicy2.setHeightForWidth(fieldPointY->sizePolicy().hasHeightForWidth());
-        fieldPointY->setSizePolicy(sizePolicy2);
+        sizePolicy1.setHeightForWidth(fieldPointY->sizePolicy().hasHeightForWidth());
+        fieldPointY->setSizePolicy(sizePolicy1);
         fieldPointY->setMaximumSize(QSize(16777215, 30));
         fieldPointY->setMaxLength(50);
 
@@ -234,8 +215,8 @@ public:
         fieldPointZ = new QLineEdit(layoutWidget);
         fieldPointZ->setObjectName(QStringLiteral("fieldPointZ"));
         fieldPointZ->setEnabled(false);
-        sizePolicy2.setHeightForWidth(fieldPointZ->sizePolicy().hasHeightForWidth());
-        fieldPointZ->setSizePolicy(sizePolicy2);
+        sizePolicy1.setHeightForWidth(fieldPointZ->sizePolicy().hasHeightForWidth());
+        fieldPointZ->setSizePolicy(sizePolicy1);
         fieldPointZ->setMaximumSize(QSize(16777215, 30));
         fieldPointZ->setMaxLength(50);
 
@@ -278,8 +259,8 @@ public:
 
         fieldLineX1 = new QLineEdit(layoutWidget_3);
         fieldLineX1->setObjectName(QStringLiteral("fieldLineX1"));
-        sizePolicy2.setHeightForWidth(fieldLineX1->sizePolicy().hasHeightForWidth());
-        fieldLineX1->setSizePolicy(sizePolicy2);
+        sizePolicy1.setHeightForWidth(fieldLineX1->sizePolicy().hasHeightForWidth());
+        fieldLineX1->setSizePolicy(sizePolicy1);
         fieldLineX1->setMaximumSize(QSize(16777214, 30));
         fieldLineX1->setMaxLength(50);
 
@@ -298,8 +279,8 @@ public:
 
         fieldLineY1 = new QLineEdit(layoutWidget_3);
         fieldLineY1->setObjectName(QStringLiteral("fieldLineY1"));
-        sizePolicy2.setHeightForWidth(fieldLineY1->sizePolicy().hasHeightForWidth());
-        fieldLineY1->setSizePolicy(sizePolicy2);
+        sizePolicy1.setHeightForWidth(fieldLineY1->sizePolicy().hasHeightForWidth());
+        fieldLineY1->setSizePolicy(sizePolicy1);
         fieldLineY1->setMaximumSize(QSize(16777215, 30));
         fieldLineY1->setMaxLength(50);
 
@@ -320,8 +301,8 @@ public:
         fieldLineZ1 = new QLineEdit(layoutWidget_3);
         fieldLineZ1->setObjectName(QStringLiteral("fieldLineZ1"));
         fieldLineZ1->setEnabled(false);
-        sizePolicy2.setHeightForWidth(fieldLineZ1->sizePolicy().hasHeightForWidth());
-        fieldLineZ1->setSizePolicy(sizePolicy2);
+        sizePolicy1.setHeightForWidth(fieldLineZ1->sizePolicy().hasHeightForWidth());
+        fieldLineZ1->setSizePolicy(sizePolicy1);
         fieldLineZ1->setMaximumSize(QSize(16777215, 30));
         fieldLineZ1->setMaxLength(50);
 
@@ -361,8 +342,8 @@ public:
 
         fieldLineX2 = new QLineEdit(layoutWidget_4);
         fieldLineX2->setObjectName(QStringLiteral("fieldLineX2"));
-        sizePolicy2.setHeightForWidth(fieldLineX2->sizePolicy().hasHeightForWidth());
-        fieldLineX2->setSizePolicy(sizePolicy2);
+        sizePolicy1.setHeightForWidth(fieldLineX2->sizePolicy().hasHeightForWidth());
+        fieldLineX2->setSizePolicy(sizePolicy1);
         fieldLineX2->setMaximumSize(QSize(16777214, 30));
         fieldLineX2->setMaxLength(50);
 
@@ -381,8 +362,8 @@ public:
 
         fieldLineY2 = new QLineEdit(layoutWidget_4);
         fieldLineY2->setObjectName(QStringLiteral("fieldLineY2"));
-        sizePolicy2.setHeightForWidth(fieldLineY2->sizePolicy().hasHeightForWidth());
-        fieldLineY2->setSizePolicy(sizePolicy2);
+        sizePolicy1.setHeightForWidth(fieldLineY2->sizePolicy().hasHeightForWidth());
+        fieldLineY2->setSizePolicy(sizePolicy1);
         fieldLineY2->setMaximumSize(QSize(16777215, 30));
         fieldLineY2->setMaxLength(50);
 
@@ -403,8 +384,8 @@ public:
         fieldLineZ2 = new QLineEdit(layoutWidget_4);
         fieldLineZ2->setObjectName(QStringLiteral("fieldLineZ2"));
         fieldLineZ2->setEnabled(false);
-        sizePolicy2.setHeightForWidth(fieldLineZ2->sizePolicy().hasHeightForWidth());
-        fieldLineZ2->setSizePolicy(sizePolicy2);
+        sizePolicy1.setHeightForWidth(fieldLineZ2->sizePolicy().hasHeightForWidth());
+        fieldLineZ2->setSizePolicy(sizePolicy1);
         fieldLineZ2->setMaximumSize(QSize(16777215, 30));
         fieldLineZ2->setMaxLength(50);
 
@@ -453,7 +434,66 @@ public:
 
         tabObjects->addTab(tabPoligon, QString());
 
-        gridLayout->addWidget(tabObjects, 5, 0, 1, 1);
+        gridLayout->addWidget(tabObjects, 4, 0, 1, 1);
+
+        horizontalLayout_4 = new QHBoxLayout();
+        horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
+        formLayout = new QFormLayout();
+        formLayout->setObjectName(QStringLiteral("formLayout"));
+        formLayout->setFieldGrowthPolicy(QFormLayout::AllNonFixedFieldsGrow);
+        formLayout->setContentsMargins(10, 5, 0, 10);
+        labelName = new QLabel(gridLayoutWidget);
+        labelName->setObjectName(QStringLiteral("labelName"));
+
+        formLayout->setWidget(0, QFormLayout::LabelRole, labelName);
+
+        fieldName = new QLineEdit(gridLayoutWidget);
+        fieldName->setObjectName(QStringLiteral("fieldName"));
+        QSizePolicy sizePolicy2(QSizePolicy::Expanding, QSizePolicy::Preferred);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(30);
+        sizePolicy2.setHeightForWidth(fieldName->sizePolicy().hasHeightForWidth());
+        fieldName->setSizePolicy(sizePolicy2);
+        fieldName->setMaxLength(25);
+
+        formLayout->setWidget(0, QFormLayout::FieldRole, fieldName);
+
+
+        horizontalLayout_4->addLayout(formLayout);
+
+        formLayout_11 = new QFormLayout();
+        formLayout_11->setObjectName(QStringLiteral("formLayout_11"));
+        formLayout_11->setFieldGrowthPolicy(QFormLayout::AllNonFixedFieldsGrow);
+        formLayout_11->setContentsMargins(10, 5, 10, 10);
+        labelColor = new QLabel(gridLayoutWidget);
+        labelColor->setObjectName(QStringLiteral("labelColor"));
+        QSizePolicy sizePolicy3(QSizePolicy::Minimum, QSizePolicy::Minimum);
+        sizePolicy3.setHorizontalStretch(0);
+        sizePolicy3.setVerticalStretch(0);
+        sizePolicy3.setHeightForWidth(labelColor->sizePolicy().hasHeightForWidth());
+        labelColor->setSizePolicy(sizePolicy3);
+
+        formLayout_11->setWidget(0, QFormLayout::LabelRole, labelColor);
+
+        btnColor = new QPushButton(gridLayoutWidget);
+        btnColor->setObjectName(QStringLiteral("btnColor"));
+        QSizePolicy sizePolicy4(QSizePolicy::Minimum, QSizePolicy::Preferred);
+        sizePolicy4.setHorizontalStretch(0);
+        sizePolicy4.setVerticalStretch(30);
+        sizePolicy4.setHeightForWidth(btnColor->sizePolicy().hasHeightForWidth());
+        btnColor->setSizePolicy(sizePolicy4);
+        btnColor->setStyleSheet(QLatin1String("QPushButton  {\n"
+"    border-radius: 5px;\n"
+"	background-color: rgb(0, 0, 0);\n"
+"}"));
+
+        formLayout_11->setWidget(0, QFormLayout::FieldRole, btnColor);
+
+
+        horizontalLayout_4->addLayout(formLayout_11);
+
+
+        gridLayout->addLayout(horizontalLayout_4, 0, 0, 1, 1);
 
         QWidget::setTabOrder(fieldName, tabObjects);
         QWidget::setTabOrder(tabObjects, fieldPointX);
@@ -482,9 +522,6 @@ public:
     void retranslateUi(QWidget *ObjectInsertionWindow)
     {
         ObjectInsertionWindow->setWindowTitle(QApplication::translate("ObjectInsertionWindow", "Inserir Objeto", 0));
-        labelName->setText(QApplication::translate("ObjectInsertionWindow", "Nome", 0));
-        fieldName->setInputMask(QString());
-        fieldName->setText(QString());
         btnCancel->setText(QApplication::translate("ObjectInsertionWindow", "Cancelar", 0));
         btnInsert->setText(QApplication::translate("ObjectInsertionWindow", "Ok", 0));
         groupBox->setTitle(QApplication::translate("ObjectInsertionWindow", "Coordenadas", 0));
@@ -512,6 +549,11 @@ public:
         btnRemovePoint->setText(QApplication::translate("ObjectInsertionWindow", "Remover Ponto", 0));
         btnInsertPoint->setText(QApplication::translate("ObjectInsertionWindow", "Inserir Ponto", 0));
         tabObjects->setTabText(tabObjects->indexOf(tabPoligon), QApplication::translate("ObjectInsertionWindow", "Pol\303\255gono", 0));
+        labelName->setText(QApplication::translate("ObjectInsertionWindow", "Nome", 0));
+        fieldName->setInputMask(QString());
+        fieldName->setText(QString());
+        labelColor->setText(QApplication::translate("ObjectInsertionWindow", "Cor", 0));
+        btnColor->setText(QString());
     } // retranslateUi
 
 };

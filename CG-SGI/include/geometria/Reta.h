@@ -25,8 +25,9 @@ public:
 	 * @param nome nome do objeto.
 	 * @param inicial ponto inicial.
 	 * @param final ponto final.
+	 * @param cor cor da reta.
 	 */
-	Reta(const String& nome, const Ponto& inicial, const Ponto& final);
+	Reta(const String& nome, const Ponto& inicial, const Ponto& final, const QColor& cor = QColor(0, 0, 0));
 
 	/**
 	 * Destrutor.

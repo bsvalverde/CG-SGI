@@ -4,16 +4,19 @@
 ObjetoGeometrico::ObjetoGeometrico(const ObjetoGeometrico& objeto) {
 	this->nome = objeto.nome;
 	this->tipo = objeto.tipo;
+	this->cor = objeto.cor;
 }
 
 ObjetoGeometrico::ObjetoGeometrico() {
 	this->nome = "";
 	this->tipo = Tipo::POLIGONO;
+	this->cor = QColor(0, 0, 0);
 }
 
-ObjetoGeometrico::ObjetoGeometrico(const String& nome, const Tipo tipo) {
+ObjetoGeometrico::ObjetoGeometrico(const String& nome, const Tipo tipo, const QColor& cor) {
 	this->nome = nome;
 	this->tipo = tipo;
+	this->cor = cor;
 }
 
 ObjetoGeometrico::~ObjetoGeometrico() {}
@@ -21,6 +24,7 @@ ObjetoGeometrico::~ObjetoGeometrico() {}
 ObjetoGeometrico& ObjetoGeometrico::operator=(const ObjetoGeometrico& objeto) {
 	this->nome = objeto.nome;
 	this->tipo = objeto.tipo;
+	this->cor = objeto.cor;
 	return *this;
 }
 
@@ -30,6 +34,10 @@ const String ObjetoGeometrico::toString() const {
 
 const String& ObjetoGeometrico::getNome() const {
 	return this->nome;
+}
+
+const QColor& ObjetoGeometrico::getCor() const {
+	return this->cor;
 }
 
 ObjetoGeometrico::Tipo ObjetoGeometrico::getTipo() const {
@@ -67,6 +75,10 @@ const Ponto ObjetoGeometrico::getCentroGeometrico() const {
 	z = z/numPontos;
 
 	return Ponto("CentroG-" + this->getNome(), x, y, z);
+}
+
+void ObjetoGeometrico::setCor(const QColor& cor) {
+	this->cor = cor;
 }
 
 void ObjetoGeometrico::escalonar(const double sX, const double sY, const double sZ) {

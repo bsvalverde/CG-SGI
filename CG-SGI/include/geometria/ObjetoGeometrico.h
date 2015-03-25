@@ -2,6 +2,8 @@
 #define OBJETOGEOMETRICO_H_
 
 #include <QtCore/qlist.h>
+#include <QtGui/qcolor.h>
+
 #include <cmath>
 #include <string>
 
@@ -40,8 +42,9 @@ public:
 	 * Construtor.
 	 * @param nome nome do objeto.
 	 * @param tipo tipo do objeto.
+	 * @param cor cor do objeto.
 	 */
-	ObjetoGeometrico(const String& nome, const Tipo tipo);
+	ObjetoGeometrico(const String& nome, const Tipo tipo, const QColor& cor = QColor(0, 0, 0));
 
 	/**
 	 * Destrutor.
@@ -74,6 +77,12 @@ public:
 	const String& getNome() const;
 
 	/**
+	 * Obter a cor do objeto.
+	 * @return cor do objeto.
+	 */
+	const QColor& getCor() const;
+
+	/**
 	 * Obter o tipo.
 	 * @return tipo do objeto.
 	 */
@@ -90,6 +99,12 @@ public:
 	 * @return o ponto correspondento ao centro.
 	 */
 	const Ponto getCentroGeometrico() const;
+
+	/**
+	 * Definir a cor do objeto.
+	 * @param cor cor do objeto.
+	 */
+	void setCor(const QColor& cor);
 
 	/**
 	 * Operador de stream de saída.
@@ -145,6 +160,7 @@ protected:
 
 	String nome;
 	Tipo tipo;
+	QColor cor;
 
 };
 

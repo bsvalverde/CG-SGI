@@ -8,6 +8,7 @@ ObjectInsertionWindow::ObjectInsertionWindow(ControladorUI* controladorUI, QDial
 }
 
 void ObjectInsertionWindow::connectSignalsAndSlots() {
+	QObject::connect(btnColor, SIGNAL(clicked()), this, SLOT(btnSelectColorClicked()));
 	QObject::connect(btnCancel, SIGNAL(clicked()), this, SLOT(reject()));
 	QObject::connect(btnInsert, SIGNAL(clicked()), this, SLOT(insertObject()));
 	QObject::connect(btnRemovePoint, SIGNAL(clicked()), this, SLOT(removePoligonPoint()));
@@ -30,6 +31,11 @@ void ObjectInsertionWindow::clearFields(){
 		this->tablePoligonPoints->removeRow(0);
 
 	this->tabObjects->setCurrentIndex(0);
+
+	QString style = QString("QPushButton  {"
+					"    border-radius: 5px;"
+					"    background-color: black }");
+	this->btnColor->setStyleSheet(style);
 }
 
 bool ObjectInsertionWindow::validateFields() {
@@ -87,12 +93,12 @@ void ObjectInsertionWindow::insertObject() {
 		return;
 	}
 
-	QList<Ponto> pontos;
+	QList<Ponto> points;
 	Ponto p;
 	double x, y, z;
-	String nome = this->fieldName->text().toStdString();
+	String name = this->fieldName->text().toStdString();
 
-	if(this->controladorUI->contemObjeto(nome)) {
+	if(this->controladorUI->contemObjeto(name)) {
 		QMessageBox messageBox;
 		messageBox.critical(this, "Erro", "Um objeto com este nome já existe!");
 		return;
@@ -103,21 +109,21 @@ void ObjectInsertionWindow::insertObject() {
 			x = this->fieldPointX->text().toDouble();
 			y = this->fieldPointY->text().toDouble();
 			z = 1;//this->fieldPointZ->text().toDouble();
-			p = Ponto(nome, x, y, z);
-			pontos.insert(0, p);
+			p = Ponto(name, x, y, z);
+			points.insert(0, p);
 			break;
 		case 1:
 			x = this->fieldLineX1->text().toDouble();
 			y = this->fieldLineY1->text().toDouble();
 			z = 1;//this->fieldLineZ1->text().toDouble();
 			p = Ponto("", x, y, z);
-			pontos.insert(0, p);
+			points.insert(0, p);
 
 			x = this->fieldLineX2->text().toDouble();
 			y = this->fieldLineY2->text().toDouble();
 			z = 1;//this->fieldLineZ2->text().toDouble();
 			p = Ponto("", x, y, z);
-			pontos.insert(1, p);
+			points.insert(1, p);
 			break;
 		default:
 			for(int i = 0; i < this->tablePoligonPoints->rowCount(); i++) {
@@ -128,12 +134,14 @@ void ObjectInsertionWindow::insertObject() {
 				z = 1;//this->tablePoligonPoints->item(i, 2)->text().toDouble();
 
 				p = Ponto(nomePonto, x, y, z);
-				pontos.insert(i, p);
+				points.insert(i, p);
 			}
 			break;
 	}
 
-	this->controladorUI->inserirObjeto(nome, pontos);
+	QColor color = this->btnColor->palette().color(this->btnColor->backgroundRole());
+
+	this->controladorUI->inserirObjeto(name, points, color);
 	this->accept();
 }
 
@@ -145,4 +153,13 @@ void ObjectInsertionWindow::removePoligonPoint() {
 	QItemSelectionModel *selectionModel = this->tablePoligonPoints->selectionModel();
 	for(QModelIndex index : selectionModel->selectedRows())
 	    tablePoligonPoints->removeRow(index.row());
+}
+
+void ObjectInsertionWindow::btnSelectColorClicked() {
+	QColor color = QColorDialog::getColor(this->btnColor->palette().color(this->btnColor->backgroundRole()), this);
+
+	QString style = QString("QPushButton  {"
+					"    border-radius: 5px;"
+					"    background-color: " + color.name() + " }");
+	this->btnColor->setStyleSheet(style);
 }

@@ -12,11 +12,11 @@ Ponto::Ponto(const Ponto& ponto) : ObjetoGeometrico(ponto) {
 	this->coord_z = ponto.coord_z;
 }
 
-Ponto::Ponto(const String& nome, const double x, const double y, const double z) :
-				ObjetoGeometrico(nome, Tipo::PONTO) {
+Ponto::Ponto(const String& nome, const double x, const double y, const double z, const QColor& cor) :
+				ObjetoGeometrico(nome, Tipo::PONTO, cor) {
 	this->coord_x = x;
 	this->coord_y = y;
-	this->coord_z = 1;//z;
+	this->coord_z = z;
 }
 
 Ponto::~Ponto() {}

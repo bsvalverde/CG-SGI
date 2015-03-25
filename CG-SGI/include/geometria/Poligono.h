@@ -21,8 +21,9 @@ public:
 	 * Construtor.
 	 * @param nome nome do objeto.
 	 * @param pontos pontos do polígono.
+	 * @param cor cor do polígono.
 	 */
-	Poligono(const String& nome, const QList<Ponto>& pontos);
+	Poligono(const String& nome, const QList<Ponto>& pontos, const QColor& cor = QColor(0, 0, 0));
 
 	/**
 	 * Destrutor.

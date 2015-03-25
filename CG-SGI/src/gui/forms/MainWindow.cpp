@@ -43,16 +43,21 @@ void MainWindow::updateObjects(const QList<ObjetoGeometrico*>& objects) {
 		QList<Ponto> pontos = objs.at(i)->getPontos();
 		Ponto first = pontos.at(0);
 
+		QPen pen(objs.at(i)->getCor());
+		QLineF line;
+
 		if(pontos.size() > 1) {
 			Ponto ant = first;
 
 			for(int i = 1; i < pontos.size(); i++) {
-				scene->addLine(ant.getX(), ant.getY(), pontos.at(i).getX(), pontos.at(i).getY());
+				line = QLineF(ant.getX(), ant.getY(), pontos.at(i).getX(), pontos.at(i).getY());
+				scene->addLine(line, pen);
 				ant = pontos.at(i);
 			}
-			scene->addLine(ant.getX(), ant.getY(), first.getX(), first.getY());
+			line = QLineF(ant.getX(), ant.getY(), first.getX(), first.getY());
+			scene->addLine(line, pen);
 		} else {
-			scene->addEllipse(first.getX(), first.getY(), 2, 2);
+			scene->addEllipse(first.getX(), first.getY(), 3, 3, pen, QBrush(objs.at(i)->getCor()));
 		}
 	}
 
@@ -81,18 +86,19 @@ QList<ObjetoGeometrico*> MainWindow::viewportTransformation(const QList<ObjetoGe
 		switch(obj->getTipo()) {
 			case ObjetoGeometrico::PONTO:
 				p1 = this->pointTransformation(points.at(0), xwMin, xwMax, ywMin, ywMax);
+				p1.setCor(obj->getCor());
 				newObjects.insert(i, new Ponto(p1));
 				break;
 			case ObjetoGeometrico::RETA:
 				p1 = this->pointTransformation(points.at(0), xwMin, xwMax, ywMin, ywMax);
 				p2 = this->pointTransformation(points.at(1), xwMin, xwMax, ywMin, ywMax);
-				newObjects.insert(i, new Reta(obj->getNome(), p1, p2));
+				newObjects.insert(i, new Reta(obj->getNome(), p1, p2, obj->getCor()));
 				break;
 			case ObjetoGeometrico::POLIGONO:
 				for(int j = 0; j < points.size(); j++) {
 					newPoints.insert(j, this->pointTransformation(points.at(j), xwMin, xwMax, ywMin, ywMax));
 				}
-				newObjects.insert(i, new Poligono(obj->getNome(), newPoints));
+				newObjects.insert(i, new Poligono(obj->getNome(), newPoints, obj->getCor()));
 				break;
 			default:
 				break;
@@ -104,7 +110,6 @@ QList<ObjetoGeometrico*> MainWindow::viewportTransformation(const QList<ObjetoGe
 
 Ponto MainWindow::pointTransformation(const Ponto& point, const double xwMin, const double xwMax,
 									const double ywMin, const double ywMax) {
-	//std::cout << "transform: " << point.toString() << std::endl;
 	double xp = ((point.getX() - xwMin) / (xwMax - xwMin)) * this->viewportWidth;
 	double yp = (1 - (point.getY() - ywMin) / (ywMax - ywMin)) * this->viewportHeight;
 	Ponto newPoint(point.getNome(), xp, yp, 1);

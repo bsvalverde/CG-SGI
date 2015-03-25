@@ -6,8 +6,8 @@ Poligono::Poligono(const Poligono& poligono) : ObjetoGeometrico(poligono) {
 	this->pontos = poligono.pontos;
 }
 
-Poligono::Poligono(const String& nome, const QList<Ponto>& pontos) :
-					ObjetoGeometrico(nome, Tipo::POLIGONO) {
+Poligono::Poligono(const String& nome, const QList<Ponto>& pontos, const QColor& cor) :
+					ObjetoGeometrico(nome, Tipo::POLIGONO, cor) {
 	this->pontos = pontos;
 }
 

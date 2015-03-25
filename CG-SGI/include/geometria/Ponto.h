@@ -26,8 +26,9 @@ public:
 	 * @param x coordenada x do ponto.
 	 * @param y coordenada y do ponto.
 	 * @param z coordenada z do ponto.
+	 * @param cor cor do ponto.
 	 */
-	Ponto(const String& nome, const double x, const double y, const double z);
+	Ponto(const String& nome, const double x, const double y, const double z, const QColor& cor = QColor(0, 0, 0));
 
 	/**
 	 * Destrutor.
