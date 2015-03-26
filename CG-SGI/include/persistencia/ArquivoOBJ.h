@@ -12,7 +12,7 @@
 #include "geometria/Window.h"
 
 /**
- * Arquivo Wavefront OBJ.
+ * Arquivo OBJ (Wavefront).
  */
 class ArquivoOBJ {
 
