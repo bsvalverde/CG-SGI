@@ -1,10 +1,15 @@
 #ifndef ARQUIVOOBJ_H_
 #define ARQUIVOOBJ_H_
 
-#include <QtCore/qlist.h>
+#include <QtCore/qmap.h>
+#include <QtGui/qcolor.h>
 
 #include "excecao/ExcecaoArquivoInvalido.h"
 #include "geometria/ObjetoGeometrico.h"
+#include "geometria/Ponto.h"
+#include "geometria/Poligono.h"
+#include "geometria/Reta.h"
+#include "geometria/Window.h"
 
 /**
  * Arquivo Wavefront OBJ.
@@ -49,6 +54,8 @@ protected:
 	 * @return true se o arquivo foi removido.
 	 */
 	bool remover() const;
+
+	Ponto* stringToPonto(const String& nome, const String& str) const;
 
 	String nomeArquivo;
 
