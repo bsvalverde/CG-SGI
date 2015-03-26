@@ -12,7 +12,7 @@ int SGIApp::exec() {
 }
 
 int main(int argc, char *argv[]) {
-	ArquivoOBJ arq("teste.obj");
+	ArquivoOBJ arq("testeOBJ");
 	arq.carregarObjetos();
 
 	SGIApp app(argc, argv);
