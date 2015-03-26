@@ -1,41 +1,94 @@
 #include "geometria/Window.h"
 
 Window::Window() : ObjetoGeometrico("Window", Tipo::WINDOW) {
-	this->pontoInferiorEsquerdo = Ponto("p1", 0, 0, 0);
-	this->pontoSuperiorDireito = Ponto("p2", 0, 0, 0);
+	this->centro = Ponto("centro", 0, 0, 0);
+	this->viewUpVector = Ponto("viewUpVector", 0, 1, 0);
 }
 
-Window::Window(const Window& window) : ObjetoGeometrico(window) {}
+Window::Window(const Window& window) : ObjetoGeometrico(window) {
+	this->centro = window.centro;
+	this->viewUpVector = window.viewUpVector;
+	this->displayFileNormalizado = window.displayFileNormalizado;
+}
 
-Window::Window(const Ponto& pInfEsq, const Ponto& pSupDir) : ObjetoGeometrico("Window", Tipo::WINDOW) {
-	this->pontoInferiorEsquerdo = pInfEsq;
-	this->pontoSuperiorDireito = pSupDir;
+Window::Window(const Ponto& centro, const Ponto& viewUpVector) : ObjetoGeometrico("Window", Tipo::WINDOW) {
+	this->centro = centro;
+	this->viewUpVector = viewUpVector;
 }
 
 Window::~Window() {}
 
 Window& Window::operator=(const Window& window) {
 	this->ObjetoGeometrico::operator =(window);
-	this->pontoInferiorEsquerdo = window.pontoInferiorEsquerdo;
-	this->pontoSuperiorDireito = window.pontoSuperiorDireito;
-	return *this;
+	this->centro = window.centro;
+		this->viewUpVector = window.viewUpVector;
+		this->displayFileNormalizado = window.displayFileNormalizado;
+return *this;
+}
+
+const String Window::toString() const {
+	return this->nome + "[" + this->centro.toString() +
+				", " + this->viewUpVector.toString() + "]";
+}
+void Window::atualizarDisplayFile(DisplayFile displayFile){
+	this->displayFileNormalizado = displayFile;
+	int tam = this->displayFileNormalizado.getTamanho();
+	for(int i = 0; i < tam; i++){
+		this->atualizarObjeto(this->displayFileNormalizado.getObjeto(i));
+	}
+}
+void Window::atualizarObjeto(ObjetoGeometrico* obj){
+	double angulo = this->anguloComCoordenadasMundo();
+	double tam = this->tamViewUpVector();
+	double x = centro.getX();
+	double y = centro.getY();
+	double z = centro.getZ();
+	double matriz[4][4] = {{cos(-angulo)/tam, -sin(-angulo)/tam, 0, 0},
+			{sin(-angulo)/tam, cos(-angulo)/tam, 0, 0},
+			{0, 0, 1/tam, 0},
+			{(-x*cos(-angulo)-y*sin(-angulo))/tam, (x*sin(-angulo)-y*cos(-angulo))/tam, -z/tam, 1}};
+
+	if(this->displayFileNormalizado.contem(obj->getNome())){
+		delete this->displayFileNormalizado.removerObjeto(obj->getNome());
+	}
+
+	this->displayFileNormalizado.inserirObjeto(obj);
+
+	ObjetoGeometrico *objeto = this->displayFileNormalizado.getObjeto(obj->getNome());
+	objeto->aplicarTransformacao(matriz);
+}
+
+double Window::anguloComCoordenadasMundo(){
+	double x = this->viewUpVector.getX() - this->centro.getX();
+	double y = this->viewUpVector.getY() - this->centro.getY();
+	double tan = x / y;
+	double angulo = atan(tan);
+	return angulo;
+}
+Ponto Window::getCentroGeometrico() const{
+	return this->centro;
+}
+double Window::tamViewUpVector(){
+	double x = this->viewUpVector.getX() - this->centro.getX();
+	double y = this->viewUpVector.getY() - this->centro.getY();
+	double tam = sqrt(x*x+y*y);
+	return tam;
+}
+
+QList<ObjetoGeometrico*> Window::getObjetos() const {
+	return this->displayFileNormalizado.getObjetos();
 }
 
 QList<Ponto> Window::getPontos() const {
 	QList<Ponto> pontos;
-	pontos.insert(0, this->pontoInferiorEsquerdo);
-	pontos.insert(1, this->pontoSuperiorDireito);
+	pontos.insert(0, this->centro);
+	pontos.insert(1, this->viewUpVector);
 	return pontos;
-}
-
-const String Window::toString() const {
-	return this->nome + "[" + this->pontoInferiorEsquerdo.toString() +
-				", " + this->pontoSuperiorDireito.toString() + "]";
 }
 
 QList<Ponto*> Window::getPontosObjeto() {
 	QList<Ponto*> pontos;
-	pontos.insert(0, &this->pontoInferiorEsquerdo);
-	pontos.insert(1, &this->pontoSuperiorDireito);
+	pontos.insert(0, &this->centro);
+	pontos.insert(1, &this->viewUpVector);
 	return pontos;
 }

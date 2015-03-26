@@ -23,6 +23,14 @@ ObjetoGeometrico* DisplayFile::getObjeto(const String& nome) {
 	return this->objetos[nome];
 }
 
+ObjetoGeometrico* DisplayFile::getObjeto(const unsigned int posicao) {
+	return 0;
+}
+
+unsigned int DisplayFile::getTamanho() {
+	return 0;
+}
+
 bool DisplayFile::contem(const String& nome) {
 	return this->objetos.contains(nome);
 }

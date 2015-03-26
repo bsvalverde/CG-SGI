@@ -145,6 +145,12 @@ public:
 	 */
 	void rotacionarPeloCentro(const double angulo);
 
+	/**
+	 * Aplicar uma transformação ao objeto.
+	 * @param matriz matriz de transformação.
+	 */
+	void aplicarTransformacao(const double matriz[4][4]);
+
 protected:
 	/**
 	 * Obter os pontos do objeto.
@@ -152,11 +158,6 @@ protected:
 	 */
 	virtual QList<Ponto*> getPontosObjeto() = 0;
 
-	/**
-	 * Aplicar uma transformação ao objeto.
-	 * @param matriz matriz de transformação.
-	 */
-	void aplicarTransformacao(const double matriz[4][4]);
 
 	String nome;
 	Tipo tipo;

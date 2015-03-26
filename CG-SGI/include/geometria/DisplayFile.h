@@ -51,6 +51,10 @@ public:
 	 */
 	ObjetoGeometrico* getObjeto(const String& nome);
 
+	ObjetoGeometrico* getObjeto(const unsigned int posicao);
+
+	unsigned int getTamanho();
+
 	/**
 	 * Verificar se a lista contém um objeto.
 	 * @param nome nome do a ser verificado.

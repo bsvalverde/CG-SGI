@@ -11,6 +11,7 @@ Mundo::~Mundo() {
 
 void Mundo::inserirObjeto(ObjetoGeometrico* const objeto) {
 	this->displayFile.inserirObjeto(objeto);
+	this->window->atualizarObjeto(objeto);
 }
 
 void Mundo::removerObjeto(const String& nome) {
@@ -18,6 +19,8 @@ void Mundo::removerObjeto(const String& nome) {
 
 	if(obj)
 		delete obj;
+
+	// TODO remover da window
 }
 
 bool Mundo::contemObjeto(const String& nome) {
@@ -29,7 +32,7 @@ Window* Mundo::getWindow() const {
 }
 
 QList<ObjetoGeometrico*> Mundo::getObjetos() const {
-	return this->displayFile.getObjetos();
+	return this->window->getObjetos();
 }
 
 void Mundo::navegar(const Direcao direcao, const double fator) {
@@ -47,24 +50,34 @@ void Mundo::navegar(const Direcao direcao, const double fator) {
 			this->window->transladar(-1 * fator, 0, 0);
 			break;
 	}
+	this->window->atualizarDisplayFile(this->displayFile);
 }
 
 void Mundo::redimensionarWindow(const double fator) {
 	this->window->escalonar(fator, fator, fator);
+	this->window->atualizarDisplayFile(this->displayFile);
 }
 
 void Mundo::escalonarObjeto(const String& nome, const double sX, const double sY, const double sZ) {
-	this->displayFile.getObjeto(nome)->escalonar(sX, sY, sZ);
+	ObjetoGeometrico* obj = this->displayFile.getObjeto(nome);
+	obj->escalonar(sX, sY, sZ);
+	this->window->atualizarObjeto(obj);
 }
 
 void Mundo::transladarObjeto(const String& nome, const double sX, const double sY, const double sZ) {
-	this->displayFile.getObjeto(nome)->transladar(sX, sY, sZ);
+	ObjetoGeometrico* obj = this->displayFile.getObjeto(nome);
+	obj->transladar(sX, sY, sZ);
+	this->window->atualizarObjeto(obj);
 }
 
 void Mundo::rotacionarObjetoPorPonto(const String& nome, const Ponto& ponto, const double angulo) {
-	this->displayFile.getObjeto(nome)->rotacionarPorPonto(ponto, angulo);
+	ObjetoGeometrico* obj = this->displayFile.getObjeto(nome);
+	obj->rotacionarPorPonto(ponto, angulo);
+	this->window->atualizarObjeto(obj);
 }
 
 void Mundo::rotacionarObjetoPeloCentro(const String& nome, const double angulo) {
-	this->displayFile.getObjeto(nome)->rotacionarPeloCentro(angulo);
+	ObjetoGeometrico* obj = this->displayFile.getObjeto(nome);
+	obj->rotacionarPeloCentro(angulo);
+	this->window->atualizarObjeto(obj);
 }

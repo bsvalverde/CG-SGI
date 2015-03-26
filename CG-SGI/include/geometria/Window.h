@@ -1,6 +1,7 @@
 #ifndef WINDOW_H_
 #define WINDOW_H_
 
+#include "geometria/DisplayFile.h"
 #include "geometria/Ponto.h"
 
 /**
@@ -51,6 +52,11 @@ public:
 	 */
 	const String toString() const;
 
+	void atualizarDisplayFile(DisplayFile displayFile);
+	void atualizarObjeto(ObjetoGeometrico* obj);
+	Ponto getCentroGeometrico() const;
+	QList<ObjetoGeometrico*> getObjetos() const;
+
 protected:
 	/**
 	 * Obter os pontos do objeto.
@@ -58,8 +64,12 @@ protected:
 	 */
 	QList<Ponto*> getPontosObjeto();
 
-	Ponto pontoInferiorEsquerdo;
-	Ponto pontoSuperiorDireito;
+	DisplayFile displayFileNormalizado;
+	double anguloComCoordenadasMundo();
+	double tamViewUpVector();
+
+	Ponto centro;
+	Ponto viewUpVector;
 
 };
 
