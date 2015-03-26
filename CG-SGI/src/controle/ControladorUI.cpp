@@ -37,6 +37,10 @@ void ControladorUI::redimensionarWindow(const double fator) {
 	this->mainWindow->updateObjects(this->mundo.getObjetos());
 }
 
+void ControladorUI::rotacionarWindow(const double angulo) {
+	this->mundo.rotacionarWindow(angulo);
+}
+
 void ControladorUI::escalonarObjeto(const String& nome, const double sX, const double sY, const double sZ) {
 	this->mundo.escalonarObjeto(nome, sX, sY, sZ);
 	this->mainWindow->updateObjects(this->mundo.getObjetos());
@@ -82,6 +86,10 @@ bool ControladorUI::contemObjeto(const String& nome) {
 	return this->mundo.contemObjeto(nome);
 }
 
-QList<Ponto> ControladorUI::getPontosWindow() const {
-	return this->mundo.getWindow()->getPontos();
+double ControladorUI::getAlturaWindow() const {
+	return this->mundo.getWindow()->getAltura();
+}
+
+double ControladorUI::getLarguraWindow() const {
+	return this->mundo.getWindow()->getLargura();
 }

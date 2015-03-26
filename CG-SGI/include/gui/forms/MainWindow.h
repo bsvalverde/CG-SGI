@@ -30,6 +30,8 @@ private slots:
      void btnNavigationCenterPressed();
      void btnNavigationRightPressed();
      void btnNavigationDownPressed();
+     void btnRotateLeftPressed();
+     void btnRotateRightPressed();
      void btnInsertObjectClicked();
      void btnRemoveObjectClicked();
      void btnTransformObjectClicked();

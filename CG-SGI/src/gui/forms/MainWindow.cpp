@@ -70,12 +70,13 @@ void MainWindow::updateObjects(const QList<ObjetoGeometrico*>& objects) {
 
 QList<ObjetoGeometrico*> MainWindow::viewportTransformation(const QList<ObjetoGeometrico*>& objects) {
 	QList<ObjetoGeometrico*> newObjects;
-	QList<Ponto> windowPoints = this->controladorUI->getPontosWindow();
+	//double altura = this->controladorUI->getAlturaWindow();
+	//double largura = this->controladorUI->getLarguraWindow();
 
-	double xwMin = windowPoints.at(0).getX();
-	double xwMax = windowPoints.at(1).getX();
-	double ywMin = windowPoints.at(0).getY();
-	double ywMax = windowPoints.at(1).getY();
+	double xwMin = -1;
+	double xwMax = 1;
+	double ywMin = -1;
+	double ywMax = 1;
 
 	for(int i = 0; i < objects.size(); i++) {
 		ObjetoGeometrico* obj = objects.at(i);
@@ -125,6 +126,8 @@ void MainWindow::connectSignalsAndSlots() {
 	QObject::connect(btnCenter, SIGNAL(clicked()), this, SLOT(btnNavigationCenterPressed()));
 	QObject::connect(btnRight, SIGNAL(clicked()), this, SLOT(btnNavigationRightPressed()));
 	QObject::connect(btnDown, SIGNAL(clicked()), this, SLOT(btnNavigationDownPressed()));
+	QObject::connect(btnRotateLeft, SIGNAL(clicked()), this, SLOT(btnRotateLeftPressed()));
+	QObject::connect(btnRotateRight, SIGNAL(clicked()), this, SLOT(btnRotateRightPressed()));
 	QObject::connect(btnInsertObject, SIGNAL(clicked()), this, SLOT(btnInsertObjectClicked()));
 	QObject::connect(btnRemoveObject, SIGNAL(clicked()), this, SLOT(btnRemoveObjectClicked()));
 	QObject::connect(btnTransformObject, SIGNAL(clicked()), this, SLOT(btnTransformObjectClicked()));
@@ -169,6 +172,14 @@ void MainWindow::btnNavigationRightPressed() {
 
 void MainWindow::btnNavigationDownPressed() {
 	this->controladorUI->navegarNoMundo(Mundo::BAIXO, 10);
+}
+
+void MainWindow::btnRotateLeftPressed() {
+	this->controladorUI->rotacionarWindow(-30);
+}
+
+void MainWindow::btnRotateRightPressed() {
+	this->controladorUI->rotacionarWindow(30);
 }
 
 void MainWindow::btnInsertObjectClicked() {

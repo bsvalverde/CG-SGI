@@ -330,6 +330,38 @@ QGroupBox::title  {
               </property>
              </widget>
             </item>
+            <item row="0" column="0">
+             <widget class="QPushButton" name="btnRotateLeft">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Ignored" vsizetype="Minimum">
+                <horstretch>35</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>RE</string>
+              </property>
+              <property name="shortcut">
+               <string>Up</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="2">
+             <widget class="QPushButton" name="btnRotateRight">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Ignored" vsizetype="Minimum">
+                <horstretch>35</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>RD</string>
+              </property>
+              <property name="shortcut">
+               <string>Up</string>
+              </property>
+             </widget>
+            </item>
            </layout>
           </item>
           <item>

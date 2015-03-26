@@ -50,6 +50,8 @@ public:
     QPushButton *btnRight;
     QPushButton *btnLeft;
     QPushButton *btnDown;
+    QPushButton *btnRotateLeft;
+    QPushButton *btnRotateRight;
     QSpacerItem *horizontalSpacer2;
     QWidget *pageObjects;
     QPushButton *btnRemoveObject;
@@ -223,6 +225,20 @@ public:
 
         gridLayout->addWidget(btnDown, 2, 1, 1, 1);
 
+        btnRotateLeft = new QPushButton(horizontalLayoutWidget_3);
+        btnRotateLeft->setObjectName(QStringLiteral("btnRotateLeft"));
+        sizePolicy5.setHeightForWidth(btnRotateLeft->sizePolicy().hasHeightForWidth());
+        btnRotateLeft->setSizePolicy(sizePolicy5);
+
+        gridLayout->addWidget(btnRotateLeft, 0, 0, 1, 1);
+
+        btnRotateRight = new QPushButton(horizontalLayoutWidget_3);
+        btnRotateRight->setObjectName(QStringLiteral("btnRotateRight"));
+        sizePolicy5.setHeightForWidth(btnRotateRight->sizePolicy().hasHeightForWidth());
+        btnRotateRight->setSizePolicy(sizePolicy5);
+
+        gridLayout->addWidget(btnRotateRight, 0, 2, 1, 1);
+
 
         horizontalLayout_3->addLayout(gridLayout);
 
@@ -332,6 +348,10 @@ public:
         btnLeft->setShortcut(QApplication::translate("MainWindow", "Left", 0));
         btnDown->setText(QApplication::translate("MainWindow", "\342\226\274", 0));
         btnDown->setShortcut(QApplication::translate("MainWindow", "Down", 0));
+        btnRotateLeft->setText(QApplication::translate("MainWindow", "RE", 0));
+        btnRotateLeft->setShortcut(QApplication::translate("MainWindow", "Up", 0));
+        btnRotateRight->setText(QApplication::translate("MainWindow", "RD", 0));
+        btnRotateRight->setShortcut(QApplication::translate("MainWindow", "Up", 0));
         toolBox->setItemText(toolBox->indexOf(pageWindow), QApplication::translate("MainWindow", "Controle de Visualiza\303\247\303\243o", 0));
         btnRemoveObject->setText(QApplication::translate("MainWindow", "Remover", 0));
         btnRemoveObject->setShortcut(QApplication::translate("MainWindow", "Ctrl+R", 0));

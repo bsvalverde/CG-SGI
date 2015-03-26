@@ -52,9 +52,19 @@ public:
 	 */
 	const String toString() const;
 
-	void atualizarDisplayFile(DisplayFile displayFile);
-	void atualizarObjeto(ObjetoGeometrico* obj);
+	/**
+	 * Obter o centro geométrico do objeto.
+	 * @return o ponto correspondento ao centro.
+	 */
 	Ponto getCentroGeometrico() const;
+
+	double getAltura() const;
+	double getLargura() const;
+
+	void atualizarDisplayFile(const DisplayFile& displayFile);
+	void atualizarObjeto(ObjetoGeometrico* obj);
+
+	void removerObjeto(const String& nome);
 	QList<ObjetoGeometrico*> getObjetos() const;
 
 protected:
@@ -63,13 +73,12 @@ protected:
 	 * @return lista de pontos.
 	 */
 	QList<Ponto*> getPontosObjeto();
-
-	DisplayFile displayFileNormalizado;
 	double anguloComCoordenadasMundo();
-	double tamViewUpVector();
+	double tamViewUpVector() const;
 
 	Ponto centro;
 	Ponto viewUpVector;
+	DisplayFile displayFileNormalizado;
 
 };
 

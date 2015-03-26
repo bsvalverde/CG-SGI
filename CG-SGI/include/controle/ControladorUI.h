@@ -56,6 +56,8 @@ public:
 	 */
 	void redimensionarWindow(const double fator);
 
+	void rotacionarWindow(const double angulo);
+
 	/**
 	 * Escalonar objeto.
 	 * @nome nome do objeto.
@@ -110,11 +112,8 @@ public:
 	 */
 	bool contemObjeto(const String& nome);
 
-	/**
-	 * Obter as coordenadas da window do mundo.
-	 * @return lista de pontos.
-	 */
-	QList<Ponto> getPontosWindow() const;
+	double getAlturaWindow() const;
+	double getLarguraWindow() const;
 
 protected:
 	Mundo mundo;

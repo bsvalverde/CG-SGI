@@ -3,6 +3,9 @@
 
 #include "geometria/DisplayFile.h"
 #include "geometria/Window.h"
+#include "geometria/Ponto.h"
+#include "geometria/Poligono.h"
+#include "geometria/Reta.h"
 
 /**
  * Mundo de representação dos objetos reais.
@@ -71,6 +74,8 @@ public:
 	 * @param fator fator de escalonamento.
 	 */
 	void redimensionarWindow(const double fator);
+
+	void rotacionarWindow(const double angulo);
 
 	/**
 	 * Escalonar objeto.

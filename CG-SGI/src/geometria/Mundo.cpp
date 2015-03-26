@@ -1,7 +1,7 @@
 #include "geometria/Mundo.h"
 
 Mundo::Mundo() {
-	this->window = new Window(Ponto("", -255, -235.5, 0), Ponto("", 255, 235.5, 0));
+	this->window = new Window();
 }
 
 Mundo::~Mundo() {
@@ -11,7 +11,23 @@ Mundo::~Mundo() {
 
 void Mundo::inserirObjeto(ObjetoGeometrico* const objeto) {
 	this->displayFile.inserirObjeto(objeto);
-	this->window->atualizarObjeto(objeto);
+	ObjetoGeometrico* objetoWindow;
+
+	switch(objeto->getTipo()) {
+		case ObjetoGeometrico::POLIGONO:
+			objetoWindow = new Poligono((const Poligono&) *objeto);
+			break;
+		case ObjetoGeometrico::PONTO:
+			objetoWindow = new Ponto((const Ponto&) *objeto);
+			break;
+		case ObjetoGeometrico::RETA:
+			objetoWindow = new Reta((const Reta&) *objeto);
+			break;
+		default:
+			break;
+	}
+
+	this->window->atualizarObjeto(objetoWindow);
 }
 
 void Mundo::removerObjeto(const String& nome) {
@@ -20,7 +36,7 @@ void Mundo::removerObjeto(const String& nome) {
 	if(obj)
 		delete obj;
 
-	// TODO remover da window
+	this->window->removerObjeto(nome);
 }
 
 bool Mundo::contemObjeto(const String& nome) {
@@ -55,6 +71,11 @@ void Mundo::navegar(const Direcao direcao, const double fator) {
 
 void Mundo::redimensionarWindow(const double fator) {
 	this->window->escalonar(fator, fator, fator);
+	this->window->atualizarDisplayFile(this->displayFile);
+}
+
+void Mundo::rotacionarWindow(const double angulo) {
+	this->window->rotacionarPeloCentro(angulo);
 	this->window->atualizarDisplayFile(this->displayFile);
 }
 

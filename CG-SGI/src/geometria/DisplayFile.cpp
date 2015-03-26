@@ -24,11 +24,11 @@ ObjetoGeometrico* DisplayFile::getObjeto(const String& nome) {
 }
 
 ObjetoGeometrico* DisplayFile::getObjeto(const unsigned int posicao) {
-	return 0;
+	return this->getObjetos().at(posicao);
 }
 
 unsigned int DisplayFile::getTamanho() {
-	return 0;
+	return this->objetos.size();
 }
 
 bool DisplayFile::contem(const String& nome) {
