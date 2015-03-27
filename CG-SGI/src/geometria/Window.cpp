@@ -74,7 +74,12 @@ void Window::atualizarObjeto(ObjetoGeometrico* obj){
 		this->displayFileNormalizado.inserirObjeto(obj);
 	}
 
-	obj->aplicarTransformacao(matriz);
+	std::cout << obj->getNome() << std::endl;
+	std::cout << obj->getPontos().at(0) << std::endl;
+	std::cout << obj->getPontos().at(1) << std::endl;
+
+	ObjetoGeometrico* objeto = this->displayFileNormalizado.getObjeto(obj->getNome());
+	objeto->aplicarTransformacao(matriz);
 }
 
 void Window::removerObjeto(const String& nome) {
