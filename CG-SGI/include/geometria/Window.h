@@ -67,6 +67,8 @@ public:
 	void removerObjeto(const String& nome);
 	QList<ObjetoGeometrico*> getObjetos() const;
 
+	void transladar(const double sX, const double sY, const double sZ);
+
 protected:
 	/**
 	 * Obter os pontos do objeto.

@@ -130,7 +130,7 @@ public:
 	 * @param sY fator de translação do eixo y.
 	 * @param sZ fator de translação do eixo z.
 	 */
-	void transladar(const double sX, const double sY, const double sZ);
+	virtual void transladar(const double sX, const double sY, const double sZ);
 
 	/**
 	 * Rotacionar em relação a um ponto específico.

@@ -155,11 +155,11 @@ void MainWindow::zoomControlValueChanged(int currentValue) {
 }
 
 void MainWindow::btnNavigationUpPressed() {
-	this->controladorUI->navegarNoMundo(Mundo::CIMA, 10);
+	this->controladorUI->navegarNoMundo(Mundo::CIMA, 0.1);
 }
 
 void MainWindow::btnNavigationLeftPressed() {
-	this->controladorUI->navegarNoMundo(Mundo::ESQUERDA, 10);
+	this->controladorUI->navegarNoMundo(Mundo::ESQUERDA, 0.1);
 }
 
 void MainWindow::btnNavigationCenterPressed() {
@@ -167,11 +167,11 @@ void MainWindow::btnNavigationCenterPressed() {
 }
 
 void MainWindow::btnNavigationRightPressed() {
-	this->controladorUI->navegarNoMundo(Mundo::DIREITA, 10);
+	this->controladorUI->navegarNoMundo(Mundo::DIREITA, 0.1);
 }
 
 void MainWindow::btnNavigationDownPressed() {
-	this->controladorUI->navegarNoMundo(Mundo::BAIXO, 10);
+	this->controladorUI->navegarNoMundo(Mundo::BAIXO, 0.1);
 }
 
 void MainWindow::btnRotateLeftPressed() {

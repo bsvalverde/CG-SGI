@@ -5,7 +5,23 @@ DisplayFile::DisplayFile() {}
 DisplayFile::~DisplayFile() {}
 
 DisplayFile& DisplayFile::operator=(const DisplayFile& displayFile) {
-	this->objetos = displayFile.objetos;
+	for(unsigned int i = 0; i < displayFile.getTamanho(); i++) {
+		ObjetoGeometrico* obj = displayFile.objetos.values().at(i);
+		switch(obj->getTipo()) {
+			case ObjetoGeometrico::POLIGONO:
+				obj = new Poligono((const Poligono&) *obj);
+				break;
+			case ObjetoGeometrico::PONTO:
+				obj = new Ponto((const Ponto&) *obj);
+				break;
+			case ObjetoGeometrico::RETA:
+				obj = new Reta((const Reta&) *obj);
+				break;
+			default:
+				break;
+		}
+		this->objetos.insert(obj->getNome(), obj);
+	}
 	return *this;
 }
 
@@ -27,7 +43,7 @@ ObjetoGeometrico* DisplayFile::getObjeto(const unsigned int posicao) {
 	return this->getObjetos().at(posicao);
 }
 
-unsigned int DisplayFile::getTamanho() {
+unsigned int DisplayFile::getTamanho() const {
 	return this->objetos.size();
 }
 

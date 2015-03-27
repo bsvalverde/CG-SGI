@@ -115,3 +115,14 @@ QList<Ponto*> Window::getPontosObjeto() {
 	pontos.insert(1, &this->viewUpVector);
 	return pontos;
 }
+
+void Window::transladar(const double sX, const double sY, const double sZ) {
+	double angulo = this->anguloComCoordenadasMundo();
+	Ponto p("rodar", sX, sY, sZ);
+	p.rotacionarPorPonto(Ponto("origem", 0, 0, 0), angulo);
+	double matriz[4][4] = { { 1, 0, 0, 0 },
+							{ 0, 1, 0, 0 },
+							{ 0, 0, 1, 0 },
+							{ p.getX(), p.getY(), p.getZ(), 1 } };
+	this->aplicarTransformacao(matriz);
+}

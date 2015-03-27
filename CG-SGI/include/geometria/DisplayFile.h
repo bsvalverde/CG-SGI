@@ -5,6 +5,8 @@
 #include <string>
 
 #include "geometria/ObjetoGeometrico.h"
+#include "geometria/Poligono.h"
+#include "geometria/Reta.h"
 
 typedef std::string String;
 
@@ -53,7 +55,7 @@ public:
 
 	ObjetoGeometrico* getObjeto(const unsigned int posicao);
 
-	unsigned int getTamanho();
+	unsigned int getTamanho() const;
 
 	/**
 	 * Verificar se a lista contém um objeto.
