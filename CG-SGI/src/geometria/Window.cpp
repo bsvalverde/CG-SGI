@@ -3,7 +3,7 @@
 
 Window::Window() : ObjetoGeometrico("Window", Tipo::WINDOW) {
 	this->centro = Ponto("centro", 0, 0, 0);
-	this->viewUpVector = Ponto("viewUpVector", 0, 1, 0);
+	this->viewUpVector = Ponto("viewUpVector", 0, 10, 0);
 }
 
 Window::Window(const Window& window) : ObjetoGeometrico(window) {
@@ -39,7 +39,7 @@ const String Window::toString() const {
 				", " + this->viewUpVector.toString() + "]";
 }
 
-Ponto Window::getCentroGeometrico() const{
+const Ponto Window::getCentroGeometrico() const{
 	return this->centro;
 }
 
@@ -68,18 +68,22 @@ void Window::atualizarObjeto(ObjetoGeometrico* obj){
 	double matriz[4][4] = {{cos(-angulo)/tam, -sin(-angulo)/tam, 0, 0},
 						   {sin(-angulo)/tam, cos(-angulo)/tam, 0, 0},
 						   {0, 0, 1/tam, 0},
-						   {(-x*cos(-angulo)-y*sin(-angulo))/tam, (x*sin(-angulo)-y*cos(-angulo))/tam, -z/tam, 1}};
+						   {-x*cos(-angulo)-y*sin(-angulo), x*sin(-angulo)-y*cos(-angulo), -z, 1}};
 
 	if(!this->displayFileNormalizado.contem(obj->getNome())){
 		this->displayFileNormalizado.inserirObjeto(obj);
 	}
 
-	std::cout << obj->getNome() << std::endl;
+	std::cout << "atualiz1 " << obj->getNome() << std::endl;
 	std::cout << obj->getPontos().at(0) << std::endl;
 	std::cout << obj->getPontos().at(1) << std::endl;
 
 	ObjetoGeometrico* objeto = this->displayFileNormalizado.getObjeto(obj->getNome());
 	objeto->aplicarTransformacao(matriz);
+
+	std::cout << "atualiz2 " << objeto->getNome() << std::endl;
+	std::cout << objeto->getPontos().at(0) << std::endl;
+	std::cout << objeto->getPontos().at(1) << std::endl;
 }
 
 void Window::removerObjeto(const String& nome) {
@@ -91,6 +95,7 @@ double Window::anguloComCoordenadasMundo(){
 	double y = this->viewUpVector.getY() - this->centro.getY();
 	double tan = x / y;
 	double angulo = atan(tan);
+	std::cout << (angulo * 180/3.14) << std::endl;
 	return angulo;
 }
 

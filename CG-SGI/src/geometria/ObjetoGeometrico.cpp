@@ -1,5 +1,6 @@
 #include "geometria/ObjetoGeometrico.h"
 #include "geometria/Ponto.h"
+#include <iostream>
 
 ObjetoGeometrico::ObjetoGeometrico(const ObjetoGeometrico& objeto) {
 	this->nome = objeto.nome;
@@ -116,6 +117,8 @@ void ObjetoGeometrico::rotacionarPeloCentro(const double angulo) {
 	Ponto p = this->getCentroGeometrico();
 	double x = p.getX();
 	double y = p.getY();
+	std::cout << "centro X: " << x << std::endl;
+	std::cout << "centro Y: " << y << std::endl;
 	double angRad = angulo * 3.14159265 / 180;
 	double matriz[4][4] = { { cos(angRad), -sin(angRad), 0, 0 },
 							{ sin(angRad),	cos(angRad), 0, 0 },

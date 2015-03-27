@@ -8,7 +8,7 @@ MainWindow::MainWindow(ControladorUI* controladorUI, QDialog* parent,
 	this->moveToCenter();
 	this->connectSignalsAndSlots();
 	this->zoomControl->setValue(50);
-    this->viewportWidth = 510;
+    this->viewportWidth = 475;
     this->viewportHeight = 475;
     this->zoomValue = this->zoomControl->value();
 }

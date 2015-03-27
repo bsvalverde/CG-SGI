@@ -39,6 +39,7 @@ void ControladorUI::redimensionarWindow(const double fator) {
 
 void ControladorUI::rotacionarWindow(const double angulo) {
 	this->mundo.rotacionarWindow(angulo);
+	this->mainWindow->updateObjects(this->mundo.getObjetos());
 }
 
 void ControladorUI::escalonarObjeto(const String& nome, const double sX, const double sY, const double sZ) {

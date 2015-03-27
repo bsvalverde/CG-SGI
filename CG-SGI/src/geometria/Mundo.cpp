@@ -1,4 +1,5 @@
 #include "geometria/Mundo.h"
+#include <iostream>
 
 Mundo::Mundo() {
 	this->window = new Window();
@@ -82,23 +83,26 @@ void Mundo::rotacionarWindow(const double angulo) {
 void Mundo::escalonarObjeto(const String& nome, const double sX, const double sY, const double sZ) {
 	ObjetoGeometrico* obj = this->displayFile.getObjeto(nome);
 	obj->escalonar(sX, sY, sZ);
-	this->window->atualizarObjeto(obj);
+	this->window->atualizarDisplayFile(this->displayFile);
 }
 
 void Mundo::transladarObjeto(const String& nome, const double sX, const double sY, const double sZ) {
 	ObjetoGeometrico* obj = this->displayFile.getObjeto(nome);
 	obj->transladar(sX, sY, sZ);
-	this->window->atualizarObjeto(obj);
+	std::cout << obj->getNome() << std::endl;
+	std::cout << obj->getPontos().at(0) << std::endl;
+	std::cout << obj->getPontos().at(1) << std::endl;
+	this->window->atualizarDisplayFile(this->displayFile);
 }
 
 void Mundo::rotacionarObjetoPorPonto(const String& nome, const Ponto& ponto, const double angulo) {
 	ObjetoGeometrico* obj = this->displayFile.getObjeto(nome);
 	obj->rotacionarPorPonto(ponto, angulo);
-	this->window->atualizarObjeto(obj);
+	this->window->atualizarDisplayFile(this->displayFile);
 }
 
 void Mundo::rotacionarObjetoPeloCentro(const String& nome, const double angulo) {
 	ObjetoGeometrico* obj = this->displayFile.getObjeto(nome);
 	obj->rotacionarPeloCentro(angulo);
-	this->window->atualizarObjeto(obj);
+	this->window->atualizarDisplayFile(this->displayFile);
 }

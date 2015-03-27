@@ -98,7 +98,7 @@ public:
 	 * Obter o centro geométrico do objeto.
 	 * @return o ponto correspondento ao centro.
 	 */
-	const Ponto getCentroGeometrico() const;
+	virtual const Ponto getCentroGeometrico() const;
 
 	/**
 	 * Definir a cor do objeto.

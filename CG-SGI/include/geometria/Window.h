@@ -56,7 +56,7 @@ public:
 	 * Obter o centro geométrico do objeto.
 	 * @return o ponto correspondento ao centro.
 	 */
-	Ponto getCentroGeometrico() const;
+	const Ponto getCentroGeometrico() const;
 
 	double getAltura() const;
 	double getLargura() const;
