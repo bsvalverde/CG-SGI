@@ -43,14 +43,6 @@ const Ponto Window::getCentroGeometrico() const{
 	return this->centro;
 }
 
-double Window::getAltura() const {
-	return this->tamViewUpVector() * 2;
-}
-
-double Window::getLargura() const {
-	return this->tamViewUpVector() * 2;
-}
-
 void Window::atualizarDisplayFile(const DisplayFile& displayFile){
 	this->displayFileNormalizado = displayFile;
 	int tam = this->displayFileNormalizado.getTamanho();
@@ -117,6 +109,10 @@ QList<Ponto*> Window::getPontosObjeto() {
 void Window::transladar(const double sX, const double sY, const double sZ) {
 	double anguloY = this->anguloViewUpVectorEixoY();
 	double anguloX = anguloY + M_PI/2;
-	ObjetoGeometrico::transladar(sX*sin(anguloX), sX*cos(anguloX), sZ);
-	ObjetoGeometrico::transladar(sY*sin(anguloY), sY*cos(anguloY), sZ);
+
+	double matriz[4][4] = { { 1, 0, 0, 0 },
+							{ 0, 1, 0, 0 },
+							{ 0, 0, 1, 0 },
+							{ sX*sin(anguloX) + sY*sin(anguloY), sX*cos(anguloX) + sY*cos(anguloY), sZ, 1 } };
+	this->aplicarTransformacao(matriz);
 }

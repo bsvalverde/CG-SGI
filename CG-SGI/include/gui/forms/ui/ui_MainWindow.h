@@ -315,11 +315,17 @@ public:
         QWidget::setTabOrder(graphicsView, btnZoomOut);
         QWidget::setTabOrder(btnZoomOut, zoomControl);
         QWidget::setTabOrder(zoomControl, btnZoomIn);
-        QWidget::setTabOrder(btnZoomIn, btnLeft);
+        QWidget::setTabOrder(btnZoomIn, btnRotateLeft);
+        QWidget::setTabOrder(btnRotateLeft, btnUp);
+        QWidget::setTabOrder(btnUp, btnRotateRight);
+        QWidget::setTabOrder(btnRotateRight, btnLeft);
         QWidget::setTabOrder(btnLeft, btnCenter);
         QWidget::setTabOrder(btnCenter, btnRight);
         QWidget::setTabOrder(btnRight, btnDown);
-        QWidget::setTabOrder(btnDown, btnRemoveObject);
+        QWidget::setTabOrder(btnDown, tableObjects);
+        QWidget::setTabOrder(tableObjects, btnTransformObject);
+        QWidget::setTabOrder(btnTransformObject, btnRemoveObject);
+        QWidget::setTabOrder(btnRemoveObject, btnInsertObject);
 
         retranslateUi(MainWindow);
 
@@ -341,13 +347,13 @@ public:
         btnCenter->setText(QApplication::translate("MainWindow", "\342\227\211", 0));
         btnCenter->setShortcut(QApplication::translate("MainWindow", "Home", 0));
         btnUp->setText(QApplication::translate("MainWindow", "\342\226\262", 0));
-        btnUp->setShortcut(QApplication::translate("MainWindow", "Up", 0));
+        btnUp->setShortcut(QApplication::translate("MainWindow", "Ctrl+Up", 0));
         btnRight->setText(QApplication::translate("MainWindow", "\342\226\266", 0));
-        btnRight->setShortcut(QApplication::translate("MainWindow", "Right", 0));
+        btnRight->setShortcut(QApplication::translate("MainWindow", "Ctrl+Right", 0));
         btnLeft->setText(QApplication::translate("MainWindow", "\342\227\200", 0));
-        btnLeft->setShortcut(QApplication::translate("MainWindow", "Left", 0));
+        btnLeft->setShortcut(QApplication::translate("MainWindow", "Ctrl+Left", 0));
         btnDown->setText(QApplication::translate("MainWindow", "\342\226\274", 0));
-        btnDown->setShortcut(QApplication::translate("MainWindow", "Down", 0));
+        btnDown->setShortcut(QApplication::translate("MainWindow", "Ctrl+Down", 0));
         btnRotateLeft->setText(QApplication::translate("MainWindow", "RE", 0));
         btnRotateLeft->setShortcut(QApplication::translate("MainWindow", "Up", 0));
         btnRotateRight->setText(QApplication::translate("MainWindow", "RD", 0));

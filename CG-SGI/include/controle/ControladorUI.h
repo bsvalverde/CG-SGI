@@ -112,9 +112,6 @@ public:
 	 */
 	bool contemObjeto(const String& nome);
 
-	double getAlturaWindow() const;
-	double getLarguraWindow() const;
-
 protected:
 	Mundo mundo;
 	MainWindow* mainWindow;

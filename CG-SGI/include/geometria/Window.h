@@ -58,9 +58,6 @@ public:
 	 */
 	const Ponto getCentroGeometrico() const;
 
-	double getAltura() const;
-	double getLargura() const;
-
 	void atualizarDisplayFile(const DisplayFile& displayFile);
 	void atualizarObjeto(ObjetoGeometrico* obj);
 

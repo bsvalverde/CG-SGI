@@ -86,11 +86,3 @@ void ControladorUI::removerObjeto(const String& nome) {
 bool ControladorUI::contemObjeto(const String& nome) {
 	return this->mundo.contemObjeto(nome);
 }
-
-double ControladorUI::getAlturaWindow() const {
-	return this->mundo.getWindow()->getAltura();
-}
-
-double ControladorUI::getLarguraWindow() const {
-	return this->mundo.getWindow()->getLargura();
-}

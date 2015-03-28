@@ -123,7 +123,7 @@ public:
 	 * @param sY fator de escalonamento do eixo y.
 	 * @param sZ fator de escalonamento do eixo z.
 	 */
-	void escalonar(const double sX, const double sY, const double sZ);
+	virtual void escalonar(const double sX, const double sY, const double sZ);
 
 	/**
 	 * Transladar o objeto.
@@ -138,13 +138,13 @@ public:
 	 * @param ponto ponto de rotação.
 	 * @param angulo ângulo de rotação em graus.
 	 */
-	void rotacionarPorPonto(const Ponto& ponto, const double angulo);
+	virtual void rotacionarPorPonto(const Ponto& ponto, const double angulo);
 
 	/**
 	 * Rotacionar em relação ao centro geométrico.
 	 * @param angulo ângulo de rotação em graus.
 	 */
-	void rotacionarPeloCentro(const double angulo);
+	virtual void rotacionarPeloCentro(const double angulo);
 
 	/**
 	 * Aplicar uma transformação ao objeto.

@@ -278,7 +278,7 @@ QGroupBox::title  {
                <string>▲</string>
               </property>
               <property name="shortcut">
-               <string>Up</string>
+               <string>Ctrl+Up</string>
               </property>
              </widget>
             </item>
@@ -294,7 +294,7 @@ QGroupBox::title  {
                <string>▶</string>
               </property>
               <property name="shortcut">
-               <string>Right</string>
+               <string>Ctrl+Right</string>
               </property>
              </widget>
             </item>
@@ -310,7 +310,7 @@ QGroupBox::title  {
                <string>◀</string>
               </property>
               <property name="shortcut">
-               <string>Left</string>
+               <string>Ctrl+Left</string>
               </property>
              </widget>
             </item>
@@ -326,7 +326,7 @@ QGroupBox::title  {
                <string>▼</string>
               </property>
               <property name="shortcut">
-               <string>Down</string>
+               <string>Ctrl+Down</string>
               </property>
              </widget>
             </item>
@@ -569,11 +569,17 @@ QGroupBox::title  {
   <tabstop>btnZoomOut</tabstop>
   <tabstop>zoomControl</tabstop>
   <tabstop>btnZoomIn</tabstop>
+  <tabstop>btnRotateLeft</tabstop>
+  <tabstop>btnUp</tabstop>
+  <tabstop>btnRotateRight</tabstop>
   <tabstop>btnLeft</tabstop>
   <tabstop>btnCenter</tabstop>
   <tabstop>btnRight</tabstop>
   <tabstop>btnDown</tabstop>
+  <tabstop>tableObjects</tabstop>
+  <tabstop>btnTransformObject</tabstop>
   <tabstop>btnRemoveObject</tabstop>
+  <tabstop>btnInsertObject</tabstop>
  </tabstops>
  <resources/>
  <connections/>
