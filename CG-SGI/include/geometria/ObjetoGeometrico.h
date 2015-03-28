@@ -5,6 +5,7 @@
 #include <QtGui/qcolor.h>
 
 #include <cmath>
+#include <math.h>
 #include <string>
 
 typedef std::string String;

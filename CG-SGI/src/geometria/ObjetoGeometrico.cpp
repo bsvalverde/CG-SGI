@@ -104,7 +104,7 @@ void ObjetoGeometrico::transladar(const double sX, const double sY, const double
 void ObjetoGeometrico::rotacionarPorPonto(const Ponto& ponto, const double angulo) {
 	double x = ponto.getX();
 	double y = ponto.getY();
-	double angRad = angulo * 3.14159265 / 180;
+	double angRad = angulo * M_PI / 180;
 	double matriz[4][4] = { { cos(angRad), -sin(angRad), 0, 0 },
 							{ sin(angRad),	cos(angRad), 0, 0 },
 							{ 0, 0, 1, 0 },
@@ -116,7 +116,7 @@ void ObjetoGeometrico::rotacionarPeloCentro(const double angulo) {
 	Ponto p = this->getCentroGeometrico();
 	double x = p.getX();
 	double y = p.getY();
-	double angRad = angulo * 3.14159265 / 180;
+	double angRad = angulo * M_PI / 180;
 	double matriz[4][4] = { { cos(angRad), -sin(angRad), 0, 0 },
 							{ sin(angRad),	cos(angRad), 0, 0 },
 							{ 0, 0, 1, 0 },

@@ -3,19 +3,23 @@
 Poligono::Poligono() : ObjetoGeometrico() {}
 
 Poligono::Poligono(const Poligono& poligono) : ObjetoGeometrico(poligono) {
-	this->pontos = poligono.pontos;
+	for(int i = 0; i < poligono.pontos.size(); i++)
+		this->pontos.insert(i, poligono.pontos.at(i));
 }
 
 Poligono::Poligono(const String& nome, const QList<Ponto>& pontos, const QColor& cor) :
 					ObjetoGeometrico(nome, Tipo::POLIGONO, cor) {
-	this->pontos = pontos;
+	for(int i = 0; i < pontos.size(); i++)
+		this->pontos.insert(i, pontos.at(i));
 }
 
 Poligono::~Poligono() {}
 
 Poligono& Poligono::operator=(const Poligono& poligono) {
 	this->ObjetoGeometrico::operator =(poligono);
-	this->pontos = poligono.pontos;
+
+	for(int i = 0; i < poligono.pontos.size(); i++)
+		this->pontos.insert(i, poligono.pontos.at(i));
 	return *this;
 }
 

@@ -75,7 +75,7 @@ protected:
 	 * @return lista de pontos.
 	 */
 	QList<Ponto*> getPontosObjeto();
-	double anguloComCoordenadasMundo();
+	double anguloViewUpVectorEixoY();
 	double tamViewUpVector() const;
 
 	Ponto centro;

@@ -1,5 +1,4 @@
 #include "geometria/Window.h"
-#include <iostream>
 
 Window::Window() : ObjetoGeometrico("Window", Tipo::WINDOW) {
 	this->centro = Ponto("centro", 0, 0, 0);
@@ -60,7 +59,7 @@ void Window::atualizarDisplayFile(const DisplayFile& displayFile){
 }
 
 void Window::atualizarObjeto(ObjetoGeometrico* obj){
-	double angulo = this->anguloComCoordenadasMundo();
+	double angulo = this->anguloViewUpVectorEixoY();
 	double tam = this->tamViewUpVector();
 	double x = centro.getX();
 	double y = centro.getY();
@@ -74,28 +73,19 @@ void Window::atualizarObjeto(ObjetoGeometrico* obj){
 		this->displayFileNormalizado.inserirObjeto(obj);
 	}
 
-	std::cout << "atualiz1 " << obj->getNome() << std::endl;
-	std::cout << obj->getPontos().at(0) << std::endl;
-	std::cout << obj->getPontos().at(1) << std::endl;
-
 	ObjetoGeometrico* objeto = this->displayFileNormalizado.getObjeto(obj->getNome());
 	objeto->aplicarTransformacao(matriz);
-
-	std::cout << "atualiz2 " << objeto->getNome() << std::endl;
-	std::cout << objeto->getPontos().at(0) << std::endl;
-	std::cout << objeto->getPontos().at(1) << std::endl;
 }
 
 void Window::removerObjeto(const String& nome) {
 	delete this->displayFileNormalizado.removerObjeto(nome);
 }
 
-double Window::anguloComCoordenadasMundo(){
+double Window::anguloViewUpVectorEixoY() {
 	double x = this->viewUpVector.getX() - this->centro.getX();
 	double y = this->viewUpVector.getY() - this->centro.getY();
 	double tan = x / y;
 	double angulo = atan(tan);
-	std::cout << (angulo * 180/3.14) << std::endl;
 	return angulo;
 }
 
@@ -117,12 +107,8 @@ QList<Ponto*> Window::getPontosObjeto() {
 }
 
 void Window::transladar(const double sX, const double sY, const double sZ) {
-	double angulo = this->anguloComCoordenadasMundo();
-	Ponto p("rodar", sX, sY, sZ);
-	p.rotacionarPorPonto(Ponto("origem", 0, 0, 0), angulo);
-	double matriz[4][4] = { { 1, 0, 0, 0 },
-							{ 0, 1, 0, 0 },
-							{ 0, 0, 1, 0 },
-							{ p.getX(), p.getY(), p.getZ(), 1 } };
-	this->aplicarTransformacao(matriz);
+	double anguloY = this->anguloViewUpVectorEixoY();
+	double anguloX = anguloY + M_PI/2;
+	ObjetoGeometrico::transladar(sX*sin(anguloX), sX*cos(anguloX), sZ);
+	ObjetoGeometrico::transladar(sY*sin(anguloY), sY*cos(anguloY), sZ);
 }
