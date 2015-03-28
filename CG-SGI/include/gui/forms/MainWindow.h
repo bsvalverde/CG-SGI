@@ -1,8 +1,6 @@
 #ifndef MAINWINDOW_H_
 #define MAINWINDOW_H_
 
-#include <QtWidgets/qmessagebox.h>
-
 #include "gui/forms/DefaultWindow.h"
 #include "gui/forms/ui/ui_MainWindow.h"
 #include "gui/Viewport.h"

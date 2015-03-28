@@ -1,6 +1,8 @@
 #ifndef CONTROLADORUI_H_
 #define CONTROLADORUI_H_
 
+#include <QtWidgets/qmessagebox.h>
+
 #include <string>
 #include "geometria/Ponto.h"
 #include "geometria/Mundo.h"
@@ -111,6 +113,12 @@ public:
 	 * @return true se o objeto existe.
 	 */
 	bool contemObjeto(const String& nome);
+
+	/**
+	 * Exibir mensagem de erro.
+	 * @param mensagem mensagem de erro.
+	 */
+	void exibirMensagemErro(const String& mensagem) const;
 
 protected:
 	Mundo mundo;

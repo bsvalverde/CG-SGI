@@ -86,3 +86,8 @@ void ControladorUI::removerObjeto(const String& nome) {
 bool ControladorUI::contemObjeto(const String& nome) {
 	return this->mundo.contemObjeto(nome);
 }
+
+void ControladorUI::exibirMensagemErro(const String& mensagem) const {
+	QMessageBox messageBox;
+	messageBox.critical(0, "Erro", QString::fromStdString(mensagem));
+}

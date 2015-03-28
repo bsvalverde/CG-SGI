@@ -49,20 +49,20 @@ void MainWindow::connectSignalsAndSlots() {
 
 void MainWindow::btnZoomInPressed() {
 	int position = this->zoomControl->value();
-	this->zoomControl->setValue(position + 5);
+	this->zoomControl->setValue(position + 2);
 }
 
 void MainWindow::btnZoomOutPressed() {
 	int position = this->zoomControl->value();
-	this->zoomControl->setValue(position - 5);
+	this->zoomControl->setValue(position - 2);
 }
 
 void MainWindow::zoomControlValueChanged(int currentValue) {
 	int factor = currentValue - this->zoomValue;
-	double zoomFactor = (double) 1 / ((factor * 0.05) + 1);
+	double zoomFactor = (double) 1 / ((factor * 0.1) + 1);
 
 	if(factor < 0)
-		zoomFactor = (double) (factor * -0.05) + 1;
+		zoomFactor = (double) (factor * -0.1) + 1;
 
 	this->zoomValue = currentValue;
 	this->controladorUI->redimensionarWindow(zoomFactor);
@@ -105,8 +105,7 @@ void MainWindow::btnRemoveObjectClicked() {
 	String objectName = "";
 
 	if(selectionModel->selectedRows().size() == 0) {
-		QMessageBox messageBox;
-		messageBox.critical(this, "Erro", "É necessário selecionar um objeto para ser removido!");
+		this->controladorUI->exibirMensagemErro("É necessário selecionar um objeto para ser removido!");
 		return;
 	}
 
@@ -127,8 +126,7 @@ void MainWindow::btnTransformObjectClicked() {
 	String objectName = "";
 
 	if(selectionModel->selectedRows().size() == 0) {
-		QMessageBox messageBox;
-		messageBox.critical(this, "Erro", "É necessário selecionar um objeto para aplicar uma transformação!");
+		this->controladorUI->exibirMensagemErro("É necessário selecionar um objeto para aplicar uma transformação!");
 		return;
 	}
 
