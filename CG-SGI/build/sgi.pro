@@ -21,7 +21,8 @@ TARGET = SGI.app
 HEADERS  += include/gui/forms/*.h \
 include/excecao/*.h \
 
-SOURCES += src/gui/forms/*.cpp \
+SOURCES += src/gui/*.cpp \
+src/gui/forms/*.cpp \
 src/controle/*.cpp \
 src/geometria/*.cpp \
 src/persistencia/*.cpp \
