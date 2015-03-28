@@ -31,9 +31,15 @@ void MainWindow::initializeMenuBar() {
 
 	QObject::connect(itemImportar, SIGNAL(triggered()), this, SLOT(btnImportScene()));
 	QObject::connect(itemExportar, SIGNAL(triggered()), this, SLOT(btnExportScene()));
-	QObject::connect(itemSair, SIGNAL(triggered()), this, SLOT(close()));
+	QObject::connect(itemSair, SIGNAL(triggered()), this, SLOT(encerrar()));
+	this->close();
 
 	menuBar()->setVisible(true);
+}
+
+void MainWindow::encerrar() {
+	if(this->controladorUI->requisitarConfirmacaoUsuario("Você tem certeza que deseja encerrar o sistema?"))
+		QWidget::close();
 }
 
 ControladorUI* MainWindow::getControladorUI() {

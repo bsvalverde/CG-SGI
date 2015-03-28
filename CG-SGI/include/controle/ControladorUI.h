@@ -120,6 +120,13 @@ public:
 	 */
 	void exibirMensagemErro(const String& mensagem) const;
 
+	/**
+	 * Exibir mensagem de confirmação.
+	 * @param mensagem mensagem de confirmação.
+	 * @return true caso o usuário responda sim.
+	 */
+	bool requisitarConfirmacaoUsuario(const String& mensagem) const;
+
 protected:
 	Mundo mundo;
 	MainWindow* mainWindow;

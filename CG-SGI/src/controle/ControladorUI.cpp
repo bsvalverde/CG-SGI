@@ -91,3 +91,11 @@ void ControladorUI::exibirMensagemErro(const String& mensagem) const {
 	QMessageBox messageBox;
 	messageBox.critical(0, "Erro", QString::fromStdString(mensagem));
 }
+
+bool ControladorUI::requisitarConfirmacaoUsuario(const String& mensagem) const {
+	QMessageBox messageBox;
+	if(messageBox.question(0, "Confirmação", QString::fromStdString(mensagem)) == QMessageBox::Yes)
+		return true;
+
+	return false;
+}

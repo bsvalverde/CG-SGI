@@ -24,7 +24,8 @@ protected:
 	void initializeMenuBar();
 
 private slots:
-     void btnZoomInPressed();
+	void encerrar();
+	void btnZoomInPressed();
      void btnZoomOutPressed();
      void zoomControlValueChanged(int currentValue);
      void btnNavigationUpPressed();
