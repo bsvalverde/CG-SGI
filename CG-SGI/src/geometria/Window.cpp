@@ -1,4 +1,5 @@
 #include "geometria/Window.h"
+#include <iostream>
 
 Window::Window() : ObjetoGeometrico("Window", Tipo::WINDOW) {
 	this->centro = Ponto("centro", 0, 0, 0);
@@ -86,6 +87,13 @@ double Window::anguloViewUpVectorEixoY() {
 	double y = this->viewUpVector.getY() - this->centro.getY();
 	double tan = x / y;
 	double angulo = atan(tan);
+
+	if(y < 0 && x < 0) { // 3º quadrante
+		angulo += M_PI;
+	} else if(y < 0 && x > 0) { // 4º quadrante
+		angulo += -M_PI;
+	}
+
 	return angulo;
 }
 
