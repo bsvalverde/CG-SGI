@@ -1,6 +1,6 @@
 #include "gui/forms/ObjectTransformationWindow.h"
 
-ObjectTransformationWindow::ObjectTransformationWindow(ControladorUI* controladorUI, QDialog* parent,
+ObjectTransformationWindow::ObjectTransformationWindow(ControladorUI* controladorUI, QWidget* parent,
 							Qt::WindowFlags flags) : DefaultWindow(controladorUI, parent, flags) {
 	this->setupUi(this);
 	this->moveToCenter();

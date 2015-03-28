@@ -12,7 +12,7 @@ class ObjectTransformationWindow : public DefaultWindow, private Ui::ObjectTrans
 	Q_OBJECT
 
 public:
-	ObjectTransformationWindow(ControladorUI* controladorUI, QDialog* parent = 0, Qt::WindowFlags flags = Qt::Widget);
+	ObjectTransformationWindow(ControladorUI* controladorUI, QWidget* parent = 0, Qt::WindowFlags flags = Qt::Widget);
 	void clearFields();
 	void show(const String& nomeObjeto);
 

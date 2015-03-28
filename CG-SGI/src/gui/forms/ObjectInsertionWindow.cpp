@@ -1,6 +1,6 @@
 #include "gui/forms/ObjectInsertionWindow.h"
 
-ObjectInsertionWindow::ObjectInsertionWindow(ControladorUI* controladorUI, QDialog* parent,
+ObjectInsertionWindow::ObjectInsertionWindow(ControladorUI* controladorUI, QWidget* parent,
 							Qt::WindowFlags flags) : DefaultWindow(controladorUI, parent, flags) {
 	this->setupUi(this);
 	this->moveToCenter();

@@ -1,17 +1,43 @@
 #include "gui/forms/MainWindow.h"
 
 MainWindow::MainWindow(ControladorUI* controladorUI, QDialog* parent,
-						Qt::WindowFlags flags) : DefaultWindow(controladorUI, parent, flags) {
+						Qt::WindowFlags flags) : QMainWindow(parent, flags) {
 	this->setupUi(this);
 	this->moveToCenter();
 	this->connectSignalsAndSlots();
+	this->initializeMenuBar();
     this->zoomValue = this->zoomControl->value();
+    this->controladorUI = controladorUI;
     this->viewport = new Viewport(this->graphicsView, 510, 475);
 }
 
 MainWindow::~MainWindow() {
 	if(this->viewport)
 		delete this->viewport;
+}
+
+void MainWindow::moveToCenter() {
+	QRect position = frameGeometry();
+	position.moveCenter(QDesktopWidget().availableGeometry().center());
+	move(position.topLeft());
+}
+
+void MainWindow::initializeMenuBar() {
+	QMenu* menuArquivo = menuBar()->addMenu("&Arquivo");
+	QAction* itemImportar = menuArquivo->addAction("&Importar cena...");
+	QAction* itemExportar = menuArquivo->addAction("&Exportar cena...");
+	menuArquivo->addSeparator();
+	QAction* itemSair = menuArquivo->addAction("&Sair");
+
+	QObject::connect(itemImportar, SIGNAL(triggered()), this, SLOT(btnImportScene()));
+	QObject::connect(itemExportar, SIGNAL(triggered()), this, SLOT(btnExportScene()));
+	QObject::connect(itemSair, SIGNAL(triggered()), this, SLOT(close()));
+
+	menuBar()->setVisible(true);
+}
+
+ControladorUI* MainWindow::getControladorUI() {
+	return this->controladorUI;
 }
 
 void MainWindow::updateObjects(const QList<ObjetoGeometrico*>& objects) {
@@ -138,4 +164,12 @@ void MainWindow::btnTransformObjectClicked() {
 	}
 
 	this->controladorUI->exibirObjectTransformationWindow(objectName);
+}
+
+void MainWindow::btnImportScene() {
+
+}
+
+void MainWindow::btnExportScene() {
+
 }

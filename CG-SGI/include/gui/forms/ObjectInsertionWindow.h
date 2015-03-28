@@ -13,7 +13,7 @@ class ObjectInsertionWindow : public DefaultWindow, private Ui::ObjectInsertionW
 	Q_OBJECT
 
 public:
-	ObjectInsertionWindow(ControladorUI* controladorUI, QDialog* parent = 0, Qt::WindowFlags flags = Qt::Widget);
+	ObjectInsertionWindow(ControladorUI* controladorUI, QWidget* parent = 0, Qt::WindowFlags flags = Qt::Widget);
 	void clearFields();
 
 protected:

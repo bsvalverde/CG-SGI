@@ -65,14 +65,14 @@ public:
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
         MainWindow->setWindowModality(Qt::ApplicationModal);
-        MainWindow->resize(800, 500);
+        MainWindow->resize(800, 520);
         QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(MainWindow->sizePolicy().hasHeightForWidth());
         MainWindow->setSizePolicy(sizePolicy);
-        MainWindow->setMinimumSize(QSize(800, 500));
-        MainWindow->setMaximumSize(QSize(800, 500));
+        MainWindow->setMinimumSize(QSize(800, 520));
+        MainWindow->setMaximumSize(QSize(800, 520));
         QFont font;
         font.setFamily(QStringLiteral("Arial"));
         font.setPointSize(11);
@@ -80,7 +80,7 @@ public:
         MainWindow->setAutoFillBackground(false);
         horizontalLayoutWidget = new QWidget(MainWindow);
         horizontalLayoutWidget->setObjectName(QStringLiteral("horizontalLayoutWidget"));
-        horizontalLayoutWidget->setGeometry(QRect(10, 10, 781, 481));
+        horizontalLayoutWidget->setGeometry(QRect(10, 30, 781, 481));
         horizontalLayout = new QHBoxLayout(horizontalLayoutWidget);
         horizontalLayout->setSpacing(10);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));

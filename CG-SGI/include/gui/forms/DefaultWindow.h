@@ -9,7 +9,7 @@
 class DefaultWindow : public QDialog {
 
 public:
-	DefaultWindow(ControladorUI* controladorUI, QDialog* parent = 0, Qt::WindowFlags flags = Qt::Widget);
+	DefaultWindow(ControladorUI* controladorUI, QWidget* parent = 0, Qt::WindowFlags flags = Qt::Widget);
 	virtual ~DefaultWindow();
 	void moveToCenter();
 	ControladorUI* getControladorUI();

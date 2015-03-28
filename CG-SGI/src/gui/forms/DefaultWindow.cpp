@@ -1,6 +1,6 @@
 #include "gui/forms/DefaultWindow.h"
 
-DefaultWindow::DefaultWindow(ControladorUI* controladorUI, QDialog* parent,
+DefaultWindow::DefaultWindow(ControladorUI* controladorUI, QWidget* parent,
 				Qt::WindowFlags flags) : QDialog(parent, flags) {
 	this->controladorUI = controladorUI;
 }
