@@ -1,6 +1,8 @@
 #ifndef ARQUIVOOBJ_H_
 #define ARQUIVOOBJ_H_
 
+#include <sstream>
+
 #include <QtCore/qmap.h>
 #include <QtGui/qcolor.h>
 
@@ -10,11 +12,13 @@
 #include "geometria/Poligono.h"
 #include "geometria/Reta.h"
 #include "geometria/Window.h"
+#include "persistencia/Arquivo.h"
+#include "persistencia/ArquivoMTL.h"
 
 /**
  * Arquivo OBJ (Wavefront).
  */
-class ArquivoOBJ {
+class ArquivoOBJ : public Arquivo {
 
 public:
 	/**
@@ -29,35 +33,46 @@ public:
 	virtual ~ArquivoOBJ();
 
 	/**
-	 * Escrever objetos no arquivo OBJ especificado.
-	 * @param objetos objetos a serem escritos no arquivo.
+	 * Carregar o arquivo.
 	 */
-	void escreverObjetos(const QList<ObjetoGeometrico*> objetos) const;
+	void carregar() throw(ExcecaoArquivoInvalido);
 
 	/**
-	 * Carregar os objetos do arquivo OBJ.
-	 * @return lista contendo os objetos carregados.
-	 * @throws ExcecaoArquivoInvalido se o arquivo especificado não foi encontrado ou não possui um formato válido.
+	 * Gravar o arquivo.
 	 */
-	QList<ObjetoGeometrico*> carregarObjetos() const
-			throw (ExcecaoArquivoInvalido);
+	void gravar() const throw();
 
 	/**
-	 * Verificar se o arquivo existe.
-	 * @return true se o arquivo existe.
+	 * Definir objetos do arquivo.
+	 * @param objetos objetos do arquivo.
 	 */
-	bool existe() const;
+	void setObjetos(const QList<ObjetoGeometrico*>& objetos);
+
+	/**
+	 * Obter objetos do arquivo.
+	 * @return objetos do arquivo.
+	 */
+	const QList<ObjetoGeometrico*>& getObjetos() const;
 
 protected:
 	/**
-	 * Remover o arquivo.
-	 * @return true se o arquivo foi removido.
+	 * Remover todos os objetos do buffer do arquivo.
 	 */
-	bool remover() const;
+	void removerObjetos();
 
+	/**
+	 * Converter um texto para um ponto válido.
+	 * @return o ponto criado ou uma referência nula caso não seja possível criar um ponto.
+	 */
 	Ponto* stringToPonto(const String& nome, const String& str) const;
 
-	String nomeArquivo;
+	/**
+	 * Limpar a lista de pontos.
+	 * @param pontos lista a ser limpada.
+	 */
+	void limpar(QList<Ponto*> pontos) const;
+
+	QList<ObjetoGeometrico*> objetos;
 
 };
 

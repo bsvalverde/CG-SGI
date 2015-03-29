@@ -2,6 +2,7 @@
 #define MAINWINDOW_H_
 
 #include <QtWidgets/qdesktopwidget.h>
+#include <QtWidgets/qfiledialog.h>
 #include <QtWidgets/qmainwindow.h>
 #include <QtWidgets/qmenubar.h>
 

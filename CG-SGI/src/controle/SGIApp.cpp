@@ -1,5 +1,4 @@
 #include "controle/SGIApp.h"
-#include "persistencia/ArquivoOBJ.h"
 
 SGIApp::SGIApp(int argc, char *argv[]) : QApplication(argc, argv) {}
 
@@ -12,9 +11,6 @@ int SGIApp::exec() {
 }
 
 int main(int argc, char *argv[]) {
-	ArquivoOBJ arq("testeOBJ");
-	arq.carregarObjetos();
-
 	SGIApp app(argc, argv);
 	return app.exec();
 }

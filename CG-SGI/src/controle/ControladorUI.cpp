@@ -4,6 +4,7 @@
 #include "gui/forms/ObjectTransformationWindow.h"
 #include "geometria/Reta.h"
 #include "geometria/Poligono.h"
+#include "persistencia/ArquivoOBJ.h"
 
 ControladorUI::ControladorUI() {
 	this->mainWindow = new MainWindow(this);
@@ -87,9 +88,9 @@ bool ControladorUI::contemObjeto(const String& nome) {
 	return this->mundo.contemObjeto(nome);
 }
 
-void ControladorUI::exibirMensagemErro(const String& mensagem) const {
+void ControladorUI::exibirMensagemErro(const String& mensagem, QWidget* parent) const {
 	QMessageBox messageBox;
-	messageBox.critical(0, "Erro", QString::fromStdString(mensagem));
+	messageBox.critical(parent, "Erro", QString::fromStdString(mensagem));
 }
 
 bool ControladorUI::requisitarConfirmacaoUsuario(const String& mensagem) const {
@@ -98,4 +99,22 @@ bool ControladorUI::requisitarConfirmacaoUsuario(const String& mensagem) const {
 		return true;
 
 	return false;
+}
+
+void ControladorUI::importarCena(const String& arquivo) {
+	ArquivoOBJ arq(arquivo);
+
+	try {
+		arq.carregar();
+	} catch(ExcecaoArquivoInvalido& ex) {
+		this->exibirMensagemErro("Arquivo inválido!", this->mainWindow);
+	}
+
+	const QList<ObjetoGeometrico*> objs = arq.getObjetos();
+
+	for(ObjetoGeometrico* obj : objs) {
+		this->mundo.inserirObjeto(*obj);
+	}
+
+	this->mainWindow->updateObjects(this->mundo.getObjetos());
 }

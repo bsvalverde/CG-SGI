@@ -1,35 +1,22 @@
 #include "persistencia/ArquivoOBJ.h"
 
-#include <fstream>
-#include <sstream>
-#include <iostream>
+ArquivoOBJ::ArquivoOBJ(const String& nome) : Arquivo(nome) {}
 
-ArquivoOBJ::ArquivoOBJ(const String& nome) {
-	this->nomeArquivo = nome;
+ArquivoOBJ::~ArquivoOBJ() {
+	this->removerObjetos();
 }
 
-ArquivoOBJ::~ArquivoOBJ() {}
+void ArquivoOBJ::carregar() throw(ExcecaoArquivoInvalido) {
+	this->removerObjetos();
 
-void ArquivoOBJ::escreverObjetos(const QList<ObjetoGeometrico*> objetos) const {
-	this->remover();
-	std::fstream arquivo(this->nomeArquivo.c_str(), std::fstream::out | std::fstream::app);
-
-	if(!arquivo)
-		throw ExcecaoArquivoInvalido(this->nomeArquivo);
-
-	// TODO Escrever objetos no arquivo.
-}
-
-QList<ObjetoGeometrico*> ArquivoOBJ::carregarObjetos() const
-		throw (ExcecaoArquivoInvalido) {
-	std::ifstream arquivo(this->nomeArquivo.c_str());
+	std::ifstream arquivo(this->getNome().c_str());
 	String linha;
 	QMap<int, Ponto*> pontos;
-	QList<ObjetoGeometrico*> objetos;
+	QMap<String, QColor> materiais;
 	int linhaAtual = 1;
 
 	if(!arquivo)
-		throw ExcecaoArquivoInvalido(this->nomeArquivo);
+		throw ExcecaoArquivoInvalido(this->getNome());
 
 	// Obter todos os vértices
 	while(std::getline(arquivo, linha)) {
@@ -41,8 +28,10 @@ QList<ObjetoGeometrico*> ArquivoOBJ::carregarObjetos() const
 			String nome = std::to_string(linhaAtual);
 			Ponto* p = this->stringToPonto(nome, linha);
 
-			if(!p)
+			if(!p) {
+				this->limpar(pontos.values());
 				throw; // TODO
+			}
 
 			pontos.insert(linhaAtual, p);
 		}
@@ -67,18 +56,39 @@ QList<ObjetoGeometrico*> ArquivoOBJ::carregarObjetos() const
 		buffer >> tipo;
 
 		if(tipo.compare("mtllib") == 0) {
-			// ArquivoMaterial arquivo
+			String nomeMTL;
+			if(!(buffer >> nomeMTL)) {
+				this->limpar(pontos.values());
+				throw; // TODO
+			}
+
+			ArquivoMTL arqMTL(this->getDiretorio() + nomeMTL);
+
+			if(!arqMTL.existe())
+				throw ExcecaoArquivoInvalido(nomeMTL); // TODO
+
+			arqMTL.carregar();
+			materiais = arqMTL.getMateriais();
 		} else if(tipo.compare("usemtl") == 0) {
-			// Material nome
+			String nomeMaterial = "";
+
+			if(!(buffer >> nomeMaterial) || !materiais.contains(nomeMaterial)) {
+				this->limpar(pontos.values());
+				throw; // TODO
+			}
+
+			corAtual = materiais.value(nomeMaterial);
 		} else if(tipo.compare("o") == 0) {
 			if(!(buffer >> nomeObjeto)) {
+				this->limpar(pontos.values());
 				throw; // TODO
 			}
 		} else if(tipo.compare("p") == 0) {
 			if(nomeObjeto.compare("") != 0 && buffer >> indice) {
 				Ponto* p = pontos.value(indice);
-				objetos.insert(objetos.size() - 1, new Ponto(nomeObjeto, p->getX(), p->getY(), p->getZ(), corAtual));
+				this->objetos.insert(this->objetos.size() - 1, new Ponto(nomeObjeto, p->getX(), p->getY(), p->getZ(), corAtual));
 			} else {
+				this->limpar(pontos.values());
 				throw; // TODO
 			}
 
@@ -92,14 +102,16 @@ QList<ObjetoGeometrico*> ArquivoOBJ::carregarObjetos() const
 				}
 
 				if(pontosObj.size() == 2) {
-					objetos.insert(objetos.size() - 1, new Reta(nomeObjeto, pontosObj.at(0), pontosObj.at(1), corAtual));
+					this->objetos.insert(this->objetos.size() - 1, new Reta(nomeObjeto, pontosObj.at(0), pontosObj.at(1), corAtual));
 				} else if(pontosObj.size() > 3) {
 					pontosObj.removeAt(pontosObj.size() - 1); // Remoção do primeiro ponto repetido
-					objetos.insert(objetos.size() - 1, new Poligono(nomeObjeto, pontosObj, corAtual));
+					this->objetos.insert(this->objetos.size() - 1, new Poligono(nomeObjeto, pontosObj, corAtual));
 				} else {
+					this->limpar(pontos.values());
 					throw; // TODO
 				}
 			} else {
+				this->limpar(pontos.values());
 				throw; // TODO
 			}
 
@@ -110,8 +122,11 @@ QList<ObjetoGeometrico*> ArquivoOBJ::carregarObjetos() const
 				double largura = pontos.value(indice2)->getX();
 				double altura = pontos.value(indice2)->getY();
 
-				objetos.insert(objetos.size() - 1, new Window(*centroWindow, *centroWindow));
+				largura += altura; // ocultar warnings TEMP TODO
+
+				this->objetos.insert(this->objetos.size() - 1, new Window(*centroWindow, *centroWindow));
 			} else {
+				this->limpar(pontos.values());
 				throw; // TODO
 			}
 
@@ -122,35 +137,51 @@ QList<ObjetoGeometrico*> ArquivoOBJ::carregarObjetos() const
 			linhaAtual++;
 	}
 
-	for(ObjetoGeometrico *obj : objetos)
-		std::cout << *obj << std::endl;
-
 	arquivo.close();
+	this->limpar(pontos.values());
+}
 
-	// Deletar todos os pontos criados
-	QList<Ponto*> listaPontos = pontos.values();
-	while(listaPontos.size() > 0) {
-		delete listaPontos.at(0);
-		listaPontos.removeAt(0);
+void ArquivoOBJ::gravar() const throw() {
+	this->remover();
+	std::fstream arquivo(this->getNome().c_str(), std::fstream::out | std::fstream::app);
+
+	if(!arquivo)
+		throw ExcecaoArquivoInvalido(this->getNome());
+
+	// TODO Escrever objetos no arquivo.
+}
+
+void ArquivoOBJ::setObjetos(const QList<ObjetoGeometrico*>& objetos) {
+	this->removerObjetos();
+
+	for(int i = 0; i < objetos.size(); i++) {
+		ObjetoGeometrico* obj = objetos.at(i);
+		switch(obj->getTipo()) {
+			case ObjetoGeometrico::POLIGONO:
+				obj = new Poligono((const Poligono&) *obj);
+				break;
+			case ObjetoGeometrico::PONTO:
+				obj = new Ponto((const Ponto&) *obj);
+				break;
+			case ObjetoGeometrico::RETA:
+				obj = new Reta((const Reta&) *obj);
+				break;
+			default:
+				return;
+		}
+		this->objetos.insert(i, obj);
 	}
-
-	return objetos;
 }
 
-bool ArquivoOBJ::existe() const {
-	std::fstream arquivo(this->nomeArquivo.c_str(), std::fstream::in);
-
-	if(arquivo)
-		return true;
-
-	return false;
+const QList<ObjetoGeometrico*>& ArquivoOBJ::getObjetos() const {
+	return this->objetos;
 }
 
-bool ArquivoOBJ::remover() const {
-	if(remove(this->nomeArquivo.c_str()) != 0)
-		return false;
-
-	return true;
+void ArquivoOBJ::removerObjetos() {
+	while(this->objetos.size() > 0) {
+		delete this->objetos[0];
+		this->objetos.removeAt(0);
+	}
 }
 
 Ponto* ArquivoOBJ::stringToPonto(const String& nome, const String& str) const {
@@ -160,13 +191,17 @@ Ponto* ArquivoOBJ::stringToPonto(const String& nome, const String& str) const {
 
 	buffer >> tipo;
 
-	if(buffer >> x) {
-		if(buffer >> y) {
-			if(buffer >> z) {
-				return new Ponto(nome, x, y, z);
-			}
-		}
+	if(buffer >> x && buffer >> y && buffer >> z) {
+		return new Ponto(nome, x, y, z);
 	}
 
 	return 0;
+}
+
+void ArquivoOBJ::limpar(QList<Ponto*> pontos) const {
+	// Deletar todos os pontos
+	while(pontos.size() > 0) {
+		delete pontos.at(0);
+		pontos.removeAt(0);
+	}
 }

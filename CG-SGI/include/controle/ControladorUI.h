@@ -118,7 +118,7 @@ public:
 	 * Exibir mensagem de erro.
 	 * @param mensagem mensagem de erro.
 	 */
-	void exibirMensagemErro(const String& mensagem) const;
+	void exibirMensagemErro(const String& mensagem, QWidget* parent = 0) const;
 
 	/**
 	 * Exibir mensagem de confirmação.
@@ -126,6 +126,8 @@ public:
 	 * @return true caso o usuário responda sim.
 	 */
 	bool requisitarConfirmacaoUsuario(const String& mensagem) const;
+
+	void importarCena(const String& arquivo);
 
 protected:
 	Mundo mundo;

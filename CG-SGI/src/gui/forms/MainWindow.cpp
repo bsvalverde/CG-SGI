@@ -1,4 +1,5 @@
 #include "gui/forms/MainWindow.h"
+#include <iostream>
 
 MainWindow::MainWindow(ControladorUI* controladorUI, QDialog* parent,
 						Qt::WindowFlags flags) : QMainWindow(parent, flags) {
@@ -172,7 +173,12 @@ void MainWindow::btnTransformObjectClicked() {
 }
 
 void MainWindow::btnImportScene() {
+	String arquivo = QFileDialog::getOpenFileName(0, "Selecionar arquivo Wavefront (OBJ)", "", "*.obj").toStdString();
 
+	if(arquivo.compare("") == 0) // Usuário cancelou
+		return;
+
+	this->controladorUI->importarCena(arquivo);
 }
 
 void MainWindow::btnExportScene() {
