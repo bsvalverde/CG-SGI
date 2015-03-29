@@ -26,25 +26,25 @@ protected:
 private slots:
 	void encerrar();
 	void btnZoomInPressed();
-     void btnZoomOutPressed();
-     void zoomControlValueChanged(int currentValue);
-     void btnNavigationUpPressed();
-     void btnNavigationLeftPressed();
-     void btnNavigationCenterPressed();
-     void btnNavigationRightPressed();
-     void btnNavigationDownPressed();
-     void btnRotateLeftPressed();
-     void btnRotateRightPressed();
-     void btnInsertObjectClicked();
-     void btnRemoveObjectClicked();
-     void btnTransformObjectClicked();
-     void btnImportScene();
-     void btnExportScene();
+	void btnZoomOutPressed();
+	void zoomControlValueChanged(int currentValue);
+	void btnNavigationUpPressed();
+	void btnNavigationLeftPressed();
+	void btnNavigationCenterPressed();
+	void btnNavigationRightPressed();
+	void btnNavigationDownPressed();
+	void btnRotateLeftPressed();
+	void btnRotateRightPressed();
+	void btnInsertObjectClicked();
+	void btnRemoveObjectClicked();
+	void btnTransformObjectClicked();
+	void btnImportScene();
+	void btnExportScene();
 
 private:
-     ControladorUI* controladorUI;
-     Viewport* viewport;
-     int zoomValue;
+	ControladorUI* controladorUI;
+	Viewport* viewport;
+	int zoomValue;
 
 };
 

@@ -6,8 +6,8 @@ MainWindow::MainWindow(ControladorUI* controladorUI, QDialog* parent,
 	this->moveToCenter();
 	this->connectSignalsAndSlots();
 	this->initializeMenuBar();
-    this->zoomValue = this->zoomControl->value();
-    this->controladorUI = controladorUI;
+	this->zoomValue = this->zoomControl->value();
+	this->controladorUI = controladorUI;
     this->viewport = new Viewport(this->graphicsView, 510, 475);
 }
 
