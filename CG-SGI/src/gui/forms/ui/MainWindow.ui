@@ -330,38 +330,6 @@ QGroupBox::title  {
               </property>
              </widget>
             </item>
-            <item row="0" column="0">
-             <widget class="QPushButton" name="btnRotateLeft">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Ignored" vsizetype="Minimum">
-                <horstretch>35</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="text">
-               <string>RE</string>
-              </property>
-              <property name="shortcut">
-               <string>Up</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="2">
-             <widget class="QPushButton" name="btnRotateRight">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Ignored" vsizetype="Minimum">
-                <horstretch>35</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="text">
-               <string>RD</string>
-              </property>
-              <property name="shortcut">
-               <string>Up</string>
-              </property>
-             </widget>
-            </item>
            </layout>
           </item>
           <item>
@@ -383,14 +351,71 @@ QGroupBox::title  {
          </layout>
         </widget>
        </widget>
+       <widget class="QGroupBox" name="groupNavigation_2">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>240</y>
+          <width>241</width>
+          <height>121</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QGroupBox  {
+    border: 1px solid gray;
+    border-radius: 5px;
+    margin-top: 1ex;
+}
+ 
+QGroupBox::title  {
+    subcontrol-origin: margin;
+    subcontrol-position: top left;
+    padding: 0 8px;
+}</string>
+        </property>
+        <property name="title">
+         <string>Rotação</string>
+        </property>
+        <widget class="QWidget" name="horizontalLayoutWidget_4">
+         <property name="geometry">
+          <rect>
+           <x>9</x>
+           <y>19</y>
+           <width>221</width>
+           <height>91</height>
+          </rect>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_4">
+          <item>
+           <widget class="QDial" name="dialRotation">
+            <property name="minimum">
+             <number>1</number>
+            </property>
+            <property name="maximum">
+             <number>360</number>
+            </property>
+            <property name="sliderPosition">
+             <number>1</number>
+            </property>
+            <property name="invertedAppearance">
+             <bool>false</bool>
+            </property>
+            <property name="invertedControls">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
       </widget>
       <widget class="QWidget" name="pageObjects">
        <property name="geometry">
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>100</width>
-         <height>30</height>
+         <width>256</width>
+         <height>415</height>
         </rect>
        </property>
        <attribute name="label">
@@ -569,9 +594,7 @@ QGroupBox::title  {
   <tabstop>btnZoomOut</tabstop>
   <tabstop>zoomControl</tabstop>
   <tabstop>btnZoomIn</tabstop>
-  <tabstop>btnRotateLeft</tabstop>
   <tabstop>btnUp</tabstop>
-  <tabstop>btnRotateRight</tabstop>
   <tabstop>btnLeft</tabstop>
   <tabstop>btnCenter</tabstop>
   <tabstop>btnRight</tabstop>

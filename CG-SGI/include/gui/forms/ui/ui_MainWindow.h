@@ -13,6 +13,7 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QDial>
 #include <QtWidgets/QGraphicsView>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QGroupBox>
@@ -50,9 +51,11 @@ public:
     QPushButton *btnRight;
     QPushButton *btnLeft;
     QPushButton *btnDown;
-    QPushButton *btnRotateLeft;
-    QPushButton *btnRotateRight;
     QSpacerItem *horizontalSpacer2;
+    QGroupBox *groupNavigation_2;
+    QWidget *horizontalLayoutWidget_4;
+    QHBoxLayout *horizontalLayout_4;
+    QDial *dialRotation;
     QWidget *pageObjects;
     QPushButton *btnRemoveObject;
     QPushButton *btnInsertObject;
@@ -225,20 +228,6 @@ public:
 
         gridLayout->addWidget(btnDown, 2, 1, 1, 1);
 
-        btnRotateLeft = new QPushButton(horizontalLayoutWidget_3);
-        btnRotateLeft->setObjectName(QStringLiteral("btnRotateLeft"));
-        sizePolicy5.setHeightForWidth(btnRotateLeft->sizePolicy().hasHeightForWidth());
-        btnRotateLeft->setSizePolicy(sizePolicy5);
-
-        gridLayout->addWidget(btnRotateLeft, 0, 0, 1, 1);
-
-        btnRotateRight = new QPushButton(horizontalLayoutWidget_3);
-        btnRotateRight->setObjectName(QStringLiteral("btnRotateRight"));
-        sizePolicy5.setHeightForWidth(btnRotateRight->sizePolicy().hasHeightForWidth());
-        btnRotateRight->setSizePolicy(sizePolicy5);
-
-        gridLayout->addWidget(btnRotateRight, 0, 2, 1, 1);
-
 
         horizontalLayout_3->addLayout(gridLayout);
 
@@ -246,10 +235,40 @@ public:
 
         horizontalLayout_3->addItem(horizontalSpacer2);
 
+        groupNavigation_2 = new QGroupBox(pageWindow);
+        groupNavigation_2->setObjectName(QStringLiteral("groupNavigation_2"));
+        groupNavigation_2->setGeometry(QRect(10, 240, 241, 121));
+        groupNavigation_2->setStyleSheet(QLatin1String("QGroupBox  {\n"
+"    border: 1px solid gray;\n"
+"    border-radius: 5px;\n"
+"    margin-top: 1ex;\n"
+"}\n"
+" \n"
+"QGroupBox::title  {\n"
+"    subcontrol-origin: margin;\n"
+"    subcontrol-position: top left;\n"
+"    padding: 0 8px;\n"
+"}"));
+        horizontalLayoutWidget_4 = new QWidget(groupNavigation_2);
+        horizontalLayoutWidget_4->setObjectName(QStringLiteral("horizontalLayoutWidget_4"));
+        horizontalLayoutWidget_4->setGeometry(QRect(9, 19, 221, 91));
+        horizontalLayout_4 = new QHBoxLayout(horizontalLayoutWidget_4);
+        horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
+        horizontalLayout_4->setContentsMargins(0, 0, 0, 0);
+        dialRotation = new QDial(horizontalLayoutWidget_4);
+        dialRotation->setObjectName(QStringLiteral("dialRotation"));
+        dialRotation->setMinimum(1);
+        dialRotation->setMaximum(360);
+        dialRotation->setSliderPosition(1);
+        dialRotation->setInvertedAppearance(false);
+        dialRotation->setInvertedControls(false);
+
+        horizontalLayout_4->addWidget(dialRotation);
+
         toolBox->addItem(pageWindow, QString::fromUtf8("Controle de Visualiza\303\247\303\243o"));
         pageObjects = new QWidget();
         pageObjects->setObjectName(QStringLiteral("pageObjects"));
-        pageObjects->setGeometry(QRect(0, 0, 100, 30));
+        pageObjects->setGeometry(QRect(0, 0, 256, 415));
         btnRemoveObject = new QPushButton(pageObjects);
         btnRemoveObject->setObjectName(QStringLiteral("btnRemoveObject"));
         btnRemoveObject->setGeometry(QRect(110, 380, 71, 31));
@@ -315,10 +334,8 @@ public:
         QWidget::setTabOrder(graphicsView, btnZoomOut);
         QWidget::setTabOrder(btnZoomOut, zoomControl);
         QWidget::setTabOrder(zoomControl, btnZoomIn);
-        QWidget::setTabOrder(btnZoomIn, btnRotateLeft);
-        QWidget::setTabOrder(btnRotateLeft, btnUp);
-        QWidget::setTabOrder(btnUp, btnRotateRight);
-        QWidget::setTabOrder(btnRotateRight, btnLeft);
+        QWidget::setTabOrder(btnZoomIn, btnUp);
+        QWidget::setTabOrder(btnUp, btnLeft);
         QWidget::setTabOrder(btnLeft, btnCenter);
         QWidget::setTabOrder(btnCenter, btnRight);
         QWidget::setTabOrder(btnRight, btnDown);
@@ -354,10 +371,7 @@ public:
         btnLeft->setShortcut(QApplication::translate("MainWindow", "Ctrl+Left", 0));
         btnDown->setText(QApplication::translate("MainWindow", "\342\226\274", 0));
         btnDown->setShortcut(QApplication::translate("MainWindow", "Ctrl+Down", 0));
-        btnRotateLeft->setText(QApplication::translate("MainWindow", "RE", 0));
-        btnRotateLeft->setShortcut(QApplication::translate("MainWindow", "Up", 0));
-        btnRotateRight->setText(QApplication::translate("MainWindow", "RD", 0));
-        btnRotateRight->setShortcut(QApplication::translate("MainWindow", "Up", 0));
+        groupNavigation_2->setTitle(QApplication::translate("MainWindow", "Rota\303\247\303\243o", 0));
         toolBox->setItemText(toolBox->indexOf(pageWindow), QApplication::translate("MainWindow", "Controle de Visualiza\303\247\303\243o", 0));
         btnRemoveObject->setText(QApplication::translate("MainWindow", "Remover", 0));
         btnRemoveObject->setShortcut(QApplication::translate("MainWindow", "Ctrl+R", 0));

@@ -7,6 +7,7 @@ MainWindow::MainWindow(ControladorUI* controladorUI, QDialog* parent,
 	this->connectSignalsAndSlots();
 	this->initializeMenuBar();
 	this->zoomValue = this->zoomControl->value();
+	this->rotationValue = this->dialRotation->value();
 	this->controladorUI = controladorUI;
     this->viewport = new Viewport(this->graphicsView, 510, 475);
 }
@@ -72,11 +73,10 @@ void MainWindow::connectSignalsAndSlots() {
 	QObject::connect(btnCenter, SIGNAL(clicked()), this, SLOT(btnNavigationCenterPressed()));
 	QObject::connect(btnRight, SIGNAL(clicked()), this, SLOT(btnNavigationRightPressed()));
 	QObject::connect(btnDown, SIGNAL(clicked()), this, SLOT(btnNavigationDownPressed()));
-	QObject::connect(btnRotateLeft, SIGNAL(clicked()), this, SLOT(btnRotateLeftPressed()));
-	QObject::connect(btnRotateRight, SIGNAL(clicked()), this, SLOT(btnRotateRightPressed()));
 	QObject::connect(btnInsertObject, SIGNAL(clicked()), this, SLOT(btnInsertObjectClicked()));
 	QObject::connect(btnRemoveObject, SIGNAL(clicked()), this, SLOT(btnRemoveObjectClicked()));
 	QObject::connect(btnTransformObject, SIGNAL(clicked()), this, SLOT(btnTransformObjectClicked()));
+	QObject::connect(dialRotation, SIGNAL(valueChanged(int)), this, SLOT(btnRotation(int)));
 }
 
 void MainWindow::btnZoomInPressed() {
@@ -120,12 +120,11 @@ void MainWindow::btnNavigationDownPressed() {
 	this->controladorUI->navegarNoMundo(Mundo::BAIXO, 0.1);
 }
 
-void MainWindow::btnRotateLeftPressed() {
-	this->controladorUI->rotacionarWindow(-30);
-}
+void MainWindow::btnRotation(int currentValue) {
+	int angulo = currentValue - this->rotationValue;
+	this->rotationValue = currentValue;
 
-void MainWindow::btnRotateRightPressed() {
-	this->controladorUI->rotacionarWindow(30);
+	this->controladorUI->rotacionarWindow(angulo);
 }
 
 void MainWindow::btnInsertObjectClicked() {

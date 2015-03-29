@@ -33,8 +33,7 @@ private slots:
 	void btnNavigationCenterPressed();
 	void btnNavigationRightPressed();
 	void btnNavigationDownPressed();
-	void btnRotateLeftPressed();
-	void btnRotateRightPressed();
+	void btnRotation(int currentValue);
 	void btnInsertObjectClicked();
 	void btnRemoveObjectClicked();
 	void btnTransformObjectClicked();
@@ -45,6 +44,7 @@ private:
 	ControladorUI* controladorUI;
 	Viewport* viewport;
 	int zoomValue;
+	int rotationValue;
 
 };
 
