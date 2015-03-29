@@ -68,7 +68,7 @@ public:
 	 * Atualizar objeto ou inserí-lo caso não exista.
 	 * @param obj objeto geométrico a ser atualizado.
 	 */
-	void atualizarObjeto(ObjetoGeometrico* obj);
+	void atualizarObjeto(ObjetoGeometrico* const obj);
 
 	/**
 	 * Remover objeto.

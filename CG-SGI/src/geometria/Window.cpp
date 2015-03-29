@@ -51,7 +51,7 @@ void Window::atualizarDisplayFile(const DisplayFile& displayFile) {
 		this->atualizarObjeto(this->displayFileNormalizado.getObjeto(i));
 }
 
-void Window::atualizarObjeto(ObjetoGeometrico* obj) {
+void Window::atualizarObjeto(ObjetoGeometrico* const obj) {
 	double angulo = this->anguloViewUpVectorEixoY();
 	double tam = this->tamViewUpVector();
 	double x = centro.getX();
@@ -63,7 +63,7 @@ void Window::atualizarObjeto(ObjetoGeometrico* obj) {
 						   {-x*cos(-angulo)-y*sin(-angulo), x*sin(-angulo)-y*cos(-angulo), -z, 1}};
 
 	if(!this->displayFileNormalizado.contem(obj->getNome())) {
-		this->displayFileNormalizado.inserirObjeto(obj);
+		this->displayFileNormalizado.inserirObjeto(*obj);
 	}
 
 	ObjetoGeometrico* objeto = this->displayFileNormalizado.getObjeto(obj->getNome());
@@ -71,7 +71,7 @@ void Window::atualizarObjeto(ObjetoGeometrico* obj) {
 }
 
 void Window::removerObjeto(const String& nome) {
-	delete this->displayFileNormalizado.removerObjeto(nome);
+	this->displayFileNormalizado.removerObjeto(nome);
 }
 
 double Window::anguloViewUpVectorEixoY() const {

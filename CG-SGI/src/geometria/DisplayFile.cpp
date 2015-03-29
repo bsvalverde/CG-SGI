@@ -7,32 +7,35 @@ DisplayFile::~DisplayFile() {}
 DisplayFile& DisplayFile::operator=(const DisplayFile& displayFile) {
 	for(unsigned int i = 0; i < displayFile.getTamanho(); i++) {
 		ObjetoGeometrico* obj = displayFile.objetos.values().at(i);
-		switch(obj->getTipo()) {
-			case ObjetoGeometrico::POLIGONO:
-				obj = new Poligono((const Poligono&) *obj);
-				break;
-			case ObjetoGeometrico::PONTO:
-				obj = new Ponto((const Ponto&) *obj);
-				break;
-			case ObjetoGeometrico::RETA:
-				obj = new Reta((const Reta&) *obj);
-				break;
-			default:
-				break;
-		}
-		this->objetos.insert(obj->getNome(), obj);
+		this->inserirObjeto(*obj);
 	}
 	return *this;
 }
 
-void DisplayFile::inserirObjeto(ObjetoGeometrico* const objeto) {
-	this->objetos.insert(objeto->getNome(), objeto);
+void DisplayFile::inserirObjeto(const ObjetoGeometrico& objeto) {
+	ObjetoGeometrico* obj = 0;
+	switch(objeto.getTipo()) {
+		case ObjetoGeometrico::POLIGONO:
+			obj = new Poligono((const Poligono&) objeto);
+			break;
+		case ObjetoGeometrico::PONTO:
+			obj = new Ponto((const Ponto&) objeto);
+			break;
+		case ObjetoGeometrico::RETA:
+			obj = new Reta((const Reta&) objeto);
+			break;
+		default:
+			return;
+	}
+	this->objetos.insert(obj->getNome(), obj);
 }
 
-ObjetoGeometrico* DisplayFile::removerObjeto(const String& nome) {
+void DisplayFile::removerObjeto(const String& nome) {
 	ObjetoGeometrico* obj = this->objetos[nome];
 	this->objetos.remove(nome);
-	return obj;
+
+	if(obj)
+		delete obj;
 }
 
 ObjetoGeometrico* DisplayFile::getObjeto(const String& nome) {
@@ -47,7 +50,7 @@ unsigned int DisplayFile::getTamanho() const {
 	return this->objetos.size();
 }
 
-bool DisplayFile::contem(const String& nome) {
+bool DisplayFile::contem(const String& nome) const {
 	return this->objetos.contains(nome);
 }
 

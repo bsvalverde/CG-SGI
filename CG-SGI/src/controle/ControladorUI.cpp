@@ -68,11 +68,11 @@ void ControladorUI::inserirObjeto(const String& nome, const QList<Ponto> pontos,
 
 	if(numeroPontos == 1) {
 		Ponto p = pontos.at(0);
-		this->mundo.inserirObjeto(new Ponto(nome, p.getX(), p.getY(), p.getZ(), cor));
+		this->mundo.inserirObjeto(Ponto(nome, p.getX(), p.getY(), p.getZ(), cor));
 	} else if(numeroPontos == 2) {
-		this->mundo.inserirObjeto(new Reta(nome, pontos.at(0), pontos.at(1), cor));
+		this->mundo.inserirObjeto(Reta(nome, pontos.at(0), pontos.at(1), cor));
 	} else if(numeroPontos > 2) {
-		this->mundo.inserirObjeto(new Poligono(nome, pontos, cor));
+		this->mundo.inserirObjeto(Poligono(nome, pontos, cor));
 	}
 
 	this->mainWindow->updateObjects(this->mundo.getObjetos());

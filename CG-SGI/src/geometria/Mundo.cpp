@@ -10,37 +10,17 @@ Mundo::~Mundo() {
 		delete this->window;
 }
 
-void Mundo::inserirObjeto(ObjetoGeometrico* const objeto) {
+void Mundo::inserirObjeto(const ObjetoGeometrico& objeto) {
 	this->displayFile.inserirObjeto(objeto);
-	ObjetoGeometrico* objetoWindow;
-
-	switch(objeto->getTipo()) {
-		case ObjetoGeometrico::POLIGONO:
-			objetoWindow = new Poligono((const Poligono&) *objeto);
-			break;
-		case ObjetoGeometrico::PONTO:
-			objetoWindow = new Ponto((const Ponto&) *objeto);
-			break;
-		case ObjetoGeometrico::RETA:
-			objetoWindow = new Reta((const Reta&) *objeto);
-			break;
-		default:
-			break;
-	}
-
-	this->window->atualizarObjeto(objetoWindow);
+	this->window->atualizarObjeto((ObjetoGeometrico*) &objeto);
 }
 
 void Mundo::removerObjeto(const String& nome) {
-	ObjetoGeometrico* obj = this->displayFile.removerObjeto(nome);
-
-	if(obj)
-		delete obj;
-
+	this->displayFile.removerObjeto(nome);
 	this->window->removerObjeto(nome);
 }
 
-bool Mundo::contemObjeto(const String& nome) {
+bool Mundo::contemObjeto(const String& nome) const {
 	return this->displayFile.contem(nome);
 }
 

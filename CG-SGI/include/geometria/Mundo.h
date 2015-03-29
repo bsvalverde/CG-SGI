@@ -38,7 +38,7 @@ public:
 	 * Inserir objeto ao mundo.
 	 * @param objeto objeto a ser inserido.
 	 */
-	void inserirObjeto(ObjetoGeometrico* const objeto);
+	void inserirObjeto(const ObjetoGeometrico& objeto);
 
 	/**
 	 * Remover objeto do mundo.
@@ -51,7 +51,7 @@ public:
 	 * @param nome nome do objeto.
 	 * @return true se o objeto existe.
 	 */
-	bool contemObjeto(const String& nome);
+	bool contemObjeto(const String& nome) const;
 
 	/**
 	 * Obter a window do mundo.

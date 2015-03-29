@@ -37,26 +37,25 @@ public:
 	 * Inserir um objeto geométrico.
 	 * @param objeto objeto a ser adicionado.
 	 */
-	void inserirObjeto(ObjetoGeometrico* const objeto);
+	void inserirObjeto(const ObjetoGeometrico& objeto);
 
 	/**
 	 * Remover um objeto geométrico.
 	 * @param nome nome do objeto a ser removido.
-	 * @return o objeto removido.
 	 */
-	ObjetoGeometrico* removerObjeto(const String& nome);
+	void removerObjeto(const String& nome);
 
 	/**
 	 * Obter um objeto geométrico.
 	 * @param nome nome do objeto a ser removido.
-	 * @return o objeto removido.
+	 * @return o objeto.
 	 */
 	ObjetoGeometrico* getObjeto(const String& nome);
 
 	/**
 	 * Obter um objeto geométrico.
 	 * @param posicao posição do objeto a ser removido.
-	 * @return o objeto removido.
+	 * @return o objeto.
 	 */
 	ObjetoGeometrico* getObjeto(const unsigned int posicao);
 
@@ -71,7 +70,7 @@ public:
 	 * @param nome nome do a ser verificado.
 	 * @return true caso o objeto esteja na lista.
 	 */
-	bool contem(const String& nome);
+	bool contem(const String& nome) const;
 
 	/**
 	 * Obter a lista de objetos geométricos.
