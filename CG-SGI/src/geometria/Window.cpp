@@ -3,7 +3,7 @@
 
 Window::Window() : ObjetoGeometrico("Window", Tipo::WINDOW) {
 	this->centro = Ponto("centro", 0, 0, 0);
-	this->viewUpVector = Ponto("viewUpVector", 0, 10, 0);
+	this->viewUpVector = Ponto("viewUpVector", 0, 100, 0);
 }
 
 Window::Window(const Window& window) : ObjetoGeometrico(window) {

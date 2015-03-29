@@ -262,13 +262,14 @@ public:
         dialRotation->setSliderPosition(1);
         dialRotation->setInvertedAppearance(false);
         dialRotation->setInvertedControls(false);
+        dialRotation->setWrapping(true);
 
         horizontalLayout_4->addWidget(dialRotation);
 
         toolBox->addItem(pageWindow, QString::fromUtf8("Controle de Visualiza\303\247\303\243o"));
         pageObjects = new QWidget();
         pageObjects->setObjectName(QStringLiteral("pageObjects"));
-        pageObjects->setGeometry(QRect(0, 0, 256, 415));
+        pageObjects->setGeometry(QRect(0, 0, 100, 30));
         btnRemoveObject = new QPushButton(pageObjects);
         btnRemoveObject->setObjectName(QStringLiteral("btnRemoveObject"));
         btnRemoveObject->setGeometry(QRect(110, 380, 71, 31));
