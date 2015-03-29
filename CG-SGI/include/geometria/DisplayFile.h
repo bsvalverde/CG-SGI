@@ -53,8 +53,17 @@ public:
 	 */
 	ObjetoGeometrico* getObjeto(const String& nome);
 
+	/**
+	 * Obter um objeto geométrico.
+	 * @param posicao posição do objeto a ser removido.
+	 * @return o objeto removido.
+	 */
 	ObjetoGeometrico* getObjeto(const unsigned int posicao);
 
+	/**
+	 * Obter o tamanho.
+	 * @return número de objetos contidos no DisplayFile.
+	 */
 	unsigned int getTamanho() const;
 
 	/**

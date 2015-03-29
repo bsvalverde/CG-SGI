@@ -1,13 +1,12 @@
 #ifndef OBJECTINSERTIONWINDOW_H_
 #define OBJECTINSERTIONWINDOW_H_
 
-#include <QtWidgets/qmessagebox.h>
 #include <QtWidgets/qcolordialog.h>
 
 #include "controle/ControladorUI.h"
 #include "geometria/Ponto.h"
-#include "gui/forms/ui/ui_ObjectInsertionWindow.h"
 #include "gui/forms/DefaultWindow.h"
+#include "gui/forms/ui/ui_ObjectInsertionWindow.h"
 
 class ObjectInsertionWindow : public DefaultWindow, private Ui::ObjectInsertionWindow {
 	Q_OBJECT

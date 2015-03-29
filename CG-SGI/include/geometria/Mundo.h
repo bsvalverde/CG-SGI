@@ -14,6 +14,9 @@ class Mundo {
 
 public:
 
+	/**
+	 * Direção de navegação no mundo.
+	 */
 	enum Direcao {
 		CIMA,
 		BAIXO,
@@ -75,6 +78,10 @@ public:
 	 */
 	void redimensionarWindow(const double fator);
 
+	/**
+	 * Rotacionar a Window.
+	 * @param angulo ângulo de rotação em graus.
+	 */
 	void rotacionarWindow(const double angulo);
 
 	/**

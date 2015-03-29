@@ -88,8 +88,7 @@ bool ObjectInsertionWindow::validateFields() {
 
 void ObjectInsertionWindow::insertObject() {
 	if(!this->validateFields()) {
-		QMessageBox messageBox;
-		messageBox.critical(this, "Erro", "Algum campo encontra-se vazio ou contém informação inválida!");
+		this->controladorUI->exibirMensagemErro("Algum campo encontra-se vazio ou contém informação inválida!");
 		return;
 	}
 
@@ -99,8 +98,7 @@ void ObjectInsertionWindow::insertObject() {
 	String name = this->fieldName->text().toStdString();
 
 	if(this->controladorUI->contemObjeto(name)) {
-		QMessageBox messageBox;
-		messageBox.critical(this, "Erro", "Um objeto com este nome já existe!");
+		this->controladorUI->exibirMensagemErro("Um objeto com este nome já existe!");
 		return;
 	}
 

@@ -159,7 +159,6 @@ protected:
 	 */
 	virtual QList<Ponto*> getPontosObjeto() = 0;
 
-
 	String nome;
 	Tipo tipo;
 	QColor cor;

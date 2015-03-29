@@ -65,16 +65,14 @@ bool ObjectTransformationWindow::validateFields() {
 
 void ObjectTransformationWindow::transformObject() {
 	if(!this->validateFields()) {
-		QMessageBox messageBox;
-		messageBox.critical(this, "Erro", "Algum campo encontra-se vazio ou contém informação inválida!");
+		this->controladorUI->exibirMensagemErro("Algum campo encontra-se vazio ou contém informação inválida!");
 		return;
 	}
 
 	double degree, x, y, z;
 
 	if(!this->controladorUI->contemObjeto(this->nomeObjeto)) {
-		QMessageBox messageBox;
-		messageBox.critical(this, "Erro", "Nenhum objeto com este nome encontrado!");
+		this->controladorUI->exibirMensagemErro("Nenhum objeto com este nome encontrado!");
 		return;
 	}
 

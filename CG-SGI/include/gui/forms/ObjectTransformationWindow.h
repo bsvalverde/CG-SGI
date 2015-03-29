@@ -1,12 +1,10 @@
 #ifndef OBJECTTRANSFORMATIONWINDOW_H_
 #define OBJECTTRANSFORMATIONWINDOW_H_
 
-#include <QtWidgets/qmessagebox.h>
-
 #include "controle/ControladorUI.h"
 #include "geometria/Ponto.h"
-#include "gui/forms/ui/ui_ObjectTransformationWindow.h"
 #include "gui/forms/DefaultWindow.h"
+#include "gui/forms/ui/ui_ObjectTransformationWindow.h"
 
 class ObjectTransformationWindow : public DefaultWindow, private Ui::ObjectTransformationWindow {
 	Q_OBJECT
@@ -20,12 +18,11 @@ protected:
 	void connectSignalsAndSlots();
 	bool validateFields();
 
+	String nomeObjeto;
+
 private slots:
 	void transformObject();
 	void specificPointSelected(bool selected);
-
-private:
-	String nomeObjeto;
 
 };
 

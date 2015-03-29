@@ -72,8 +72,22 @@ public:
 	 */
 	const double getZ() const;
 
+	/**
+	 * Definir a coordenada X.
+	 * @param x coordenada x do ponto.
+	 */
 	void setX(const double x);
+
+	/**
+	 * Definir a coordenada Y.
+	 * @param y coordenada y do ponto.
+	 */
 	void setY(const double y);
+
+	/**
+	 * Definir a coordenada Z.
+	 * @param z coordenada z do ponto.
+	 */
 	void setZ(const double z);
 
 protected:
