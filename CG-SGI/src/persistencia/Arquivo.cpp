@@ -19,7 +19,7 @@ const String Arquivo::getNomeCurto() const {
 		return this->nomeArquivo;
 	}
 
-	return this->nomeArquivo.substr(barraDir+2);
+	return this->nomeArquivo.substr(barraDir+1);
 }
 
 const String Arquivo::getDiretorio() const {

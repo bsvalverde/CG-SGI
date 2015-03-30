@@ -148,7 +148,7 @@ void ArquivoOBJ::gravar() const throw(ExcecaoEscritaArquivo) {
 
 	arquivo << "# Arquivo OBJ (Wavefront) - Sistema Gráfico Interativo\n";
 
-	unsigned int linhaAtual = 2;
+	int linhaAtual = 1; // Linha de comentário não é contada!
 	QMap<String, QColor> materiais;
 
 	arquivo << "mtllib " << this->getNomeCurto() + ".mtl" << "\n";
@@ -157,7 +157,7 @@ void ArquivoOBJ::gravar() const throw(ExcecaoEscritaArquivo) {
 	for(int i = 0; i < this->objetos.size(); i++) {
 		ObjetoGeometrico* objeto = this->objetos.at(i);
 		QList<Ponto> pontosObjeto = objeto->getPontos();
-		unsigned int primeiroPonto = linhaAtual;
+		int primeiroPonto = linhaAtual;
 
 		String nomeMaterial = "m_" + objeto->getNome();
 		materiais.insert(nomeMaterial, objeto->getCor());
@@ -166,7 +166,7 @@ void ArquivoOBJ::gravar() const throw(ExcecaoEscritaArquivo) {
 		 * if(WINDOW)
 		 * 	faz diferente TODO
 		 */
-		String pontos = linhaAtual + "";
+		String pontos = std::to_string(linhaAtual);
 		arquivo << "v " << pontosObjeto.at(i).getX() << " " << pontosObjeto.at(i).getY() <<
 					" " << pontosObjeto.at(i).getZ() << "\n";
 		linhaAtual++;
@@ -174,32 +174,32 @@ void ArquivoOBJ::gravar() const throw(ExcecaoEscritaArquivo) {
 		for(int i = 1; i < pontosObjeto.size(); i++) {
 			Ponto p = pontosObjeto.at(i);
 			arquivo << "v " << p.getX() << " " << p.getY() << " " << p.getZ() << "\n";
-			pontos += " " + linhaAtual;
+			pontos += " " + std::to_string(linhaAtual);
 			linhaAtual++;
 		}
 
 		switch(objeto->getTipo()) {
 			case ObjetoGeometrico::WINDOW:
 				arquivo << "o " << objeto->getNome() << "\n";
-				arquivo << "w " << pontos << "\n";
+				arquivo << "w " << pontos.c_str() << "\n";
 				linhaAtual += 2;
 				pontos = "";
 				break;
 			case ObjetoGeometrico::PONTO:
 				arquivo << "o " << objeto->getNome() << "\n";
 				arquivo << "usemtl " << nomeMaterial << "\n";
-				arquivo << "p " << pontos << "\n";
+				arquivo << "p " << pontos.c_str() << "\n";
 				linhaAtual += 3;
 				pontos = "";
 				break;
 			case ObjetoGeometrico::POLIGONO:
 			case ObjetoGeometrico::RETA:
 				if(objeto->getTipo() == ObjetoGeometrico::POLIGONO) {
-					pontos += " " + primeiroPonto;
+					pontos += " " + std::to_string(primeiroPonto);
 				}
 				arquivo << "o " << objeto->getNome() << "\n";
 				arquivo << "usemtl " << nomeMaterial << "\n";
-				arquivo << "l " << pontos << "\n";
+				arquivo << "l " << pontos.c_str() << "\n";
 				linhaAtual += 3;
 				pontos = "";
 				break;
