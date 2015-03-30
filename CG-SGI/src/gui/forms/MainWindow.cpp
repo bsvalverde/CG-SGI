@@ -182,5 +182,10 @@ void MainWindow::btnImportScene() {
 }
 
 void MainWindow::btnExportScene() {
+	String arquivo = QFileDialog::getSaveFileName(0, "Salvar arquivo Wavefront (OBJ)", "", "*.obj").toStdString();
 
+	if(arquivo.compare("") == 0) // Usuário cancelou
+		return;
+
+	//this->controladorUI->exportarCena(arquivo);
 }
