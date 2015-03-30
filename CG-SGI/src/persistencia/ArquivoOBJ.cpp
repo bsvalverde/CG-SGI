@@ -2,9 +2,7 @@
 
 ArquivoOBJ::ArquivoOBJ(const String& nome) : Arquivo(nome) {}
 
-ArquivoOBJ::~ArquivoOBJ() {
-	this->removerObjetos();
-}
+ArquivoOBJ::~ArquivoOBJ() {}
 
 void ArquivoOBJ::carregar() throw(ExcecaoArquivoInvalido, ExcecaoLeituraArquivo) {
 	this->removerObjetos();
@@ -236,7 +234,7 @@ void ArquivoOBJ::setObjetos(const QList<ObjetoGeometrico*>& objetos) {
 	}
 }
 
-const QList<ObjetoGeometrico*>& ArquivoOBJ::getObjetos() const {
+QList<ObjetoGeometrico*> ArquivoOBJ::getObjetos() const {
 	return this->objetos;
 }
 

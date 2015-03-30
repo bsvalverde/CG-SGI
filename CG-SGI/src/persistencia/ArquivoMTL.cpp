@@ -67,7 +67,7 @@ void ArquivoMTL::setMateriais(const QMap<String, QColor>& materiais) {
 	this->materiais = materiais;
 }
 
-const QMap<String, QColor>& ArquivoMTL::getMateriais() const {
+QMap<String, QColor> ArquivoMTL::getMateriais() const {
 	return this->materiais;
 }
 

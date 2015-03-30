@@ -54,7 +54,7 @@ public:
 	 * Obter objetos do arquivo.
 	 * @return objetos do arquivo.
 	 */
-	const QList<ObjetoGeometrico*>& getObjetos() const;
+	QList<ObjetoGeometrico*> getObjetos() const;
 
 protected:
 	/**

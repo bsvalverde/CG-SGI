@@ -6,7 +6,6 @@
 #include <QtCore/qmap.h>
 #include <QtGui/qcolor.h>
 
-#include "excecao/ExcecaoArquivoInvalido.h"
 #include "persistencia/Arquivo.h"
 
 /**
@@ -49,7 +48,7 @@ public:
 	 * Obter materiais do arquivo.
 	 * @return mapa de materiais do arquivo.
 	 */
-	const QMap<String, QColor>& getMateriais() const;
+	QMap<String, QColor> getMateriais() const;
 
 protected:
 	/**
