@@ -151,7 +151,7 @@ void ArquivoOBJ::gravar() const throw(ExcecaoEscritaArquivo) {
 	unsigned int linhaAtual = 2;
 	QMap<String, QColor> materiais;
 
-	arquivo << "mtllib " << this->getNome() + ".mtl" << "\n";
+	arquivo << "mtllib " << this->getNomeCurto() + ".mtl" << "\n";
 	linhaAtual++;
 
 	for(int i = 0; i < this->objetos.size(); i++) {
@@ -207,7 +207,7 @@ void ArquivoOBJ::gravar() const throw(ExcecaoEscritaArquivo) {
 	}
 	arquivo.close();
 
-	ArquivoMTL arquivoMtl(this->getDiretorio() + this->getNome() + ".mtl");
+	ArquivoMTL arquivoMtl(this->getNome() + ".mtl");
 	arquivoMtl.setMateriais(materiais);
 	arquivoMtl.gravar();
 }

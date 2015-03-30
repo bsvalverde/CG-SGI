@@ -28,10 +28,16 @@ public:
 	virtual ~Arquivo();
 
 	/**
-	 * Obter o nome.
-	 * @return nome do arquivo.
+	 * Obter o nome completo.
+	 * @return nome completo do arquivo.
 	 */
 	const String& getNome() const;
+
+	/**
+	 * Obter o nome sem o diretório.
+	 * @return nome do arquivo (sem o diretório).
+	 */
+	const String getNomeCurto() const;
 
 	/**
 	 * Obter o diretório relativo onde o arquivo está.

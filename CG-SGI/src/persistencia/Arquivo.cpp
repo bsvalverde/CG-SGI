@@ -10,6 +10,18 @@ const String& Arquivo::getNome() const {
 	return this->nomeArquivo;
 }
 
+const String Arquivo::getNomeCurto() const {
+	// Encontrar a última barra antes do nome do arquivo
+	unsigned barraDir = this->nomeArquivo.find_last_of( "/\\" );
+
+	// Caso não encontre barra, o diretório é o diretório atual
+	if(barraDir == std::string::npos) {
+		return this->nomeArquivo;
+	}
+
+	return this->nomeArquivo.substr(barraDir+2);
+}
+
 const String Arquivo::getDiretorio() const {
 	// Encontrar a última barra antes do nome do arquivo
 	unsigned barraDir = this->nomeArquivo.find_last_of( "/\\" );
