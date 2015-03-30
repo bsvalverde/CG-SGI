@@ -28,13 +28,16 @@ public:
 
 	/**
 	 * Carregar o arquivo.
+	 * @throws ExcecaoArquivoInvalido caso o arquivo seja inválido.
+	 * @throws ExcecaoLeituraArquivo caso não seja possível ler o arquivo.
 	 */
-	void carregar() throw(ExcecaoArquivoInvalido);
+	void carregar() throw(ExcecaoArquivoInvalido, ExcecaoLeituraArquivo);
 
 	/**
 	 * Gravar o arquivo.
+	 * @throws ExcecaoEscritaArquivo caso não seja possível escrever no arquivo.
 	 */
-	void gravar() const throw();
+	void gravar() const throw(ExcecaoEscritaArquivo);
 
 	/**
 	 * Definir os materiais do arquivo.

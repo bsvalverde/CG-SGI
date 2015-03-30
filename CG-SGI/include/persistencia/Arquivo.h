@@ -5,6 +5,8 @@
 #include <fstream>
 
 #include "excecao/ExcecaoArquivoInvalido.h"
+#include "excecao/ExcecaoEscritaArquivo.h"
+#include "excecao/ExcecaoLeituraArquivo.h"
 
 typedef std::string String;
 
@@ -45,13 +47,16 @@ public:
 
 	/**
 	 * Carregar o arquivo.
+	 * @throws ExcecaoArquivoInvalido caso o arquivo seja inválido.
+	 * @throws ExcecaoLeituraArquivo caso não seja possível ler o arquivo.
 	 */
-	virtual void carregar() throw(ExcecaoArquivoInvalido) = 0;
+	virtual void carregar() throw(ExcecaoArquivoInvalido, ExcecaoLeituraArquivo) = 0;
 
 	/**
 	 * Gravar o arquivo.
+	 * @throws ExcecaoEscritaArquivo caso não seja possível escrever no arquivo.
 	 */
-	virtual void gravar() const throw() = 0;
+	virtual void gravar() const throw(ExcecaoEscritaArquivo) = 0;
 
 protected:
 	/**

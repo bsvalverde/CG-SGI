@@ -6,7 +6,7 @@ ArquivoOBJ::~ArquivoOBJ() {
 	this->removerObjetos();
 }
 
-void ArquivoOBJ::carregar() throw(ExcecaoArquivoInvalido) {
+void ArquivoOBJ::carregar() throw(ExcecaoArquivoInvalido, ExcecaoLeituraArquivo) {
 	this->removerObjetos();
 
 	std::ifstream arquivo(this->getNome().c_str());
@@ -16,7 +16,7 @@ void ArquivoOBJ::carregar() throw(ExcecaoArquivoInvalido) {
 	int linhaAtual = 1;
 
 	if(!arquivo)
-		throw ExcecaoArquivoInvalido(this->getNome());
+		throw ExcecaoLeituraArquivo(this->getNome());
 
 	// Obter todos os vértices
 	while(std::getline(arquivo, linha)) {
@@ -30,7 +30,7 @@ void ArquivoOBJ::carregar() throw(ExcecaoArquivoInvalido) {
 
 			if(!p) {
 				this->limpar(pontos.values());
-				throw; // TODO
+				throw ExcecaoArquivoInvalido(this->getNome());
 			}
 
 			pontos.insert(linhaAtual, p);
@@ -59,13 +59,13 @@ void ArquivoOBJ::carregar() throw(ExcecaoArquivoInvalido) {
 			String nomeMTL;
 			if(!(buffer >> nomeMTL)) {
 				this->limpar(pontos.values());
-				throw; // TODO
+				throw ExcecaoArquivoInvalido(this->getNome());
 			}
 
 			ArquivoMTL arqMTL(this->getDiretorio() + nomeMTL);
 
 			if(!arqMTL.existe())
-				throw ExcecaoArquivoInvalido(nomeMTL); // TODO
+				throw ExcecaoArquivoInvalido(nomeMTL);
 
 			arqMTL.carregar();
 			materiais = arqMTL.getMateriais();
@@ -74,14 +74,14 @@ void ArquivoOBJ::carregar() throw(ExcecaoArquivoInvalido) {
 
 			if(!(buffer >> nomeMaterial) || !materiais.contains(nomeMaterial)) {
 				this->limpar(pontos.values());
-				throw; // TODO
+				throw ExcecaoArquivoInvalido(this->getNome());
 			}
 
 			corAtual = materiais.value(nomeMaterial);
 		} else if(tipo.compare("o") == 0) {
 			if(!(buffer >> nomeObjeto)) {
 				this->limpar(pontos.values());
-				throw; // TODO
+				throw ExcecaoArquivoInvalido(this->getNome());
 			}
 		} else if(tipo.compare("p") == 0) {
 			if(nomeObjeto.compare("") != 0 && buffer >> indice) {
@@ -89,7 +89,7 @@ void ArquivoOBJ::carregar() throw(ExcecaoArquivoInvalido) {
 				this->objetos.insert(this->objetos.size() - 1, new Ponto(nomeObjeto, p->getX(), p->getY(), p->getZ(), corAtual));
 			} else {
 				this->limpar(pontos.values());
-				throw; // TODO
+				throw ExcecaoArquivoInvalido(this->getNome());
 			}
 
 			nomeObjeto = "";
@@ -108,11 +108,11 @@ void ArquivoOBJ::carregar() throw(ExcecaoArquivoInvalido) {
 					this->objetos.insert(this->objetos.size() - 1, new Poligono(nomeObjeto, pontosObj, corAtual));
 				} else {
 					this->limpar(pontos.values());
-					throw; // TODO
+					throw ExcecaoArquivoInvalido(this->getNome());
 				}
 			} else {
 				this->limpar(pontos.values());
-				throw; // TODO
+				throw ExcecaoArquivoInvalido(this->getNome());
 			}
 
 			nomeObjeto = "";
@@ -127,7 +127,7 @@ void ArquivoOBJ::carregar() throw(ExcecaoArquivoInvalido) {
 				this->objetos.insert(this->objetos.size() - 1, new Window(*centroWindow, *centroWindow));
 			} else {
 				this->limpar(pontos.values());
-				throw; // TODO
+				throw ExcecaoArquivoInvalido(this->getNome());
 			}
 
 			nomeObjeto = "";
@@ -141,14 +141,77 @@ void ArquivoOBJ::carregar() throw(ExcecaoArquivoInvalido) {
 	this->limpar(pontos.values());
 }
 
-void ArquivoOBJ::gravar() const throw() {
+void ArquivoOBJ::gravar() const throw(ExcecaoEscritaArquivo) {
 	this->remover();
 	std::fstream arquivo(this->getNome().c_str(), std::fstream::out | std::fstream::app);
 
 	if(!arquivo)
-		throw ExcecaoArquivoInvalido(this->getNome());
+		throw ExcecaoEscritaArquivo(this->getNome());
 
-	// TODO Escrever objetos no arquivo.
+	arquivo << "# Arquivo OBJ (Wavefront) - Sistema Gráfico Interativo\n";
+
+	unsigned int linhaAtual = 2;
+	QMap<String, QColor> materiais;
+
+	arquivo << "mtllib " << this->getNome() + ".mtl" << "\n";
+	linhaAtual++;
+
+	for(int i = 0; i < this->objetos.size(); i++) {
+		ObjetoGeometrico* objeto = this->objetos.at(i);
+		QList<Ponto> pontosObjeto = objeto->getPontos();
+		unsigned int primeiroPonto = linhaAtual;
+
+		String nomeMaterial = "m_" + objeto->getNome();
+		materiais.insert(nomeMaterial, objeto->getCor());
+
+		/**
+		 * if(WINDOW)
+		 * 	faz diferente TODO
+		 */
+		String pontos = linhaAtual + "";
+		arquivo << "v " << pontosObjeto.at(i).getX() << " " << pontosObjeto.at(i).getY() <<
+					" " << pontosObjeto.at(i).getZ() << "\n";
+		linhaAtual++;
+
+		for(int i = 1; i < pontosObjeto.size(); i++) {
+			Ponto p = pontosObjeto.at(i);
+			arquivo << "v " << p.getX() << " " << p.getY() << " " << p.getZ() << "\n";
+			pontos += " " + linhaAtual;
+			linhaAtual++;
+		}
+
+		switch(objeto->getTipo()) {
+			case ObjetoGeometrico::WINDOW:
+				arquivo << "o " << objeto->getNome() << "\n";
+				arquivo << "w " << pontos << "\n";
+				linhaAtual += 2;
+				pontos = "";
+				break;
+			case ObjetoGeometrico::PONTO:
+				arquivo << "o " << objeto->getNome() << "\n";
+				arquivo << "usemtl " << nomeMaterial << "\n";
+				arquivo << "p " << pontos << "\n";
+				linhaAtual += 3;
+				pontos = "";
+				break;
+			case ObjetoGeometrico::POLIGONO:
+			case ObjetoGeometrico::RETA:
+				if(objeto->getTipo() == ObjetoGeometrico::POLIGONO) {
+					pontos += " " + primeiroPonto;
+				}
+				arquivo << "o " << objeto->getNome() << "\n";
+				arquivo << "usemtl " << nomeMaterial << "\n";
+				arquivo << "l " << pontos << "\n";
+				linhaAtual += 3;
+				pontos = "";
+				break;
+		}
+	}
+	arquivo.close();
+
+	ArquivoMTL arquivoMtl(this->getDiretorio() + this->getNome() + ".mtl");
+	arquivoMtl.setMateriais(materiais);
+	arquivoMtl.gravar();
 }
 
 void ArquivoOBJ::setObjetos(const QList<ObjetoGeometrico*>& objetos) {

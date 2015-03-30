@@ -4,7 +4,7 @@
 #include "excecao/Excecao.h"
 
 /**
- * Exceção Arquivo Inválido.
+ * Exceção de Arquivo Inválido.
  */
 class ExcecaoArquivoInvalido : public Excecao {
 
@@ -26,7 +26,7 @@ public:
 	 * @return A mensagem correspondente.
 	 */
 	virtual String getMensagem() const {
-		return this->arquivo + " não pode ser lido ou representa um arquivo válido.";
+		return this->arquivo + " não é um arquivo válido.";
 	}
 
 protected:
