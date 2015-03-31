@@ -228,8 +228,9 @@ void ArquivoOBJ::setObjetos(const QList<ObjetoGeometrico*>& objetos) {
 			case ObjetoGeometrico::RETA:
 				obj = new Reta((const Reta&) *obj);
 				break;
-			default:
-				return;
+			case ObjetoGeometrico::WINDOW:
+				obj = new Window((const Window&) *obj);
+				break;
 		}
 		this->objetos.insert(i, obj);
 	}

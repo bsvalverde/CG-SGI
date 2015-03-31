@@ -53,6 +53,8 @@ public:
 	 */
 	bool contemObjeto(const String& nome) const;
 
+	void setWindow(const Window& window);
+
 	/**
 	 * Obter a window do mundo.
 	 * @return a window.

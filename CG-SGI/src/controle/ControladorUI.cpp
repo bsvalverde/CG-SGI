@@ -113,7 +113,10 @@ void ControladorUI::importarCena(const String& arquivo) {
 	const QList<ObjetoGeometrico*> objs = arq.getObjetos();
 
 	for(ObjetoGeometrico* obj : objs) {
-		this->mundo.inserirObjeto(*obj);
+		if(obj->getTipo() != ObjetoGeometrico::WINDOW)
+			this->mundo.inserirObjeto(*obj);
+		else
+			this->mundo.setWindow((const Window&) *obj);
 	}
 
 	this->mainWindow->updateObjects(this->mundo.getObjetos());

@@ -24,6 +24,14 @@ bool Mundo::contemObjeto(const String& nome) const {
 	return this->displayFile.contem(nome);
 }
 
+void Mundo::setWindow(const Window& window) {
+	if(this->window)
+		delete this->window;
+
+	this->window = new Window(window);
+	this->window->atualizarDisplayFile(this->displayFile);
+}
+
 Window* Mundo::getWindow() const {
 	return this->window;
 }
