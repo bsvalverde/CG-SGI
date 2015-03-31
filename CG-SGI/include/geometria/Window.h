@@ -23,10 +23,11 @@ public:
 
 	/**
 	 * Construtor.
-	 * @param pInfEsq ponto inferior esquerdo.
-	 * @param pSupDir ponto superior direito.
+	 * @param centro centro da Window.
+	 * @param largura largura da Window.
+	 * @param altura altura da Window.
 	 */
-	Window(const Ponto& pInfEsq, const Ponto& pSupDir);
+	Window(const Ponto& centro, const double largura, const double altura);
 
 	/**
 	 * Destrutor.
@@ -57,6 +58,18 @@ public:
 	 * @return o ponto correspondento ao centro.
 	 */
 	const Ponto getCentroGeometrico() const;
+
+	/**
+	 * Obter a largura da Window.
+	 * @return largura da Window.
+	 */
+	const double getLargura() const;
+
+	/**
+	 * Obter a altura da Window.
+	 * @return altura da Window.
+	 */
+	const double getAltura() const;
 
 	/**
 	 * Atualizar lista de objetos da Window.
@@ -107,10 +120,17 @@ protected:
 	 * Obter o tamanho do View Up Vector.
 	 * @param o comprimento do vetor.
 	 */
-	double tamViewUpVector() const;
+	double getTamanhoViewUpVector() const;
+
+	/**
+	 * Obter o tamanho do View Right Vector.
+	 * @param o comprimento do vetor.
+	 */
+	double getTamanhoViewRightVector() const;
 
 	Ponto centro;
 	Ponto viewUpVector;
+	Ponto viewRightVector;
 	DisplayFile displayFileNormalizado;
 
 };

@@ -120,9 +120,7 @@ void ArquivoOBJ::carregar() throw(ExcecaoArquivoInvalido, ExcecaoLeituraArquivo)
 				double largura = pontos.value(indice2)->getX();
 				double altura = pontos.value(indice2)->getY();
 
-				largura += altura; // ocultar warnings TEMP TODO
-
-				this->objetos.insert(this->objetos.size() - 1, new Window(*centroWindow, *centroWindow));
+				this->objetos.insert(this->objetos.size() - 1, new Window(*centroWindow, largura, altura));
 			} else {
 				this->limpar(pontos.values());
 				throw ExcecaoArquivoInvalido(this->getNome());
@@ -162,18 +160,21 @@ void ArquivoOBJ::gravar() const throw(ExcecaoEscritaArquivo) {
 		String nomeMaterial = "m_" + objeto->getNome();
 		materiais.insert(nomeMaterial, objeto->getCor());
 
-		/**
-		 * if(WINDOW)
-		 * 	faz diferente TODO
-		 */
 		String pontos = std::to_string(linhaAtual);
-		arquivo << "v " << pontosObjeto.at(i).getX() << " " << pontosObjeto.at(i).getY() <<
-					" " << pontosObjeto.at(i).getZ() << "\n";
+		arquivo << "v " << pontosObjeto.at(0).getX() << " " << pontosObjeto.at(0).getY() <<
+					" " << pontosObjeto.at(0).getZ() << "\n";
 		linhaAtual++;
 
-		for(int i = 1; i < pontosObjeto.size(); i++) {
-			Ponto p = pontosObjeto.at(i);
-			arquivo << "v " << p.getX() << " " << p.getY() << " " << p.getZ() << "\n";
+		if(objeto->getTipo() != ObjetoGeometrico::WINDOW) {
+			for(int j = 1; j < pontosObjeto.size(); j++) {
+				Ponto p = pontosObjeto.at(j);
+				arquivo << "v " << p.getX() << " " << p.getY() << " " << p.getZ() << "\n";
+				pontos += " " + std::to_string(linhaAtual);
+				linhaAtual++;
+			}
+		} else {
+			Window* w = (Window*) objeto;
+			arquivo << "v " << w->getLargura() << " " << w->getAltura() << " 0\n";
 			pontos += " " + std::to_string(linhaAtual);
 			linhaAtual++;
 		}
