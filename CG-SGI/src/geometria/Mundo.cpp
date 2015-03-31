@@ -77,9 +77,6 @@ void Mundo::escalonarObjeto(const String& nome, const double sX, const double sY
 void Mundo::transladarObjeto(const String& nome, const double sX, const double sY, const double sZ) {
 	ObjetoGeometrico* obj = this->displayFile.getObjeto(nome);
 	obj->transladar(sX, sY, sZ);
-	std::cout << obj->getNome() << std::endl;
-	std::cout << obj->getPontos().at(0) << std::endl;
-	std::cout << obj->getPontos().at(1) << std::endl;
 	this->window->atualizarDisplayFile(this->displayFile);
 }
 
@@ -92,5 +89,11 @@ void Mundo::rotacionarObjetoPorPonto(const String& nome, const Ponto& ponto, con
 void Mundo::rotacionarObjetoPeloCentro(const String& nome, const double angulo) {
 	ObjetoGeometrico* obj = this->displayFile.getObjeto(nome);
 	obj->rotacionarPeloCentro(angulo);
+	this->window->atualizarDisplayFile(this->displayFile);
+}
+
+void Mundo::reiniciarWindow(){
+	delete(this->window);
+	this->window = new Window();
 	this->window->atualizarDisplayFile(this->displayFile);
 }

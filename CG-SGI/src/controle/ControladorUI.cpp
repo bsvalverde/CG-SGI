@@ -121,3 +121,8 @@ void ControladorUI::importarCena(const String& arquivo) {
 
 	this->mainWindow->updateObjects(this->mundo.getObjetos());
 }
+
+void ControladorUI::reiniciarWindow(){
+	this->mundo.reiniciarWindow();
+	this->mainWindow->updateObjects(this->mundo.getObjetos());
+}

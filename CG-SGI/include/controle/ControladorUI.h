@@ -67,7 +67,8 @@ public:
 	 * @param sY fator de escalonamento da coordenada y.
 	 * @param sZ fator de escalonamento da coordenada z.
 	 */
-	void escalonarObjeto(const String& nome, const double sX, const double sY, const double sZ);
+	void escalonarObjeto(const String& nome, const double sX, const double sY,
+			const double sZ);
 
 	/**
 	 * Transladar objeto.
@@ -76,7 +77,8 @@ public:
 	 * @param sY fator de translação da coordenada y.
 	 * @param sZ fator de translação da coordenada z.
 	 */
-	void transladarObjeto(const String& nome, const double sX, const double sY, const double sZ);
+	void transladarObjeto(const String& nome, const double sX, const double sY,
+			const double sZ);
 
 	/**
 	 * Rotacionar objeto em relação a um ponto específico.
@@ -84,7 +86,8 @@ public:
 	 * @param ponto ponto de rotação.
 	 * @param angulo ângulo de rotação em graus.
 	 */
-	void rotacionarObjetoPorPonto(const String& nome, const Ponto& ponto, const double angulo);
+	void rotacionarObjetoPorPonto(const String& nome, const Ponto& ponto,
+			const double angulo);
 
 	/**
 	 * Rotacionar objeto em relação ao centro geométrico.
@@ -99,7 +102,8 @@ public:
 	 * @param pontos pontos do objeto.
 	 * @param cor cor do objeto.
 	 */
-	void inserirObjeto(const String& nome, const QList<Ponto> pontos, const QColor& cor);
+	void inserirObjeto(const String& nome, const QList<Ponto> pontos,
+			const QColor& cor);
 
 	/**
 	 * Remover objeto geométrico.
@@ -128,6 +132,11 @@ public:
 	bool requisitarConfirmacaoUsuario(const String& mensagem) const;
 
 	void importarCena(const String& arquivo);
+
+	/**
+	 * Reposicionar window, reestabelecendo as coordenadas iniciais.
+	 */
+	void reiniciarWindow();
 
 protected:
 	Mundo mundo;
