@@ -60,6 +60,14 @@ public:
 	const Ponto getCentroGeometrico() const;
 
 	/**
+	 * Transladar a window.
+	 * @param sX fator de translação do eixo x.
+	 * @param sY fator de translação do eixo y.
+	 * @param sZ fator de translação do eixo z.
+	 */
+	void transladar(const double sX, const double sY, const double sZ);
+
+	/**
 	 * Obter a largura da Window.
 	 * @return largura da Window.
 	 */
@@ -96,12 +104,9 @@ public:
 	QList<ObjetoGeometrico*> getObjetos() const;
 
 	/**
-	 * Transladar a window.
-	 * @param sX fator de translação do eixo x.
-	 * @param sY fator de translação do eixo y.
-	 * @param sZ fator de translação do eixo z.
+	 * Remover todos os objetos do mundo.
 	 */
-	void transladar(const double sX, const double sY, const double sZ);
+	void removerObjetos();
 
 protected:
 	/**

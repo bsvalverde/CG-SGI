@@ -10,20 +10,6 @@ Mundo::~Mundo() {
 		delete this->window;
 }
 
-void Mundo::inserirObjeto(const ObjetoGeometrico& objeto) {
-	this->displayFile.inserirObjeto(objeto);
-	this->window->atualizarObjeto((ObjetoGeometrico*) &objeto);
-}
-
-void Mundo::removerObjeto(const String& nome) {
-	this->displayFile.removerObjeto(nome);
-	this->window->removerObjeto(nome);
-}
-
-bool Mundo::contemObjeto(const String& nome) const {
-	return this->displayFile.contem(nome);
-}
-
 void Mundo::setWindow(const Window& window) {
 	if(this->window)
 		delete this->window;
@@ -32,12 +18,17 @@ void Mundo::setWindow(const Window& window) {
 	this->window->atualizarDisplayFile(this->displayFile);
 }
 
-Window* Mundo::getWindow() const {
-	return this->window;
+QList<ObjetoGeometrico*> Mundo::getObjetosReais() const {
+	return this->displayFile.getObjetos();
 }
 
-QList<ObjetoGeometrico*> Mundo::getObjetos() const {
+QList<ObjetoGeometrico*> Mundo::getObjetosNormalizados() const {
 	return this->window->getObjetos();
+}
+
+void Mundo::removerObjetos() {
+	this->displayFile.removerObjetos();
+	this->window->removerObjetos();
 }
 
 void Mundo::navegar(const Direcao direcao, const double fator) {
@@ -58,14 +49,34 @@ void Mundo::navegar(const Direcao direcao, const double fator) {
 	this->window->atualizarDisplayFile(this->displayFile);
 }
 
-void Mundo::redimensionarWindow(const double fator) {
+void Mundo::aplicarZoom(const double fator) {
 	this->window->escalonar(fator, fator, fator);
 	this->window->atualizarDisplayFile(this->displayFile);
 }
 
-void Mundo::rotacionarWindow(const double angulo) {
+void Mundo::rotacionarVisualizacao(const double angulo) {
 	this->window->rotacionarPeloCentro(angulo);
 	this->window->atualizarDisplayFile(this->displayFile);
+}
+
+void Mundo::reiniciarVisualizacao() {
+	delete this->window;
+	this->window = new Window();
+	this->window->atualizarDisplayFile(this->displayFile);
+}
+
+void Mundo::inserirObjeto(const ObjetoGeometrico& objeto) {
+	this->displayFile.inserirObjeto(objeto);
+	this->window->atualizarObjeto((ObjetoGeometrico*) &objeto);
+}
+
+void Mundo::removerObjeto(const String& nome) {
+	this->displayFile.removerObjeto(nome);
+	this->window->removerObjeto(nome);
+}
+
+bool Mundo::contemObjeto(const String& nome) const {
+	return this->displayFile.contem(nome);
 }
 
 void Mundo::escalonarObjeto(const String& nome, const double sX, const double sY, const double sZ) {
@@ -89,11 +100,5 @@ void Mundo::rotacionarObjetoPorPonto(const String& nome, const Ponto& ponto, con
 void Mundo::rotacionarObjetoPeloCentro(const String& nome, const double angulo) {
 	ObjetoGeometrico* obj = this->displayFile.getObjeto(nome);
 	obj->rotacionarPeloCentro(angulo);
-	this->window->atualizarDisplayFile(this->displayFile);
-}
-
-void Mundo::reiniciarWindow(){
-	delete(this->window);
-	this->window = new Window();
 	this->window->atualizarDisplayFile(this->displayFile);
 }

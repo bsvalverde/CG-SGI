@@ -120,6 +120,10 @@ QList<ObjetoGeometrico*> Window::getObjetos() const {
 	return this->displayFileNormalizado.getObjetos();
 }
 
+void Window::removerObjetos() {
+	this->displayFileNormalizado.removerObjetos();
+}
+
 QList<Ponto*> Window::getPontosObjeto() {
 	QList<Ponto*> pontos;
 	pontos.insert(0, &this->centro);

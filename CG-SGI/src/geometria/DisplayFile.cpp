@@ -57,3 +57,10 @@ bool DisplayFile::contem(const String& nome) const {
 QList<ObjetoGeometrico*> DisplayFile::getObjetos() const {
 	return this->objetos.values();
 }
+
+void DisplayFile::removerObjetos() {
+	for(String chave : this->objetos.keys()) {
+		delete this->objetos.value(chave);
+	}
+	this->objetos.clear();
+}

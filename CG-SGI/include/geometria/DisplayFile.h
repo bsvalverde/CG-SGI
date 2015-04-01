@@ -78,6 +78,11 @@ public:
 	 */
 	QList<ObjetoGeometrico*> getObjetos() const;
 
+	/**
+	 * Remover todos os objetos do DisplayFile.
+	 */
+	void removerObjetos();
+
 private:
 	QMap<String, ObjetoGeometrico*> objetos;
 

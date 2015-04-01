@@ -30,38 +30,38 @@ void ControladorUI::exibirObjectTransformationWindow(const String& nomeObjeto) {
 
 void ControladorUI::navegarNoMundo(const Mundo::Direcao direcao, const double fator) {
 	this->mundo.navegar(direcao, fator);
-	this->mainWindow->updateObjects(this->mundo.getObjetos());
+	this->mainWindow->updateObjects(this->mundo.getObjetosNormalizados());
 }
 
 void ControladorUI::redimensionarWindow(const double fator) {
-	this->mundo.redimensionarWindow(fator);
-	this->mainWindow->updateObjects(this->mundo.getObjetos());
+	this->mundo.aplicarZoom(fator);
+	this->mainWindow->updateObjects(this->mundo.getObjetosNormalizados());
 }
 
 void ControladorUI::rotacionarWindow(const double angulo) {
-	this->mundo.rotacionarWindow(angulo);
-	this->mainWindow->updateObjects(this->mundo.getObjetos());
+	this->mundo.rotacionarVisualizacao(angulo);
+	this->mainWindow->updateObjects(this->mundo.getObjetosNormalizados());
 }
 
 void ControladorUI::escalonarObjeto(const String& nome, const double sX, const double sY, const double sZ) {
 	this->mundo.escalonarObjeto(nome, sX, sY, sZ);
-	this->mainWindow->updateObjects(this->mundo.getObjetos());
+	this->mainWindow->updateObjects(this->mundo.getObjetosNormalizados());
 }
 
 void ControladorUI::transladarObjeto(const String& nome, const double sX, const double sY, const double sZ) {
 	this->mundo.transladarObjeto(nome, sX, sY, sZ);
-	this->mainWindow->updateObjects(this->mundo.getObjetos());
+	this->mainWindow->updateObjects(this->mundo.getObjetosNormalizados());
 
 }
 
 void ControladorUI::rotacionarObjetoPorPonto(const String& nome, const Ponto& ponto, const double angulo) {
 	this->mundo.rotacionarObjetoPorPonto(nome, ponto, angulo);
-	this->mainWindow->updateObjects(this->mundo.getObjetos());
+	this->mainWindow->updateObjects(this->mundo.getObjetosNormalizados());
 }
 
 void ControladorUI::rotacionarObjetoPeloCentro(const String& nome, const double angulo) {
 	this->mundo.rotacionarObjetoPeloCentro(nome, angulo);
-	this->mainWindow->updateObjects(this->mundo.getObjetos());
+	this->mainWindow->updateObjects(this->mundo.getObjetosNormalizados());
 }
 
 void ControladorUI::inserirObjeto(const String& nome, const QList<Ponto> pontos, const QColor& cor) {
@@ -76,12 +76,12 @@ void ControladorUI::inserirObjeto(const String& nome, const QList<Ponto> pontos,
 		this->mundo.inserirObjeto(Poligono(nome, pontos, cor));
 	}
 
-	this->mainWindow->updateObjects(this->mundo.getObjetos());
+	this->mainWindow->updateObjects(this->mundo.getObjetosNormalizados());
 }
 
 void ControladorUI::removerObjeto(const String& nome) {
 	this->mundo.removerObjeto(nome);
-	this->mainWindow->updateObjects(this->mundo.getObjetos());
+	this->mainWindow->updateObjects(this->mundo.getObjetosNormalizados());
 }
 
 bool ControladorUI::contemObjeto(const String& nome) {
@@ -119,10 +119,10 @@ void ControladorUI::importarCena(const String& arquivo) {
 			this->mundo.setWindow((const Window&) *obj);
 	}
 
-	this->mainWindow->updateObjects(this->mundo.getObjetos());
+	this->mainWindow->updateObjects(this->mundo.getObjetosNormalizados());
 }
 
 void ControladorUI::reiniciarWindow(){
-	this->mundo.reiniciarWindow();
-	this->mainWindow->updateObjects(this->mundo.getObjetos());
+	this->mundo.reiniciarVisualizacao();
+	this->mainWindow->updateObjects(this->mundo.getObjetosNormalizados());
 }
