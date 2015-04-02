@@ -75,30 +75,30 @@ void Mundo::removerObjeto(const String& nome) {
 	this->window->removerObjeto(nome);
 }
 
+ObjetoGeometrico* Mundo::getObjeto(const String& nome) {
+	return this->displayFile.getObjeto(nome);
+}
+
 bool Mundo::contemObjeto(const String& nome) const {
 	return this->displayFile.contem(nome);
 }
 
-void Mundo::escalonarObjeto(const String& nome, const double sX, const double sY, const double sZ) {
-	ObjetoGeometrico* obj = this->displayFile.getObjeto(nome);
-	obj->escalonar(sX, sY, sZ);
+void Mundo::escalonarObjeto(ObjetoGeometrico* const objeto, const double sX, const double sY, const double sZ) {
+	objeto->escalonar(sX, sY, sZ);
 	this->window->atualizarDisplayFile(this->displayFile);
 }
 
-void Mundo::transladarObjeto(const String& nome, const double sX, const double sY, const double sZ) {
-	ObjetoGeometrico* obj = this->displayFile.getObjeto(nome);
-	obj->transladar(sX, sY, sZ);
+void Mundo::transladarObjeto(ObjetoGeometrico* const objeto, const double sX, const double sY, const double sZ) {
+	objeto->transladar(sX, sY, sZ);
 	this->window->atualizarDisplayFile(this->displayFile);
 }
 
-void Mundo::rotacionarObjetoPorPonto(const String& nome, const Ponto& ponto, const double angulo) {
-	ObjetoGeometrico* obj = this->displayFile.getObjeto(nome);
-	obj->rotacionarPorPonto(ponto, angulo);
+void Mundo::rotacionarObjetoPorPonto(ObjetoGeometrico* const objeto, const Ponto& ponto, const double angulo) {
+	objeto->rotacionarPorPonto(ponto, angulo);
 	this->window->atualizarDisplayFile(this->displayFile);
 }
 
-void Mundo::rotacionarObjetoPeloCentro(const String& nome, const double angulo) {
-	ObjetoGeometrico* obj = this->displayFile.getObjeto(nome);
-	obj->rotacionarPeloCentro(angulo);
+void Mundo::rotacionarObjetoPeloCentro(ObjetoGeometrico* const objeto, const double angulo) {
+	objeto->rotacionarPeloCentro(angulo);
 	this->window->atualizarDisplayFile(this->displayFile);
 }

@@ -20,6 +20,21 @@ void ControladorMundo::reiniciarVisualizacao(){
 	this->mundo.reiniciarVisualizacao();
 }
 
+QList<ObjetoGeometrico*> ControladorMundo::getObjetosReais() const {
+	return this->mundo.getObjetosReais();
+}
+
+QList<ObjetoGeometrico*> ControladorMundo::getObjetosNormalizados() const {
+	return this->mundo.getObjetosNormalizados();
+}
+
+void ControladorMundo::atualizarObjetos(const QList<ObjetoGeometrico*>& objetos) {
+	this->mundo.removerObjetos();
+
+	for(ObjetoGeometrico* obj : objetos)
+		this->mundo.inserirObjeto(*obj);
+}
+
 void ControladorMundo::inserirObjeto(const String& nome, const QList<Ponto>& pontos, const QColor& cor) {
 	int numeroPontos = pontos.size();
 
@@ -42,17 +57,21 @@ bool ControladorMundo::contemObjeto(const String& nome) {
 }
 
 void ControladorMundo::escalonarObjeto(const String& nome, const double sX, const double sY, const double sZ) {
-	this->mundo.escalonarObjeto(nome, sX, sY, sZ);
+	ObjetoGeometrico* obj = this->mundo.getObjeto(nome);
+	this->mundo.escalonarObjeto(obj, sX, sY, sZ);
 }
 
 void ControladorMundo::transladarObjeto(const String& nome, const double sX, const double sY, const double sZ) {
-	this->mundo.transladarObjeto(nome, sX, sY, sZ);
+	ObjetoGeometrico* obj = this->mundo.getObjeto(nome);
+	this->mundo.transladarObjeto(obj, sX, sY, sZ);
 }
 
 void ControladorMundo::rotacionarObjetoPorPonto(const String& nome, const Ponto& ponto, const double angulo) {
-	this->mundo.rotacionarObjetoPorPonto(nome, ponto, angulo);
+	ObjetoGeometrico* obj = this->mundo.getObjeto(nome);
+	this->mundo.rotacionarObjetoPorPonto(obj, ponto, angulo);
 }
 
 void ControladorMundo::rotacionarObjetoPeloCentro(const String& nome, const double angulo) {
-	this->mundo.rotacionarObjetoPeloCentro(nome, angulo);
+	ObjetoGeometrico* obj = this->mundo.getObjeto(nome);
+	this->mundo.rotacionarObjetoPeloCentro(obj, angulo);
 }

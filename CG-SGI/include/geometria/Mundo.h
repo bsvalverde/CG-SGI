@@ -38,7 +38,7 @@ public:
 
 	/**
 	 * Obter os objetos do mundo no sistemas de coordenadas do mundo.
-	 * @return lista de objetos normalizados do mundo.
+	 * @return lista de objetos reais do mundo.
 	 */
 	QList<ObjetoGeometrico*> getObjetosReais() const;
 
@@ -90,6 +90,13 @@ public:
 	void removerObjeto(const String& nome);
 
 	/**
+	 * Obter objeto do mundo.
+	 * @param nome nome do objeto.
+	 * @return objeto geométrico correspondente.
+	 */
+	ObjetoGeometrico* getObjeto(const String& nome);
+
+	/**
 	 * Verificar se o mundo contém um objeto.
 	 * @param nome nome do objeto.
 	 * @return true se o objeto existe.
@@ -98,36 +105,36 @@ public:
 
 	/**
 	 * Escalonar objeto.
-	 * @param nome nome do objeto.
+	 * @param objeto objeto a ser escalonado.
 	 * @param sX fator de escalonamento da coordenada x.
 	 * @param sY fator de escalonamento da coordenada y.
 	 * @param sZ fator de escalonamento da coordenada z.
 	 */
-	void escalonarObjeto(const String& nome, const double sX, const double sY, const double sZ);
+	void escalonarObjeto(ObjetoGeometrico* const objeto, const double sX, const double sY, const double sZ);
 
 	/**
 	 * Transladar objeto.
-	 * @param nome nome do objeto.
+	 * @param objeto objeto a ser transladado.
 	 * @param sX fator de translação da coordenada x.
 	 * @param sY fator de translação da coordenada y.
 	 * @param sZ fator de translação da coordenada z.
 	 */
-	void transladarObjeto(const String& nome, const double sX, const double sY, const double sZ);
+	void transladarObjeto(ObjetoGeometrico* const objeto, const double sX, const double sY, const double sZ);
 
 	/**
 	 * Rotacionar objeto em relação a um ponto específico.
-	 * @param nome nome do objeto.
+	 * @param objeto objeto a ser rotacionado.
 	 * @param ponto ponto de rotação.
 	 * @param angulo ângulo de rotação em graus.
 	 */
-	void rotacionarObjetoPorPonto(const String& nome, const Ponto& ponto, const double angulo);
+	void rotacionarObjetoPorPonto(ObjetoGeometrico* const objeto, const Ponto& ponto, const double angulo);
 
 	/**
 	 * Rotacionar objeto em relação ao centro geométrico.
-	 * @param nome nome do objeto.
+	 * @param objeto objeto a ser rotacionado.
 	 * @param angulo ângulo de rotação em graus.
 	 */
-	void rotacionarObjetoPeloCentro(const String& nome, const double angulo);
+	void rotacionarObjetoPeloCentro(ObjetoGeometrico* const objeto, const double angulo);
 
 protected:
 	DisplayFile displayFile;

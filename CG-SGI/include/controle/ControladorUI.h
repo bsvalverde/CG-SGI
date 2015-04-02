@@ -3,15 +3,13 @@
 
 #include <QtWidgets/qmessagebox.h>
 
-#include <string>
 #include "geometria/Ponto.h"
 #include "geometria/Mundo.h"
 
+class ControladorPrincipal;
 class MainWindow;
 class ObjectInsertionWindow;
 class ObjectTransformationWindow;
-
-typedef std::string String;
 
 /**
  * Controlador da Interface Gráfica.
@@ -22,17 +20,14 @@ public:
 	/**
 	 * Construtor.
 	 */
-	ControladorUI();
+	ControladorUI(ControladorPrincipal* const controladorPrincipal);
 
 	/**
 	 * Destrutor.
 	 */
 	virtual ~ControladorUI();
 
-	/**
-	 * Executar a interface gráfica.
-	 */
-	void executar();
+	void exibirJanelaPrincipal();
 
 	/**
 	 * Exibir janela de inserção de objetos.
@@ -133,12 +128,17 @@ public:
 
 	void importarCena(const String& arquivo);
 
+	void exportarCena(const String& arquivo);
+
 	/**
 	 * Reposicionar window, reestabelecendo as coordenadas iniciais.
 	 */
 	void reiniciarWindow();
 
+	void atualizarCena(const QList<ObjetoGeometrico*>& objetos);
+
 protected:
+	ControladorPrincipal* controladorPrincipal;
 	Mundo mundo;
 	MainWindow* mainWindow;
 	ObjectInsertionWindow* objectInsertionWindow;

@@ -3,8 +3,6 @@
 
 #include <qt5/QtWidgets/qapplication.h>
 
-#include "controle/ControladorUI.h"
-
 /**
  * Sistema Gráfico Interativo.
  */

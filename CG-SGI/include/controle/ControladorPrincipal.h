@@ -1,23 +1,32 @@
-#ifndef CONTROLADORMUNDO_H_
-#define CONTROLADORMUNDO_H_
+#ifndef CONTROLADORPRINCIPAL_H_
+#define CONTROLADORPRINCIPAL_H_
 
 #include "geometria/Mundo.h"
 
+class ControladorMundo;
+class ControladorPersistencia;
+class ControladorUI;
+
 /**
- * Controlador do Mundo.
+ * Controlador principal do sistema.
  */
-class ControladorMundo {
+class ControladorPrincipal {
 
 public:
 	/**
 	 * Construtor.
 	 */
-	ControladorMundo();
+	ControladorPrincipal();
 
 	/**
 	 * Destrutor.
 	 */
-	virtual ~ControladorMundo();
+	virtual ~ControladorPrincipal();
+
+	/**
+	 * Executar a aplicação.
+	 */
+	void executar();
 
 	/**
 	 * Navegar no mundo (mover a window).
@@ -44,25 +53,7 @@ public:
 	void reiniciarVisualizacao();
 
 	/**
-	 * Obter os objetos do mundo no sistemas de coordenadas do mundo.
-	 * @return lista de objetos reais do mundo.
-	 */
-	QList<ObjetoGeometrico*> getObjetosReais() const;
-
-	/**
-	 * Obter os objetos do mundo no sistemas de coordenadas da window.
-	 * @return lista de objetos normalizados do mundo.
-	 */
-	QList<ObjetoGeometrico*> getObjetosNormalizados() const;
-
-	/**
-	 * Atualizar todos os objetos do mundo.
-	 * @param objetos objetos do mundo.
-	 */
-	void atualizarObjetos(const QList<ObjetoGeometrico*>& objetos);
-
-	/**
-	 * Inserir objeto geométrico.
+	 * Inserir objeto geométrico no mundo.
 	 * @param nome nome do objeto.
 	 * @param pontos pontos do objeto.
 	 * @param cor cor do objeto.
@@ -70,7 +61,7 @@ public:
 	void inserirObjeto(const String& nome, const QList<Ponto>& pontos, const QColor& cor);
 
 	/**
-	 * Remover objeto geométrico.
+	 * Remover objeto geométrico do mundo.
 	 * @param nome nome do objeto.
 	 */
 	void removerObjeto(const String& nome);
@@ -115,9 +106,23 @@ public:
 	 */
 	void rotacionarObjetoPeloCentro(const String& nome, const double angulo);
 
+	/**
+	 * Importar cena de um arquivo OBJ (Wavefront).
+	 * @param nomeArquivo nome completo do arquivo.
+	 */
+	void importarCena(const String& nomeArquivo);
+
+	/**
+	 * Exportar cena para um arquivo OBJ (Wavefront).
+	 * @param nomeArquivo nome completo do arquivo.
+	 */
+	void exportarCena(const String& nomeArquivo);
+
 private:
-	Mundo mundo;
+	ControladorMundo* controladorMundo;
+	ControladorPersistencia* controladorPersistencia;
+	ControladorUI* controladorUI;
 
 };
 
-#endif /* CONTROLADORMUNDO_H_ */
+#endif /* CONTROLADORPRINCIPAL_H_ */

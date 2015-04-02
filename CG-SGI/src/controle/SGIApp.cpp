@@ -1,12 +1,13 @@
 #include "controle/SGIApp.h"
+#include "controle/ControladorPrincipal.h"
 
 SGIApp::SGIApp(int argc, char *argv[]) : QApplication(argc, argv) {}
 
 SGIApp::~SGIApp() {}
 
 int SGIApp::exec() {
-	ControladorUI controladorUI;
-	controladorUI.executar();
+	ControladorPrincipal controlador;
+	controlador.executar();
 	return QApplication::exec();
 }
 
