@@ -32,11 +32,14 @@ void MainWindow::initializeMenuBar() {
 	menuArquivo->addSeparator();
 	QAction* itemSair = menuArquivo->addAction("&Sair");
 
+	QAction* itemAtalhos = menuBar()->addAction("A&talhos");
+
 	QObject::connect(itemImportar, SIGNAL(triggered()), this,
 			SLOT(btnImportScene()));
 	QObject::connect(itemExportar, SIGNAL(triggered()), this,
 			SLOT(btnExportScene()));
 	QObject::connect(itemSair, SIGNAL(triggered()), this, SLOT(encerrar()));
+	QObject::connect(itemAtalhos, SIGNAL(triggered()), this, SLOT(btnAtalhos()));
 	this->close();
 
 	menuBar()->setVisible(true);
@@ -212,4 +215,8 @@ void MainWindow::btnExportScene() {
 		return;
 
 	this->controladorUI->exportarCena(arquivo);
+}
+
+void MainWindow::btnAtalhos() {
+	this->controladorUI->exibirJanelaAtalhos();
 }

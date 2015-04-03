@@ -40,6 +40,7 @@ private slots:
 	void btnTransformObjectClicked();
 	void btnImportScene();
 	void btnExportScene();
+	void btnAtalhos();
 
 private:
 	ControladorUI* controladorUI;

@@ -17,6 +17,20 @@ void ControladorUI::exibirJanelaPrincipal() {
 	this->mainWindow->show();
 }
 
+void ControladorUI::exibirJanelaAtalhos() {
+	String atalhos = ":: Navegação ::\n\n"
+			"CTRL + UP\t\tCima\n"
+			"CTRL + DOWN\tBaixo\n"
+			"CTRL + LEFT\tEsquerda\n"
+			"CTRL + RIGHT\tDireita\n\n"
+			":: Zoom ::\n\n"
+			"CTRL + I\t\tZoom In\n"
+			"CTRL + O\t\tZoom Out";
+
+	QMessageBox messageBox;
+	messageBox.information(0, "Atalhos do Sistema", QString::fromStdString(atalhos));
+}
+
 void ControladorUI::exibirObjectInsertionWindow() {
 	this->objectInsertionWindow->clearFields();
 	this->objectInsertionWindow->show();

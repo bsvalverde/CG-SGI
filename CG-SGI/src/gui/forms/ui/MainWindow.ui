@@ -136,7 +136,7 @@ QGroupBox::title  {
              <string>-</string>
             </property>
             <property name="shortcut">
-             <string>Alt+O</string>
+             <string>Ctrl+O</string>
             </property>
            </widget>
           </item>
@@ -178,7 +178,7 @@ QGroupBox::title  {
              <string>+</string>
             </property>
             <property name="shortcut">
-             <string>Alt+I</string>
+             <string>Ctrl+I</string>
             </property>
            </widget>
           </item>

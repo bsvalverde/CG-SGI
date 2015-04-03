@@ -29,6 +29,8 @@ public:
 
 	void exibirJanelaPrincipal();
 
+	void exibirJanelaAtalhos();
+
 	/**
 	 * Exibir janela de inserção de objetos.
 	 */
