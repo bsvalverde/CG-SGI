@@ -112,13 +112,9 @@ void MainWindow::btnZoomOutPressed() {
 
 void MainWindow::zoomControlValueChanged(int currentValue) {
 	int factor = currentValue - this->zoomValue;
-	double zoomFactor = (double) 1 / ((factor * 0.1) + 1);
-
-	if (factor < 0)
-		zoomFactor = (double) (factor * -0.1) + 1;
 
 	this->zoomValue = currentValue;
-	this->controladorUI->redimensionarWindow(zoomFactor);
+	this->controladorUI->redimensionarWindow(factor);
 }
 
 void MainWindow::btnNavigationUpPressed() {
