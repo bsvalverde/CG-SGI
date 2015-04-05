@@ -4,16 +4,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TEMPLATE = app
 LANGUAGE = C++
 QT += core gui
-
-# Arquitetura de destino (ainda necessário configuração)
-CONFIG += 64bit
-CONFIG(32bit) {
-    TARGET = SGIx86.app
-    QMAKE_CXXFLAGS += -m32
-    LIBS += -L<x86 libraries path>
-} else {
-    TARGET = SGI.app
-}
+TARGET = SGI.app
 
 # C++ flags
 QMAKE_CXX = g++
