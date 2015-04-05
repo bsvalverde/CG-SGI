@@ -214,6 +214,8 @@ void MainWindow::btnExportScene() {
 	if (arquivo.compare("") == 0) // Usuário cancelou
 		return;
 
+	arquivo += ".obj";
+
 	this->controladorUI->exportarCena(arquivo);
 }
 
