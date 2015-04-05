@@ -1,9 +1,21 @@
 #include "gui/Viewport.h"
+#include <iostream>
 
 Viewport::Viewport(QGraphicsView* const janelaGrafica, const double largura, const double altura) {
 	this->janelaGrafica = janelaGrafica;
 	this->largura = largura;
 	this->altura = altura;
+
+	// Área de clipping
+	QGraphicsScene* scene = this->janelaGrafica->scene();
+
+	if(scene)
+		delete scene;
+
+	scene = new QGraphicsScene(0, 0, this->largura - 4,
+								this->altura - 6, this->janelaGrafica);
+	this->desenharAreaClipping(scene);
+	this->janelaGrafica->setScene(scene);
 }
 
 Viewport::~Viewport() {}
@@ -40,6 +52,7 @@ void Viewport::atualizarObjetos(const QList<ObjetoGeometrico*>& objetos) {
 		}
 	}
 
+	this->desenharAreaClipping(scene);
 	this->janelaGrafica->setScene(scene);
 	this->janelaGrafica->repaint();
 }
@@ -67,4 +80,17 @@ QList<Ponto> Viewport::transformarObjeto(const QList<Ponto>& pontos) {
 	}
 
 	return novosPontos;
+}
+
+void Viewport::desenharAreaClipping(QGraphicsScene* const scene) {
+	QPen pen(QColor(255, 0, 0));
+	QLineF linha1 = QLineF(CLIPPING_MARGIN, CLIPPING_MARGIN, this->largura - CLIPPING_MARGIN, CLIPPING_MARGIN);
+	QLineF linha2 = QLineF(this->largura - CLIPPING_MARGIN, CLIPPING_MARGIN, this->largura - CLIPPING_MARGIN, this->altura - CLIPPING_MARGIN);
+	QLineF linha3 = QLineF(CLIPPING_MARGIN, CLIPPING_MARGIN, CLIPPING_MARGIN, this->altura - CLIPPING_MARGIN);
+	QLineF linha4 = QLineF(CLIPPING_MARGIN, this->altura - CLIPPING_MARGIN, this->largura - CLIPPING_MARGIN, this->altura - CLIPPING_MARGIN);
+
+	scene->addLine(linha1, pen);
+	scene->addLine(linha2, pen);
+	scene->addLine(linha3, pen);
+	scene->addLine(linha4, pen);
 }

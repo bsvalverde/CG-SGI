@@ -47,9 +47,13 @@ private:
 	 */
 	QList<Ponto> transformarObjeto(const QList<Ponto>& pontos);
 
+	void desenharAreaClipping(QGraphicsScene* const scene);
+
 	QGraphicsView* janelaGrafica;
 	double largura;
 	double altura;
+
+	const unsigned int CLIPPING_MARGIN = 20;
 
 };
 
