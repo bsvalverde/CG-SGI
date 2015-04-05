@@ -32,10 +32,10 @@ UI_DIR = include/gui/forms/ui
 
 # Arquivos de cabeçalho
 HEADERS  += include/gui/forms/*.h \
-include/excecao/*.h \
 
 # Arquivos fonte
 SOURCES += src/gui/*.cpp \
+src/gui/clipping/*.cpp \
 src/gui/forms/*.cpp \
 src/controle/*.cpp \
 src/geometria/*.cpp \
