@@ -10,4 +10,5 @@ elif [ $1 = 'clean' ]
 then
 	make clean
 	rm -f SGI.app
+	rm -f SGIx86.app
 fi
