@@ -39,7 +39,7 @@ void ObjectInsertionWindow::clearFields(){
 }
 
 bool ObjectInsertionWindow::validateFields() {
-	if(this->fieldName->text().isEmpty())
+	if(this->fieldName->text().isEmpty() || this->fieldName->text().contains(' '))
 		return false;
 
 	bool ok, ok1, ok2, ok3;

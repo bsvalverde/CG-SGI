@@ -57,6 +57,16 @@ void Viewport::atualizarObjetos(const QList<ObjetoGeometrico*>& objetos) {
 	this->janelaGrafica->repaint();
 }
 
+QList<Ponto> Viewport::getPontos() const {
+	QList<Ponto> pontos;
+	pontos.insert(0, Ponto("vwp-p1", CLIPPING_MARGIN, CLIPPING_MARGIN, 0));
+	pontos.insert(1, Ponto("vwp-p2", this->largura - CLIPPING_MARGIN, CLIPPING_MARGIN, 0));
+	pontos.insert(2, Ponto("vwp-p3", this->largura - CLIPPING_MARGIN, this->altura - CLIPPING_MARGIN, 0));
+	pontos.insert(3, Ponto("vwp-p4", CLIPPING_MARGIN, this->altura - CLIPPING_MARGIN, 0));
+
+	return pontos;
+}
+
 QVector<double> Viewport::transformarPonto(const QVector<double>& coordenadas) {
 	double xwMin = -1;
 	double xwMax = 1;

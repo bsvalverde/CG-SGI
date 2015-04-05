@@ -32,6 +32,12 @@ public:
 	 */
 	void atualizarObjetos(const QList<ObjetoGeometrico*>& objetos);
 
+	/**
+	 * Obter os pontos da viewport.
+	 * @return lista com os pontos.
+	 */
+	QList<Ponto> getPontos() const;
+
 private:
 	/**
 	 * Transformar ponto.
@@ -47,6 +53,10 @@ private:
 	 */
 	QList<Ponto> transformarObjeto(const QList<Ponto>& pontos);
 
+	/**
+	 * Desenhar a área de clipping.
+	 * @param scene cena na qual será desenhada a área.
+	 */
 	void desenharAreaClipping(QGraphicsScene* const scene);
 
 	QGraphicsView* janelaGrafica;
