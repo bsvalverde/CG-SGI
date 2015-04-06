@@ -41,6 +41,7 @@ private slots:
 	void btnImportScene();
 	void btnExportScene();
 	void btnAtalhos();
+	void btnClippingCSToggled(bool cohenSutherland);
 
 private:
 	ControladorUI* controladorUI;

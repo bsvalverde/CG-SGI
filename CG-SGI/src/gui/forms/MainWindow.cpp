@@ -1,5 +1,4 @@
 #include "gui/forms/MainWindow.h"
-#include <iostream>
 
 MainWindow::MainWindow(ControladorUI* controladorUI, QDialog* parent,
 		Qt::WindowFlags flags) :
@@ -101,6 +100,8 @@ void MainWindow::connectSignalsAndSlots() {
 			SLOT(btnTransformObjectClicked()));
 	QObject::connect(dialRotation, SIGNAL(valueChanged(int)), this,
 			SLOT(btnRotation(int)));
+	QObject::connect(radBtnClippingCS, SIGNAL(toggled(bool)), this,
+			SLOT(btnClippingCSToggled(bool)));
 }
 
 void MainWindow::btnZoomInPressed() {
@@ -221,4 +222,12 @@ void MainWindow::btnExportScene() {
 
 void MainWindow::btnAtalhos() {
 	this->controladorUI->exibirJanelaAtalhos();
+}
+
+void MainWindow::btnClippingCSToggled(bool cohenSutherland) {
+	if(cohenSutherland) {
+		// cohen-sutherland selected
+	} else {
+		// other selected
+	}
 }
