@@ -63,37 +63,37 @@ bool ClippingCohenSutherland::clipReta(Reta* const reta) const {
 }
 
 bool ClippingCohenSutherland::clippingDireita(Ponto *p, const double coefAngular) const {
-	double y = coefAngular * (1 - p->getX()) + p->getY();
-	if (y < -1 || y > 1)
+	double y = coefAngular * (xvMax - p->getX()) + p->getY();
+	if (y < yvMin || y > yvMax)
 		return false;
-	p->setX(1);
+	p->setX(xvMax);
 	p->setY(y);
 	return true;
 }
 
 bool ClippingCohenSutherland::clippingEsquerda(Ponto *p, const double coefAngular) const {
-	double y = coefAngular * (-1 - p->getX()) + p->getY();
-	if (y < -1 || y > 1)
+	double y = coefAngular * (xvMin - p->getX()) + p->getY();
+	if (y < yvMin || y > yvMax)
 		return false;
-	p->setX(-1);
+	p->setX(xvMin);
 	p->setY(y);
 	return true;
 }
 
 bool ClippingCohenSutherland::clippingFundo(Ponto *p, const double coefAngular) const {
-	double x = p->getX() + 1 / (coefAngular * (-1 - p->getY()));
-	if (x < -1 || x > 1)
+	double x = p->getX() + 1 / (coefAngular * (yvMin - p->getY()));
+	if (x < xvMin || x > xvMax)
 		return false;
 	p->setX(x);
-	p->setY(1);
+	p->setY(yvMin);
 	return true;
 }
 
 bool ClippingCohenSutherland::clippingTopo(Ponto *p, const double coefAngular) const {
-	double x = p->getX() + 1 / (coefAngular * (1 - p->getY()));
-	if (x < -1 || x > 1)
+	double x = p->getX() + 1 / (coefAngular * (yvMax - p->getY()));
+	if (x < xvMin || x > xvMax)
 		return false;
 	p->setX(x);
-	p->setY(1);
+	p->setY(yvMax);
 	return true;
 }
