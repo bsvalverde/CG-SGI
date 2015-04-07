@@ -23,6 +23,10 @@ Poligono& Poligono::operator=(const Poligono& poligono) {
 	return *this;
 }
 
+ObjetoGeometrico* Poligono::clonar() const {
+	return new Poligono(*this);
+}
+
 QList<Ponto> Poligono::getPontos() const {
 	return this->pontos;
 }

@@ -22,6 +22,10 @@ Reta& Reta::operator=(const Reta& reta) {
 	return *this;
 }
 
+ObjetoGeometrico* Reta::clonar() const {
+	return new Reta(*this);
+}
+
 QList<Ponto> Reta::getPontos() const {
 	QList<Ponto> pontos;
 	pontos.insert(0, this->v_inicial);

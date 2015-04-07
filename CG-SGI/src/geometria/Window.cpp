@@ -31,6 +31,10 @@ Window& Window::operator=(const Window& window) {
 	return *this;
 }
 
+ObjetoGeometrico* Window::clonar() const {
+	return new Window(*this);
+}
+
 QList<Ponto> Window::getPontos() const {
 	QList<Ponto> pontos;
 	pontos.insert(0, this->centro);

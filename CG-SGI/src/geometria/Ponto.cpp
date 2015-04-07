@@ -29,6 +29,10 @@ Ponto& Ponto::operator=(const Ponto& ponto) {
 	return *this;
 }
 
+ObjetoGeometrico* Ponto::clonar() const {
+	return new Ponto(*this);
+}
+
 QList<Ponto> Ponto::getPontos() const {
 	QList<Ponto> pontos;
 	pontos.insert(0, *this);

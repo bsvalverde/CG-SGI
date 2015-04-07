@@ -42,6 +42,12 @@ public:
 	Reta& operator=(const Reta& reta);
 
 	/**
+	 * Clonar o objeto.
+	 * @return cópia do objeto geométrico.
+	 */
+	ObjetoGeometrico* clonar() const;
+
+	/**
 	 * Obter os pontos do objeto.
 	 * @return lista com a cópia dos pontos.
 	 */

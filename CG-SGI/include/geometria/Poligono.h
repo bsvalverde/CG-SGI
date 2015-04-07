@@ -38,6 +38,12 @@ public:
 	Poligono& operator=(const Poligono& poligono);
 
 	/**
+	 * Clonar o objeto.
+	 * @return cópia do objeto geométrico.
+	 */
+	ObjetoGeometrico* clonar() const;
+
+	/**
 	 * Obter os pontos do objeto.
 	 * @return lista com a cópia dos pontos.
 	 */

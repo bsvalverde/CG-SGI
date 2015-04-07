@@ -60,6 +60,12 @@ public:
 	ObjetoGeometrico& operator=(const ObjetoGeometrico& objeto);
 
 	/**
+	 * Clonar o objeto.
+	 * @return cópia do objeto geométrico.
+	 */
+	virtual ObjetoGeometrico* clonar() const = 0;
+
+	/**
 	 * Obter os pontos do objeto.
 	 * @return lista com a cópia dos pontos.
 	 */
