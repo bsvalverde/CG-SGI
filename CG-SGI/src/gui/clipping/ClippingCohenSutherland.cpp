@@ -20,7 +20,7 @@ bool ClippingCohenSutherland::clipReta(Reta* const reta) const {
 
 	// Region Code = Topo [0] Fundo [1] Direita [2] Esquerda [3]
 
-	int rc1[4] = { 0, 0, 0, 0 };
+	short rc1[4] = { 0, 0, 0, 0 };
 
 	if (p1->getX() > xvMax) {
 		rc1[2] = 1;
@@ -34,7 +34,7 @@ bool ClippingCohenSutherland::clipReta(Reta* const reta) const {
 		rc1[1] = 1;
 	}
 
-	int rc2[4] = { 0, 0, 0, 0 };
+	short rc2[4] = { 0, 0, 0, 0 };
 
 	if (p2->getX() > xvMax) {
 		rc2[2] = 1;
@@ -54,18 +54,33 @@ bool ClippingCohenSutherland::clipReta(Reta* const reta) const {
 	if ((rc1[0] == rc2[0]) && (rc1[1] == rc2[1]) && (rc1[2] == rc2[2]) && (rc1[3] == rc2[3]))
 		return true;
 
-	if (rc1[0] == 1) {
+	if (rc1[0]) {
 		if (!this->clippingTopo(p1, coefAngular))
 			return false;
-	} else if (rc1[1] == 1) {
+	} else if (rc1[1]) {
 		if (!this->clippingFundo(p1, coefAngular))
 			return false;
 	}
-	if (rc1[2] == 1) {
+	if (rc1[2]) {
 		if (!this->clippingDireita(p1, coefAngular))
 			return false;
-	} else if (rc1[3] == 1) {
+	} else if (rc1[3]) {
 		if (!this->clippingEsquerda(p1, coefAngular))
+			return false;
+	}
+
+	if (rc2[0]) {
+		if (!this->clippingTopo(p2, coefAngular))
+			return false;
+	} else if (rc2[1]) {
+		if (!this->clippingFundo(p2, coefAngular))
+			return false;
+	}
+	if (rc2[2]) {
+		if (!this->clippingDireita(p2, coefAngular))
+			return false;
+	} else if (rc2[3]) {
+		if (!this->clippingEsquerda(p2, coefAngular))
 			return false;
 	}
 	return true;
@@ -90,7 +105,7 @@ bool ClippingCohenSutherland::clippingEsquerda(Ponto *p, const double coefAngula
 }
 
 bool ClippingCohenSutherland::clippingFundo(Ponto *p, const double coefAngular) const {
-	double x = p->getX() + 1 / (coefAngular * (yvMin - p->getY()));
+	double x = p->getX() + (yvMin - p->getY()) / coefAngular;
 	if (x < xvMin || x > xvMax)
 		return false;
 	p->setX(x);
@@ -99,7 +114,7 @@ bool ClippingCohenSutherland::clippingFundo(Ponto *p, const double coefAngular) 
 }
 
 bool ClippingCohenSutherland::clippingTopo(Ponto *p, const double coefAngular) const {
-	double x = p->getX() + 1 / (coefAngular * (yvMax - p->getY()));
+	double x = p->getX() + (yvMax - p->getY()) / coefAngular;
 	if (x < xvMin || x > xvMax)
 		return false;
 	p->setX(x);
