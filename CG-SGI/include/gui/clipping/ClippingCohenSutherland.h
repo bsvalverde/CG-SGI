@@ -27,8 +27,8 @@ protected:
 	virtual bool clipReta(Reta* const reta) const;
 
 private:
-	bool clippingBasico(int *rc, Ponto* const p, const double coefAngular) const;
-	bool clippingComposto(int *rc, Ponto* const p, const double coefAngular) const;
+	bool clippingBasico(short *rc, Ponto* const p, const double coefAngular) const;
+	bool clippingComposto(short *rc, Ponto* const p, const double coefAngular) const;
 	bool clippingDireita(Ponto* const p, const double coefAngular) const;
 	bool clippingEsquerda(Ponto* const p, const double coefAngular) const;
 	bool clippingFundo(Ponto* const p, const double coefAngular) const;

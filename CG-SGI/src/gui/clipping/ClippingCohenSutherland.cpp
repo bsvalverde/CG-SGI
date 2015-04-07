@@ -12,7 +12,6 @@ bool ClippingCohenSutherland::clipReta(Reta* const reta) const {
 	QList<Ponto*> pontos = reta->getPontosObjeto();
 	Ponto* p1 = pontos.at(0);
 	Ponto* p2 = pontos.at(1);
-	double coefAngular = reta->coeficienteAngular();
 
 	/*
 	 short test = 0b100;
@@ -20,40 +19,39 @@ bool ClippingCohenSutherland::clipReta(Reta* const reta) const {
 	 */
 
 	// Region Code = Topo [0] Fundo [1] Direita [2] Esquerda [3]
-	int rc1[4] = { 0, 0, 0, 0 };
-
+	short rc1[4] = { 0, 0, 0, 0 };
+	if (p1->getY() > yvMax) {
+		rc1[0] = 1;
+	} else if (p1->getY() < yvMin) {
+		rc1[1] = 1;
+	}
 	if (p1->getX() > xvMax) {
 		rc1[2] = 1;
 	} else if (p1->getX() < xvMin) {
 		rc1[3] = 1;
 	}
 
-	if (p1->getY() > yvMax) {
-		rc1[0] = 1;
-	} else if (p1->getY() < yvMin) {
-		rc1[1] = 1;
-	}
-
-	int rc2[4] = { 0, 0, 0, 0 };
-
-	if (p2->getX() > xvMax) {
-		rc2[2] = 1;
-	} else if (p2->getX() < xvMin) {
-		rc2[3] = 1;
-	}
+	short rc2[4] = { 0, 0, 0, 0 };
 	if (p2->getY() > yvMax) {
 		rc2[0] = 1;
 	} else if (p2->getY() < yvMin) {
 		rc2[1] = 1;
 	}
+	if (p2->getX() > xvMax) {
+		rc2[2] = 1;
+	} else if (p2->getX() < xvMin) {
+		rc2[3] = 1;
+	}
 
-	if ((rc1[0] && rc2[0]) || (rc1[1] && rc2[1]) || (rc1[2] && rc2[2])
-			|| (rc1[3] && rc2[3]))
+	if ((rc1[0] * rc2[0] + rc1[1] * rc2[1] + rc1[2] * rc2[2] + rc1[3] * rc2[3])
+			!= 0)
 		return false;
 
-	if ((rc1[0] == rc2[0]) && (rc1[1] == rc2[1]) && (rc1[2] == rc2[2])
-			&& (rc1[3] == rc2[3]))
+	if ((rc1[0] + rc2[0] + rc1[1] + rc2[1] + rc1[2] + rc2[2] + rc1[3] + rc2[3])
+			== 0)
 		return true;
+
+	double coefAngular = reta->coeficienteAngular();
 
 	switch (rc1[0] + rc1[1] + rc1[2] + rc1[3]) {
 	case 1:
@@ -61,7 +59,8 @@ bool ClippingCohenSutherland::clipReta(Reta* const reta) const {
 			return false;
 		break;
 	case 2:
-		this->clippingComposto(rc1, p1, coefAngular);
+		if (!this->clippingComposto(rc1, p1, coefAngular))
+			return false;
 		break;
 	default:
 		break;
@@ -69,48 +68,43 @@ bool ClippingCohenSutherland::clipReta(Reta* const reta) const {
 
 	switch (rc2[0] + rc2[1] + rc2[2] + rc2[3]) {
 	case 1:
-		if (!this->clippingBasico(rc2, p2, coefAngular))
-			return false;
-		break;
+		return this->clippingBasico(rc2, p2, coefAngular);
 	case 2:
-		this->clippingComposto(rc2, p2, coefAngular);
-		break;
+		return this->clippingComposto(rc2, p2, coefAngular);
 	default:
 		break;
 	}
 	return true;
 }
 
-bool ClippingCohenSutherland::clippingBasico(int *rc, Ponto* const p,
+bool ClippingCohenSutherland::clippingBasico(short *rc, Ponto* const p,
 		const double coefAngular) const {
 	if (rc[0]) {
-		if (!this->clippingTopo(p, coefAngular))
-			return false;
+		return this->clippingTopo(p, coefAngular);
 	} else if (rc[1]) {
-		if (!this->clippingFundo(p, coefAngular))
-			return false;
+		return this->clippingFundo(p, coefAngular);
 	}
 	if (rc[2]) {
-		if (!this->clippingDireita(p, coefAngular))
-			return false;
+		return this->clippingDireita(p, coefAngular);
 	} else if (rc[3]) {
-		if (!this->clippingEsquerda(p, coefAngular))
-			return false;
+		return this->clippingEsquerda(p, coefAngular);
 	}
+	//nunca deve chegar aqui
 	return true;
 }
 
-bool ClippingCohenSutherland::clippingComposto(int *rc, Ponto* const p,
+bool ClippingCohenSutherland::clippingComposto(short *rc, Ponto* const p,
 		const double coefAngular) const {
+	bool continua = true;
 	if (rc[0]) {
-		this->clippingTopo(p, coefAngular);
+		continua = !this->clippingTopo(p, coefAngular);
 	} else if (rc[1]) {
-		this->clippingFundo(p, coefAngular);
+		continua = !this->clippingFundo(p, coefAngular);
 	}
-	if (rc[2] && p->getX() > xvMax) {
-		this->clippingDireita(p, coefAngular);
-	} else if (rc[3] && p->getX() < xvMin) {
-		this->clippingEsquerda(p, coefAngular);
+	if (rc[2] && continua) {
+		return this->clippingDireita(p, coefAngular);
+	} else if (rc[3] && continua) {
+		return this->clippingEsquerda(p, coefAngular);
 	}
 	return true;
 }

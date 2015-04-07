@@ -82,7 +82,7 @@ void Viewport::setAlgoritmoClipping(Clipping::Algoritmo algoritmo) {
 			this->clipping = new ClippingCohenSutherland(xvMin, xvMax, yvMin, yvMax);
 			break;
 		case Clipping::NICHOLL_LEE_NICHOLL:
-			this->clipping = new ClippingNichollLeeNicholl(xvMin, xvMax, yvMin, yvMax);
+			this->clipping = new ClippingLiangBarsky(xvMin, xvMax, yvMin, yvMax);
 			break;
 	}
 }
