@@ -6,6 +6,8 @@
 #include <QtWidgets/qgraphicsview.h>
 
 #include "geometria/Ponto.h"
+#include "gui/clipping/ClippingCohenSutherland.h"
+#include "gui/clipping/ClippingNichollLeeNicholl.h"
 
 /**
  * Janela de visualização da interface gráfica.
@@ -31,6 +33,12 @@ public:
 	 * @param objetos objetos a serem desenhados.
 	 */
 	void atualizarObjetos(const QList<ObjetoGeometrico*>& objetos);
+
+	/**
+	 * Definir o algoritmo de clipping.
+	 * @param algoritmo algoritmo a ser utilizado no recorte de objetos.
+	 */
+	void setAlgoritmoClipping(Clipping::Algoritmo algoritmo);
 
 	/**
 	 * Obter os pontos da viewport.
@@ -60,6 +68,7 @@ private:
 	void desenharAreaClipping(QGraphicsScene* const scene);
 
 	QGraphicsView* janelaGrafica;
+	Clipping* clipping;
 	double largura;
 	double altura;
 

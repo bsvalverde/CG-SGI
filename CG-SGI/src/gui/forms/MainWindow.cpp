@@ -226,8 +226,8 @@ void MainWindow::btnAtalhos() {
 
 void MainWindow::btnClippingCSToggled(bool cohenSutherland) {
 	if(cohenSutherland) {
-		// cohen-sutherland selected
+		this->viewport->setAlgoritmoClipping(Clipping::COHEN_SUTHERLAND);
 	} else {
-		// other selected
+		this->viewport->setAlgoritmoClipping(Clipping::NICHOLL_LEE_NICHOLL);
 	}
 }

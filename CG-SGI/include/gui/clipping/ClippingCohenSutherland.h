@@ -11,13 +11,20 @@ class ClippingCohenSutherland : public Clipping {
 public:
 	/**
 	 * Construtor.
+	 * @param xvMin x mínimo da viewport.
+	 * @param xvMax x máximo da viewport.
+	 * @param yvMin y mínimo da viewport.
+	 * @param yvMax y máximo da viewport.
 	 */
-	ClippingCohenSutherland();
+	ClippingCohenSutherland(const double xvMin, const double xvMax, const double yvMin, const double yvMax);
 
 	/**
-	 * Construtor.
+	 * Destrutor.
 	 */
 	virtual ~ClippingCohenSutherland();
+
+protected:
+	virtual bool clipReta(Reta* const reta) const;
 
 };
 

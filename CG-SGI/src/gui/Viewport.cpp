@@ -5,6 +5,8 @@ Viewport::Viewport(QGraphicsView* const janelaGrafica, const double largura, con
 	this->janelaGrafica = janelaGrafica;
 	this->largura = largura;
 	this->altura = altura;
+	this->clipping = 0;
+	this->setAlgoritmoClipping(Clipping::COHEN_SUTHERLAND);
 
 	// Área de clipping
 	QGraphicsScene* scene = this->janelaGrafica->scene();
@@ -18,7 +20,10 @@ Viewport::Viewport(QGraphicsView* const janelaGrafica, const double largura, con
 	this->janelaGrafica->setScene(scene);
 }
 
-Viewport::~Viewport() {}
+Viewport::~Viewport() {
+	if(this->clipping)
+		delete this->clipping;
+}
 
 void Viewport::atualizarObjetos(const QList<ObjetoGeometrico*>& objetos) {
 	QGraphicsScene* scene = this->janelaGrafica->scene();
@@ -30,31 +35,56 @@ void Viewport::atualizarObjetos(const QList<ObjetoGeometrico*>& objetos) {
 								this->altura - 6, this->janelaGrafica);
 
 	for(int i = 0; i < objetos.size(); i++) {
-		QList<Ponto> pontos = objetos.at(i)->getPontos();
-		pontos = this->transformarObjeto(pontos);
+		ObjetoGeometrico* objeto = objetos.at(i)->clonar();
 
-		QPen pen(objetos.at(i)->getCor());
-		QLineF line;
-		Ponto ponto1 = pontos.at(0);
+		if(this->clipping->clip(objeto)) {
+			QList<Ponto> pontos = objeto->getPontos();
+			pontos = this->transformarObjeto(pontos);
 
-		if(pontos.size() > 1) {
-			Ponto ant = ponto1;
+			QPen pen(objeto->getCor());
+			QLineF line;
+			Ponto ponto1 = pontos.at(0);
 
-			for(int i = 1; i < pontos.size(); i++) {
-				line = QLineF(ant.getX(), ant.getY(), pontos.at(i).getX(), pontos.at(i).getY());
+			if(pontos.size() > 1) {
+				Ponto ant = ponto1;
+
+				for(int i = 1; i < pontos.size(); i++) {
+					line = QLineF(ant.getX(), ant.getY(), pontos.at(i).getX(), pontos.at(i).getY());
+					scene->addLine(line, pen);
+					ant = pontos.at(i);
+				}
+				line = QLineF(ant.getX(), ant.getY(), ponto1.getX(), ponto1.getY());
 				scene->addLine(line, pen);
-				ant = pontos.at(i);
+			} else {
+				scene->addEllipse(ponto1.getX(), ponto1.getY(), 3, 3, pen, QBrush(objeto->getCor()));
 			}
-			line = QLineF(ant.getX(), ant.getY(), ponto1.getX(), ponto1.getY());
-			scene->addLine(line, pen);
-		} else {
-			scene->addEllipse(ponto1.getX(), ponto1.getY(), 3, 3, pen, QBrush(objetos.at(i)->getCor()));
 		}
+
+		delete objeto;
 	}
 
 	this->desenharAreaClipping(scene);
 	this->janelaGrafica->setScene(scene);
 	this->janelaGrafica->repaint();
+}
+
+void Viewport::setAlgoritmoClipping(Clipping::Algoritmo algoritmo) {
+	if(this->clipping)
+		delete this->clipping;
+
+	double xvMin = 2 * CLIPPING_MARGIN / this->largura - 1;
+	double xvMax = 2 * (this->largura - CLIPPING_MARGIN) / this->largura - 1;
+	double yvMin = 2 * CLIPPING_MARGIN / this->altura - 1;
+	double yvMax = 2 * (this->altura - CLIPPING_MARGIN) / this->altura - 1;
+
+	switch(algoritmo) {
+		case Clipping::COHEN_SUTHERLAND:
+			this->clipping = new ClippingCohenSutherland(xvMin, xvMax, yvMin, yvMax);
+			break;
+		case Clipping::NICHOLL_LEE_NICHOLL:
+			this->clipping = new ClippingNichollLeeNicholl(xvMin, xvMax, yvMin, yvMax);
+			break;
+	}
 }
 
 QList<Ponto> Viewport::getPontos() const {
