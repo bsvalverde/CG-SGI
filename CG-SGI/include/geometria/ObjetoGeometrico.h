@@ -72,6 +72,12 @@ public:
 	virtual QList<Ponto> getPontos() const = 0;
 
 	/**
+	 * Obter os pontos do objeto.
+	 * @return lista de pontos.
+	 */
+	virtual QList<Ponto*> getPontosObjeto() = 0;
+
+	/**
 	 * Converter o objeto em string.
 	 * @return string representando o objeto.
 	 */
@@ -159,12 +165,6 @@ public:
 	void aplicarTransformacao(const double matriz[4][4]);
 
 protected:
-	/**
-	 * Obter os pontos do objeto.
-	 * @return lista de pontos.
-	 */
-	virtual QList<Ponto*> getPontosObjeto() = 0;
-
 	String nome;
 	Tipo tipo;
 	QColor cor;

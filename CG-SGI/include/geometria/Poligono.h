@@ -50,18 +50,18 @@ public:
 	QList<Ponto> getPontos() const;
 
 	/**
+	 * Obter os pontos do objeto.
+	 * @return lista de pontos.
+	 */
+	QList<Ponto*> getPontosObjeto();
+
+	/**
 	 * Converter o objeto em string.
 	 * @return string representando o objeto.
 	 */
 	const String toString() const;
 
 protected:
-	/**
-	 * Obter os pontos do objeto.
-	 * @return lista de pontos.
-	 */
-	QList<Ponto*> getPontosObjeto();
-
 	QList<Ponto> pontos;
 
 };

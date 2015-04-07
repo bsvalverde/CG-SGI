@@ -39,6 +39,12 @@ QList<Ponto> Ponto::getPontos() const {
 	return pontos;
 }
 
+QList<Ponto*> Ponto::getPontosObjeto() {
+	QList<Ponto*> pontos;
+	pontos.insert(0, this);
+	return pontos;
+}
+
 const String Ponto::toString() const {
 	String ponto = "(" + std::to_string(this->getX()) + ", " + std::to_string(this->getY()) + ", " +
 			std::to_string(this->getZ()) + ")";
@@ -67,10 +73,4 @@ void Ponto::setY(const double y){
 
 void Ponto::setZ(const double z){
 	this->coord_z = z;
-}
-
-QList<Ponto*> Ponto::getPontosObjeto() {
-	QList<Ponto*> pontos;
-	pontos.insert(0, this);
-	return pontos;
 }

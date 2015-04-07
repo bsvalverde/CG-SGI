@@ -26,6 +26,12 @@ public:
 protected:
 	virtual bool clipReta(Reta* const reta) const;
 
+private:
+	bool clippingDireita(Ponto *p, const double coefAngular) const;
+	bool clippingEsquerda(Ponto *p, const double coefAngular) const;
+	bool clippingFundo(Ponto *p, const double coefAngular) const;
+	bool clippingTopo(Ponto *p, const double coefAngular) const;
+
 };
 
 #endif /* CLIPPINGCOHENSUTHERLAND_H_ */

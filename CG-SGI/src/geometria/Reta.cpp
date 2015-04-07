@@ -33,14 +33,19 @@ QList<Ponto> Reta::getPontos() const {
 	return pontos;
 }
 
-const String Reta::toString() const {
-	return "[" + this->v_inicial.toString() + ", " +
-			this->v_final.toString() + "]";
-}
-
 QList<Ponto*> Reta::getPontosObjeto() {
 	QList<Ponto*> pontos;
 	pontos.insert(0, &this->v_inicial);
 	pontos.insert(1, &this->v_final);
 	return pontos;
+}
+
+const String Reta::toString() const {
+	return "[" + this->v_inicial.toString() + ", " +
+			this->v_final.toString() + "]";
+}
+
+double Reta::coeficienteAngular() const {
+	return (this->v_final.getY() - this->v_inicial.getY())
+			/ (this->v_final.getX() - this->v_inicial.getX());
 }

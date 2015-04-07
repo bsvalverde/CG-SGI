@@ -54,18 +54,24 @@ public:
 	QList<Ponto> getPontos() const;
 
 	/**
-	 * Converter o objeto em string.
-	 * @return string representando o objeto.
-	 */
-	const String toString() const;
-
-protected:
-	/**
 	 * Obter os pontos do objeto.
 	 * @return lista de pontos.
 	 */
 	QList<Ponto*> getPontosObjeto();
 
+	/**
+	 * Converter o objeto em string.
+	 * @return string representando o objeto.
+	 */
+	const String toString() const;
+
+	/**
+	 * Obter o coeficiente angular da reta.
+	 * @return coeficiente angular.
+	 */
+	double coeficienteAngular() const;
+
+protected:
 	Ponto v_inicial;
 	Ponto v_final;
 

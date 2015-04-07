@@ -31,15 +31,6 @@ QList<Ponto> Poligono::getPontos() const {
 	return this->pontos;
 }
 
-const String Poligono::toString() const {
-	String str = this->pontos.at(0).toString();
-
-	for(int i = 1; i < this->pontos.size(); i++)
-		str += ", " + this->pontos.at(i).toString();
-
-	return "[" + str + "]";
-}
-
 QList<Ponto*> Poligono::getPontosObjeto() {
 	QList<Ponto*> lista;
 
@@ -47,4 +38,13 @@ QList<Ponto*> Poligono::getPontosObjeto() {
 		lista.insert(i, (Ponto*) &this->pontos.at(i));
 
 	return lista;
+}
+
+const String Poligono::toString() const {
+	String str = this->pontos.at(0).toString();
+
+	for(int i = 1; i < this->pontos.size(); i++)
+		str += ", " + this->pontos.at(i).toString();
+
+	return "[" + str + "]";
 }
