@@ -7,7 +7,7 @@
 
 #include "geometria/Ponto.h"
 #include "gui/clipping/ClippingCohenSutherland.h"
-#include "gui/clipping/ClippingNichollLeeNicholl.h"
+#include "gui/clipping/ClippingLiangBarsky.h"
 
 /**
  * Janela de visualização da interface gráfica.

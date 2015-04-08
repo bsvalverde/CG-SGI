@@ -28,8 +28,9 @@ protected:
 	virtual bool clipReta(Reta* const reta) const;
 
 private:
-	double sigma1(int *p, int *q) const;
-	double sigma2(int *p, int *q) const;
+	bool clipIntermediario(Ponto* const p1, Ponto* const p2) const;
+	double sigma1(double *p, double *q) const;
+	double sigma2(double *p, double *q) const;
 };
 
 #endif /* CLIPPINGLIANGBARSKY_H_ */
