@@ -30,7 +30,7 @@ bool ClippingLiangBarsky::clipIntermediario(Ponto* const p1,
 	q[0] = p1->getX() - xvMin;
 	q[1] = xvMax - p1->getX();
 	q[2] = p1->getY() - yvMin;
-	q[3] = yvMax - p1->getX();
+	q[3] = yvMax - p1->getY();
 
 	double sigma1 = this->sigma1(p, q);
 	double sigma2 = this->sigma2(p, q);
