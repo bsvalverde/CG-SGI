@@ -228,6 +228,6 @@ void MainWindow::btnClippingCSToggled(bool cohenSutherland) {
 	if(cohenSutherland) {
 		this->viewport->setAlgoritmoClipping(Clipping::COHEN_SUTHERLAND);
 	} else {
-		this->viewport->setAlgoritmoClipping(Clipping::NICHOLL_LEE_NICHOLL);
+		this->viewport->setAlgoritmoClipping(Clipping::LIANG_BARSKY);
 	}
 }

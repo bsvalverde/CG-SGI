@@ -13,7 +13,7 @@ class Clipping {
 public:
 	enum Algoritmo {
 		COHEN_SUTHERLAND,
-		NICHOLL_LEE_NICHOLL
+		LIANG_BARSKY
 	};
 
 	/**

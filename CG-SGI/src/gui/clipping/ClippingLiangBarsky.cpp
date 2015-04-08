@@ -13,6 +13,30 @@ bool ClippingLiangBarsky::clipReta(Reta* const reta) const {
 	QList<Ponto*> pontos = reta->getPontosObjeto();
 	Ponto* p1 = pontos.at(0);
 	Ponto* p2 = pontos.at(1);
+
+	/*
+	 	// x = x1 + u dX
+	// y = y1 + u dY
+
+	// p1 = (x1, y1, z1)
+	double dX = p2->getX() - p1->getX();
+	double dY = p2->getY() - p1->getY();
+
+	double p[4] = { -dX, dX, -dY, dY };
+
+	double q[4];
+	q[0] = p1->getX() - xvMin;
+	q[1] = xvMax - p1->getX();
+	q[2] = p1->getY() - yvMin;
+	q[3] = yvMax - p1->getX();
+
+	if(p[0] == 0 || p[1] == 0 || p[2] == 0 || p[3] == 0)
+		if(q[0] < 0 || q[1] < 0 || q[2] < 0 || q[3] < 0)
+			return false;
+		else
+
+	 */
+
 	if (!this->clipIntermediario(p1, p2))
 		return false;
 	return this->clipIntermediario(p2, p1);
