@@ -25,18 +25,8 @@ bool Clipping::clip(ObjetoGeometrico* const objeto) const {
 }
 
 bool Clipping::clipPoligono(Poligono* const poligono) const {
-	QList<Ponto*> pontos = poligono->getPontosObjeto();
-	Poligono copia = poligono->clonar();
-	int cont = 0;
-	int tam = pontos.size();
-	for (int i = 0; i < tam; i++) {
-		Ponto* p1 = pontos.at(i);
-		Ponto* p2 = pontos.at((i+1)%tam);
-		Reta reta("olá", *p1, *p2);
-		if (this->clipReta(&reta))
-			cont++;
-	}
-	return cont == 0;
+	// TODO A ser implementado assim que possível...
+	return true;
 }
 
 bool Clipping::clipPonto(Ponto* const ponto) const {

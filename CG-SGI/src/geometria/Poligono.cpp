@@ -40,6 +40,10 @@ QList<Ponto*> Poligono::getPontosObjeto() {
 	return lista;
 }
 
+void Poligono::setPontos(const QList<Ponto>& pontos) {
+	this->pontos = pontos;
+}
+
 const String Poligono::toString() const {
 	String str = this->pontos.at(0).toString();
 

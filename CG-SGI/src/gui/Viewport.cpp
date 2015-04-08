@@ -37,7 +37,23 @@ void Viewport::atualizarObjetos(const QList<ObjetoGeometrico*>& objetos) {
 	for(int i = 0; i < objetos.size(); i++) {
 		ObjetoGeometrico* objeto = objetos.at(i)->clonar();
 
-		if(this->clipping->clip(objeto)) {
+		if(objeto->getTipo() == ObjetoGeometrico::POLIGONO) {
+			/**
+			 * TODO Gambi que precisa ser removida!!
+			 */
+			QList<Ponto> pontos = objeto->getPontos();
+
+			for(int i = 0; i < pontos.size(); i++) {
+				Reta reta("tt", pontos.at(i), pontos.at((i+1)%pontos.size()), objeto->getCor());
+				if(this->clipping->clip(&reta)) {
+					QList<Ponto> pontosReta = this->transformarObjeto(reta.getPontos());
+
+					QPen pen(objeto->getCor());
+					QLineF line = QLineF(pontosReta.at(0).getX(), pontosReta.at(0).getY(), pontosReta.at(1).getX(), pontosReta.at(1).getY());
+					scene->addLine(line, pen);
+				}
+			}
+		} else if(this->clipping->clip(objeto)) {
 			QList<Ponto> pontos = objeto->getPontos();
 			pontos = this->transformarObjeto(pontos);
 
