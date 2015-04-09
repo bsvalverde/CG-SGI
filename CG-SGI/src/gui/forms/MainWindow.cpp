@@ -215,6 +215,10 @@ void MainWindow::btnExportScene() {
 	if (arquivo.compare("") == 0) // Usuário cancelou
 		return;
 
+	if(arquivo.find_last_of(".obj") == arquivo.length() - 1) {
+		arquivo = arquivo.substr(0, arquivo.length() - 4);
+	}
+
 	arquivo += ".obj";
 
 	this->controladorUI->exportarCena(arquivo);
@@ -226,8 +230,8 @@ void MainWindow::btnAtalhos() {
 
 void MainWindow::btnClippingCSToggled(bool cohenSutherland) {
 	if(cohenSutherland) {
-		this->viewport->setAlgoritmoClipping(Clipping::COHEN_SUTHERLAND);
+		this->viewport->setAlgoritmoClippingLinhas(Clipping::COHEN_SUTHERLAND);
 	} else {
-		this->viewport->setAlgoritmoClipping(Clipping::LIANG_BARSKY);
+		this->viewport->setAlgoritmoClippingLinhas(Clipping::LIANG_BARSKY);
 	}
 }
