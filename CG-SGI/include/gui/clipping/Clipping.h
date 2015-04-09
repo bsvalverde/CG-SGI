@@ -11,9 +11,20 @@
 class Clipping {
 
 public:
-	enum Algoritmo {
+	/**
+	 * Algoritmo de clipping de linhas.
+	 */
+	enum AlgoritmoClippingLinha {
 		COHEN_SUTHERLAND,
 		LIANG_BARSKY
+	};
+
+	enum BordaClipping {
+		DIREITA,
+		ESQUERDA,
+		FUNDO,
+		TOPO,
+		TODAS
 	};
 
 	/**
@@ -45,6 +56,23 @@ protected:
 	double xvMax;
 	double yvMin;
 	double yvMax;
+
+private:
+	/**
+	 * Aplicar clipping da reta sobre uma borda.
+	 * @param p1 ponto inicial da reta.
+	 * @param p2 ponto final da reta.
+	 * @param borda borda na qual a reta sera recortada.
+	 * @return true se pelo menos algum ponto está dentro da viewport.
+	 */
+	bool clipRetaEmBorda(Ponto* const p1, Ponto* const p2, BordaClipping borda) const;
+
+	/**
+	 * Verificar se o ponto está dentro da viewport de acordo com uma borda.
+	 * @param p ponto a ser verificado.
+	 * @param borda borda a ser verificada.
+	 */
+	bool pontoDentroDaViewport(Ponto* const p, BordaClipping borda) const;
 
 };
 

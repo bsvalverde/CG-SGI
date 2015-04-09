@@ -6,7 +6,7 @@ Viewport::Viewport(QGraphicsView* const janelaGrafica, const double largura, con
 	this->largura = largura;
 	this->altura = altura;
 	this->clipping = 0;
-	this->setAlgoritmoClipping(Clipping::COHEN_SUTHERLAND);
+	this->setAlgoritmoClippingLinhas(Clipping::COHEN_SUTHERLAND);
 
 	// Área de clipping
 	QGraphicsScene* scene = this->janelaGrafica->scene();
@@ -37,25 +37,12 @@ void Viewport::atualizarObjetos(const QList<ObjetoGeometrico*>& objetos) {
 	for(int i = 0; i < objetos.size(); i++) {
 		ObjetoGeometrico* objeto = objetos.at(i)->clonar();
 
-		if(objeto->getTipo() == ObjetoGeometrico::POLIGONO) {
-			/**
-			 * TODO Gambi que precisa ser removida!!
-			 */
-			QList<Ponto> pontos = objeto->getPontos();
-
-			for(int i = 0; i < pontos.size(); i++) {
-				Reta reta("tt", pontos.at(i), pontos.at((i+1)%pontos.size()), objeto->getCor());
-				if(this->clipping->clip(&reta)) {
-					QList<Ponto> pontosReta = this->transformarObjeto(reta.getPontos());
-
-					QPen pen(objeto->getCor());
-					QLineF line = QLineF(pontosReta.at(0).getX(), pontosReta.at(0).getY(), pontosReta.at(1).getX(), pontosReta.at(1).getY());
-					scene->addLine(line, pen);
-				}
-			}
-		} else if(this->clipping->clip(objeto)) {
+		if(this->clipping->clip(objeto)) {
 			QList<Ponto> pontos = objeto->getPontos();
 			pontos = this->transformarObjeto(pontos);
+
+			if(pontos.size() == 0)
+				continue;
 
 			QPen pen(objeto->getCor());
 			QLineF line;
@@ -84,7 +71,7 @@ void Viewport::atualizarObjetos(const QList<ObjetoGeometrico*>& objetos) {
 	this->janelaGrafica->repaint();
 }
 
-void Viewport::setAlgoritmoClipping(Clipping::Algoritmo algoritmo) {
+void Viewport::setAlgoritmoClippingLinhas(Clipping::AlgoritmoClippingLinha algoritmo) {
 	if(this->clipping)
 		delete this->clipping;
 

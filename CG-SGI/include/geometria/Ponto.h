@@ -42,6 +42,8 @@ public:
 	 */
 	Ponto& operator=(const Ponto& ponto);
 
+	bool operator==(const Ponto& rhs);
+
 	/**
 	 * Clonar o objeto.
 	 * @return cópia do objeto geométrico.

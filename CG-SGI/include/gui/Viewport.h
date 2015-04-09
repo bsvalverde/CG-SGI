@@ -38,7 +38,7 @@ public:
 	 * Definir o algoritmo de clipping.
 	 * @param algoritmo algoritmo a ser utilizado no recorte de objetos.
 	 */
-	void setAlgoritmoClipping(Clipping::Algoritmo algoritmo);
+	void setAlgoritmoClippingLinhas(Clipping::AlgoritmoClippingLinha algoritmo);
 
 	/**
 	 * Obter os pontos da viewport.

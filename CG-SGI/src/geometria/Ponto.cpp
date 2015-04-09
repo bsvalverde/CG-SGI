@@ -29,6 +29,11 @@ Ponto& Ponto::operator=(const Ponto& ponto) {
 	return *this;
 }
 
+bool Ponto::operator==(const Ponto& rhs) {
+	bool igual = (this->coord_x == rhs.coord_x) && (this->coord_y == rhs.coord_y) && (this->coord_z == rhs.coord_z);
+	return igual;
+}
+
 ObjetoGeometrico* Ponto::clonar() const {
 	return new Ponto(*this);
 }
