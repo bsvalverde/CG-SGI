@@ -32,6 +32,7 @@ void MainWindow::initializeMenuBar() {
 	QAction* itemSair = menuArquivo->addAction("&Sair");
 
 	QAction* itemAtalhos = menuBar()->addAction("A&talhos");
+	QAction* itemSobre = menuBar()->addAction("&Sobre");
 
 	QObject::connect(itemImportar, SIGNAL(triggered()), this,
 			SLOT(btnImportScene()));
@@ -39,6 +40,7 @@ void MainWindow::initializeMenuBar() {
 			SLOT(btnExportScene()));
 	QObject::connect(itemSair, SIGNAL(triggered()), this, SLOT(encerrar()));
 	QObject::connect(itemAtalhos, SIGNAL(triggered()), this, SLOT(btnAtalhos()));
+	QObject::connect(itemSobre, SIGNAL(triggered()), this, SLOT(btnSobre()));
 	this->close();
 
 	menuBar()->setVisible(true);
@@ -226,6 +228,17 @@ void MainWindow::btnExportScene() {
 
 void MainWindow::btnAtalhos() {
 	this->controladorUI->exibirJanelaAtalhos();
+}
+
+void MainWindow::btnSobre() {
+	QMessageBox msg;
+	msg.information(this, "Sobre", "Sistema Gráfico Interativo desenvolvido na discplina "
+			"de Computação Gráfica do curso de Ciência da Computação da "
+			"Universidade Federal de Santa Catarina.\n\n"
+			":: Algoritmos Implementados ::\n\n"
+			"Cohen-Sutherland (clipping de retas)\n"
+			"Liang-Barsky (clipping de retas)\n"
+			"Sutherland-Hodgeman (clipping de polígonos)");
 }
 
 void MainWindow::btnClippingCSToggled(bool cohenSutherland) {
