@@ -28,16 +28,16 @@ void MainWindow::initializeMenuBar() {
 	QMenu* menuArquivo = menuBar()->addMenu("&Arquivo");
 	QAction* itemImportar = menuArquivo->addAction("&Importar cena...");
 	QAction* itemExportar = menuArquivo->addAction("&Exportar cena...");
+	QAction* itemLimparCena = menuArquivo->addAction("&Limpar cena");
 	menuArquivo->addSeparator();
 	QAction* itemSair = menuArquivo->addAction("&Sair");
 
 	QAction* itemAtalhos = menuBar()->addAction("A&talhos");
 	QAction* itemSobre = menuBar()->addAction("&Sobre");
 
-	QObject::connect(itemImportar, SIGNAL(triggered()), this,
-			SLOT(btnImportScene()));
-	QObject::connect(itemExportar, SIGNAL(triggered()), this,
-			SLOT(btnExportScene()));
+	QObject::connect(itemImportar, SIGNAL(triggered()), this, SLOT(btnImportScene()));
+	QObject::connect(itemExportar, SIGNAL(triggered()), this, SLOT(btnExportScene()));
+	QObject::connect(itemLimparCena, SIGNAL(triggered()), this,	SLOT(btnCleanScene()));
 	QObject::connect(itemSair, SIGNAL(triggered()), this, SLOT(encerrar()));
 	QObject::connect(itemAtalhos, SIGNAL(triggered()), this, SLOT(btnAtalhos()));
 	QObject::connect(itemSobre, SIGNAL(triggered()), this, SLOT(btnSobre()));
@@ -224,6 +224,11 @@ void MainWindow::btnExportScene() {
 	arquivo += ".obj";
 
 	this->controladorUI->exportarCena(arquivo);
+}
+
+void MainWindow::btnCleanScene() {
+	if(this->controladorUI->requisitarConfirmacaoUsuario("Você tem certeza que deseja limpar a cena?"))
+		this->updateObjects(QList<ObjetoGeometrico*>());
 }
 
 void MainWindow::btnAtalhos() {

@@ -40,6 +40,7 @@ private slots:
 	void btnTransformObjectClicked();
 	void btnImportScene();
 	void btnExportScene();
+	void btnCleanScene();
 	void btnAtalhos();
 	void btnSobre();
 	void btnClippingCSToggled(bool cohenSutherland);
