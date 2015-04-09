@@ -14,89 +14,62 @@ bool ClippingLiangBarsky::clipReta(Reta* const reta) const {
 	Ponto* p1 = pontos.at(0);
 	Ponto* p2 = pontos.at(1);
 
-	/*
-	 	// x = x1 + u dX
-	// y = y1 + u dY
-
-	// p1 = (x1, y1, z1)
+	double x1 = p1->getX();
+	double y1 = p1->getY();
 	double dX = p2->getX() - p1->getX();
 	double dY = p2->getY() - p1->getY();
 
 	double p[4] = { -dX, dX, -dY, dY };
+	double q[4] = { x1 - xvMin,
+					xvMax - x1,
+					y1 - yvMin,
+					yvMax - y1};
 
-	double q[4];
-	q[0] = p1->getX() - xvMin;
-	q[1] = xvMax - p1->getX();
-	q[2] = p1->getY() - yvMin;
-	q[3] = yvMax - p1->getX();
+	double csi1 = this->csi1(p, q);
+	double csi2 = this->csi2(p, q);
 
-	if(p[0] == 0 || p[1] == 0 || p[2] == 0 || p[3] == 0)
-		if(q[0] < 0 || q[1] < 0 || q[2] < 0 || q[3] < 0)
-			return false;
-		else
-
-	 */
-
-	if (!this->clipIntermediario(p1, p2))
-		return false;
-	return this->clipIntermediario(p2, p1);
-}
-
-bool ClippingLiangBarsky::clipIntermediario(Ponto* const p1,
-		Ponto* const p2) const {
-	double p[4] = { 0, 0, 0, 0 };
-	p[0] = -(p2->getX() - p1->getX());
-	p[1] = (p2->getX() - p1->getX());
-	p[2] = -(p2->getY() - p1->getY());
-	p[3] = (p2->getY() - p1->getY());
-
-	double q[4] = { 0, 0, 0, 0 };
-	q[0] = p1->getX() - xvMin;
-	q[1] = xvMax - p1->getX();
-	q[2] = p1->getY() - yvMin;
-	q[3] = yvMax - p1->getY();
-
-	double sigma1 = this->sigma1(p, q);
-	double sigma2 = this->sigma2(p, q);
-	if (sigma1 > sigma2)
+	if (csi1 > csi2) // Reta está fora da viewport
 		return false;
 
-	if (sigma1 != 0) {
-		double x = p1->getX() + sigma1 * p[1];
-		double y = p1->getY() + sigma1 * p[3];
+	if (csi1 != 0) {
+		double x = x1 + csi1 * p[1];
+		double y = y1 + csi1 * p[3];
 		p1->setX(x);
 		p1->setY(y);
 	}
 
-	if (sigma2 != 1) {
-		double x = p1->getX() + sigma2 * p[1];
-		double y = p1->getY() + sigma2 * p[3];
+	if (csi2 != 1) {
+		double x = x1 + csi2 * p[1];
+		double y = y1 + csi2 * p[3];
 		p2->setX(x);
 		p2->setY(y);
 	}
+
 	return true;
 }
 
-double ClippingLiangBarsky::sigma1(double *p, double *q) const {
-	double sigma = 0;
+double ClippingLiangBarsky::csi1(double *p, double *q) const {
+	double csi = 0;
 	for (int i = 0; i < 4; i++) {
 		if (p[i] < 0) {
 			double r = q[i] / p[i];
-			if (r > sigma)
-				sigma = r;
+			if (r > csi)
+				csi = r;
 		}
 	}
-	return sigma;
+
+	return csi;
 }
 
-double ClippingLiangBarsky::sigma2(double *p, double *q) const {
-	double sigma = 1;
+double ClippingLiangBarsky::csi2(double *p, double *q) const {
+	double csi = 1;
 	for (int i = 0; i < 4; i++) {
 		if (p[i] > 0) {
 			double r = q[i] / p[i];
-			if (r < sigma)
-				sigma = r;
+			if (r < csi)
+				csi = r;
 		}
 	}
-	return sigma;
+
+	return csi;
 }
