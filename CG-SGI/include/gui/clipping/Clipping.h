@@ -19,6 +19,9 @@ public:
 		LIANG_BARSKY
 	};
 
+	/**
+	 * Bordas da viewport para aplicar o clipping.
+	 */
 	enum BordaClipping {
 		DIREITA,
 		ESQUERDA,
@@ -42,14 +45,31 @@ public:
 	virtual ~Clipping();
 
 	/**
-	 * Aplicar clipping no objeto.
+	 * Recortar o objeto.
 	 * @param objeto objeto a ser recortado.
 	 */
 	bool clip(ObjetoGeometrico* const objeto) const;
 
 protected:
+	/**
+	 * Recortar um polígono.
+	 * @param poligono polígono a ser recortado.
+	 * @return true caso seja necessário desenhar o polígono.
+	 */
 	virtual bool clipPoligono(Poligono* const poligono) const;
+
+	/**
+	 * Recortar um ponto.
+	 * @param ponto ponto a ser recortado.
+	 * @return true caso seja necessário desenhar o ponto.
+	 */
 	virtual bool clipPonto(Ponto* const ponto) const;
+
+	/**
+	 * Recortar uma reta.
+	 * @param reta reta a ser recortada.
+	 * @return true caso seja necessário desenhar a reta.
+	 */
 	virtual bool clipReta(Reta* const reta) const = 0;
 
 	double xvMin;

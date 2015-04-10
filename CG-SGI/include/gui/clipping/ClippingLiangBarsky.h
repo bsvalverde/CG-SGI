@@ -25,6 +25,11 @@ public:
 	virtual ~ClippingLiangBarsky();
 
 protected:
+	/**
+	 * Recortar uma reta.
+	 * @param reta reta a ser recortada.
+	 * @return true caso seja necessário desenhar a reta.
+	 */
 	virtual bool clipReta(Reta* const reta) const;
 
 private:
