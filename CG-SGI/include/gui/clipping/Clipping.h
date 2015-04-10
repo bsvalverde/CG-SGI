@@ -26,8 +26,7 @@ public:
 		DIREITA,
 		ESQUERDA,
 		FUNDO,
-		TOPO,
-		TODAS
+		TOPO
 	};
 
 	/**

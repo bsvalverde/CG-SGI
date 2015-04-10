@@ -33,7 +33,20 @@ protected:
 	virtual bool clipReta(Reta* const reta) const;
 
 private:
+	/**
+	 * Obter o Csi 1.
+	 * @param p vetor de parâmetros p.
+	 * @param q vetor de parâmetros q.
+	 * @return o valor de Csi 1.
+	 */
 	double csi1(double *p, double *q) const;
+
+	/**
+	 * Obter o Csi 2.
+	 * @param p vetor de parâmetros p.
+	 * @param q vetor de parâmetros q.
+	 * @return o valor de Csi 2.
+	 */
 	double csi2(double *p, double *q) const;
 };
 
