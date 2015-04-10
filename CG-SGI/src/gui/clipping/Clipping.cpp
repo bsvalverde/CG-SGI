@@ -1,5 +1,4 @@
 #include "gui/clipping/Clipping.h"
-#include <iostream>
 
 Clipping::Clipping(const double xvMin, const double xvMax, const double yvMin,
 		const double yvMax) {
@@ -35,7 +34,7 @@ bool Clipping::clipPoligono(Poligono* const poligono) const {
 			Ponto p1 = pontosPoligono.at(i);
 			Ponto p2 = pontosPoligono.at((i+1)%pontosPoligono.size());
 
-			if(this->clipRetaEmBorda(&p1, &p2, borda)) {
+			if(this->clipPontosPorBorda(&p1, &p2, borda)) {
 				if(novosPontos.size() > 0 && novosPontos.last() == p1)
 					novosPontos.removeLast();
 
@@ -56,9 +55,11 @@ bool Clipping::clipPonto(Ponto* const ponto) const {
 			&& ponto->getY() > yvMin && ponto->getY() < yvMax);
 }
 
-bool Clipping::clipRetaEmBorda(Ponto* const p1, Ponto* const p2, BordaClipping borda) const {
+bool Clipping::clipPontosPorBorda(Ponto* const p1, Ponto* const p2, BordaClipping borda) const {
 	Reta reta("", *p1, *p2);
-	this->clipReta(&reta);
+
+	this->clipRetaPorBorda(&reta, borda);
+
 	Ponto p1n = reta.getPontos().at(0);
 	Ponto p2n = reta.getPontos().at(1);
 
@@ -76,6 +77,49 @@ bool Clipping::clipRetaEmBorda(Ponto* const p1, Ponto* const p2, BordaClipping b
 	}
 
 	return p1Dentro || p2Dentro;
+}
+
+void Clipping::clipRetaPorBorda(Reta* const reta, BordaClipping borda) const {
+	double coefAngular = reta->coeficienteAngular();
+	Ponto* p1 = reta->getPontosObjeto().at(0);
+	Ponto* p2 = reta->getPontosObjeto().at(1);
+	double valX1 = 0;
+	double valY1 = 0;
+	double valX2 = 0;
+	double valY2 = 0;
+
+	switch(borda) {
+		case BordaClipping::DIREITA:
+			valX1 = xvMax;
+			valY1 = coefAngular * (xvMax - p1->getX()) + p1->getY();
+			valX2 = xvMax;
+			valY2 = coefAngular * (xvMax - p2->getX()) + p2->getY();
+			break;
+		case BordaClipping::ESQUERDA:
+			valX1 = xvMin;
+			valY1 = coefAngular * (xvMin - p1->getX()) + p1->getY();
+			valX2 = xvMin;
+			valY2 = coefAngular * (xvMin - p2->getX()) + p2->getY();
+			break;
+		case BordaClipping::FUNDO:
+			valX1 = p1->getX() + (yvMin - p1->getY()) / coefAngular;
+			valY1 = yvMin;
+			valX2 = p2->getX() + (yvMin - p2->getY()) / coefAngular;
+			valY2 = yvMin;
+			break;
+		case BordaClipping::TOPO:
+			valX1 = p1->getX() + (yvMax - p1->getY()) / coefAngular;
+			valY1 = yvMax;
+			valX2 = p2->getX() + (yvMax - p2->getY()) / coefAngular;
+			valY2 = yvMax;
+			break;
+		default:
+			break;
+	}
+	p1->setX(valX1);
+	p1->setY(valY1);
+	p2->setX(valX2);
+	p2->setY(valY2);
 }
 
 bool Clipping::pontoDentroDaViewport(Ponto* const p, BordaClipping borda) const {

@@ -62,10 +62,17 @@ private:
 	 * Aplicar clipping da reta sobre uma borda.
 	 * @param p1 ponto inicial da reta.
 	 * @param p2 ponto final da reta.
-	 * @param borda borda na qual a reta sera recortada.
+	 * @param borda borda na qual os pontos serão recortados.
 	 * @return true se pelo menos algum ponto está dentro da viewport.
 	 */
-	bool clipRetaEmBorda(Ponto* const p1, Ponto* const p2, BordaClipping borda) const;
+	bool clipPontosPorBorda(Ponto* const p1, Ponto* const p2, BordaClipping borda) const;
+
+	/**
+	 * Aplicar clipping da reta sobre uma borda.
+	 * @param reta reta a ser recortada.
+	 * @param borda borda na qual a reta será recortada.
+	 */
+	void clipRetaPorBorda(Reta* const reta, BordaClipping borda) const;
 
 	/**
 	 * Verificar se o ponto está dentro da viewport de acordo com uma borda.
