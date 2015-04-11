@@ -68,11 +68,24 @@ public:
 	 */
 	const String toString() const;
 
+	/**
+	 * Definir os pontos paramétricos da curva.
+	 * @param pontos pontos da paramétricos da curva.
+	 */
+	void setPontosParametricos(const QList<Ponto>& pontos);
+
 protected:
+	/**
+	 * Calcular pontos paramétricos da curva.
+	 * @param t passo de iteração.
+	 */
+	void calcularPontosParametricos(const double t = 0.1);
+
 	Ponto p1;
 	Ponto p2;
 	Ponto p3;
 	Ponto p4;
+	QList<Ponto> pontosParametricos;
 
 };
 

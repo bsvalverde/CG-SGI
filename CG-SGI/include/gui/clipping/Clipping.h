@@ -1,6 +1,7 @@
 #ifndef CLIPPING_H_
 #define CLIPPING_H_
 
+#include "geometria/CurvaBezier.h"
 #include "geometria/Poligono.h"
 #include "geometria/Ponto.h"
 #include "geometria/Reta.h"
@@ -50,6 +51,13 @@ public:
 	bool clip(ObjetoGeometrico* const objeto) const;
 
 protected:
+	/**
+	 * Recortar uma curva de bezier.
+	 * @param curva curva de bezier a ser recortada.
+	 * @return true caso seja necessário desenhar a curva.
+	 */
+	virtual bool clipCurvaBezier(CurvaBezier* const curva) const;
+
 	/**
 	 * Recortar um polígono.
 	 * @param poligono polígono a ser recortado.
