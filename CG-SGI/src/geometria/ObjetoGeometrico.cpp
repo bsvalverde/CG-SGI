@@ -46,6 +46,8 @@ ObjetoGeometrico::Tipo ObjetoGeometrico::getTipo() const {
 
 const String ObjetoGeometrico::getTipoString() const {
 	switch(this->tipo) {
+		case Tipo::CURVA_BEZIER:
+			return "Bezier";
 		case Tipo::PONTO:
 			return "Ponto";
 		case Tipo::RETA:

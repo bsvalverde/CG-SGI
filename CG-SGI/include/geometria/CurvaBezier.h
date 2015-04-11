@@ -1,45 +1,48 @@
-#ifndef RETA_H_
-#define RETA_H_
+#ifndef CURVABEZIER_H_
+#define CURVABEZIER_H_
 
 #include "geometria/Ponto.h"
 
 /**
- * Reta.
+ * Curva de Bezier.
  */
-class Reta : public ObjetoGeometrico {
+class CurvaBezier : public ObjetoGeometrico {
 
 public:
 	/**
 	 * Construtor.
 	 */
-	Reta();
+	CurvaBezier();
 
 	/**
 	 * Construtor.
-	 * @param reta objeto a ser copiado.
+	 * @param curva objeto a ser copiado.
 	 */
-	Reta(const Reta& reta);
+	CurvaBezier(const CurvaBezier& curva);
 
 	/**
 	 * Construtor.
 	 * @param nome nome do objeto.
-	 * @param inicial ponto inicial.
-	 * @param final ponto final.
+	 * @param p1 ponto inicial.
+	 * @param p2 ponto de controle.
+	 * @param p3 ponto de controle.
+	 * @param p4 ponto final.
 	 * @param cor cor da reta.
 	 */
-	Reta(const String& nome, const Ponto& inicial, const Ponto& final, const QColor& cor = QColor(0, 0, 0));
+	CurvaBezier(const String& nome, const Ponto& p1, const Ponto& p2,
+			const Ponto& p3, const Ponto& p4, const QColor& cor = QColor(0, 0, 0));
 
 	/**
 	 * Destrutor.
 	 */
-	virtual ~Reta();
+	virtual ~CurvaBezier();
 
 	/**
 	 * Operador de atribuição.
-	 * @param reta objeto a ser copiado.
-	 * @return reta copiada.
+	 * @param curva objeto a ser copiado.
+	 * @return curva copiada.
 	 */
-	Reta& operator=(const Reta& reta);
+	CurvaBezier& operator=(const CurvaBezier& curva);
 
 	/**
 	 * Clonar o objeto.
@@ -65,16 +68,12 @@ public:
 	 */
 	const String toString() const;
 
-	/**
-	 * Obter o coeficiente angular da reta.
-	 * @return coeficiente angular.
-	 */
-	double coeficienteAngular() const;
-
 protected:
-	Ponto v_inicial;
-	Ponto v_final;
+	Ponto p1;
+	Ponto p2;
+	Ponto p3;
+	Ponto p4;
 
 };
 
-#endif
+#endif /* CURVABEZIER_H_ */

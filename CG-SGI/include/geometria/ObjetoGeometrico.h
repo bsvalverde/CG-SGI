@@ -22,6 +22,7 @@ public:
 	 * Tipos de objetos geométricos
 	 */
 	enum Tipo {
+		CURVA_BEZIER,
 		POLIGONO,
 		PONTO,
 		RETA,

@@ -4,7 +4,7 @@
 #include "geometria/ObjetoGeometrico.h"
 
 /**
- * Ponto
+ * Ponto.
  */
 class Ponto : public ObjetoGeometrico {
 

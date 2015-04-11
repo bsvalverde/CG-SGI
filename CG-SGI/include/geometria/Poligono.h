@@ -3,6 +3,9 @@
 
 #include "geometria/Ponto.h"
 
+/**
+ * Polígono.
+ */
 class Poligono : public ObjetoGeometrico {
 
 public:
