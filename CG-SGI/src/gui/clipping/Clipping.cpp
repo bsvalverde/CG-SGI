@@ -113,8 +113,6 @@ void Clipping::clipRetaPorBorda(Reta* const reta, BordaClipping borda) const {
 			valX2 = p2->getX() + (yvMax - p2->getY()) / coefAngular;
 			valY2 = yvMax;
 			break;
-		default:
-			break;
 	}
 	p1->setX(valX1);
 	p1->setY(valY1);
@@ -132,7 +130,5 @@ bool Clipping::pontoDentroDaViewport(Ponto* const p, BordaClipping borda) const 
 			return p->getY() >= yvMin;
 		case BordaClipping::TOPO:
 			return p->getY() <= yvMax;
-		default:
-			return false;
 	}
 }
