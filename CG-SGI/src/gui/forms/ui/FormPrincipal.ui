@@ -423,9 +423,9 @@ QGroupBox::title  {
            </widget>
           </item>
           <item>
-           <widget class="QRadioButton" name="radBtnClippingNLN">
+           <widget class="QRadioButton" name="radBtnClippingLB">
             <property name="text">
-             <string>Nicholl-Lee-Nicholl</string>
+             <string>Liang-Barsky</string>
             </property>
             <property name="checked">
              <bool>false</bool>
