@@ -26,9 +26,24 @@ void ObjectInsertionWindow::clearFields(){
 	this->fieldLineY2->clear();
 	this->fieldLineZ1->clear();
 	this->fieldLineZ2->clear();
+	this->fieldBezierX1->clear();
+	this->fieldBezierX2->clear();
+	this->fieldBezierX3->clear();
+	this->fieldBezierX4->clear();
+	this->fieldBezierY1->clear();
+	this->fieldBezierY2->clear();
+	this->fieldBezierY3->clear();
+	this->fieldBezierY4->clear();
+	this->fieldBezierZ1->clear();
+	this->fieldBezierZ2->clear();
+	this->fieldBezierZ3->clear();
+	this->fieldBezierZ4->clear();
 
 	while(this->tablePoligonPoints->rowCount() > 0)
 		this->tablePoligonPoints->removeRow(0);
+	this->insertPoligonPoint();
+	this->insertPoligonPoint();
+	this->insertPoligonPoint();
 
 	this->tabObjects->setCurrentIndex(0);
 
@@ -62,7 +77,7 @@ bool ObjectInsertionWindow::validateFields() {
 			ok3 = true;//this->fieldLineZ2->text().toDouble(&ok3);
 
 			return ok && ok1 && ok2 && ok3;
-		default:
+		case 2:
 			if(this->tablePoligonPoints->rowCount() < 3)
 				return false;
 
@@ -83,6 +98,27 @@ bool ObjectInsertionWindow::validateFields() {
 					return false;
 			}
 			return true;
+		default:
+			this->fieldBezierX1->text().toDouble(&ok1);
+			this->fieldBezierY1->text().toDouble(&ok2);
+			ok3 = true;//this->fieldBezierZ1->text().toDouble(&ok3);
+			ok = ok1 && ok2 && ok3;
+
+			this->fieldBezierX2->text().toDouble(&ok1);
+			this->fieldBezierY2->text().toDouble(&ok2);
+			ok3 = true;//this->fieldBezierZ2->text().toDouble(&ok3);
+			ok = ok && ok1 && ok2 && ok3;
+
+			this->fieldBezierX3->text().toDouble(&ok1);
+			this->fieldBezierY3->text().toDouble(&ok2);
+			ok3 = true;//this->fieldBezierZ3->text().toDouble(&ok3);
+			ok = ok && ok1 && ok2 && ok3;
+
+			this->fieldBezierX4->text().toDouble(&ok1);
+			this->fieldBezierY4->text().toDouble(&ok2);
+			ok3 = true;//this->fieldBezierZ4->text().toDouble(&ok3);
+			ok = ok && ok1 && ok2 && ok3;
+			return ok;
 	}
 }
 
@@ -126,7 +162,7 @@ void ObjectInsertionWindow::insertObject() {
 			points.insert(1, p);
 			tipo = ObjetoGeometrico::RETA;
 			break;
-		default:
+		case 2:
 			for(int i = 0; i < this->tablePoligonPoints->rowCount(); i++) {
 				String nomePonto = this->fieldName->text().toStdString();
 
@@ -138,6 +174,32 @@ void ObjectInsertionWindow::insertObject() {
 				points.insert(i, p);
 			}
 			tipo = ObjetoGeometrico::POLIGONO;
+			break;
+		default:
+			x = this->fieldBezierX1->text().toDouble();
+			y = this->fieldBezierY1->text().toDouble();
+			z = 1;//this->fieldBezierZ1->text().toDouble();
+			p = Ponto("", x, y, z);
+			points.insert(0, p);
+
+			x = this->fieldBezierX2->text().toDouble();
+			y = this->fieldBezierY2->text().toDouble();
+			z = 1;//this->fieldBezierZ2->text().toDouble();
+			p = Ponto("", x, y, z);
+			points.insert(1, p);
+
+			x = this->fieldBezierX3->text().toDouble();
+			y = this->fieldBezierY3->text().toDouble();
+			z = 1;//this->fieldBezierZ3->text().toDouble();
+			p = Ponto("", x, y, z);
+			points.insert(2, p);
+
+			x = this->fieldBezierX4->text().toDouble();
+			y = this->fieldBezierY4->text().toDouble();
+			z = 1;//this->fieldBezierZ4->text().toDouble();
+			p = Ponto("", x, y, z);
+			points.insert(3, p);
+			tipo = ObjetoGeometrico::CURVA_BEZIER;
 			break;
 	}
 
@@ -152,9 +214,11 @@ void ObjectInsertionWindow::insertPoligonPoint() {
 }
 
 void ObjectInsertionWindow::removePoligonPoint() {
-	QItemSelectionModel *selectionModel = this->tablePoligonPoints->selectionModel();
-	for(QModelIndex index : selectionModel->selectedRows())
-	    tablePoligonPoints->removeRow(index.row());
+	if(this->tablePoligonPoints->rowCount() > 3) {
+		QItemSelectionModel *selectionModel = this->tablePoligonPoints->selectionModel();
+		for(QModelIndex index : selectionModel->selectedRows())
+			tablePoligonPoints->removeRow(index.row());
+	}
 }
 
 void ObjectInsertionWindow::btnSelectColorClicked() {

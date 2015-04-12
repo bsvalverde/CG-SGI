@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>400</height>
+    <height>470</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -28,7 +28,7 @@
   <property name="maximumSize">
    <size>
     <width>400</width>
-    <height>400</height>
+    <height>470</height>
    </size>
   </property>
   <property name="font">
@@ -49,7 +49,7 @@
      <x>9</x>
      <y>9</y>
      <width>381</width>
-     <height>381</height>
+     <height>451</height>
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout">
@@ -201,6 +201,9 @@ QGroupBox::title  {
                 <width>16777215</width>
                 <height>30</height>
                </size>
+              </property>
+              <property name="text">
+               <string/>
               </property>
               <property name="maxLength">
                <number>50</number>
@@ -589,7 +592,7 @@ QGroupBox::title  {
           <x>10</x>
           <y>11</y>
           <width>351</width>
-          <height>201</height>
+          <height>271</height>
          </rect>
         </property>
         <property name="horizontalScrollBarPolicy">
@@ -625,7 +628,7 @@ QGroupBox::title  {
         <property name="geometry">
          <rect>
           <x>10</x>
-          <y>220</y>
+          <y>290</y>
           <width>351</width>
           <height>31</height>
          </rect>
@@ -659,6 +662,643 @@ QGroupBox::title  {
           </spacer>
          </item>
         </layout>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="tabBezier">
+       <attribute name="title">
+        <string>Bezier</string>
+       </attribute>
+       <widget class="QGroupBox" name="groupBox_4">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>10</y>
+          <width>351</width>
+          <height>71</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QGroupBox  {
+    border: 1px solid gray;
+    border-radius: 5px;
+    margin-top: 1ex;
+}
+ 
+QGroupBox::title  {
+    subcontrol-origin: margin;
+    subcontrol-position: top left;
+    padding: 0 8px;
+}</string>
+        </property>
+        <property name="title">
+         <string>Ponto Inicial</string>
+        </property>
+        <widget class="QWidget" name="layoutWidget_5">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>20</y>
+           <width>331</width>
+           <height>41</height>
+          </rect>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_5">
+          <property name="sizeConstraint">
+           <enum>QLayout::SetNoConstraint</enum>
+          </property>
+          <item>
+           <layout class="QFormLayout" name="formLayout_12">
+            <property name="topMargin">
+             <number>5</number>
+            </property>
+            <property name="bottomMargin">
+             <number>5</number>
+            </property>
+            <item row="0" column="0">
+             <widget class="QLabel" name="labelPointX1_4">
+              <property name="text">
+               <string>x1</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QLineEdit" name="fieldBezierX1">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777214</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="maxLength">
+               <number>50</number>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QFormLayout" name="formLayout_13">
+            <property name="topMargin">
+             <number>5</number>
+            </property>
+            <property name="bottomMargin">
+             <number>5</number>
+            </property>
+            <item row="0" column="0">
+             <widget class="QLabel" name="labelPointY1_4">
+              <property name="text">
+               <string>y1</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QLineEdit" name="fieldBezierY1">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="maxLength">
+               <number>50</number>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QFormLayout" name="formLayout_14">
+            <property name="topMargin">
+             <number>5</number>
+            </property>
+            <property name="bottomMargin">
+             <number>5</number>
+            </property>
+            <item row="0" column="0">
+             <widget class="QLabel" name="labelPointZ1_4">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="text">
+               <string>z1</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QLineEdit" name="fieldBezierZ1">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>1</string>
+              </property>
+              <property name="maxLength">
+               <number>50</number>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+       <widget class="QGroupBox" name="groupBox_5">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>90</y>
+          <width>351</width>
+          <height>71</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QGroupBox  {
+    border: 1px solid gray;
+    border-radius: 5px;
+    margin-top: 1ex;
+}
+ 
+QGroupBox::title  {
+    subcontrol-origin: margin;
+    subcontrol-position: top left;
+    padding: 0 8px;
+}</string>
+        </property>
+        <property name="title">
+         <string>Ponto de Controle</string>
+        </property>
+        <widget class="QWidget" name="layoutWidget_6">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>20</y>
+           <width>331</width>
+           <height>41</height>
+          </rect>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_6">
+          <property name="sizeConstraint">
+           <enum>QLayout::SetNoConstraint</enum>
+          </property>
+          <item>
+           <layout class="QFormLayout" name="formLayout_15">
+            <property name="topMargin">
+             <number>5</number>
+            </property>
+            <property name="bottomMargin">
+             <number>5</number>
+            </property>
+            <item row="0" column="0">
+             <widget class="QLabel" name="labelPointX1_5">
+              <property name="text">
+               <string>x2</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QLineEdit" name="fieldBezierX2">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777214</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="maxLength">
+               <number>50</number>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QFormLayout" name="formLayout_16">
+            <property name="topMargin">
+             <number>5</number>
+            </property>
+            <property name="bottomMargin">
+             <number>5</number>
+            </property>
+            <item row="0" column="0">
+             <widget class="QLabel" name="labelPointY1_5">
+              <property name="text">
+               <string>y2</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QLineEdit" name="fieldBezierY2">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="maxLength">
+               <number>50</number>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QFormLayout" name="formLayout_17">
+            <property name="topMargin">
+             <number>5</number>
+            </property>
+            <property name="bottomMargin">
+             <number>5</number>
+            </property>
+            <item row="0" column="0">
+             <widget class="QLabel" name="labelPointZ1_5">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="text">
+               <string>z2</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QLineEdit" name="fieldBezierZ2">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>1</string>
+              </property>
+              <property name="maxLength">
+               <number>50</number>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+       <widget class="QGroupBox" name="groupBox_6">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>170</y>
+          <width>351</width>
+          <height>71</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QGroupBox  {
+    border: 1px solid gray;
+    border-radius: 5px;
+    margin-top: 1ex;
+}
+ 
+QGroupBox::title  {
+    subcontrol-origin: margin;
+    subcontrol-position: top left;
+    padding: 0 8px;
+}</string>
+        </property>
+        <property name="title">
+         <string>Ponto de Controle</string>
+        </property>
+        <widget class="QWidget" name="layoutWidget_7">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>20</y>
+           <width>331</width>
+           <height>41</height>
+          </rect>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_7">
+          <property name="sizeConstraint">
+           <enum>QLayout::SetNoConstraint</enum>
+          </property>
+          <item>
+           <layout class="QFormLayout" name="formLayout_18">
+            <property name="topMargin">
+             <number>5</number>
+            </property>
+            <property name="bottomMargin">
+             <number>5</number>
+            </property>
+            <item row="0" column="0">
+             <widget class="QLabel" name="labelPointX1_6">
+              <property name="text">
+               <string>x3</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QLineEdit" name="fieldBezierX3">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777214</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="maxLength">
+               <number>50</number>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QFormLayout" name="formLayout_19">
+            <property name="topMargin">
+             <number>5</number>
+            </property>
+            <property name="bottomMargin">
+             <number>5</number>
+            </property>
+            <item row="0" column="0">
+             <widget class="QLabel" name="labelPointY1_6">
+              <property name="text">
+               <string>y3</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QLineEdit" name="fieldBezierY3">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="maxLength">
+               <number>50</number>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QFormLayout" name="formLayout_20">
+            <property name="topMargin">
+             <number>5</number>
+            </property>
+            <property name="bottomMargin">
+             <number>5</number>
+            </property>
+            <item row="0" column="0">
+             <widget class="QLabel" name="labelPointZ1_6">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="text">
+               <string>z3</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QLineEdit" name="fieldBezierZ3">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>1</string>
+              </property>
+              <property name="maxLength">
+               <number>50</number>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+       <widget class="QGroupBox" name="groupBox_7">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>250</y>
+          <width>351</width>
+          <height>71</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QGroupBox  {
+    border: 1px solid gray;
+    border-radius: 5px;
+    margin-top: 1ex;
+}
+ 
+QGroupBox::title  {
+    subcontrol-origin: margin;
+    subcontrol-position: top left;
+    padding: 0 8px;
+}</string>
+        </property>
+        <property name="title">
+         <string>Ponto Final</string>
+        </property>
+        <widget class="QWidget" name="layoutWidget_8">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>20</y>
+           <width>331</width>
+           <height>41</height>
+          </rect>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_8">
+          <property name="sizeConstraint">
+           <enum>QLayout::SetNoConstraint</enum>
+          </property>
+          <item>
+           <layout class="QFormLayout" name="formLayout_21">
+            <property name="topMargin">
+             <number>5</number>
+            </property>
+            <property name="bottomMargin">
+             <number>5</number>
+            </property>
+            <item row="0" column="0">
+             <widget class="QLabel" name="labelPointX1_7">
+              <property name="text">
+               <string>x4</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QLineEdit" name="fieldBezierX4">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777214</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="maxLength">
+               <number>50</number>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QFormLayout" name="formLayout_22">
+            <property name="topMargin">
+             <number>5</number>
+            </property>
+            <property name="bottomMargin">
+             <number>5</number>
+            </property>
+            <item row="0" column="0">
+             <widget class="QLabel" name="labelPointY1_7">
+              <property name="text">
+               <string>y4</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QLineEdit" name="fieldBezierY4">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="maxLength">
+               <number>50</number>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QFormLayout" name="formLayout_23">
+            <property name="topMargin">
+             <number>5</number>
+            </property>
+            <property name="bottomMargin">
+             <number>5</number>
+            </property>
+            <item row="0" column="0">
+             <widget class="QLabel" name="labelPointZ1_7">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="text">
+               <string>z4</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QLineEdit" name="fieldBezierZ4">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>30</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>1</string>
+              </property>
+              <property name="maxLength">
+               <number>50</number>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
        </widget>
       </widget>
      </widget>
