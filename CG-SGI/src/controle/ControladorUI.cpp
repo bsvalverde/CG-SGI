@@ -22,10 +22,15 @@ void ControladorUI::exibirJanelaAtalhos() {
 			"CTRL + UP\t\tCima\n"
 			"CTRL + DOWN\tBaixo\n"
 			"CTRL + LEFT\tEsquerda\n"
-			"CTRL + RIGHT\tDireita\n\n"
+			"CTRL + RIGHT\tDireita\n"
+			"CTRL + HOME\tCentralizar\n\n"
 			":: Zoom ::\n\n"
 			"CTRL + I\t\tZoom In\n"
-			"CTRL + O\t\tZoom Out";
+			"CTRL + O\t\tZoom Out\n\n"
+			":: Manipulação de Objetos ::\n\n"
+			"ALT + I\t\tInserir Objeto\n"
+			"ALT + R\t\tRemover Objeto\n"
+			"ALT + T\t\tTransformar Objeto";
 
 	QMessageBox messageBox;
 	messageBox.information(0, "Atalhos do Sistema", QString::fromStdString(atalhos));

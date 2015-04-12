@@ -240,7 +240,7 @@ QGroupBox::title  {
              <string>◉</string>
             </property>
             <property name="shortcut">
-             <string>Home</string>
+             <string>Ctrl+Home</string>
             </property>
            </widget>
           </item>

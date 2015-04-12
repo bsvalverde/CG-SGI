@@ -14,8 +14,8 @@ Viewport::Viewport(QGraphicsView* const janelaGrafica, const double largura, con
 	if(scene)
 		delete scene;
 
-	scene = new QGraphicsScene(0, 0, this->largura - 4,
-								this->altura - 6, this->janelaGrafica);
+	scene = new QGraphicsScene(0, 0, this->largura - 5,
+								this->altura - 5, this->janelaGrafica);
 	this->desenharAreaClipping(scene);
 	this->janelaGrafica->setScene(scene);
 }
@@ -31,8 +31,8 @@ void Viewport::atualizarObjetos(const QList<ObjetoGeometrico*>& objetos) {
 	if(scene)
 		delete scene;
 
-	scene = new QGraphicsScene(0, 0, this->largura - 4,
-								this->altura - 6, this->janelaGrafica);
+	scene = new QGraphicsScene(0, 0, this->largura - 5,
+								this->altura - 5, this->janelaGrafica);
 
 	for(int i = 0; i < objetos.size(); i++) {
 		ObjetoGeometrico* objeto = objetos.at(i)->clonar();
@@ -80,7 +80,7 @@ void Viewport::setAlgoritmoClippingLinhas(Clipping::AlgoritmoClippingLinha algor
 	double xvMin = 2 * CLIPPING_MARGIN / this->largura - 1;
 	double xvMax = 2 * (this->largura - CLIPPING_MARGIN) / this->largura - 1;
 	double yvMin = 2 * CLIPPING_MARGIN / this->altura - 1;
-	double yvMax = 2 * (this->altura - CLIPPING_MARGIN) / this->altura - 1;
+	double yvMax = 2 * (this->altura - CLIPPING_MARGIN - 1) / this->altura - 1;
 
 	switch(algoritmo) {
 		case Clipping::COHEN_SUTHERLAND:
