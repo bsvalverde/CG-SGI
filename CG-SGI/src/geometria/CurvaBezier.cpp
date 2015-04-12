@@ -1,8 +1,17 @@
 #include "geometria/CurvaBezier.h"
 
-CurvaBezier::CurvaBezier() : ObjetoGeometrico() {}
+CurvaBezier::CurvaBezier() : ObjetoGeometrico() {
+	this->pontosParametricosRedefinidos = false;
+}
 
-CurvaBezier::CurvaBezier(const CurvaBezier& curva) : ObjetoGeometrico(curva) {}
+CurvaBezier::CurvaBezier(const CurvaBezier& curva) : ObjetoGeometrico(curva) {
+	this->p1 = curva.p1;
+	this->p2 = curva.p2;
+	this->p3 = curva.p3;
+	this->p4 = curva.p4;
+	this->pontosParametricos = curva.pontosParametricos;
+	this->pontosParametricosRedefinidos = curva.pontosParametricosRedefinidos;
+}
 
 CurvaBezier::CurvaBezier(const String& nome, const Ponto& p1, const Ponto& p2,
 		const Ponto& p3, const Ponto& p4, const QColor& cor) : ObjetoGeometrico(nome, Tipo::CURVA_BEZIER, cor) {
@@ -10,7 +19,8 @@ CurvaBezier::CurvaBezier(const String& nome, const Ponto& p1, const Ponto& p2,
 	this->p2 = p2;
 	this->p3 = p3;
 	this->p4 = p4;
-	this->calcularPontosParametricos();
+	this->pontosParametricos = this->calcularPontosParametricos();
+	this->pontosParametricosRedefinidos = false;
 }
 
 CurvaBezier::~CurvaBezier() {}
@@ -22,6 +32,7 @@ CurvaBezier& CurvaBezier::operator=(const CurvaBezier& curva) {
 	this->p3 = curva.p3;
 	this->p4 = curva.p4;
 	this->pontosParametricos = curva.pontosParametricos;
+	this->pontosParametricosRedefinidos = curva.pontosParametricosRedefinidos;
 	return *this;
 }
 
@@ -30,15 +41,18 @@ ObjetoGeometrico* CurvaBezier::clonar() const {
 }
 
 QList<Ponto> CurvaBezier::getPontos() const {
-	return pontosParametricos;
+	if(!this->pontosParametricosRedefinidos)
+		return this->calcularPontosParametricos();
+
+	return this->pontosParametricos;
 }
 
 QList<Ponto*> CurvaBezier::getPontosObjeto() {
 	QList<Ponto*> pontos;
-
-	for(int i = 0; i < pontosParametricos.size(); i++)
-		pontos.insert(0, (Ponto*) &pontosParametricos.at(0));
-
+	pontos.insert(0, &this->p1);
+	pontos.insert(1, &this->p2);
+	pontos.insert(2, &this->p3);
+	pontos.insert(3, &this->p4);
 	return pontos;
 }
 
@@ -51,15 +65,16 @@ const String CurvaBezier::toString() const {
 
 void CurvaBezier::setPontosParametricos(const QList<Ponto>& pontos) {
 	this->pontosParametricos = pontos;
+	this->pontosParametricosRedefinidos = true;
 }
 
-void CurvaBezier::calcularPontosParametricos(const double t) {
-	this->pontosParametricos.clear();
+QList<Ponto> CurvaBezier::calcularPontosParametricos(const double t) const {
+	QList<Ponto> pontos;
 	double x[4] = {p1.getX(), p2.getX(), p3.getX(), p4.getX()};
 	double y[4] = {p1.getY(), p2.getY(), p3.getY(), p4.getY()};
 	double z[4] = {p1.getZ(), p2.getZ(), p3.getZ(), p4.getZ()};
 
-	pontosParametricos.insert(0, this->p1);
+	pontos.insert(0, this->p1);
 	for(double i = t; i < 1; i += t) {
 		double i3 = pow(i, 3);
 		double i2 = pow(i, 2);
@@ -74,7 +89,8 @@ void CurvaBezier::calcularPontosParametricos(const double t) {
 					3*z[0]*i2 - 6*z[1]*i2 + 3*z[2]*i2 +
 					-3*z[0]*i + 3*z[1]*i + z[0];
 
-		pontosParametricos.insert(pontosParametricos.size(), Ponto("", xi, yi, zi));
+		pontos.insert(pontos.size(), Ponto("", xi, yi, zi));
 	}
-	pontosParametricos.insert(pontosParametricos.size(), this->p4);
+	pontos.insert(pontos.size(), this->p4);
+	return pontos;
 }

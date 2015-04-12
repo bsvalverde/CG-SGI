@@ -5,6 +5,7 @@
 #include <string>
 
 #include "geometria/ObjetoGeometrico.h"
+#include "geometria/CurvaBezier.h"
 #include "geometria/Poligono.h"
 #include "geometria/Reta.h"
 

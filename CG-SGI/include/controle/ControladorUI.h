@@ -97,10 +97,11 @@ public:
 	 * Inserir objeto geométrico.
 	 * @param nome nome do objeto.
 	 * @param pontos pontos do objeto.
+	 * @param tipo tipo do objeto.
 	 * @param cor cor do objeto.
 	 */
 	void inserirObjeto(const String& nome, const QList<Ponto> pontos,
-			const QColor& cor);
+			ObjetoGeometrico::Tipo tipo, const QColor& cor);
 
 	/**
 	 * Remover objeto geométrico.

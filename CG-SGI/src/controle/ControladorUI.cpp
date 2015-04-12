@@ -69,8 +69,9 @@ void ControladorUI::rotacionarObjetoPeloCentro(const String& nome, const double 
 	this->controladorPrincipal->rotacionarObjetoPeloCentro(nome, angulo);
 }
 
-void ControladorUI::inserirObjeto(const String& nome, const QList<Ponto> pontos, const QColor& cor) {
-	this->controladorPrincipal->inserirObjeto(nome, pontos, cor);
+void ControladorUI::inserirObjeto(const String& nome, const QList<Ponto> pontos,
+		ObjetoGeometrico::Tipo tipo, const QColor& cor) {
+	this->controladorPrincipal->inserirObjeto(nome, pontos, tipo, cor);
 }
 
 void ControladorUI::removerObjeto(const String& nome) {

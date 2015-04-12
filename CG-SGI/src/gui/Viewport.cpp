@@ -56,8 +56,10 @@ void Viewport::atualizarObjetos(const QList<ObjetoGeometrico*>& objetos) {
 					scene->addLine(line, pen);
 					ant = pontos.at(i);
 				}
-				line = QLineF(ant.getX(), ant.getY(), ponto1.getX(), ponto1.getY());
-				scene->addLine(line, pen);
+				if(objeto->getTipo() == ObjetoGeometrico::POLIGONO) {
+					line = QLineF(ant.getX(), ant.getY(), ponto1.getX(), ponto1.getY());
+					scene->addLine(line, pen);
+				}
 			} else {
 				scene->addEllipse(ponto1.getX(), ponto1.getY(), 3, 3, pen, QBrush(objeto->getCor()));
 			}

@@ -96,6 +96,7 @@ void ObjectInsertionWindow::insertObject() {
 	Ponto p;
 	double x, y, z;
 	String name = this->fieldName->text().toStdString();
+	ObjetoGeometrico::Tipo tipo;
 
 	if(this->controladorUI->contemObjeto(name)) {
 		this->controladorUI->exibirMensagemErro("Um objeto com este nome já existe!");
@@ -109,6 +110,7 @@ void ObjectInsertionWindow::insertObject() {
 			z = 1;//this->fieldPointZ->text().toDouble();
 			p = Ponto(name, x, y, z);
 			points.insert(0, p);
+			tipo = ObjetoGeometrico::PONTO;
 			break;
 		case 1:
 			x = this->fieldLineX1->text().toDouble();
@@ -122,6 +124,7 @@ void ObjectInsertionWindow::insertObject() {
 			z = 1;//this->fieldLineZ2->text().toDouble();
 			p = Ponto("", x, y, z);
 			points.insert(1, p);
+			tipo = ObjetoGeometrico::RETA;
 			break;
 		default:
 			for(int i = 0; i < this->tablePoligonPoints->rowCount(); i++) {
@@ -134,12 +137,13 @@ void ObjectInsertionWindow::insertObject() {
 				p = Ponto(nomePonto, x, y, z);
 				points.insert(i, p);
 			}
+			tipo = ObjetoGeometrico::POLIGONO;
 			break;
 	}
 
 	QColor color = this->btnColor->palette().color(this->btnColor->backgroundRole());
 
-	this->controladorUI->inserirObjeto(name, points, color);
+	this->controladorUI->inserirObjeto(name, points, tipo, color);
 	this->accept();
 }
 

@@ -1,5 +1,4 @@
 #include "geometria/Mundo.h"
-#include <iostream>
 
 Mundo::Mundo() {
 	this->window = new Window();

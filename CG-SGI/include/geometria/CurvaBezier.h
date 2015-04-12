@@ -78,14 +78,16 @@ protected:
 	/**
 	 * Calcular pontos paramétricos da curva.
 	 * @param t passo de iteração.
+	 * @return lista de pontos paramétricos.
 	 */
-	void calcularPontosParametricos(const double t = 0.1);
+	QList<Ponto> calcularPontosParametricos(const double t = 0.01) const;
 
 	Ponto p1;
 	Ponto p2;
 	Ponto p3;
 	Ponto p4;
 	QList<Ponto> pontosParametricos;
+	bool pontosParametricosRedefinidos;
 
 };
 

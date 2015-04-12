@@ -8,8 +8,7 @@ Clipping::Clipping(const double xvMin, const double xvMax, const double yvMin,
 	this->yvMax = yvMax;
 }
 
-Clipping::~Clipping() {
-}
+Clipping::~Clipping() {}
 
 bool Clipping::clip(ObjetoGeometrico* const objeto) const {
 	switch (objeto->getTipo()) {
@@ -26,15 +25,15 @@ bool Clipping::clip(ObjetoGeometrico* const objeto) const {
 	}
 }
 
-virtual bool Clipping::clipCurvaBezier(CurvaBezier* const curva) const {
+bool Clipping::clipCurvaBezier(CurvaBezier* const curva) const {
 	QList<Ponto> pontosCurva = curva->getPontos();
 	QList<Ponto> novosPontos;
 	QList<BordaClipping> bordas = {DIREITA, ESQUERDA, FUNDO, TOPO};
 
 	for(BordaClipping borda : bordas) {
-		for(int i = 0; i < pontosCurva.size(); i++) {
-			Ponto p1 = pontosCurva.at(i);
-			Ponto p2 = pontosCurva.at((i+1)%pontosCurva.size());
+		for(int i = 1; i < pontosCurva.size(); i++) {
+			Ponto p1 = pontosCurva.at(i-1);
+			Ponto p2 = pontosCurva.at(i);
 
 			if(this->clipPontosPorBorda(&p1, &p2, borda)) {
 				if(novosPontos.size() > 0 && novosPontos.last() == p1)
@@ -156,7 +155,7 @@ bool Clipping::pontoDentroDaViewport(Ponto* const p, BordaClipping borda) const 
 			return p->getX() >= xvMin;
 		case BordaClipping::FUNDO:
 			return p->getY() >= yvMin;
-		case BordaClipping::TOPO:
+		default:
 			return p->getY() <= yvMax;
 	}
 }

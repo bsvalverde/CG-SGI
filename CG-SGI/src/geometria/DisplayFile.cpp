@@ -15,6 +15,9 @@ DisplayFile& DisplayFile::operator=(const DisplayFile& displayFile) {
 void DisplayFile::inserirObjeto(const ObjetoGeometrico& objeto) {
 	ObjetoGeometrico* obj = 0;
 	switch(objeto.getTipo()) {
+		case ObjetoGeometrico::CURVA_BEZIER:
+			obj = new CurvaBezier((const CurvaBezier&) objeto);
+			break;
 		case ObjetoGeometrico::POLIGONO:
 			obj = new Poligono((const Poligono&) objeto);
 			break;

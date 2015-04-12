@@ -2,6 +2,7 @@
 #define MUNDO_H_
 
 #include "geometria/DisplayFile.h"
+#include "geometria/CurvaBezier.h"
 #include "geometria/Poligono.h"
 #include "geometria/Ponto.h"
 #include "geometria/Reta.h"

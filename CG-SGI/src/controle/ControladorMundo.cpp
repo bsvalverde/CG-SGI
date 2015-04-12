@@ -35,16 +35,25 @@ void ControladorMundo::atualizarObjetos(const QList<ObjetoGeometrico*>& objetos)
 		this->mundo.inserirObjeto(*obj);
 }
 
-void ControladorMundo::inserirObjeto(const String& nome, const QList<Ponto>& pontos, const QColor& cor) {
-	int numeroPontos = pontos.size();
+void ControladorMundo::inserirObjeto(const String& nome, const QList<Ponto>& pontos, ObjetoGeometrico::Tipo tipo, const QColor& cor) {
+	Ponto p = pontos.at(0);
 
-	if(numeroPontos == 1) {
-		Ponto p = pontos.at(0);
-		this->mundo.inserirObjeto(Ponto(nome, p.getX(), p.getY(), p.getZ(), cor));
-	} else if(numeroPontos == 2) {
-		this->mundo.inserirObjeto(Reta(nome, pontos.at(0), pontos.at(1), cor));
-	} else if(numeroPontos > 2) {
-		this->mundo.inserirObjeto(Poligono(nome, pontos, cor));
+	switch(tipo) {
+		case ObjetoGeometrico::CURVA_BEZIER:
+			this->mundo.inserirObjeto(CurvaBezier(nome, pontos.at(0), pontos.at(1),
+													pontos.at(2), pontos.at(3), cor));
+			break;
+		case ObjetoGeometrico::POLIGONO:
+			this->mundo.inserirObjeto(Poligono(nome, pontos, cor));
+			break;
+		case ObjetoGeometrico::PONTO:
+			this->mundo.inserirObjeto(Ponto(nome, p.getX(), p.getY(), p.getZ(), cor));
+			break;
+		case ObjetoGeometrico::RETA:
+			this->mundo.inserirObjeto(Reta(nome, pontos.at(0), pontos.at(1), cor));
+			break;
+		default:
+			break;
 	}
 }
 
