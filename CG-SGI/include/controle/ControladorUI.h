@@ -7,7 +7,7 @@
 #include "geometria/Mundo.h"
 
 class ControladorPrincipal;
-class MainWindow;
+class FormPrincipal;
 class ObjectInsertionWindow;
 class ObjectTransformationWindow;
 
@@ -143,7 +143,7 @@ public:
 protected:
 	ControladorPrincipal* controladorPrincipal;
 	Mundo mundo;
-	MainWindow* mainWindow;
+	FormPrincipal* formPrincipal;
 	ObjectInsertionWindow* objectInsertionWindow;
 	ObjectTransformationWindow* objectTransformationWindow;
 

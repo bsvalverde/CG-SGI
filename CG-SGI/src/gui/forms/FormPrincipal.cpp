@@ -1,30 +1,30 @@
-#include "gui/forms/MainWindow.h"
+#include "gui/forms/FormPrincipal.h"
 
-MainWindow::MainWindow(ControladorUI* controladorUI, QDialog* parent,
+FormPrincipal::FormPrincipal(ControladorUI* controladorUI, QDialog* parent,
 		Qt::WindowFlags flags) :
 		QMainWindow(parent, flags) {
 	this->setupUi(this);
 	this->moveToCenter();
 	this->connectSignalsAndSlots();
 	this->initializeMenuBar();
-	this->zoomValue = this->zoomControl->value();
-	this->rotationValue = this->dialRotation->value();
+	this->zoomValue = this->sliderControleZoom->value();
+	this->rotationValue = this->dialBtnRotacao->value();
 	this->controladorUI = controladorUI;
-	this->viewport = new Viewport(this->graphicsView, 510, 475);
+	this->viewport = new Viewport(this->graphicsView, 475, 555);
 }
 
-MainWindow::~MainWindow() {
+FormPrincipal::~FormPrincipal() {
 	if (this->viewport)
 		delete this->viewport;
 }
 
-void MainWindow::moveToCenter() {
+void FormPrincipal::moveToCenter() {
 	QRect position = frameGeometry();
 	position.moveCenter(QDesktopWidget().availableGeometry().center());
 	move(position.topLeft());
 }
 
-void MainWindow::initializeMenuBar() {
+void FormPrincipal::initializeMenuBar() {
 	QMenu* menuArquivo = menuBar()->addMenu("&Arquivo");
 	QAction* itemImportar = menuArquivo->addAction("&Importar cena...");
 	QAction* itemExportar = menuArquivo->addAction("&Exportar cena...");
@@ -46,120 +46,120 @@ void MainWindow::initializeMenuBar() {
 	menuBar()->setVisible(true);
 }
 
-void MainWindow::encerrar() {
+void FormPrincipal::encerrar() {
 	if (this->controladorUI->requisitarConfirmacaoUsuario(
 			"Você tem certeza que deseja encerrar o sistema?"))
 		QWidget::close();
 }
 
-ControladorUI* MainWindow::getControladorUI() {
+ControladorUI* FormPrincipal::getControladorUI() {
 	return this->controladorUI;
 }
 
-void MainWindow::updateObjects(const QList<ObjetoGeometrico*>& objects) {
+void FormPrincipal::updateObjects(const QList<ObjetoGeometrico*>& objects) {
 	// Remover todos os objetos da tabela
-	while (this->tableObjects->rowCount() > 0)
-		this->tableObjects->removeRow(0);
+	while (this->displayFile->rowCount() > 0)
+		this->displayFile->removeRow(0);
 
 	// Inserir todos os objetos atualizados na tabela
 	for (ObjetoGeometrico* obj : objects) {
-		this->tableObjects->insertRow(this->tableObjects->rowCount());
+		this->displayFile->insertRow(this->displayFile->rowCount());
 		QTableWidgetItem* type = new QTableWidgetItem(
 				QString::fromStdString(obj->getTipoString()));
 		QTableWidgetItem* name = new QTableWidgetItem(
 				QString::fromStdString(obj->getNome()));
-		this->tableObjects->setItem(this->tableObjects->rowCount() - 1, 0,
+		this->displayFile->setItem(this->displayFile->rowCount() - 1, 0,
 				type);
-		this->tableObjects->setItem(this->tableObjects->rowCount() - 1, 1,
+		this->displayFile->setItem(this->displayFile->rowCount() - 1, 1,
 				name);
 	}
 
 	this->viewport->atualizarObjetos(objects);
 }
 
-void MainWindow::connectSignalsAndSlots() {
+void FormPrincipal::connectSignalsAndSlots() {
 	QObject::connect(btnZoomIn, SIGNAL(pressed()), this,
 			SLOT(btnZoomInPressed()));
 	QObject::connect(btnZoomOut, SIGNAL(pressed()), this,
 			SLOT(btnZoomOutPressed()));
-	QObject::connect(zoomControl, SIGNAL(valueChanged(int)), this,
+	QObject::connect(sliderControleZoom, SIGNAL(valueChanged(int)), this,
 			SLOT(zoomControlValueChanged(int)));
-	QObject::connect(btnUp, SIGNAL(clicked()), this,
+	QObject::connect(btnNavUp, SIGNAL(clicked()), this,
 			SLOT(btnNavigationUpPressed()));
-	QObject::connect(btnLeft, SIGNAL(clicked()), this,
+	QObject::connect(btnNavLeft, SIGNAL(clicked()), this,
 			SLOT(btnNavigationLeftPressed()));
-	QObject::connect(btnCenter, SIGNAL(clicked()), this,
+	QObject::connect(btnNavCenter, SIGNAL(clicked()), this,
 			SLOT(btnNavigationCenterPressed()));
-	QObject::connect(btnRight, SIGNAL(clicked()), this,
+	QObject::connect(btnNavRight, SIGNAL(clicked()), this,
 			SLOT(btnNavigationRightPressed()));
-	QObject::connect(btnDown, SIGNAL(clicked()), this,
+	QObject::connect(btnNavDown, SIGNAL(clicked()), this,
 			SLOT(btnNavigationDownPressed()));
-	QObject::connect(btnInsertObject, SIGNAL(clicked()), this,
+	QObject::connect(btnInserirObjeto, SIGNAL(clicked()), this,
 			SLOT(btnInsertObjectClicked()));
-	QObject::connect(btnRemoveObject, SIGNAL(clicked()), this,
+	QObject::connect(btnRemoverObjeto, SIGNAL(clicked()), this,
 			SLOT(btnRemoveObjectClicked()));
-	QObject::connect(btnTransformObject, SIGNAL(clicked()), this,
+	QObject::connect(btnTransformarObjeto, SIGNAL(clicked()), this,
 			SLOT(btnTransformObjectClicked()));
-	QObject::connect(dialRotation, SIGNAL(valueChanged(int)), this,
+	QObject::connect(dialBtnRotacao, SIGNAL(valueChanged(int)), this,
 			SLOT(btnRotation(int)));
 	QObject::connect(radBtnClippingCS, SIGNAL(toggled(bool)), this,
 			SLOT(btnClippingCSToggled(bool)));
 }
 
-void MainWindow::btnZoomInPressed() {
-	int position = this->zoomControl->value();
-	this->zoomControl->setValue(position + 2);
+void FormPrincipal::btnZoomInPressed() {
+	int position = this->sliderControleZoom->value();
+	this->sliderControleZoom->setValue(position + 2);
 }
 
-void MainWindow::btnZoomOutPressed() {
-	int position = this->zoomControl->value();
-	this->zoomControl->setValue(position - 2);
+void FormPrincipal::btnZoomOutPressed() {
+	int position = this->sliderControleZoom->value();
+	this->sliderControleZoom->setValue(position - 2);
 }
 
-void MainWindow::zoomControlValueChanged(int currentValue) {
+void FormPrincipal::zoomControlValueChanged(int currentValue) {
 	int factor = currentValue - this->zoomValue;
 
 	this->zoomValue = currentValue;
 	this->controladorUI->redimensionarWindow(factor);
 }
 
-void MainWindow::btnNavigationUpPressed() {
+void FormPrincipal::btnNavigationUpPressed() {
 	this->controladorUI->navegarNoMundo(Mundo::CIMA, 0.1);
 }
 
-void MainWindow::btnNavigationLeftPressed() {
+void FormPrincipal::btnNavigationLeftPressed() {
 	this->controladorUI->navegarNoMundo(Mundo::ESQUERDA, 0.1);
 }
 
-void MainWindow::btnNavigationCenterPressed() {
-	this->zoomControl->setValue(50);
+void FormPrincipal::btnNavigationCenterPressed() {
+	this->sliderControleZoom->setValue(50);
 	this->zoomValue = 50;
-	this->dialRotation->setValue(0);
+	this->dialBtnRotacao->setValue(0);
 	this->rotationValue = 0;
 	this->controladorUI->reiniciarWindow();
 }
 
-void MainWindow::btnNavigationRightPressed() {
+void FormPrincipal::btnNavigationRightPressed() {
 	this->controladorUI->navegarNoMundo(Mundo::DIREITA, 0.1);
 }
 
-void MainWindow::btnNavigationDownPressed() {
+void FormPrincipal::btnNavigationDownPressed() {
 	this->controladorUI->navegarNoMundo(Mundo::BAIXO, 0.1);
 }
 
-void MainWindow::btnRotation(int currentValue) {
+void FormPrincipal::btnRotation(int currentValue) {
 	int angulo = currentValue - this->rotationValue;
 	this->rotationValue = currentValue;
 
 	this->controladorUI->rotacionarWindow(angulo);
 }
 
-void MainWindow::btnInsertObjectClicked() {
+void FormPrincipal::btnInsertObjectClicked() {
 	this->controladorUI->exibirObjectInsertionWindow();
 }
 
-void MainWindow::btnRemoveObjectClicked() {
-	QItemSelectionModel *selectionModel = this->tableObjects->selectionModel();
+void FormPrincipal::btnRemoveObjectClicked() {
+	QItemSelectionModel *selectionModel = this->displayFile->selectionModel();
 	String objectName = "";
 
 	if (selectionModel->selectedRows().size() == 0) {
@@ -169,19 +169,20 @@ void MainWindow::btnRemoveObjectClicked() {
 	}
 
 	for (QModelIndex index : selectionModel->selectedRows()) {
-		QTableWidgetItem *item = this->tableObjects->item(index.row(), 1);
+		QTableWidgetItem *item = this->displayFile->item(index.row(), 1);
 
 		if (item)
 			objectName = item->text().toStdString();
 
-		this->tableObjects->removeRow(index.row());
+		this->displayFile->removeRow(index.row());
 	}
 
 	this->controladorUI->removerObjeto(objectName);
+	this->displayFile->setCurrentCell(0, 0);
 }
 
-void MainWindow::btnTransformObjectClicked() {
-	QItemSelectionModel *selectionModel = this->tableObjects->selectionModel();
+void FormPrincipal::btnTransformObjectClicked() {
+	QItemSelectionModel *selectionModel = this->displayFile->selectionModel();
 	String objectName = "";
 
 	if (selectionModel->selectedRows().size() == 0) {
@@ -191,7 +192,7 @@ void MainWindow::btnTransformObjectClicked() {
 	}
 
 	for (QModelIndex index : selectionModel->selectedRows()) {
-		QTableWidgetItem *item = this->tableObjects->item(index.row(), 1);
+		QTableWidgetItem *item = this->displayFile->item(index.row(), 1);
 
 		if (item)
 			objectName = item->text().toStdString();
@@ -200,7 +201,7 @@ void MainWindow::btnTransformObjectClicked() {
 	this->controladorUI->exibirObjectTransformationWindow(objectName);
 }
 
-void MainWindow::btnImportScene() {
+void FormPrincipal::btnImportScene() {
 	String arquivo = QFileDialog::getOpenFileName(0,
 			"Selecionar arquivo Wavefront (OBJ)", "", "*.obj").toStdString();
 
@@ -210,7 +211,7 @@ void MainWindow::btnImportScene() {
 	this->controladorUI->importarCena(arquivo);
 }
 
-void MainWindow::btnExportScene() {
+void FormPrincipal::btnExportScene() {
 	String arquivo = QFileDialog::getSaveFileName(0,
 			"Salvar arquivo Wavefront (OBJ)", "", "*.obj").toStdString();
 
@@ -226,16 +227,16 @@ void MainWindow::btnExportScene() {
 	this->controladorUI->exportarCena(arquivo);
 }
 
-void MainWindow::btnCleanScene() {
+void FormPrincipal::btnCleanScene() {
 	if(this->controladorUI->requisitarConfirmacaoUsuario("Você tem certeza que deseja limpar a cena?"))
 		this->updateObjects(QList<ObjetoGeometrico*>());
 }
 
-void MainWindow::btnAtalhos() {
+void FormPrincipal::btnAtalhos() {
 	this->controladorUI->exibirJanelaAtalhos();
 }
 
-void MainWindow::btnSobre() {
+void FormPrincipal::btnSobre() {
 	QMessageBox msg;
 	msg.information(this, "Sobre", "Sistema Gráfico Interativo desenvolvido na discplina "
 			"de Computação Gráfica do curso de Ciência da Computação da "
@@ -246,7 +247,7 @@ void MainWindow::btnSobre() {
 			"Sutherland-Hodgeman (clipping de polígonos)");
 }
 
-void MainWindow::btnClippingCSToggled(bool cohenSutherland) {
+void FormPrincipal::btnClippingCSToggled(bool cohenSutherland) {
 	if(cohenSutherland) {
 		this->viewport->setAlgoritmoClippingLinhas(Clipping::COHEN_SUTHERLAND);
 	} else {

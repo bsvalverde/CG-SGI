@@ -1,5 +1,5 @@
-#ifndef MAINWINDOW_H_
-#define MAINWINDOW_H_
+#ifndef FORMPRINCIPAL_H_
+#define FORMPRINCIPAL_H_
 
 #include <QtWidgets/qdesktopwidget.h>
 #include <QtWidgets/qfiledialog.h>
@@ -7,15 +7,15 @@
 #include <QtWidgets/qmenubar.h>
 
 #include "controle/ControladorUI.h"
-#include "gui/forms/ui/ui_MainWindow.h"
+#include "gui/forms/ui/ui_FormPrincipal.h"
 #include "gui/Viewport.h"
 
-class MainWindow : public QMainWindow, private Ui::MainWindow {
+class FormPrincipal : public QMainWindow, private Ui::FormPrincipal {
 	Q_OBJECT
 
 public:
-	MainWindow(ControladorUI* controladorUI, QDialog* parent = 0, Qt::WindowFlags flags = Qt::Widget);
-	virtual ~MainWindow();
+	FormPrincipal(ControladorUI* controladorUI, QDialog* parent = 0, Qt::WindowFlags flags = Qt::Widget);
+	virtual ~FormPrincipal();
 	void moveToCenter();
 	ControladorUI* getControladorUI();
 	void updateObjects(const QList<ObjetoGeometrico*>& objects);
@@ -53,4 +53,4 @@ private:
 
 };
 
-#endif /* MAINWINDOW_H_ */
+#endif /* FORMPRINCIPAL_H_ */

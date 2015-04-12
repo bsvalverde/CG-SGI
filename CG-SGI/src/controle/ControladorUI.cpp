@@ -1,20 +1,20 @@
 #include "controle/ControladorUI.h"
 #include "controle/ControladorPrincipal.h"
-#include "gui/forms/MainWindow.h"
+#include "gui/forms/FormPrincipal.h"
 #include "gui/forms/ObjectInsertionWindow.h"
 #include "gui/forms/ObjectTransformationWindow.h"
 
 ControladorUI::ControladorUI(ControladorPrincipal* const controladorPrincipal) {
 	this->controladorPrincipal = controladorPrincipal;
-	this->mainWindow = new MainWindow(this);
-	this->objectInsertionWindow = new ObjectInsertionWindow(this, this->mainWindow);
-	this->objectTransformationWindow = new ObjectTransformationWindow(this, this->mainWindow);
+	this->formPrincipal = new FormPrincipal(this);
+	this->objectInsertionWindow = new ObjectInsertionWindow(this, this->formPrincipal);
+	this->objectTransformationWindow = new ObjectTransformationWindow(this, this->formPrincipal);
 }
 
 ControladorUI::~ControladorUI() {}
 
 void ControladorUI::exibirJanelaPrincipal() {
-	this->mainWindow->show();
+	this->formPrincipal->show();
 }
 
 void ControladorUI::exibirJanelaAtalhos() {
@@ -108,5 +108,5 @@ void ControladorUI::reiniciarWindow(){
 }
 
 void ControladorUI::atualizarCena(const QList<ObjetoGeometrico*>& objetos) {
-	this->mainWindow->updateObjects(objetos);
+	this->formPrincipal->updateObjects(objetos);
 }
