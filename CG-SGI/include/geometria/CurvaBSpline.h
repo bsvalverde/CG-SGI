@@ -4,7 +4,7 @@
 /**
  * Curva B-Spline.
  */
-class CurvaBSpline {
+class CurvaBSpline: public ObjetoGeometrico {
 
 public:
 	/**
@@ -13,9 +13,85 @@ public:
 	CurvaBSpline();
 
 	/**
+	 * Construtor.
+	 * @param curva objeto a ser copiado.
+	 */
+	CurvaBSpline(const CurvaBSpline& curva);
+
+	/**
+	 * Construtor.
+	 * @param nome nome do objeto.
+	 * @param pontos pontos da curva
+	 * @param cor cor da reta.
+	 */
+	CurvaBSpline(const String& nome, const QList<Ponto>& pontos,
+			const QColor& cor);
+
+	/**
 	 * Destrutor.
 	 */
 	virtual ~CurvaBSpline();
+
+	/**
+	 * Operador de atribuição.
+	 * @param curva objeto a ser copiado.
+	 * @return curva copiada.
+	 */
+	CurvaBSpline& operator=(const CurvaBSpline& curva);
+
+	/**
+	 * Clonar o objeto.
+	 * @return cópia do objeto geométrico.
+	 */
+	ObjetoGeometrico* clonar() const;
+
+	/**
+	 * Obter os pontos do objeto.
+	 * @return lista com a cópia dos pontos.
+	 */
+	QList<Ponto> getPontos() const;
+
+	/**
+	 * Obter os pontos do objeto.
+	 * @return lista de pontos.
+	 */
+	QList<Ponto*> getPontosObjeto();
+
+	/**
+	 * Converter o objeto em string.
+	 * @return string representando o objeto.
+	 */
+	const String toString() const;
+
+	/**
+	 * Definir os pontos paramétricos da curva.
+	 * @param pontos pontos da paramétricos da curva.
+	 */
+	void setPontosParametricos(const QList<Ponto>& pontos);
+
+private:
+	/**
+	 * Calcular pontos paramétricos da curva.
+	 * @param t passo de iteração.
+	 * @return lista de pontos paramétricos.
+	 */
+	QList<Ponto> calcularPontosParametricos(const double t = 0.01) const;
+
+	/**
+	 * Calcular todos os pontos da curva entre p1 e pn
+	 */
+	QList<Ponto> calcularPontosParametricosIntermediario(Ponto p1, Ponto p2,
+			Ponto p3, Ponto p4, const double t, int n) const;
+
+	/**
+	 * Calcular todos os pontos da curva
+	 */
+	QList<Ponto> calcularPontosParametricosFinal(Ponto p1, Ponto p2, Ponto p3,
+			Ponto p4, const double t) const;
+
+	QList<Ponto> pontos;
+	QList<Ponto> pontosParametricos;
+	bool pontosParametricosRedefinidos;
 
 };
 

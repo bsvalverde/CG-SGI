@@ -66,7 +66,7 @@ public:
 	 */
 	const String toString() const;
 
-protected:
+private:
 	QList<Ponto> pontos;
 
 };
