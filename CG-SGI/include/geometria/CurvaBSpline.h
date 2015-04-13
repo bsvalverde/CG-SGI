@@ -1,6 +1,8 @@
 #ifndef CURVABSPLINE_H_
 #define CURVABSPLINE_H_
 
+#include "geometria/Ponto.h"
+
 /**
  * Curva B-Spline.
  */

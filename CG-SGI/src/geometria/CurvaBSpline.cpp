@@ -38,7 +38,7 @@ ObjetoGeometrico* CurvaBSpline::clonar() const {
 	return new CurvaBSpline(*this);
 }
 
-QList<Ponto> CurvaBezier::getPontos() const {
+QList<Ponto> CurvaBSpline::getPontos() const {
 	if (!this->pontosParametricosRedefinidos)
 		return this->calcularPontosParametricos();
 
@@ -46,7 +46,12 @@ QList<Ponto> CurvaBezier::getPontos() const {
 }
 
 QList<Ponto*> CurvaBSpline::getPontosObjeto() {
-	return this->pontos;
+	QList<Ponto*> lista;
+
+	for (int i = 0; i < this->pontos.size(); i++)
+		lista.insert(i, (Ponto*) &this->pontos.at(i));
+
+	return lista;
 }
 
 const String CurvaBSpline::toString() const {
