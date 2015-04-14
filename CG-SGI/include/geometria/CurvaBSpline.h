@@ -85,12 +85,6 @@ private:
 	QList<Ponto> calcularPontosParametricosIntermediario(Ponto *p,
 			const double t, int n) const;
 
-	/**
-	 * Calcular todos os pontos da curva
-	 */
-	QList<Ponto> calcularPontosParametricosFinal(Ponto p1, Ponto p2, Ponto p3,
-			Ponto p4, const double t) const;
-
 	QList<Ponto> pontos;
 	QList<Ponto> pontosParametricos;
 	bool pontosParametricosRedefinidos;
