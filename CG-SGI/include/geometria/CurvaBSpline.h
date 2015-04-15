@@ -82,8 +82,7 @@ private:
 	/**
 	 * Calcular todos os pontos da curva entre p[0] e p[n]
 	 */
-	QList<Ponto> calcularPontosParametricosIntermediario(Ponto *p,
-			const double t, int n) const;
+	QList<Ponto> calcularPontosParametricosIntermediario(Ponto *p, const double t) const;
 
 	QList<Ponto> pontos;
 	QList<Ponto> pontosParametricos;

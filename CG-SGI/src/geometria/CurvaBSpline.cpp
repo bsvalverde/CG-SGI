@@ -77,7 +77,7 @@ QList<Ponto> CurvaBSpline::calcularPontosParametricos(const double t) const {
 		Ponto p[4] = { this->pontos.at(m-3), this->pontos.at(m-2),
 					   this->pontos.at(m-1), this->pontos.at(m) };
 		QList<Ponto> novosPontos =
-				this->calcularPontosParametricosIntermediario(p, t, 10);
+				this->calcularPontosParametricosIntermediario(p, t);
 		for (int i = 0; i < novosPontos.size(); i++)
 			pontos.insert(pontos.size(), novosPontos.at(i));
 	}
@@ -107,66 +107,63 @@ QList<Ponto> CurvaBSpline::calcularPontosParametricos(const double t) const {
 		0	-1/3	0	1
 		0	2/3	1	1
 		6	11/3	2	1
+
+		a = 2/3*p[1] - p[2] + p[3]
+		b = -1/3*p[1] + p[3]
+		c = 2/3*p[1] + p[2] + p[3]
+		d = 6*p[0] + 11/3*p[1] + 2*p[2] + p[3]
+
 	 */
 
 	return pontos;
 }
 
-QList<Ponto> CurvaBSpline::calcularPontosParametricosIntermediario(Ponto *p,
-		const double t, int n) const {
-	double matriz[4][4] = { { 0, 2/3, -1, 1 },
-							{ 0, -1/3, 0, 1 },
-							{ 0, 2/3, 1, 1 },
-							{ 6, 11/3, 2, 1 } };
-	double x[4] = { p[0].getX(), p[1].getX(), p[2].getX(), p[3].getX() };
-	double y[4] = { p[0].getY(), p[1].getY(), p[2].getY(), p[3].getY() };
-	double z[4] = { p[0].getZ(), p[1].getZ(), p[2].getZ(), p[3].getZ() };
-	double ax = matriz[0][0] * x[0] + matriz[0][1] * x[1] + matriz[0][2] * x[2]
-			+ matriz[0][3] * x[3];
-	double ay = matriz[0][0] * y[0] + matriz[0][1] * y[1] + matriz[0][2] * y[2]
-			+ matriz[0][3] * y[3];
-	double az = matriz[0][0] * z[0] + matriz[0][1] * z[1] + matriz[0][2] * z[2]
-			+ matriz[0][3] * z[3];
-	double bx = matriz[1][0] * x[0] + matriz[1][1] * x[1] + matriz[1][2] * x[2]
-			+ matriz[1][3] * x[3];
-	double by = matriz[1][0] * y[0] + matriz[1][1] * y[1] + matriz[1][2] * y[2]
-			+ matriz[1][3] * y[3];
-	double bz = matriz[1][0] * z[0] + matriz[1][1] * z[1] + matriz[1][2] * z[2]
-			+ matriz[1][3] * z[3];
-	double cx = matriz[2][0] * x[0] + matriz[2][1] * x[1] + matriz[2][2] * x[2]
-			+ matriz[2][3] * x[3];
-	double cy = matriz[2][0] * y[0] + matriz[2][1] * y[1] + matriz[2][2] * y[2]
-			+ matriz[2][3] * y[3];
-	double cz = matriz[2][0] * z[0] + matriz[2][1] * z[1] + matriz[2][2] * z[2]
-			+ matriz[2][3] * z[3];
-	double dx = matriz[3][0] * x[0] + matriz[3][1] * x[1] + matriz[3][2] * x[2]
-			+ matriz[3][3] * x[3];
-	double dy = matriz[3][0] * y[0] + matriz[3][1] * y[1] + matriz[3][2] * y[2]
-			+ matriz[3][3] * y[3];
-	double dz = matriz[3][0] * z[0] + matriz[3][1] * z[1] + matriz[3][2] * z[2]
-			+ matriz[3][3] * z[3];
-	double matriz2[3][4] = { { pow(t, 3), pow(t, 2), t, 0 }, { 6 * pow(t, 3), 2
-			* pow(t, 2), 0, 0 }, { 6 * pow(t, 3), 0, 0, 0 } };
-	double deltaX = matriz2[0][0] * ax + matriz2[0][1] * bx + matriz2[0][2] * cx
-			+ matriz2[0][3] * dx;
-	double delta2X = matriz2[1][0] * ax + matriz2[1][1] * bx
-			+ matriz2[1][2] * cx + matriz2[1][3] * dx;
-	double delta3X = matriz2[2][0] * ax + matriz2[2][1] * bx
-			+ matriz2[2][2] * cx + matriz2[2][3] * dx;
-	double deltaY = matriz2[0][0] * ay + matriz2[0][1] * by + matriz2[0][2] * cy
-			+ matriz2[0][3] * dy;
-	double delta2Y = matriz2[1][0] * ay + matriz2[1][1] * by
-			+ matriz2[1][2] * cy + matriz2[1][3] * dy;
-	double delta3Y = matriz2[2][0] * ay + matriz2[2][1] * by
-			+ matriz2[2][2] * cy + matriz2[2][3] * dy;
-	double deltaZ = matriz2[0][0] * az + matriz2[0][1] * bz + matriz2[0][2] * cz
-			+ matriz2[0][3] * dz;
-	double delta2Z = matriz2[1][0] * az + matriz2[1][1] * bz
-			+ matriz2[1][2] * cz + matriz2[1][3] * dz;
-	double delta3Z = matriz2[2][0] * az + matriz2[2][1] * bz
-			+ matriz2[2][2] * cz + matriz2[2][3] * dz;
+QList<Ponto> CurvaBSpline::calcularPontosParametricosIntermediario(Ponto *p, const double t) const {
+
+	// Cálculo dos coeficientes (a, b, c, d)
+	double p0[3] = { p[0].getX(), p[0].getY(), p[0].getZ() };
+	double p1[3] = { p[1].getX(), p[1].getY(), p[1].getZ() };
+	double p2[3] = { p[2].getX(), p[2].getY(), p[2].getZ() };
+	double p3[3] = { p[3].getX(), p[3].getY(), p[3].getZ() };
+
+	double cfA[3] = { 0, 0, 0 };
+	double cfB[3] = { 0, 0, 0 };
+	double cfC[3] = { 0, 0, 0 };
+	double cfD[3] = { 0, 0, 0 };
+
+	for(int i = 0; i < 4; i++) {
+		cfA[i] = (2/3)*p1[i] - p2[i] + p3[i];
+		cfB[i] = -(1/3)*p1[i] + p3[i];
+		cfC[i] = (2/3)*p1[i] + p2[i] + p3[i];
+		cfD[i] = 6*p0[i] + (11/3)*p1[i] + 2*p2[i] + p3[i];
+	}
+
+	// Cálculo das diferenças iniciais (f0, df0, d²f0, d³f0)
+	double dt = t;
+	double dt2 = pow(t, 2);
+	double dt3 = pow(t, 3);
+
+	double dInicialX[4] = { cfD[0],
+							dt3*cfA[0] + dt2*cfB[0] + cfC[0],
+							6*dt3*cfA[0] + 2*dt2*cfB[0],
+							6*dt3*cfA[0] };
+	double dInicialY[4] = { cfD[1],
+							dt3*cfA[1] + dt2*cfB[1] + cfC[1],
+							6*dt3*cfA[1] + 2*dt2*cfB[1],
+							6*dt3*cfA[1] };
+	double dInicialZ[4] = { cfD[2],
+							dt3*cfA[2] + dt2*cfB[2] + cfC[2],
+							6*dt3*cfA[2] + 2*dt2*cfB[2],
+							6*dt3*cfA[2] };
+
 	QList<Ponto> pontos;
-	pontos.insert(0, p[0]);
+	pontos.insert(0, Ponto("", 0, 0, 0));
+	double n = 1/t;
+
+	for(int i = 0; i < n; i++) {
+
+	}
+
 	while (x[0] < p[n].getX()) {
 		x[0] += deltaX;
 		deltaX += delta2X;
