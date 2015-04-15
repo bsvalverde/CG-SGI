@@ -71,33 +71,38 @@ void CurvaBSpline::setPontosParametricos(const QList<Ponto>& pontos) {
 QList<Ponto> CurvaBSpline::calcularPontosParametricos(const double t) const {
 	QList<Ponto> pontos;
 	int tam = this->pontos.size();
-	//calcula e seta os pontos entre o ponto i e o i+1
-	for (int i = 0; i < (tam - 4); i++) {
-		Ponto p[4] = { this->pontos.at(i), this->pontos.at(i + 1),
-				this->pontos.at(i + 2), this->pontos.at(i + 3) };
+
+	// Calcular os pontos do segmento Qm (m-3 ... m)
+	for (int m = 3; m < tam; m++) {
+		Ponto p[4] = { this->pontos.at(m-3), this->pontos.at(m-2),
+					   this->pontos.at(m-1), this->pontos.at(m) };
 		QList<Ponto> novosPontos =
-				this->calcularPontosParametricosIntermediario(p, t, 1);
-		for (int j = 0; j < novosPontos.size(); j++) {
-			pontos.insert(pontos.size(), novosPontos.at(j));
-		}
+				this->calcularPontosParametricosIntermediario(p, t, 10);
+		for (int i = 0; i < novosPontos.size(); i++)
+			pontos.insert(pontos.size(), novosPontos.at(i));
 	}
 
-	//pega os últimos 4 pontos para calcular a parte final da reta
+//	*** NÃO ENTENDI O PQ DISSO ***
 
-	Ponto p[4] = { this->pontos.at(tam - 4), this->pontos.at(tam - 3),
-			this->pontos.at(tam - 2), this->pontos.at(tam - 1) };
-	QList<Ponto> novosPontos = this->calcularPontosParametricosIntermediario(p,
-			t, 3);
-	for (int j = 0; j < novosPontos.size(); j++) {
-		pontos.insert(pontos.size(), novosPontos.at(j));
-	}
+//	//pega os últimos 4 pontos para calcular a parte final da reta
+//
+//	Ponto p[4] = { this->pontos.at(tam - 4), this->pontos.at(tam - 3),
+//			this->pontos.at(tam - 2), this->pontos.at(tam - 1) };
+//	QList<Ponto> novosPontos = this->calcularPontosParametricosIntermediario(p,
+//			t, 3);
+//	for (int j = 0; j < novosPontos.size(); j++) {
+//		pontos.insert(pontos.size(), novosPontos.at(j));
+//	}
+
 	return pontos;
 }
 
 QList<Ponto> CurvaBSpline::calcularPontosParametricosIntermediario(Ponto *p,
 		const double t, int n) const {
-	double matriz[4][4] = { { 0, 2 / 3, -1, 4 }, { 0, -1 / 3, 0, 1 }, { 0, 2
-			/ 3, 1, -2 }, { 6, 11 / 3, 2, -5 } };
+	double matriz[4][4] = { { 0, 2/3, -1, 1 },
+							{ 0, -1/3, 0, 1 },
+							{ 0, 2/3, 1, 1 },
+							{ 6, 11/3, 2, 1 } };
 	double x[4] = { p[0].getX(), p[1].getX(), p[2].getX(), p[3].getX() };
 	double y[4] = { p[0].getY(), p[1].getY(), p[2].getY(), p[3].getY() };
 	double z[4] = { p[0].getZ(), p[1].getZ(), p[2].getZ(), p[3].getZ() };
