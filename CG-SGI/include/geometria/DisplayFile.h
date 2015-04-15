@@ -6,6 +6,7 @@
 
 #include "geometria/ObjetoGeometrico.h"
 #include "geometria/CurvaBezier.h"
+#include "geometria/CurvaBSpline.h"
 #include "geometria/Poligono.h"
 #include "geometria/Reta.h"
 

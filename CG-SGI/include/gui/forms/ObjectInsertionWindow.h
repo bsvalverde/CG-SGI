@@ -23,6 +23,8 @@ private slots:
 	void insertObject();
 	void insertPoligonPoint();
 	void removePoligonPoint();
+	void insertBSplinePoint();
+	void removeBSplinePoint();
 	void btnSelectColorClicked();
 
 };

@@ -3,6 +3,7 @@
 
 #include "geometria/DisplayFile.h"
 #include "geometria/CurvaBezier.h"
+#include "geometria/CurvaBSpline.h"
 #include "geometria/Poligono.h"
 #include "geometria/Ponto.h"
 #include "geometria/Reta.h"

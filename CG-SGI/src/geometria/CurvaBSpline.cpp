@@ -1,5 +1,5 @@
 #include "geometria/CurvaBSpline.h"
-
+#include <iostream>
 CurvaBSpline::CurvaBSpline() :
 		ObjetoGeometrico() {
 	this->pontosParametricosRedefinidos = false;
@@ -7,7 +7,8 @@ CurvaBSpline::CurvaBSpline() :
 
 CurvaBSpline::CurvaBSpline(const CurvaBSpline& curva) :
 		ObjetoGeometrico(curva) {
-	this->pontos = curva.pontos;
+	for (int i = 0; i < curva.pontos.size(); i++)
+		this->pontos.insert(i, curva.pontos.at(i));
 	this->pontosParametricos = curva.pontosParametricos;
 	this->pontosParametricosRedefinidos = curva.pontosParametricosRedefinidos;
 }
@@ -21,14 +22,13 @@ CurvaBSpline::CurvaBSpline(const String& nome, const QList<Ponto>& pontos,
 	this->pontosParametricosRedefinidos = false;
 }
 
-CurvaBSpline::~CurvaBSpline() {
-}
+CurvaBSpline::~CurvaBSpline() {}
 
 CurvaBSpline& CurvaBSpline::operator=(const CurvaBSpline& curva) {
 	this->ObjetoGeometrico::operator =(curva);
 	this->pontos.clear();
-	for (int i = 0; i < pontos.size(); i++)
-		this->pontos.insert(i, pontos.at(i));
+	for (int i = 0; i < curva.pontos.size(); i++)
+		this->pontos.insert(i, curva.pontos.at(i));
 	this->pontosParametricos = curva.pontosParametricos;
 	this->pontosParametricosRedefinidos = curva.pontosParametricosRedefinidos;
 	return *this;
@@ -41,7 +41,7 @@ ObjetoGeometrico* CurvaBSpline::clonar() const {
 QList<Ponto> CurvaBSpline::getPontos() const {
 	if (!this->pontosParametricosRedefinidos)
 		return this->calcularPontosParametricos();
-
+	std::cout << this->pontosParametricos.size() << std::endl;
 	return this->pontosParametricos;
 }
 

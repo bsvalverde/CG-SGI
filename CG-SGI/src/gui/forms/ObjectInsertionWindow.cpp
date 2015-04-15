@@ -13,6 +13,8 @@ void ObjectInsertionWindow::connectSignalsAndSlots() {
 	QObject::connect(btnInsert, SIGNAL(clicked()), this, SLOT(insertObject()));
 	QObject::connect(btnRemovePoint, SIGNAL(clicked()), this, SLOT(removePoligonPoint()));
 	QObject::connect(btnInsertPoint, SIGNAL(clicked()), this, SLOT(insertPoligonPoint()));
+	QObject::connect(btnRemovePointBSpline, SIGNAL(clicked()), this, SLOT(removeBSplinePoint()));
+	QObject::connect(btnInsertPointBSpline, SIGNAL(clicked()), this, SLOT(insertBSplinePoint()));
 }
 
 void ObjectInsertionWindow::clearFields(){
@@ -44,6 +46,13 @@ void ObjectInsertionWindow::clearFields(){
 	this->insertPoligonPoint();
 	this->insertPoligonPoint();
 	this->insertPoligonPoint();
+
+	while(this->tableBSplinePoints->rowCount() > 0)
+		this->tableBSplinePoints->removeRow(0);
+	this->insertBSplinePoint();
+	this->insertBSplinePoint();
+	this->insertBSplinePoint();
+	this->insertBSplinePoint();
 
 	this->tabObjects->setCurrentIndex(0);
 
@@ -98,7 +107,7 @@ bool ObjectInsertionWindow::validateFields() {
 					return false;
 			}
 			return true;
-		default:
+		case 3:
 			this->fieldBezierX1->text().toDouble(&ok1);
 			this->fieldBezierY1->text().toDouble(&ok2);
 			ok3 = true;//this->fieldBezierZ1->text().toDouble(&ok3);
@@ -119,6 +128,27 @@ bool ObjectInsertionWindow::validateFields() {
 			ok3 = true;//this->fieldBezierZ4->text().toDouble(&ok3);
 			ok = ok && ok1 && ok2 && ok3;
 			return ok;
+		default:
+			if(this->tableBSplinePoints->rowCount() < 3)
+				return false;
+
+			for(int i = 0; i < this->tableBSplinePoints->rowCount(); i++) {
+				QTableWidgetItem *i1, *i2;//, *i3;
+				i1 = this->tableBSplinePoints->item(i, 0);
+				i2 = this->tableBSplinePoints->item(i, 1);
+				//i3 = this->tableBSplinePoints->item(i, 2);
+
+				if(!i1 || !i2)
+					return false;
+
+				i1->text().toDouble(&ok1);
+				i2->text().toDouble(&ok2);
+				//i3->text().toDouble(&ok3);
+
+				if(!(ok1 && ok2))
+					return false;
+			}
+			return true;
 	}
 }
 
@@ -175,7 +205,7 @@ void ObjectInsertionWindow::insertObject() {
 			}
 			tipo = ObjetoGeometrico::POLIGONO;
 			break;
-		default:
+		case 3:
 			x = this->fieldBezierX1->text().toDouble();
 			y = this->fieldBezierY1->text().toDouble();
 			z = 1;//this->fieldBezierZ1->text().toDouble();
@@ -201,6 +231,19 @@ void ObjectInsertionWindow::insertObject() {
 			points.insert(3, p);
 			tipo = ObjetoGeometrico::CURVA_BEZIER;
 			break;
+		default:
+			for(int i = 0; i < this->tableBSplinePoints->rowCount(); i++) {
+				String nomePonto = this->fieldName->text().toStdString();
+
+				x = this->tableBSplinePoints->item(i, 0)->text().toDouble();
+				y = this->tableBSplinePoints->item(i, 1)->text().toDouble();
+				z = 1;//this->tableBSplinePoints->item(i, 2)->text().toDouble();
+
+				p = Ponto(nomePonto, x, y, z);
+				points.insert(i, p);
+			}
+			tipo = ObjetoGeometrico::CURVA_BSPLINE;
+			break;
 	}
 
 	QColor color = this->btnColor->palette().color(this->btnColor->backgroundRole());
@@ -218,6 +261,18 @@ void ObjectInsertionWindow::removePoligonPoint() {
 		QItemSelectionModel *selectionModel = this->tablePoligonPoints->selectionModel();
 		for(QModelIndex index : selectionModel->selectedRows())
 			tablePoligonPoints->removeRow(index.row());
+	}
+}
+
+void ObjectInsertionWindow::insertBSplinePoint() {
+	this->tableBSplinePoints->insertRow(this->tableBSplinePoints->rowCount());
+}
+
+void ObjectInsertionWindow::removeBSplinePoint() {
+	if(this->tableBSplinePoints->rowCount() > 4) {
+		QItemSelectionModel *selectionModel = this->tableBSplinePoints->selectionModel();
+		for(QModelIndex index : selectionModel->selectedRows())
+			tableBSplinePoints->removeRow(index.row());
 	}
 }
 

@@ -18,6 +18,9 @@ void DisplayFile::inserirObjeto(const ObjetoGeometrico& objeto) {
 		case ObjetoGeometrico::CURVA_BEZIER:
 			obj = new CurvaBezier((const CurvaBezier&) objeto);
 			break;
+		case ObjetoGeometrico::CURVA_BSPLINE:
+			obj = new CurvaBSpline((const CurvaBSpline&) objeto);
+			break;
 		case ObjetoGeometrico::POLIGONO:
 			obj = new Poligono((const Poligono&) objeto);
 			break;

@@ -14,6 +14,8 @@ bool Clipping::clip(ObjetoGeometrico* const objeto) const {
 	switch (objeto->getTipo()) {
 		case ObjetoGeometrico::CURVA_BEZIER:
 			return this->clipCurvaBezier((CurvaBezier* const) objeto);
+		case ObjetoGeometrico::CURVA_BSPLINE:
+			return true;
 		case ObjetoGeometrico::POLIGONO:
 			return this->clipPoligono((Poligono* const) objeto);
 		case ObjetoGeometrico::PONTO:
@@ -21,7 +23,7 @@ bool Clipping::clip(ObjetoGeometrico* const objeto) const {
 		case ObjetoGeometrico::RETA:
 			return this->clipReta((Reta* const) objeto);
 		default:
-			return false;
+			return true;
 	}
 }
 
