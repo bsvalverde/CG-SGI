@@ -94,6 +94,21 @@ QList<Ponto> CurvaBSpline::calcularPontosParametricos(const double t) const {
 //		pontos.insert(pontos.size(), novosPontos.at(j));
 //	}
 
+	/**
+	 * Mbs
+		1/6 x
+		-1	3	-3	1
+		3	-6	3	0
+		-3	0	3	0
+		1	3	1	0
+
+		Mbs-1
+		0	2/3	-1	1
+		0	-1/3	0	1
+		0	2/3	1	1
+		6	11/3	2	1
+	 */
+
 	return pontos;
 }
 
