@@ -3,8 +3,8 @@
 
 Window::Window() : ObjetoGeometrico("Window", Tipo::WINDOW) {
 	this->centro = Ponto("centro", 0, 0, 0);
-	this->viewUpVector = Ponto("viewUpVector", 0, 118.75, 0);
-	this->viewRightVector = Ponto("viewRightVector", 0, 127.5, 0);
+	this->viewUpVector = Ponto("viewUpVector", 0, 138.75, 0);
+	this->viewRightVector = Ponto("viewRightVector", 0, 118.75, 0);
 }
 
 Window::Window(const Window& window) : ObjetoGeometrico(window) {
