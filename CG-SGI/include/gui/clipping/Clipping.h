@@ -1,6 +1,7 @@
 #ifndef CLIPPING_H_
 #define CLIPPING_H_
 
+#include "geometria/CurvaBSpline.h"
 #include "geometria/CurvaBezier.h"
 #include "geometria/Poligono.h"
 #include "geometria/Ponto.h"
@@ -16,18 +17,14 @@ public:
 	 * Algoritmo de clipping de linhas.
 	 */
 	enum AlgoritmoClippingLinha {
-		COHEN_SUTHERLAND,
-		LIANG_BARSKY
+		COHEN_SUTHERLAND, LIANG_BARSKY
 	};
 
 	/**
 	 * Bordas da viewport para aplicar o clipping.
 	 */
 	enum BordaClipping {
-		DIREITA,
-		ESQUERDA,
-		FUNDO,
-		TOPO
+		DIREITA, ESQUERDA, FUNDO, TOPO
 	};
 
 	/**
@@ -37,7 +34,8 @@ public:
 	 * @param yvMin y mínimo da viewport.
 	 * @param yvMax y máximo da viewport.
 	 */
-	Clipping(const double xvMin, const double xvMax, const double yvMin, const double yvMax);
+	Clipping(const double xvMin, const double xvMax, const double yvMin,
+			const double yvMax);
 
 	/**
 	 * Destrutor.
@@ -51,6 +49,13 @@ public:
 	bool clip(ObjetoGeometrico* const objeto) const;
 
 protected:
+	/**
+	 * Recortar uma curva bspline.
+	 * @param curva curva bspline a ser recortada.
+	 * @return true caso seja necessário desenhar a curva.
+	 */
+	virtual bool clipCurvaBSpline(CurvaBSpline* const curva) const;
+
 	/**
 	 * Recortar uma curva de bezier.
 	 * @param curva curva de bezier a ser recortada.
@@ -92,7 +97,8 @@ private:
 	 * @param borda borda na qual os pontos serão recortados.
 	 * @return true se pelo menos algum ponto está dentro da viewport.
 	 */
-	bool clipPontosPorBorda(Ponto* const p1, Ponto* const p2, BordaClipping borda) const;
+	bool clipPontosPorBorda(Ponto* const p1, Ponto* const p2,
+			BordaClipping borda) const;
 
 	/**
 	 * Aplicar clipping da reta sobre uma borda.

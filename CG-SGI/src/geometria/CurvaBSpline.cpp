@@ -22,7 +22,8 @@ CurvaBSpline::CurvaBSpline(const String& nome, const QList<Ponto>& pontos,
 	this->pontosParametricosRedefinidos = false;
 }
 
-CurvaBSpline::~CurvaBSpline() {}
+CurvaBSpline::~CurvaBSpline() {
+}
 
 CurvaBSpline& CurvaBSpline::operator=(const CurvaBSpline& curva) {
 	this->ObjetoGeometrico::operator =(curva);
@@ -74,19 +75,20 @@ QList<Ponto> CurvaBSpline::calcularPontosParametricos(const double t) const {
 
 	// Calcular os pontos do segmento Qm (m-3 ... m)
 	for (int m = 3; m < tam; m++) {
-		Ponto p[4] = { this->pontos.at(m-3), this->pontos.at(m-2),
-					   this->pontos.at(m-1), this->pontos.at(m) };
+		Ponto p[4] = { this->pontos.at(m - 3), this->pontos.at(m - 2),
+				this->pontos.at(m - 1), this->pontos.at(m) };
 		QList<Ponto> novosPontos =
 				this->calcularPontosParametricosIntermediario(p, t);
 
-		for (Ponto p : novosPontos)
-			pontosParam.insert(pontosParam.size(), p);
+		for (Ponto pNovo : novosPontos)
+			pontosParam.insert(pontosParam.size(), pNovo);
 	}
 
 	return pontosParam;
 }
 
-QList<Ponto> CurvaBSpline::calcularPontosParametricosIntermediario(Ponto *p, const double t) const {
+QList<Ponto> CurvaBSpline::calcularPontosParametricosIntermediario(Ponto *p,
+		const double t) const {
 	// Cálculo dos coeficientes (a, b, c, d)
 	double p0[3] = { p[0].getX(), p[0].getY(), p[0].getZ() };
 	double p1[3] = { p[1].getX(), p[1].getY(), p[1].getZ() };
@@ -98,11 +100,11 @@ QList<Ponto> CurvaBSpline::calcularPontosParametricosIntermediario(Ponto *p, con
 	double cfC[3] = { 0, 0, 0 };
 	double cfD[3] = { 0, 0, 0 };
 
-	for(int i = 0; i < 3; i++) {
-		cfA[i] = (2/3)*p1[i] - p2[i] + p3[i];
-		cfB[i] = -(1/3)*p1[i] + p3[i];
-		cfC[i] = (2/3)*p1[i] + p2[i] + p3[i];
-		cfD[i] = 6*p0[i] + (11/3)*p1[i] + 2*p2[i] + p3[i];
+	for (int i = 0; i < 3; i++) {
+		cfA[i] = (2 / 3) * p1[i] - p2[i] + p3[i];
+		cfB[i] = -(1 / 3) * p1[i] + p3[i];
+		cfC[i] = (2 / 3) * p1[i] + p2[i] + p3[i];
+		cfD[i] = 6 * p0[i] + (11 / 3) * p1[i] + 2 * p2[i] + p3[i];
 	}
 
 	// Cálculo das diferenças iniciais (f0, df0, d²f0, d³f0)
@@ -110,25 +112,18 @@ QList<Ponto> CurvaBSpline::calcularPontosParametricosIntermediario(Ponto *p, con
 	double dt2 = pow(t, 2);
 	double dt3 = pow(t, 3);
 
-	double dInicialX[4] = { cfD[0],
-							dt3*cfA[0] + dt2*cfB[0] + dt*cfC[0],
-							6*dt3*cfA[0] + 2*dt2*cfB[0],
-							6*dt3*cfA[0] };
-	double dInicialY[4] = { cfD[1],
-							dt3*cfA[1] + dt2*cfB[1] + dt*cfC[1],
-							6*dt3*cfA[1] + 2*dt2*cfB[1],
-							6*dt3*cfA[1] };
-	double dInicialZ[4] = { cfD[2],
-							dt3*cfA[2] + dt2*cfB[2] + dt*cfC[2],
-							6*dt3*cfA[2] + 2*dt2*cfB[2],
-							6*dt3*cfA[2] };
+	double dInicialX[4] = { cfD[0], dt3 * cfA[0] + dt2 * cfB[0] + dt * cfC[0], 6
+			* dt3 * cfA[0] + 2 * dt2 * cfB[0], 6 * dt3 * cfA[0] };
+	double dInicialY[4] = { cfD[1], dt3 * cfA[1] + dt2 * cfB[1] + dt * cfC[1], 6
+			* dt3 * cfA[1] + 2 * dt2 * cfB[1], 6 * dt3 * cfA[1] };
+	double dInicialZ[4] = { cfD[2], dt3 * cfA[2] + dt2 * cfB[2] + dt * cfC[2], 6
+			* dt3 * cfA[2] + 2 * dt2 * cfB[2], 6 * dt3 * cfA[2] };
 
 	// Cálculo dos pontos paramétricos
 	QList<Ponto> pontosParam;
 	pontosParam.insert(0, Ponto("", dInicialX[0], dInicialY[0], dInicialZ[0]));
-	double n = 1/t;
 
-	for(int i = 1; i < n; i++) {
+	for (double i = 0; i < 1; i += t) {
 		dInicialX[0] += dInicialX[1];
 		dInicialY[0] += dInicialY[1];
 		dInicialZ[0] += dInicialZ[1];
@@ -139,7 +134,8 @@ QList<Ponto> CurvaBSpline::calcularPontosParametricosIntermediario(Ponto *p, con
 		dInicialY[2] += dInicialY[3];
 		dInicialZ[2] += dInicialZ[3];
 
-		pontosParam.insert(i, Ponto("", dInicialX[0], dInicialY[0], dInicialZ[0]));
+		pontosParam.insert(pontosParam.size(),
+				Ponto("", dInicialX[0], dInicialY[0], dInicialZ[0]));
 	}
 
 	return pontosParam;
