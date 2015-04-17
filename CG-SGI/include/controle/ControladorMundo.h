@@ -56,6 +56,11 @@ public:
 	QList<ObjetoGeometrico*> getObjetosNormalizados() const;
 
 	/**
+	 * Remover objetos do mundo.
+	 */
+	void removerObjetosMundo();
+
+	/**
 	 * Atualizar todos os objetos do mundo.
 	 * @param objetos objetos do mundo.
 	 */

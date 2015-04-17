@@ -68,6 +68,11 @@ public:
 	void removerObjeto(const String& nome);
 
 	/**
+	 * Remover objetos do mundo.
+	 */
+	void removerObjetosMundo();
+
+	/**
 	 * Verificar se o mundo contém um objeto.
 	 * @param nome nome do objeto.
 	 * @return true se o objeto existe.

@@ -83,6 +83,10 @@ void ControladorUI::removerObjeto(const String& nome) {
 	this->controladorPrincipal->removerObjeto(nome);
 }
 
+void ControladorUI::removerObjetosMundo() {
+	this->controladorPrincipal->removerObjetosMundo();
+}
+
 bool ControladorUI::contemObjeto(const String& nome) {
 	return this->controladorPrincipal->contemObjeto(nome);
 }

@@ -28,6 +28,10 @@ QList<ObjetoGeometrico*> ControladorMundo::getObjetosNormalizados() const {
 	return this->mundo.getObjetosNormalizados();
 }
 
+void ControladorMundo::removerObjetosMundo() {
+	this->mundo.removerObjetos();
+}
+
 void ControladorMundo::atualizarObjetos(const QList<ObjetoGeometrico*>& objetos) {
 	this->mundo.removerObjetos();
 

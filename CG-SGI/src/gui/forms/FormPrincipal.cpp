@@ -29,7 +29,6 @@ void FormPrincipal::initializeMenuBar() {
 	QAction* itemImportar = menuArquivo->addAction("&Importar cena...");
 	QAction* itemExportar = menuArquivo->addAction("&Exportar cena...");
 	QAction* itemLimparCena = menuArquivo->addAction("&Limpar cena");
-	itemLimparCena->setEnabled(false);
 	menuArquivo->addSeparator();
 	QAction* itemSair = menuArquivo->addAction("&Sair");
 
@@ -229,8 +228,10 @@ void FormPrincipal::btnExportScene() {
 }
 
 void FormPrincipal::btnCleanScene() {
-	if(this->controladorUI->requisitarConfirmacaoUsuario("Você tem certeza que deseja limpar a cena?"))
-		this->updateObjects(QList<ObjetoGeometrico*>());
+	if(this->controladorUI->requisitarConfirmacaoUsuario("Você tem certeza que deseja limpar a cena?")) {
+		this->controladorUI->removerObjetosMundo();
+		this->btnNavigationCenterPressed();
+	}
 }
 
 void FormPrincipal::btnAtalhos() {

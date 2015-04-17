@@ -55,6 +55,11 @@ void ControladorPrincipal::removerObjeto(const String& nome) {
 	this->controladorUI->atualizarCena(this->controladorMundo->getObjetosNormalizados());
 }
 
+void ControladorPrincipal::removerObjetosMundo() {
+	this->controladorMundo->removerObjetosMundo();
+	this->controladorUI->atualizarCena(this->controladorMundo->getObjetosNormalizados());
+}
+
 bool ControladorPrincipal::contemObjeto(const String& nome) {
 	return this->controladorMundo->contemObjeto(nome);
 }

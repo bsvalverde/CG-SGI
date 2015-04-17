@@ -55,6 +55,10 @@ public:
 	 */
 	void redimensionarWindow(const double fator);
 
+	/**
+	 * Rotacionar a visualização.
+	 * @param angulo ângulo de rotação em graus.
+	 */
 	void rotacionarWindow(const double angulo);
 
 	/**
@@ -108,6 +112,11 @@ public:
 	 * @param nome nome do objeto.
 	 */
 	void removerObjeto(const String& nome);
+
+	/**
+	 * Remover objetos do mundo.
+	 */
+	void removerObjetosMundo();
 
 	/**
 	 * Verificar se o mundo contém um objeto.
