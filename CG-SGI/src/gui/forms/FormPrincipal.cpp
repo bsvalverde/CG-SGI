@@ -242,11 +242,8 @@ void FormPrincipal::btnSobre() {
 	QMessageBox msg;
 	msg.information(this, "Sobre", "Sistema Gráfico Interativo desenvolvido na discplina "
 			"de Computação Gráfica do curso de Ciência da Computação da "
-			"Universidade Federal de Santa Catarina.\n\n"
-			":: Algoritmos Implementados ::\n\n"
-			"Cohen-Sutherland (clipping de retas)\n"
-			"Liang-Barsky (clipping de retas)\n"
-			"Sutherland-Hodgeman (clipping de polígonos)");
+			"Universidade Federal de Santa Catarina pelos alunos "
+			"Bernardo de Sousa Valverde e Lucas May Petry.");
 }
 
 void FormPrincipal::btnClippingCSToggled(bool cohenSutherland) {
