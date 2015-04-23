@@ -8,50 +8,57 @@ ClippingCohenSutherland::ClippingCohenSutherland(const double xvMin,
 ClippingCohenSutherland::~ClippingCohenSutherland() {
 }
 
-bool ClippingCohenSutherland::clipReta(Reta* const reta) const {
-	QList<Ponto*> pontos = reta->getPontosObjeto();
-	Ponto* p1 = pontos.at(0);
-	Ponto* p2 = pontos.at(1);
+QList<Ponto> ClippingCohenSutherland::clipReta(const Reta* const reta) const {
+	QList<Ponto> pontos = reta->getPontos();
+	Ponto p1 = pontos.at(0);
+	Ponto p2 = pontos.at(1);
 
 	// Region Code = Topo [0] Fundo [1] Direita [2] Esquerda [3]
 	short rc1[4] = {0, 0, 0, 0};
 	short rc2[4] = {0, 0, 0, 0};
-	this->carregarRcPonto(p1, rc1);
-	this->carregarRcPonto(p2, rc2);
+	this->carregarRcPonto(&p1, rc1);
+	this->carregarRcPonto(&p2, rc2);
 
 	if ((rc1[0] * rc2[0] + rc1[1] * rc2[1] + rc1[2] * rc2[2] + rc1[3] * rc2[3])
 			!= 0)
-		return false;
+		return QList<Ponto>();
 
 	if ((rc1[0] + rc2[0] + rc1[1] + rc2[1] + rc1[2] + rc2[2] + rc1[3] + rc2[3])
 			== 0)
-		return true;
+		return pontos;
 
 	double coefAngular = reta->coeficienteAngular();
 
 	switch (rc1[0] + rc1[1] + rc1[2] + rc1[3]) {
 		case 1:
-			if (!this->clippingBasico(rc1, p1, coefAngular))
-				return false;
+			if (!this->clippingBasico(rc1, &p1, coefAngular))
+				return QList<Ponto>();
 			break;
 		case 2:
-			if (!this->clippingComposto(rc1, p1, coefAngular))
-				return false;
+			if (!this->clippingComposto(rc1, &p1, coefAngular))
+				return QList<Ponto>();
 			break;
 		default:
 			break;
 	}
+
+	pontos.clear();
+	pontos.append(p1);
 
 	switch (rc2[0] + rc2[1] + rc2[2] + rc2[3]) {
 		case 1:
-			return this->clippingBasico(rc2, p2, coefAngular);
+			this->clippingBasico(rc2, &p2, coefAngular);
+			pontos.append(p2);
+			return pontos;
 		case 2:
-			return this->clippingComposto(rc2, p2, coefAngular);
+			this->clippingComposto(rc2, &p2, coefAngular);
+			pontos.append(p2);
+			return pontos;
 		default:
 			break;
 	}
 
-	return true;
+	return QList<Ponto>();
 }
 
 void ClippingCohenSutherland::carregarRcPonto(const Ponto* const p, short rc[4]) const {

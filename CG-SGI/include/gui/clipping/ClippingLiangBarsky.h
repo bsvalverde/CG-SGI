@@ -28,9 +28,9 @@ protected:
 	/**
 	 * Recortar uma reta.
 	 * @param reta reta a ser recortada.
-	 * @return true caso seja necessário desenhar a reta.
+	 * @return lista de pontos recortados.
 	 */
-	virtual bool clipReta(Reta* const reta) const;
+	virtual QList<Ponto> clipReta(const Reta* const reta) const;
 
 private:
 	/**

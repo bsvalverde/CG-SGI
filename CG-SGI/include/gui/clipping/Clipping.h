@@ -45,44 +45,38 @@ public:
 	/**
 	 * Recortar o objeto.
 	 * @param objeto objeto a ser recortado.
+	 * @return lista de pontos recortados.
 	 */
-	bool clip(ObjetoGeometrico* const objeto) const;
+	QList<Ponto> clip(ObjetoGeometrico* const objeto) const;
 
 protected:
 	/**
-	 * Recortar uma curva bspline.
-	 * @param curva curva bspline a ser recortada.
-	 * @return true caso seja necessário desenhar a curva.
+	 * Recortar uma curva.
+	 * @param curva curva a ser recortada.
+	 * @return lista de pontos recortados.
 	 */
-	virtual bool clipCurvaBSpline(CurvaBSpline* const curva) const;
-
-	/**
-	 * Recortar uma curva de bezier.
-	 * @param curva curva de bezier a ser recortada.
-	 * @return true caso seja necessário desenhar a curva.
-	 */
-	virtual bool clipCurvaBezier(CurvaBezier* const curva) const;
+	virtual QList<Ponto> clipCurva(const Curva* const curva) const;
 
 	/**
 	 * Recortar um polígono.
 	 * @param poligono polígono a ser recortado.
-	 * @return true caso seja necessário desenhar o polígono.
+	 * @return lista de pontos recortados.
 	 */
-	virtual bool clipPoligono(Poligono* const poligono) const;
+	virtual QList<Ponto> clipPoligono(const Poligono* const poligono) const;
 
 	/**
 	 * Recortar um ponto.
 	 * @param ponto ponto a ser recortado.
-	 * @return true caso seja necessário desenhar o ponto.
+	 * @return lista de pontos recortados.
 	 */
-	virtual bool clipPonto(Ponto* const ponto) const;
+	virtual QList<Ponto> clipPonto(const Ponto* const ponto) const;
 
 	/**
 	 * Recortar uma reta.
 	 * @param reta reta a ser recortada.
-	 * @return true caso seja necessário desenhar a reta.
+	 * @return lista de pontos recortados.
 	 */
-	virtual bool clipReta(Reta* const reta) const = 0;
+	virtual QList<Ponto> clipReta(const Reta* const reta) const = 0;
 
 	double xvMin;
 	double xvMax;

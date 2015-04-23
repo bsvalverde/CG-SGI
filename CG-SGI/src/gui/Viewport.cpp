@@ -37,36 +37,37 @@ void Viewport::atualizarObjetos(const QList<ObjetoGeometrico*>& objetos) {
 	for(int i = 0; i < objetos.size(); i++) {
 		ObjetoGeometrico* objeto = objetos.at(i)->clonar();
 
-		if(this->clipping->clip(objeto)) {
-			QList<Ponto> pontos = objeto->getPontos();
-			pontos = this->transformarObjeto(pontos);
+		QList<Ponto> pontos = this->clipping->clip(objeto);
 
-			if(pontos.size() == 0)
-				continue;
+		if(pontos.size() == 0) {
+			delete objeto;
+			continue;
+		}
 
-			QPen pen(objeto->getCor());
-			QLineF line;
-			Ponto ponto1 = pontos.at(0);
+		pontos = this->transformarObjeto(pontos);
+		QPen pen(objeto->getCor());
+		QLineF line;
+		Ponto ponto1 = pontos.at(0);
 
-			if(pontos.size() > 1) {
-				Ponto ant = ponto1;
+		if(pontos.size() > 1) {
+			Ponto ant = ponto1;
 
-				for(int i = 1; i < pontos.size(); i++) {
-					line = QLineF(ant.getX(), ant.getY(), pontos.at(i).getX(), pontos.at(i).getY());
-					scene->addLine(line, pen);
-					ant = pontos.at(i);
-				}
-				if(objeto->getTipo() == ObjetoGeometrico::POLIGONO) {
-					line = QLineF(ant.getX(), ant.getY(), ponto1.getX(), ponto1.getY());
-					scene->addLine(line, pen);
-				}
-			} else {
-				scene->addEllipse(ponto1.getX(), ponto1.getY(), 3, 3, pen, QBrush(objeto->getCor()));
+			for(int i = 1; i < pontos.size(); i++) {
+				line = QLineF(ant.getX(), ant.getY(), pontos.at(i).getX(), pontos.at(i).getY());
+				scene->addLine(line, pen);
+				ant = pontos.at(i);
 			}
+			if(objeto->getTipo() == ObjetoGeometrico::POLIGONO) {
+				line = QLineF(ant.getX(), ant.getY(), ponto1.getX(), ponto1.getY());
+				scene->addLine(line, pen);
+			}
+		} else {
+			scene->addEllipse(ponto1.getX(), ponto1.getY(), 3, 3, pen, QBrush(objeto->getCor()));
 		}
 
 		delete objeto;
 	}
+
 
 	this->desenharAreaClipping(scene);
 	this->janelaGrafica->setScene(scene);

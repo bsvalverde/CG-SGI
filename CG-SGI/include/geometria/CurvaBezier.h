@@ -1,12 +1,12 @@
 #ifndef CURVABEZIER_H_
 #define CURVABEZIER_H_
 
-#include "geometria/Ponto.h"
+#include "geometria/Curva.h"
 
 /**
  * Curva de Bezier.
  */
-class CurvaBezier : public ObjetoGeometrico {
+class CurvaBezier : public Curva {
 
 public:
 	/**
@@ -68,26 +68,18 @@ public:
 	 */
 	const String toString() const;
 
-	/**
-	 * Definir os pontos paramétricos da curva.
-	 * @param pontos pontos da paramétricos da curva.
-	 */
-	void setPontosParametricos(const QList<Ponto>& pontos);
-
 protected:
 	/**
 	 * Calcular pontos paramétricos da curva.
 	 * @param t passo de iteração.
-	 * @return lista de pontos paramétricos.
 	 */
-	QList<Ponto> calcularPontosParametricos(const double t = 0.01) const;
+	void calcularPontosParametricos(const double t = 0.01);
 
 	Ponto p1;
 	Ponto p2;
 	Ponto p3;
 	Ponto p4;
 	QList<Ponto> pontosParametricos;
-	bool pontosParametricosRedefinidos;
 
 };
 
