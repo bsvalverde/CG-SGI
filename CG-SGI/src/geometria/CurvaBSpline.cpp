@@ -101,10 +101,10 @@ QList<Ponto> CurvaBSpline::calcularPontosParametricosIntermediario(Ponto *p,
 	double cfD[3] = { 0, 0, 0 };
 
 	for (int i = 0; i < 3; i++) {
-		cfA[i] = (2 / 3) * p1[i] - p2[i] + p3[i];
-		cfB[i] = -(1 / 3) * p1[i] + p3[i];
-		cfC[i] = (2 / 3) * p1[i] + p2[i] + p3[i];
-		cfD[i] = 6 * p0[i] + (11 / 3) * p1[i] + 2 * p2[i] + p3[i];
+		cfA[i] = (-1.0f/6) * p0[i] + (1.0f/2) * p1[i] + (-1.0f/2) * p2[i] + p3[i]/6;
+		cfB[i] = (1.0f/2) * p0[i] - p1[i] + (1.0f/2) * p2[i];
+		cfC[i] = (-1.0f/2) * p0[i] + (1.0f/2) * p2[i];
+		cfD[i] = p0[i]/6 + (2.0f/3) * p1[i] + p2[i]/6;
 	}
 
 	// Cálculo das diferenças iniciais (f0, df0, d²f0, d³f0)
@@ -112,12 +112,12 @@ QList<Ponto> CurvaBSpline::calcularPontosParametricosIntermediario(Ponto *p,
 	double dt2 = pow(t, 2);
 	double dt3 = pow(t, 3);
 
-	double dInicialX[4] = { cfD[0], dt3 * cfA[0] + dt2 * cfB[0] + dt * cfC[0], 6
-			* dt3 * cfA[0] + 2 * dt2 * cfB[0], 6 * dt3 * cfA[0] };
-	double dInicialY[4] = { cfD[1], dt3 * cfA[1] + dt2 * cfB[1] + dt * cfC[1], 6
-			* dt3 * cfA[1] + 2 * dt2 * cfB[1], 6 * dt3 * cfA[1] };
-	double dInicialZ[4] = { cfD[2], dt3 * cfA[2] + dt2 * cfB[2] + dt * cfC[2], 6
-			* dt3 * cfA[2] + 2 * dt2 * cfB[2], 6 * dt3 * cfA[2] };
+	double dInicialX[4] = { cfD[0], dt3 * cfA[0] + dt2 * cfB[0] + dt * cfC[0], 6.0f
+			* dt3 * cfA[0] + 2.0f * dt2 * cfB[0], 6.0f * dt3 * cfA[0] };
+	double dInicialY[4] = { cfD[1], dt3 * cfA[1] + dt2 * cfB[1] + dt * cfC[1], 6.0f
+			* dt3 * cfA[1] + 2.0f * dt2 * cfB[1], 6.0f * dt3 * cfA[1] };
+	double dInicialZ[4] = { cfD[2], dt3 * cfA[2] + dt2 * cfB[2] + dt * cfC[2], 6.0f
+			* dt3 * cfA[2] + 2.0f * dt2 * cfB[2], 6.0f * dt3 * cfA[2] };
 
 	// Cálculo dos pontos paramétricos
 	QList<Ponto> pontosParam;

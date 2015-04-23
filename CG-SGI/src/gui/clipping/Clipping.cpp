@@ -13,18 +13,18 @@ Clipping::~Clipping() {
 
 bool Clipping::clip(ObjetoGeometrico* const objeto) const {
 	switch (objeto->getTipo()) {
-	case ObjetoGeometrico::CURVA_BEZIER:
-		return this->clipCurvaBezier((CurvaBezier* const ) objeto);
-	case ObjetoGeometrico::CURVA_BSPLINE:
-		return this->clipCurvaBSpline((CurvaBSpline* const ) objeto);
-	case ObjetoGeometrico::POLIGONO:
-		return this->clipPoligono((Poligono* const ) objeto);
-	case ObjetoGeometrico::PONTO:
-		return this->clipPonto((Ponto* const ) objeto);
-	case ObjetoGeometrico::RETA:
-		return this->clipReta((Reta* const ) objeto);
-	default:
-		return true;
+		case ObjetoGeometrico::CURVA_BEZIER:
+			return this->clipCurvaBezier((CurvaBezier* const ) objeto);
+		case ObjetoGeometrico::CURVA_BSPLINE:
+			return this->clipCurvaBSpline((CurvaBSpline* const ) objeto);
+		case ObjetoGeometrico::POLIGONO:
+			return this->clipPoligono((Poligono* const ) objeto);
+		case ObjetoGeometrico::PONTO:
+			return this->clipPonto((Ponto* const ) objeto);
+		case ObjetoGeometrico::RETA:
+			return this->clipReta((Reta* const ) objeto);
+		default:
+			return true;
 	}
 }
 
@@ -53,6 +53,7 @@ bool Clipping::clipCurvaBSpline(CurvaBSpline* const curva) const {
 
 	return true;
 }
+
 bool Clipping::clipCurvaBezier(CurvaBezier* const curva) const {
 	QList<Ponto> pontosCurva = curva->getPontos();
 	QList<Ponto> novosPontos;
