@@ -1,12 +1,12 @@
 #ifndef CURVABSPLINE_H_
 #define CURVABSPLINE_H_
 
-#include "geometria/Ponto.h"
+#include "geometria/Curva.h"
 
 /**
  * Curva B-Spline.
  */
-class CurvaBSpline: public ObjetoGeometrico {
+class CurvaBSpline: public Curva {
 
 public:
 	/**
@@ -65,19 +65,12 @@ public:
 	 */
 	const String toString() const;
 
-	/**
-	 * Definir os pontos paramétricos da curva.
-	 * @param pontos pontos da paramétricos da curva.
-	 */
-	void setPontosParametricos(const QList<Ponto>& pontos);
-
 private:
 	/**
 	 * Calcular pontos paramétricos da curva.
 	 * @param t passo de iteração.
-	 * @return lista de pontos paramétricos.
 	 */
-	QList<Ponto> calcularPontosParametricos(const double t = 0.01) const;
+	void calcularPontosParametricos(const double t = 0.01);
 
 	/**
 	 * Calcular todos os pontos da curva entre p[0] e p[n]
@@ -86,7 +79,6 @@ private:
 
 	QList<Ponto> pontos;
 	QList<Ponto> pontosParametricos;
-	bool pontosParametricosRedefinidos;
 
 };
 

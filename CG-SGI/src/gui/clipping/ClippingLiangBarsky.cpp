@@ -1,5 +1,4 @@
 #include "gui/clipping/ClippingLiangBarsky.h"
-#include <iostream>
 
 ClippingLiangBarsky::ClippingLiangBarsky(const double xvMin, const double xvMax,
 		const double yvMin, const double yvMax) :
@@ -9,15 +8,15 @@ ClippingLiangBarsky::ClippingLiangBarsky(const double xvMin, const double xvMax,
 ClippingLiangBarsky::~ClippingLiangBarsky() {
 }
 
-bool ClippingLiangBarsky::clipReta(Reta* const reta) const {
-	QList<Ponto*> pontos = reta->getPontosObjeto();
-	Ponto* p1 = pontos.at(0);
-	Ponto* p2 = pontos.at(1);
+QList<Ponto> ClippingLiangBarsky::clipReta(const Reta* const reta) const {
+	QList<Ponto> pontos = reta->getPontos();
+	Ponto p1 = pontos.at(0);
+	Ponto p2 = pontos.at(1);
 
-	double x1 = p1->getX();
-	double y1 = p1->getY();
-	double dX = p2->getX() - p1->getX();
-	double dY = p2->getY() - p1->getY();
+	double x1 = p1.getX();
+	double y1 = p1.getY();
+	double dX = p2.getX() - p1.getX();
+	double dY = p2.getY() - p1.getY();
 
 	double p[4] = { -dX, dX, -dY, dY };
 	double q[4] = { x1 - xvMin,
@@ -29,23 +28,25 @@ bool ClippingLiangBarsky::clipReta(Reta* const reta) const {
 	double csi2 = this->csi2(p, q);
 
 	if (csi1 > csi2) // Reta está fora da viewport
-		return false;
+		return QList<Ponto>();
 
 	if (csi1 != 0) {
 		double x = x1 + csi1 * p[1];
 		double y = y1 + csi1 * p[3];
-		p1->setX(x);
-		p1->setY(y);
+		p1.setX(x);
+		p1.setY(y);
 	}
 
 	if (csi2 != 1) {
 		double x = x1 + csi2 * p[1];
 		double y = y1 + csi2 * p[3];
-		p2->setX(x);
-		p2->setY(y);
+		p2.setX(x);
+		p2.setY(y);
 	}
-
-	return true;
+	pontos.clear();
+	pontos.append(p1);
+	pontos.append(p2);
+	return pontos;
 }
 
 double ClippingLiangBarsky::csi1(double *p, double *q) const {

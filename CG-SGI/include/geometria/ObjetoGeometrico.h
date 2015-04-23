@@ -164,7 +164,7 @@ public:
 	 * Aplicar uma transformação ao objeto.
 	 * @param matriz matriz de transformação.
 	 */
-	void aplicarTransformacao(const double matriz[4][4]);
+	virtual void aplicarTransformacao(const double matriz[4][4]);
 
 protected:
 	String nome;

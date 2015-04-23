@@ -1,5 +1,4 @@
 #include "geometria/Window.h"
-#include <iostream>
 
 Window::Window() : ObjetoGeometrico("Window", Tipo::WINDOW) {
 	this->centro = Ponto("centro", 0, 0, 0);
