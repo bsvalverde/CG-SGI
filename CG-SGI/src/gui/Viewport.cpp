@@ -67,6 +67,7 @@ void Viewport::atualizarObjetos(const QList<ObjetoGeometrico*>& objetos) {
 		delete objeto;
 	}
 
+
 	this->desenharAreaClipping(scene);
 	this->janelaGrafica->setScene(scene);
 	this->janelaGrafica->repaint();
