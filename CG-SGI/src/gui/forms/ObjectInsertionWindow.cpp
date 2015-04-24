@@ -1,13 +1,13 @@
 #include "gui/forms/ObjectInsertionWindow.h"
 
 ObjectInsertionWindow::ObjectInsertionWindow(ControladorUI* controladorUI, QWidget* parent,
-							Qt::WindowFlags flags) : DefaultWindow(controladorUI, parent, flags) {
+							Qt::WindowFlags flags) : Form(controladorUI, parent, flags) {
 	this->setupUi(this);
 	this->moveToCenter();
-	this->connectSignalsAndSlots();
+	this->conectarSinaisSlots();
 }
 
-void ObjectInsertionWindow::connectSignalsAndSlots() {
+void ObjectInsertionWindow::conectarSinaisSlots() {
 	QObject::connect(btnColor, SIGNAL(clicked()), this, SLOT(btnSelectColorClicked()));
 	QObject::connect(btnCancel, SIGNAL(clicked()), this, SLOT(reject()));
 	QObject::connect(btnInsert, SIGNAL(clicked()), this, SLOT(insertObject()));

@@ -1,10 +1,10 @@
 #include "gui/forms/ObjectTransformationWindow.h"
 
 ObjectTransformationWindow::ObjectTransformationWindow(ControladorUI* controladorUI, QWidget* parent,
-							Qt::WindowFlags flags) : DefaultWindow(controladorUI, parent, flags) {
+							Qt::WindowFlags flags) : Form(controladorUI, parent, flags) {
 	this->setupUi(this);
 	this->moveToCenter();
-	this->connectSignalsAndSlots();
+	this->conectarSinaisSlots();
 }
 
 void ObjectTransformationWindow::show(const String& nomeObjeto) {
@@ -12,7 +12,7 @@ void ObjectTransformationWindow::show(const String& nomeObjeto) {
 	QWidget::show();
 }
 
-void ObjectTransformationWindow::connectSignalsAndSlots() {
+void ObjectTransformationWindow::conectarSinaisSlots() {
 	QObject::connect(btnCancel, SIGNAL(clicked()), this, SLOT(reject()));
 	QObject::connect(btnTransform, SIGNAL(clicked()), this, SLOT(transformObject()));
 	QObject::connect(radBtnSpecificPoint, SIGNAL(toggled(bool)), this, SLOT(specificPointSelected(bool)));

@@ -5,10 +5,10 @@
 
 #include "controle/ControladorUI.h"
 #include "geometria/Ponto.h"
-#include "gui/forms/DefaultWindow.h"
+#include "gui/forms/Form.h"
 #include "gui/forms/ui/ui_ObjectInsertionWindow.h"
 
-class ObjectInsertionWindow : public DefaultWindow, private Ui::ObjectInsertionWindow {
+class ObjectInsertionWindow : public Form, private Ui::ObjectInsertionWindow {
 	Q_OBJECT
 
 public:
@@ -16,7 +16,7 @@ public:
 	void clearFields();
 
 protected:
-	void connectSignalsAndSlots();
+	void conectarSinaisSlots();
 	bool validateFields();
 
 private slots:

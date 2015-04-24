@@ -3,10 +3,10 @@
 
 #include "controle/ControladorUI.h"
 #include "geometria/Ponto.h"
-#include "gui/forms/DefaultWindow.h"
+#include "gui/forms/Form.h"
 #include "gui/forms/ui/ui_ObjectTransformationWindow.h"
 
-class ObjectTransformationWindow : public DefaultWindow, private Ui::ObjectTransformationWindow {
+class ObjectTransformationWindow : public Form, private Ui::ObjectTransformationWindow {
 	Q_OBJECT
 
 public:
@@ -15,7 +15,7 @@ public:
 	void show(const String& nomeObjeto);
 
 protected:
-	void connectSignalsAndSlots();
+	void conectarSinaisSlots();
 	bool validateFields();
 
 	String nomeObjeto;
