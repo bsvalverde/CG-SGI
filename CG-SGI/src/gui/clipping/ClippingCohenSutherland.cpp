@@ -42,23 +42,21 @@ QList<Ponto> ClippingCohenSutherland::clipReta(const Reta* const reta) const {
 			break;
 	}
 
-	pontos.clear();
-	pontos.append(p1);
-
 	switch (rc2[0] + rc2[1] + rc2[2] + rc2[3]) {
 		case 1:
 			this->clippingBasico(rc2, &p2, coefAngular);
-			pontos.append(p2);
-			return pontos;
+			break;
 		case 2:
 			this->clippingComposto(rc2, &p2, coefAngular);
-			pontos.append(p2);
-			return pontos;
+			break;
 		default:
 			break;
 	}
 
-	return QList<Ponto>();
+	pontos.clear();
+	pontos.append(p1);
+	pontos.append(p2);
+	return pontos;
 }
 
 void ClippingCohenSutherland::carregarRcPonto(const Ponto* const p, short rc[4]) const {
