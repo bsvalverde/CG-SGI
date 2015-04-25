@@ -28,7 +28,7 @@ public:
 	/**
 	 * Mover o formulário para o centro.
 	 */
-	void moveToCenter();
+	void centralizar();
 
 	/**
 	 * Obter o controlador de interface gráfica.

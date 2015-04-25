@@ -117,5 +117,5 @@ void ControladorUI::reiniciarWindow(){
 }
 
 void ControladorUI::atualizarCena(const QList<ObjetoGeometrico*>& objetos) {
-	this->formPrincipal->updateObjects(objetos);
+	this->formPrincipal->atualizarCena(objetos);
 }

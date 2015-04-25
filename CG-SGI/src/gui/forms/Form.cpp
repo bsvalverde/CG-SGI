@@ -7,7 +7,7 @@ Form::Form(ControladorUI* controladorUI, QWidget* pai,
 
 Form::~Form() {}
 
-void Form::moveToCenter() {
+void Form::centralizar() {
 	QRect position = frameGeometry();
 	position.moveCenter(QDesktopWidget().availableGeometry().center());
 	move(position.topLeft());

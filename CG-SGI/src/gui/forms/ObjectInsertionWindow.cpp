@@ -3,7 +3,7 @@
 ObjectInsertionWindow::ObjectInsertionWindow(ControladorUI* controladorUI, QWidget* parent,
 							Qt::WindowFlags flags) : Form(controladorUI, parent, flags) {
 	this->setupUi(this);
-	this->moveToCenter();
+	this->centralizar();
 	this->conectarSinaisSlots();
 }
 

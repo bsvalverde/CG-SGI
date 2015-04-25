@@ -29,10 +29,10 @@ public:
 	virtual ~Viewport();
 
 	/**
-	 * Atualizar objetos.
+	 * Atualizar a cena.
 	 * @param objetos objetos a serem desenhados.
 	 */
-	void atualizarObjetos(const QList<ObjetoGeometrico*>& objetos);
+	void atualizarCena(const QList<ObjetoGeometrico*>& objetos);
 
 	/**
 	 * Definir o algoritmo de clipping.

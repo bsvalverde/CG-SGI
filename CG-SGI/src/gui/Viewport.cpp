@@ -24,7 +24,7 @@ Viewport::~Viewport() {
 		delete this->clipping;
 }
 
-void Viewport::atualizarObjetos(const QList<ObjetoGeometrico*>& objetos) {
+void Viewport::atualizarCena(const QList<ObjetoGeometrico*>& objetos) {
 	QGraphicsScene* scene = this->janelaGrafica->scene();
 
 	if(scene)
