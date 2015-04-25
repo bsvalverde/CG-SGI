@@ -97,26 +97,25 @@ void FormPrincipal::inicializarMenu() {
 	QObject::connect(itemSair, SIGNAL(triggered()), this, SLOT(encerrarSistema()));
 	QObject::connect(itemAtalhos, SIGNAL(triggered()), this, SLOT(atalhosSistema()));
 	QObject::connect(itemSobre, SIGNAL(triggered()), this, SLOT(sobreSistema()));
-	this->close();
 
 	menuBar()->setVisible(true);
 }
 
 void FormPrincipal::zoomIn() {
-	int position = this->sliderControleZoom->value();
-	this->sliderControleZoom->setValue(position + 2);
+	int posicao = this->sliderControleZoom->value();
+	this->sliderControleZoom->setValue(posicao + 2);
 }
 
 void FormPrincipal::zoomOut() {
-	int position = this->sliderControleZoom->value();
-	this->sliderControleZoom->setValue(position - 2);
+	int posicao = this->sliderControleZoom->value();
+	this->sliderControleZoom->setValue(posicao - 2);
 }
 
 void FormPrincipal::atualizarZoom(int valorAtual) {
-	int factor = valorAtual - this->valorZoom;
+	int fator = valorAtual - this->valorZoom;
 
 	this->valorZoom = valorAtual;
-	this->controladorUI->redimensionarWindow(factor);
+	this->controladorUI->redimensionarWindow(fator);
 }
 
 void FormPrincipal::navegarCima() {
@@ -166,46 +165,46 @@ void FormPrincipal::inserirObjeto() {
 }
 
 void FormPrincipal::removerObjeto() {
-	QItemSelectionModel *selectionModel = this->displayFile->selectionModel();
-	String objectName = "";
+	QItemSelectionModel *modeloSelecao = this->displayFile->selectionModel();
+	String nomeObjeto = "";
 
-	if (selectionModel->selectedRows().size() == 0) {
+	if (modeloSelecao->selectedRows().size() == 0) {
 		this->controladorUI->exibirMensagemErro(
 				"É necessário selecionar um objeto para ser removido!");
 		return;
 	}
 
-	for (QModelIndex index : selectionModel->selectedRows()) {
-		QTableWidgetItem *item = this->displayFile->item(index.row(), 1);
+	for (QModelIndex indice : modeloSelecao->selectedRows()) {
+		QTableWidgetItem *item = this->displayFile->item(indice.row(), 1);
 
 		if (item)
-			objectName = item->text().toStdString();
+			nomeObjeto = item->text().toStdString();
 
-		this->displayFile->removeRow(index.row());
+		this->displayFile->removeRow(indice.row());
 	}
 
-	this->controladorUI->removerObjeto(objectName);
+	this->controladorUI->removerObjeto(nomeObjeto);
 	this->displayFile->setCurrentCell(0, 0);
 }
 
 void FormPrincipal::transformarObjeto() {
-	QItemSelectionModel *selectionModel = this->displayFile->selectionModel();
-	String objectName = "";
+	QItemSelectionModel *modeloSelecao = this->displayFile->selectionModel();
+	String nomeObjeto = "";
 
-	if (selectionModel->selectedRows().size() == 0) {
+	if (modeloSelecao->selectedRows().size() == 0) {
 		this->controladorUI->exibirMensagemErro(
 				"É necessário selecionar um objeto para aplicar uma transformação!");
 		return;
 	}
 
-	for (QModelIndex index : selectionModel->selectedRows()) {
-		QTableWidgetItem *item = this->displayFile->item(index.row(), 1);
+	for (QModelIndex indice : modeloSelecao->selectedRows()) {
+		QTableWidgetItem *item = this->displayFile->item(indice.row(), 1);
 
 		if (item)
-			objectName = item->text().toStdString();
+			nomeObjeto = item->text().toStdString();
 	}
 
-	this->controladorUI->exibirObjectTransformationWindow(objectName);
+	this->controladorUI->exibirObjectTransformationWindow(nomeObjeto);
 }
 
 void FormPrincipal::importarCena() {
