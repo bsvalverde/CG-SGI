@@ -267,5 +267,9 @@ void FormPrincipal::atualizarAlgoritmoClipping(bool cohenSutherland) {
 }
 
 void FormPrincipal::atualizarTipoProjecao(bool projecaoParalela) {
-
+	if(projecaoParalela) {
+		this->viewport->setTipoProjecao(Projetor::PARALELA_ORTOGONAL);
+	} else {
+		this->viewport->setTipoProjecao(Projetor::PERSPECTIVA);
+	}
 }

@@ -473,7 +473,7 @@ QGroupBox::title  {
           <item>
            <widget class="QRadioButton" name="radBtnProjecaoParalela">
             <property name="text">
-             <string>Paralela</string>
+             <string>Paralela Ortogonal</string>
             </property>
             <property name="checked">
              <bool>true</bool>

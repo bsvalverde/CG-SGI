@@ -8,6 +8,7 @@
 #include "geometria/Ponto.h"
 #include "gui/clipping/ClippingCohenSutherland.h"
 #include "gui/clipping/ClippingLiangBarsky.h"
+#include "gui/projecao/ProjetorParalelo.h"
 
 /**
  * Janela de visualização da interface gráfica.
@@ -41,6 +42,12 @@ public:
 	void setAlgoritmoClippingLinhas(Clipping::AlgoritmoClippingLinha algoritmo);
 
 	/**
+	 * Definir o tipo de projeção utilizado.
+	 * @param tipoProjecao tipo de projeção utilizado na transformada de viewport.
+	 */
+	void setTipoProjecao(Projetor::TipoProjecao tipoProjecao);
+
+	/**
 	 * Obter os pontos da viewport.
 	 * @return lista com os pontos.
 	 */
@@ -69,6 +76,7 @@ private:
 
 	QGraphicsView* janelaGrafica;
 	Clipping* clipping;
+	Projetor* projetor;
 	double largura;
 	double altura;
 
