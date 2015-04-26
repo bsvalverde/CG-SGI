@@ -8,7 +8,7 @@
 
 class ControladorPrincipal;
 class FormPrincipal;
-class ObjectInsertionWindow;
+class FormInsercaoObjeto;
 class ObjectTransformationWindow;
 
 /**
@@ -27,20 +27,26 @@ public:
 	 */
 	virtual ~ControladorUI();
 
-	void exibirJanelaPrincipal();
+	/**
+	 * Exibir janela principal do sistema.
+	 */
+	void exibirFormPrincipal();
 
-	void exibirJanelaAtalhos();
+	/**
+	 * Exibir os atalhos do sistema.
+	 */
+	void exibirAtalhos();
 
 	/**
 	 * Exibir janela de inserção de objetos.
 	 */
-	void exibirObjectInsertionWindow();
+	void exibirFormInsercaoObjeto();
 
 	/**
 	 * Exibir janela de transformação de objetos.
 	 * @param nomeObjeto nome do objeto a ser transformado.
 	 */
-	void exibirObjectTransformationWindow(const String& nomeObjeto);
+	void exibirFormTransformacaoObjeto(const String& nomeObjeto);
 
 	/**
 	 * Navegar no mundo (mover a window).
@@ -153,7 +159,7 @@ protected:
 	ControladorPrincipal* controladorPrincipal;
 	Mundo mundo;
 	FormPrincipal* formPrincipal;
-	ObjectInsertionWindow* objectInsertionWindow;
+	FormInsercaoObjeto* objectInsertionWindow;
 	ObjectTransformationWindow* objectTransformationWindow;
 
 };

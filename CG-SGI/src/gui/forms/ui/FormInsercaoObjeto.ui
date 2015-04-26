@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>ObjectInsertionWindow</class>
- <widget class="QWidget" name="ObjectInsertionWindow">
+ <class>FormInsercaoObjeto</class>
+ <widget class="QWidget" name="FormInsercaoObjeto">
   <property name="windowModality">
    <enum>Qt::NonModal</enum>
   </property>
@@ -56,14 +56,14 @@
     <item row="5" column="0">
      <layout class="QGridLayout" name="gridLayout2">
       <item row="0" column="0">
-       <widget class="QPushButton" name="btnCancel">
+       <widget class="QPushButton" name="btnCancelar">
         <property name="text">
          <string>Cancelar</string>
         </property>
        </widget>
       </item>
       <item row="0" column="2">
-       <widget class="QPushButton" name="btnInsert">
+       <widget class="QPushButton" name="btnInserir">
         <property name="text">
          <string>Ok</string>
         </property>
@@ -147,7 +147,7 @@ QGroupBox::title  {
              </widget>
             </item>
             <item row="0" column="1">
-             <widget class="QLineEdit" name="fieldPointX">
+             <widget class="QLineEdit" name="fdPontoX">
               <property name="enabled">
                <bool>true</bool>
               </property>
@@ -189,7 +189,7 @@ QGroupBox::title  {
              </widget>
             </item>
             <item row="0" column="1">
-             <widget class="QLineEdit" name="fieldPointY">
+             <widget class="QLineEdit" name="fdPontoY">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -223,7 +223,7 @@ QGroupBox::title  {
             <item row="0" column="0">
              <widget class="QLabel" name="labelPointZ1">
               <property name="enabled">
-               <bool>false</bool>
+               <bool>true</bool>
               </property>
               <property name="text">
                <string>Z</string>
@@ -231,9 +231,9 @@ QGroupBox::title  {
              </widget>
             </item>
             <item row="0" column="1">
-             <widget class="QLineEdit" name="fieldPointZ">
+             <widget class="QLineEdit" name="fdPontoZ">
               <property name="enabled">
-               <bool>false</bool>
+               <bool>true</bool>
               </property>
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -248,7 +248,7 @@ QGroupBox::title  {
                </size>
               </property>
               <property name="text">
-               <string>1</string>
+               <string/>
               </property>
               <property name="maxLength">
                <number>50</number>
@@ -319,7 +319,7 @@ QGroupBox::title  {
              </widget>
             </item>
             <item row="0" column="1">
-             <widget class="QLineEdit" name="fieldLineX1">
+             <widget class="QLineEdit" name="fdRetaX1">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -355,7 +355,7 @@ QGroupBox::title  {
              </widget>
             </item>
             <item row="0" column="1">
-             <widget class="QLineEdit" name="fieldLineY1">
+             <widget class="QLineEdit" name="fdRetaY1">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -386,7 +386,7 @@ QGroupBox::title  {
             <item row="0" column="0">
              <widget class="QLabel" name="labelPointZ1_2">
               <property name="enabled">
-               <bool>false</bool>
+               <bool>true</bool>
               </property>
               <property name="text">
                <string>z1</string>
@@ -394,9 +394,9 @@ QGroupBox::title  {
              </widget>
             </item>
             <item row="0" column="1">
-             <widget class="QLineEdit" name="fieldLineZ1">
+             <widget class="QLineEdit" name="fdRetaZ1">
               <property name="enabled">
-               <bool>false</bool>
+               <bool>true</bool>
               </property>
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -411,7 +411,7 @@ QGroupBox::title  {
                </size>
               </property>
               <property name="text">
-               <string>1</string>
+               <string/>
               </property>
               <property name="maxLength">
                <number>50</number>
@@ -477,7 +477,7 @@ QGroupBox::title  {
              </widget>
             </item>
             <item row="0" column="1">
-             <widget class="QLineEdit" name="fieldLineX2">
+             <widget class="QLineEdit" name="fdRetaX2">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -513,7 +513,7 @@ QGroupBox::title  {
              </widget>
             </item>
             <item row="0" column="1">
-             <widget class="QLineEdit" name="fieldLineY2">
+             <widget class="QLineEdit" name="fdRetaY2">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -544,7 +544,7 @@ QGroupBox::title  {
             <item row="0" column="0">
              <widget class="QLabel" name="labelPointZ1_3">
               <property name="enabled">
-               <bool>false</bool>
+               <bool>true</bool>
               </property>
               <property name="text">
                <string>z2</string>
@@ -552,9 +552,9 @@ QGroupBox::title  {
              </widget>
             </item>
             <item row="0" column="1">
-             <widget class="QLineEdit" name="fieldLineZ2">
+             <widget class="QLineEdit" name="fdRetaZ2">
               <property name="enabled">
-               <bool>false</bool>
+               <bool>true</bool>
               </property>
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -569,7 +569,7 @@ QGroupBox::title  {
                </size>
               </property>
               <property name="text">
-               <string>1</string>
+               <string/>
               </property>
               <property name="maxLength">
                <number>50</number>
@@ -586,7 +586,7 @@ QGroupBox::title  {
        <attribute name="title">
         <string>Polígono</string>
        </attribute>
-       <widget class="QTableWidget" name="tablePoligonPoints">
+       <widget class="QTableWidget" name="tablePontosPoligono">
         <property name="geometry">
          <rect>
           <x>10</x>
@@ -623,6 +623,11 @@ QGroupBox::title  {
           <string>Y</string>
          </property>
         </column>
+        <column>
+         <property name="text">
+          <string>Z</string>
+         </property>
+        </column>
        </widget>
        <widget class="QWidget" name="layoutWidget_2">
         <property name="geometry">
@@ -635,14 +640,14 @@ QGroupBox::title  {
         </property>
         <layout class="QGridLayout" name="gridLayout2_2">
          <item row="0" column="0">
-          <widget class="QPushButton" name="btnRemovePoint">
+          <widget class="QPushButton" name="btnRemoverPontoPoligono">
            <property name="text">
             <string>Remover Ponto</string>
            </property>
           </widget>
          </item>
          <item row="0" column="3">
-          <widget class="QPushButton" name="btnInsertPoint">
+          <widget class="QPushButton" name="btnInserirPontoPoligono">
            <property name="text">
             <string>Inserir Ponto</string>
            </property>
@@ -722,7 +727,7 @@ QGroupBox::title  {
              </widget>
             </item>
             <item row="0" column="1">
-             <widget class="QLineEdit" name="fieldBezierX1">
+             <widget class="QLineEdit" name="fdBezierX1">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -758,7 +763,7 @@ QGroupBox::title  {
              </widget>
             </item>
             <item row="0" column="1">
-             <widget class="QLineEdit" name="fieldBezierY1">
+             <widget class="QLineEdit" name="fdBezierY1">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -789,7 +794,7 @@ QGroupBox::title  {
             <item row="0" column="0">
              <widget class="QLabel" name="labelPointZ1_4">
               <property name="enabled">
-               <bool>false</bool>
+               <bool>true</bool>
               </property>
               <property name="text">
                <string>z1</string>
@@ -797,9 +802,9 @@ QGroupBox::title  {
              </widget>
             </item>
             <item row="0" column="1">
-             <widget class="QLineEdit" name="fieldBezierZ1">
+             <widget class="QLineEdit" name="fdBezierZ1">
               <property name="enabled">
-               <bool>false</bool>
+               <bool>true</bool>
               </property>
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -814,7 +819,7 @@ QGroupBox::title  {
                </size>
               </property>
               <property name="text">
-               <string>1</string>
+               <string/>
               </property>
               <property name="maxLength">
                <number>50</number>
@@ -880,7 +885,7 @@ QGroupBox::title  {
              </widget>
             </item>
             <item row="0" column="1">
-             <widget class="QLineEdit" name="fieldBezierX2">
+             <widget class="QLineEdit" name="fdBezierX2">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -916,7 +921,7 @@ QGroupBox::title  {
              </widget>
             </item>
             <item row="0" column="1">
-             <widget class="QLineEdit" name="fieldBezierY2">
+             <widget class="QLineEdit" name="fdBezierY2">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -947,7 +952,7 @@ QGroupBox::title  {
             <item row="0" column="0">
              <widget class="QLabel" name="labelPointZ1_5">
               <property name="enabled">
-               <bool>false</bool>
+               <bool>true</bool>
               </property>
               <property name="text">
                <string>z2</string>
@@ -955,9 +960,9 @@ QGroupBox::title  {
              </widget>
             </item>
             <item row="0" column="1">
-             <widget class="QLineEdit" name="fieldBezierZ2">
+             <widget class="QLineEdit" name="fdBezierZ2">
               <property name="enabled">
-               <bool>false</bool>
+               <bool>true</bool>
               </property>
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -972,7 +977,7 @@ QGroupBox::title  {
                </size>
               </property>
               <property name="text">
-               <string>1</string>
+               <string/>
               </property>
               <property name="maxLength">
                <number>50</number>
@@ -1038,7 +1043,7 @@ QGroupBox::title  {
              </widget>
             </item>
             <item row="0" column="1">
-             <widget class="QLineEdit" name="fieldBezierX3">
+             <widget class="QLineEdit" name="fdBezierX3">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -1074,7 +1079,7 @@ QGroupBox::title  {
              </widget>
             </item>
             <item row="0" column="1">
-             <widget class="QLineEdit" name="fieldBezierY3">
+             <widget class="QLineEdit" name="fdBezierY3">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -1105,7 +1110,7 @@ QGroupBox::title  {
             <item row="0" column="0">
              <widget class="QLabel" name="labelPointZ1_6">
               <property name="enabled">
-               <bool>false</bool>
+               <bool>true</bool>
               </property>
               <property name="text">
                <string>z3</string>
@@ -1113,9 +1118,9 @@ QGroupBox::title  {
              </widget>
             </item>
             <item row="0" column="1">
-             <widget class="QLineEdit" name="fieldBezierZ3">
+             <widget class="QLineEdit" name="fdBezierZ3">
               <property name="enabled">
-               <bool>false</bool>
+               <bool>true</bool>
               </property>
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -1130,7 +1135,7 @@ QGroupBox::title  {
                </size>
               </property>
               <property name="text">
-               <string>1</string>
+               <string/>
               </property>
               <property name="maxLength">
                <number>50</number>
@@ -1196,7 +1201,7 @@ QGroupBox::title  {
              </widget>
             </item>
             <item row="0" column="1">
-             <widget class="QLineEdit" name="fieldBezierX4">
+             <widget class="QLineEdit" name="fdBezierX4">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -1232,7 +1237,7 @@ QGroupBox::title  {
              </widget>
             </item>
             <item row="0" column="1">
-             <widget class="QLineEdit" name="fieldBezierY4">
+             <widget class="QLineEdit" name="fdBezierY4">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
@@ -1263,7 +1268,7 @@ QGroupBox::title  {
             <item row="0" column="0">
              <widget class="QLabel" name="labelPointZ1_7">
               <property name="enabled">
-               <bool>false</bool>
+               <bool>true</bool>
               </property>
               <property name="text">
                <string>z4</string>
@@ -1271,9 +1276,9 @@ QGroupBox::title  {
              </widget>
             </item>
             <item row="0" column="1">
-             <widget class="QLineEdit" name="fieldBezierZ4">
+             <widget class="QLineEdit" name="fdBezierZ4">
               <property name="enabled">
-               <bool>false</bool>
+               <bool>true</bool>
               </property>
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -1288,7 +1293,7 @@ QGroupBox::title  {
                </size>
               </property>
               <property name="text">
-               <string>1</string>
+               <string/>
               </property>
               <property name="maxLength">
                <number>50</number>
@@ -1305,7 +1310,7 @@ QGroupBox::title  {
        <attribute name="title">
         <string>B-Spline</string>
        </attribute>
-       <widget class="QTableWidget" name="tableBSplinePoints">
+       <widget class="QTableWidget" name="tablePontosBSpline">
         <property name="geometry">
          <rect>
           <x>10</x>
@@ -1342,6 +1347,11 @@ QGroupBox::title  {
           <string>Y</string>
          </property>
         </column>
+        <column>
+         <property name="text">
+          <string>Z</string>
+         </property>
+        </column>
        </widget>
        <widget class="QWidget" name="layoutWidget_25">
         <property name="geometry">
@@ -1354,14 +1364,14 @@ QGroupBox::title  {
         </property>
         <layout class="QGridLayout" name="gridLayout2_5">
          <item row="0" column="0">
-          <widget class="QPushButton" name="btnRemovePointBSpline">
+          <widget class="QPushButton" name="btnRemoverPontoBSpline">
            <property name="text">
             <string>Remover Ponto</string>
            </property>
           </widget>
          </item>
          <item row="0" column="3">
-          <widget class="QPushButton" name="btnInsertPointBSpline">
+          <widget class="QPushButton" name="btnInserirPontoBSpline">
            <property name="text">
             <string>Inserir Ponto</string>
            </property>
@@ -1405,14 +1415,14 @@ QGroupBox::title  {
          <number>10</number>
         </property>
         <item row="0" column="0">
-         <widget class="QLabel" name="labelName">
+         <widget class="QLabel" name="labelNome">
           <property name="text">
            <string>Nome</string>
           </property>
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QLineEdit" name="fieldName">
+         <widget class="QLineEdit" name="fdNome">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
             <horstretch>0</horstretch>
@@ -1450,7 +1460,7 @@ QGroupBox::title  {
          <number>10</number>
         </property>
         <item row="0" column="0">
-         <widget class="QLabel" name="labelColor">
+         <widget class="QLabel" name="labelCor">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
             <horstretch>0</horstretch>
@@ -1463,7 +1473,7 @@ QGroupBox::title  {
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QPushButton" name="btnColor">
+         <widget class="QPushButton" name="btnCor">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
             <horstretch>0</horstretch>
@@ -1489,22 +1499,38 @@ QGroupBox::title  {
   </widget>
  </widget>
  <tabstops>
-  <tabstop>fieldName</tabstop>
+  <tabstop>fdNome</tabstop>
+  <tabstop>btnCor</tabstop>
   <tabstop>tabObjects</tabstop>
-  <tabstop>fieldPointX</tabstop>
-  <tabstop>fieldPointY</tabstop>
-  <tabstop>fieldPointZ</tabstop>
-  <tabstop>fieldLineX1</tabstop>
-  <tabstop>fieldLineY1</tabstop>
-  <tabstop>fieldLineZ1</tabstop>
-  <tabstop>fieldLineX2</tabstop>
-  <tabstop>fieldLineY2</tabstop>
-  <tabstop>fieldLineZ2</tabstop>
-  <tabstop>tablePoligonPoints</tabstop>
-  <tabstop>btnRemovePoint</tabstop>
-  <tabstop>btnInsertPoint</tabstop>
-  <tabstop>btnCancel</tabstop>
-  <tabstop>btnInsert</tabstop>
+  <tabstop>fdPontoX</tabstop>
+  <tabstop>fdPontoY</tabstop>
+  <tabstop>fdPontoZ</tabstop>
+  <tabstop>fdRetaX1</tabstop>
+  <tabstop>fdRetaY1</tabstop>
+  <tabstop>fdRetaZ1</tabstop>
+  <tabstop>fdRetaX2</tabstop>
+  <tabstop>fdRetaY2</tabstop>
+  <tabstop>fdRetaZ2</tabstop>
+  <tabstop>tablePontosPoligono</tabstop>
+  <tabstop>btnRemoverPontoPoligono</tabstop>
+  <tabstop>btnInserirPontoPoligono</tabstop>
+  <tabstop>fdBezierX1</tabstop>
+  <tabstop>fdBezierY1</tabstop>
+  <tabstop>fdBezierZ1</tabstop>
+  <tabstop>fdBezierX2</tabstop>
+  <tabstop>fdBezierY2</tabstop>
+  <tabstop>fdBezierZ2</tabstop>
+  <tabstop>fdBezierX3</tabstop>
+  <tabstop>fdBezierY3</tabstop>
+  <tabstop>fdBezierZ3</tabstop>
+  <tabstop>fdBezierX4</tabstop>
+  <tabstop>fdBezierY4</tabstop>
+  <tabstop>fdBezierZ4</tabstop>
+  <tabstop>tablePontosBSpline</tabstop>
+  <tabstop>btnRemoverPontoBSpline</tabstop>
+  <tabstop>btnInserirPontoBSpline</tabstop>
+  <tabstop>btnCancelar</tabstop>
+  <tabstop>btnInserir</tabstop>
  </tabstops>
  <resources/>
  <connections/>

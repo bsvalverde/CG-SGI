@@ -21,7 +21,7 @@ ControladorPrincipal::~ControladorPrincipal() {
 }
 
 void ControladorPrincipal::executar() {
-	this->controladorUI->exibirJanelaPrincipal();
+	this->controladorUI->exibirFormPrincipal();
 }
 
 void ControladorPrincipal::navegarNoMundo(const Mundo::Direcao direcao, const double fator) {

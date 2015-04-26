@@ -1,23 +1,23 @@
 #include "controle/ControladorUI.h"
 #include "controle/ControladorPrincipal.h"
 #include "gui/forms/FormPrincipal.h"
-#include "gui/forms/ObjectInsertionWindow.h"
+#include "gui/forms/FormInsercaoObjeto.h"
 #include "gui/forms/ObjectTransformationWindow.h"
 
 ControladorUI::ControladorUI(ControladorPrincipal* const controladorPrincipal) {
 	this->controladorPrincipal = controladorPrincipal;
 	this->formPrincipal = new FormPrincipal(this);
-	this->objectInsertionWindow = new ObjectInsertionWindow(this, this->formPrincipal);
+	this->objectInsertionWindow = new FormInsercaoObjeto(this, this->formPrincipal);
 	this->objectTransformationWindow = new ObjectTransformationWindow(this, this->formPrincipal);
 }
 
 ControladorUI::~ControladorUI() {}
 
-void ControladorUI::exibirJanelaPrincipal() {
+void ControladorUI::exibirFormPrincipal() {
 	this->formPrincipal->show();
 }
 
-void ControladorUI::exibirJanelaAtalhos() {
+void ControladorUI::exibirAtalhos() {
 	String atalhos = ":: Navegação ::\n\n"
 			"CTRL + UP\t\tCima\n"
 			"CTRL + DOWN\tBaixo\n"
@@ -36,12 +36,12 @@ void ControladorUI::exibirJanelaAtalhos() {
 	messageBox.information(0, "Atalhos do Sistema", QString::fromStdString(atalhos));
 }
 
-void ControladorUI::exibirObjectInsertionWindow() {
-	this->objectInsertionWindow->clearFields();
+void ControladorUI::exibirFormInsercaoObjeto() {
+	this->objectInsertionWindow->limparCampos();
 	this->objectInsertionWindow->show();
 }
 
-void ControladorUI::exibirObjectTransformationWindow(const String& nomeObjeto) {
+void ControladorUI::exibirFormTransformacaoObjeto(const String& nomeObjeto) {
 	this->objectTransformationWindow->clearFields();
 	this->objectTransformationWindow->show(nomeObjeto);
 }

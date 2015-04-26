@@ -161,7 +161,7 @@ void FormPrincipal::reiniciarVisualizacao() {
 }
 
 void FormPrincipal::inserirObjeto() {
-	this->controladorUI->exibirObjectInsertionWindow();
+	this->controladorUI->exibirFormInsercaoObjeto();
 }
 
 void FormPrincipal::removerObjeto() {
@@ -204,7 +204,7 @@ void FormPrincipal::transformarObjeto() {
 			nomeObjeto = item->text().toStdString();
 	}
 
-	this->controladorUI->exibirObjectTransformationWindow(nomeObjeto);
+	this->controladorUI->exibirFormTransformacaoObjeto(nomeObjeto);
 }
 
 void FormPrincipal::importarCena() {
@@ -241,7 +241,7 @@ void FormPrincipal::limparCena() {
 }
 
 void FormPrincipal::atalhosSistema() {
-	this->controladorUI->exibirJanelaAtalhos();
+	this->controladorUI->exibirAtalhos();
 }
 
 void FormPrincipal::sobreSistema() {
