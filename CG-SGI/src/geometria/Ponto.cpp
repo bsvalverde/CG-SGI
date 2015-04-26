@@ -3,7 +3,7 @@
 Ponto::Ponto() {
 	this->coord_x = 0;
 	this->coord_y = 0;
-	this->coord_z = 1;
+	this->coord_z = 0;
 }
 
 Ponto::Ponto(const Ponto& ponto) : ObjetoGeometrico(ponto) {
