@@ -72,18 +72,18 @@ bool FormInsercaoObjeto::validarCampos() {
 		case 0:
 			this->fdPontoX->text().toDouble(&ok1);
 			this->fdPontoY->text().toDouble(&ok2);
-			ok3 = true;//this->fdPontoZ->text().toDouble(&ok3);
+			ok3 = this->fdPontoZ->text().toDouble(&ok3);
 
 			return ok1 && ok2 && ok3;
 		case 1:
 			this->fdRetaX1->text().toDouble(&ok1);
 			this->fdRetaY1->text().toDouble(&ok2);
-			ok3 = true;//this->fdRetaZ1->text().toDouble(&ok3);
+			ok3 = this->fdRetaZ1->text().toDouble(&ok3);
 			ok = ok1 && ok2 && ok3;
 
 			this->fdRetaX2->text().toDouble(&ok1);
 			this->fdRetaY2->text().toDouble(&ok2);
-			ok3 = true;//this->fdRetaZ2->text().toDouble(&ok3);
+			ok3 = this->fdRetaZ2->text().toDouble(&ok3);
 
 			return ok && ok1 && ok2 && ok3;
 		case 2:
@@ -91,41 +91,41 @@ bool FormInsercaoObjeto::validarCampos() {
 				return false;
 
 			for(int i = 0; i < this->tablePontosPoligono->rowCount(); i++) {
-				QTableWidgetItem *i1, *i2;//, *i3;
+				QTableWidgetItem *i1, *i2, *i3;
 				i1 = this->tablePontosPoligono->item(i, 0);
 				i2 = this->tablePontosPoligono->item(i, 1);
-				//i3 = this->tablePontosPoligono->item(i, 2);
+				i3 = this->tablePontosPoligono->item(i, 2);
 
-				if(!i1 || !i2)
+				if(!i1 || !i2 || !i3)
 					return false;
 
 				i1->text().toDouble(&ok1);
 				i2->text().toDouble(&ok2);
-				//i3->text().toDouble(&ok3);
+				i3->text().toDouble(&ok3);
 
-				if(!(ok1 && ok2))
+				if(!(ok1 && ok2 && ok3))
 					return false;
 			}
 			return true;
 		case 3:
 			this->fdBezierX1->text().toDouble(&ok1);
 			this->fdBezierY1->text().toDouble(&ok2);
-			ok3 = true;//this->fdBezierZ1->text().toDouble(&ok3);
+			ok3 = this->fdBezierZ1->text().toDouble(&ok3);
 			ok = ok1 && ok2 && ok3;
 
 			this->fdBezierX2->text().toDouble(&ok1);
 			this->fdBezierY2->text().toDouble(&ok2);
-			ok3 = true;//this->fdBezierZ2->text().toDouble(&ok3);
+			ok3 = this->fdBezierZ2->text().toDouble(&ok3);
 			ok = ok && ok1 && ok2 && ok3;
 
 			this->fdBezierX3->text().toDouble(&ok1);
 			this->fdBezierY3->text().toDouble(&ok2);
-			ok3 = true;//this->fdBezierZ3->text().toDouble(&ok3);
+			ok3 = this->fdBezierZ3->text().toDouble(&ok3);
 			ok = ok && ok1 && ok2 && ok3;
 
 			this->fdBezierX4->text().toDouble(&ok1);
 			this->fdBezierY4->text().toDouble(&ok2);
-			ok3 = true;//this->fdBezierZ4->text().toDouble(&ok3);
+			ok3 = this->fdBezierZ4->text().toDouble(&ok3);
 			ok = ok && ok1 && ok2 && ok3;
 			return ok;
 		default:
@@ -133,19 +133,19 @@ bool FormInsercaoObjeto::validarCampos() {
 				return false;
 
 			for(int i = 0; i < this->tablePontosBSpline->rowCount(); i++) {
-				QTableWidgetItem *i1, *i2;//, *i3;
+				QTableWidgetItem *i1, *i2, *i3;
 				i1 = this->tablePontosBSpline->item(i, 0);
 				i2 = this->tablePontosBSpline->item(i, 1);
-				//i3 = this->tablePontosBSpline->item(i, 2);
+				i3 = this->tablePontosBSpline->item(i, 2);
 
-				if(!i1 || !i2)
+				if(!i1 || !i2 || !i3)
 					return false;
 
 				i1->text().toDouble(&ok1);
 				i2->text().toDouble(&ok2);
-				//i3->text().toDouble(&ok3);
+				i3->text().toDouble(&ok3);
 
-				if(!(ok1 && ok2))
+				if(!(ok1 && ok2 && ok3))
 					return false;
 			}
 			return true;
@@ -173,7 +173,7 @@ void FormInsercaoObjeto::inserirObjeto() {
 		case 0:
 			x = this->fdPontoX->text().toDouble();
 			y = this->fdPontoY->text().toDouble();
-			z = 1;//this->fdPontoZ->text().toDouble();
+			z = this->fdPontoZ->text().toDouble();
 			p = Ponto(name, x, y, z);
 			pontos.insert(0, p);
 			tipo = ObjetoGeometrico::PONTO;
@@ -181,13 +181,13 @@ void FormInsercaoObjeto::inserirObjeto() {
 		case 1:
 			x = this->fdRetaX1->text().toDouble();
 			y = this->fdRetaY1->text().toDouble();
-			z = 1;//this->fdRetaZ1->text().toDouble();
+			z = this->fdRetaZ1->text().toDouble();
 			p = Ponto("", x, y, z);
 			pontos.insert(0, p);
 
 			x = this->fdRetaX2->text().toDouble();
 			y = this->fdRetaY2->text().toDouble();
-			z = 1;//this->fdRetaZ2->text().toDouble();
+			z = this->fdRetaZ2->text().toDouble();
 			p = Ponto("", x, y, z);
 			pontos.insert(1, p);
 			tipo = ObjetoGeometrico::RETA;
@@ -198,7 +198,7 @@ void FormInsercaoObjeto::inserirObjeto() {
 
 				x = this->tablePontosPoligono->item(i, 0)->text().toDouble();
 				y = this->tablePontosPoligono->item(i, 1)->text().toDouble();
-				z = 1;//this->tablePontosPoligono->item(i, 2)->text().toDouble();
+				z = this->tablePontosPoligono->item(i, 2)->text().toDouble();
 
 				p = Ponto(nomePonto, x, y, z);
 				pontos.insert(i, p);
@@ -208,25 +208,25 @@ void FormInsercaoObjeto::inserirObjeto() {
 		case 3:
 			x = this->fdBezierX1->text().toDouble();
 			y = this->fdBezierY1->text().toDouble();
-			z = 1;//this->fdBezierZ1->text().toDouble();
+			z = this->fdBezierZ1->text().toDouble();
 			p = Ponto("", x, y, z);
 			pontos.insert(0, p);
 
 			x = this->fdBezierX2->text().toDouble();
 			y = this->fdBezierY2->text().toDouble();
-			z = 1;//this->fdBezierZ2->text().toDouble();
+			z = this->fdBezierZ2->text().toDouble();
 			p = Ponto("", x, y, z);
 			pontos.insert(1, p);
 
 			x = this->fdBezierX3->text().toDouble();
 			y = this->fdBezierY3->text().toDouble();
-			z = 1;//this->fdBezierZ3->text().toDouble();
+			z = this->fdBezierZ3->text().toDouble();
 			p = Ponto("", x, y, z);
 			pontos.insert(2, p);
 
 			x = this->fdBezierX4->text().toDouble();
 			y = this->fdBezierY4->text().toDouble();
-			z = 1;//this->fdBezierZ4->text().toDouble();
+			z = this->fdBezierZ4->text().toDouble();
 			p = Ponto("", x, y, z);
 			pontos.insert(3, p);
 			tipo = ObjetoGeometrico::CURVA_BEZIER;
@@ -237,7 +237,7 @@ void FormInsercaoObjeto::inserirObjeto() {
 
 				x = this->tablePontosBSpline->item(i, 0)->text().toDouble();
 				y = this->tablePontosBSpline->item(i, 1)->text().toDouble();
-				z = 1;//this->tablePontosBSpline->item(i, 2)->text().toDouble();
+				z = this->tablePontosBSpline->item(i, 2)->text().toDouble();
 
 				p = Ponto(nomePonto, x, y, z);
 				pontos.insert(i, p);

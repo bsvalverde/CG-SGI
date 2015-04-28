@@ -40,7 +40,7 @@ bool ObjectTransformationWindow::validateFields() {
 		case 0:
 			this->fieldScaleFactorX->text().toDouble(&ok1);
 			this->fieldScaleFactorY->text().toDouble(&ok2);
-			ok3 = true;//this->fieldScaleFactorZ->text().toDouble(&ok3);
+			ok3 = this->fieldScaleFactorZ->text().toDouble(&ok3);
 
 			return ok1 && ok2 && ok3;
 		case 1:
@@ -50,14 +50,14 @@ bool ObjectTransformationWindow::validateFields() {
 			if(this->radBtnSpecificPoint->isChecked()) {
 				this->fieldRotatePointX->text().toDouble(&ok1);
 				this->fieldRotatePointY->text().toDouble(&ok2);
-				ok3 = true;//this->fieldRotatePointZ->text().toDouble(&ok3);
+				ok3 = this->fieldRotatePointZ->text().toDouble(&ok3);
 			}
 
 			return ok && ok1 && ok2 && ok3;
 		default:
 			this->fieldTranslateFactorX->text().toDouble(&ok1);
 			this->fieldTranslateFactorY->text().toDouble(&ok2);
-			ok3 = true;//this->fieldTranslateFactorZ->text().toDouble(&ok3);
+			ok3 = this->fieldTranslateFactorZ->text().toDouble(&ok3);
 
 			return ok1 && ok2 && ok3;
 	}
@@ -80,7 +80,7 @@ void ObjectTransformationWindow::transformObject() {
 		case 0: // Escalonamento
 			x = this->fieldScaleFactorX->text().toDouble();
 			y = this->fieldScaleFactorY->text().toDouble();
-			z = 1;//this->fieldScaleFactorZ->text().toDouble();
+			z = this->fieldScaleFactorZ->text().toDouble();
 			this->controladorUI->escalonarObjeto(this->nomeObjeto, x, y, z);
 			break;
 		case 1: // Rotação
@@ -89,7 +89,7 @@ void ObjectTransformationWindow::transformObject() {
 			if(this->radBtnSpecificPoint->isChecked()) {
 				x = this->fieldRotatePointX->text().toDouble();
 				y = this->fieldRotatePointY->text().toDouble();
-				z = 1;//this->fieldRotatePointZ->text().toDouble();
+				z = this->fieldRotatePointZ->text().toDouble();
 				this->controladorUI->rotacionarObjetoPorPonto(this->nomeObjeto, Ponto("", x, y, z), degree);
 			} else {
 				this->controladorUI->rotacionarObjetoPeloCentro(this->nomeObjeto, degree);
@@ -98,7 +98,7 @@ void ObjectTransformationWindow::transformObject() {
 		default: // Translação
 			x = this->fieldTranslateFactorX->text().toDouble();
 			y = this->fieldTranslateFactorY->text().toDouble();
-			z = 1;//this->fieldTranslateFactorZ->text().toDouble();
+			z = this->fieldTranslateFactorZ->text().toDouble();
 			this->controladorUI->transladarObjeto(this->nomeObjeto, x, y, z);
 			break;
 	}
@@ -109,8 +109,8 @@ void ObjectTransformationWindow::transformObject() {
 void ObjectTransformationWindow::specificPointSelected(bool selected) {
 	this->fieldRotatePointX->setEnabled(selected);
 	this->fieldRotatePointY->setEnabled(selected);
-	//this->fieldRotatePointZ->setEnabled(selected);
+	this->fieldRotatePointZ->setEnabled(selected);
 	this->labelRotatePointX->setEnabled(selected);
 	this->labelRotatePointY->setEnabled(selected);
-	//this->labelRotatePointZ->setEnabled(selected);
+	this->labelRotatePointZ->setEnabled(selected);
 }
