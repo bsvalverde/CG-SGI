@@ -4,12 +4,14 @@ Window::Window() : ObjetoGeometrico("Window", Tipo::WINDOW) {
 	this->centro = Ponto("centro", 0, 0, 0);
 	this->viewUpVector = Ponto("viewUpVector", 0, 138.75, 0);
 	this->viewRightVector = Ponto("viewRightVector", 0, 118.75, 0);
+	this->vpnVector = Ponto("vpnVector", 0, 120, 0);
 }
 
 Window::Window(const Window& window) : ObjetoGeometrico(window) {
 	this->centro = window.centro;
 	this->viewUpVector = window.viewUpVector;
 	this->viewRightVector = window.viewRightVector;
+	this->vpnVector = window.vpnVector;
 	this->displayFileNormalizado = window.displayFileNormalizado;
 }
 
@@ -17,6 +19,7 @@ Window::Window(const Ponto& centro, const double largura, const double altura) :
 	this->centro = centro;
 	this->viewUpVector = Ponto("viewUpVector", 0, altura/2, 0);
 	this->viewRightVector = Ponto("viewRightVector", 0, largura/2, 0);
+	this->vpnVector = Ponto("viewRightVector", 0, 120, 0);
 }
 
 Window::~Window() {}
@@ -26,6 +29,7 @@ Window& Window::operator=(const Window& window) {
 	this->centro = window.centro;
 	this->viewUpVector = window.viewUpVector;
 	this->viewRightVector = window.viewRightVector;
+	this->vpnVector = window.vpnVector;
 	this->displayFileNormalizado = window.displayFileNormalizado;
 	return *this;
 }
@@ -39,13 +43,15 @@ QList<Ponto> Window::getPontos() const {
 	pontos.insert(0, this->centro);
 	pontos.insert(1, this->viewUpVector);
 	pontos.insert(2, this->viewRightVector);
+	pontos.insert(3, this->vpnVector);
 	return pontos;
 }
 
 const String Window::toString() const {
 	return this->nome + "[" + this->centro.toString() +
 				", " + this->viewUpVector.toString() +
-				", " + this->viewRightVector.toString() + "]";
+				", " + this->viewRightVector.toString() +
+				", " + this->vpnVector.toString() + "]";
 }
 
 const Ponto Window::getCentroGeometrico() const {

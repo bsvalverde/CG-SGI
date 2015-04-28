@@ -142,6 +142,7 @@ protected:
 	Ponto centro;
 	Ponto viewUpVector;
 	Ponto viewRightVector;
+	Ponto vpnVector;
 	DisplayFile displayFileNormalizado;
 
 };
