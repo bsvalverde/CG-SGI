@@ -1,4 +1,5 @@
 #include "gui/forms/FormPrincipal.h"
+#include <iostream>
 
 FormPrincipal::FormPrincipal(ControladorUI* controladorUI, QDialog* pai,
 		Qt::WindowFlags flags) :
@@ -8,7 +9,9 @@ FormPrincipal::FormPrincipal(ControladorUI* controladorUI, QDialog* pai,
 	this->conectarSinaisSlots();
 	this->inicializarMenu();
 	this->valorZoom = this->sliderControleZoom->value();
-	this->valorRotacao = this->dialBtnRotacao->value();
+	this->valorRotacaoX = this->dialBtnRotacao->value();
+	this->valorRotacaoY = this->dialBtnRotacao->value();
+	this->valorRotacaoZ = this->dialBtnRotacao->value();
 	this->controladorUI = controladorUI;
 	this->viewport = new Viewport(this->graphicsView, 475, 555);
 }
@@ -78,6 +81,12 @@ void FormPrincipal::conectarSinaisSlots() {
 			SLOT(atualizarAlgoritmoClipping(bool)));
 	QObject::connect(radBtnProjecaoParalela, SIGNAL(toggled(bool)), this,
 			SLOT(atualizarTipoProjecao(bool)));
+	QObject::connect(radBtnRotacaoEixoX, SIGNAL(toggled(bool)), this,
+			SLOT(atualizarEixoRotacao(bool)));
+	QObject::connect(radBtnRotacaoEixoY, SIGNAL(toggled(bool)), this,
+			SLOT(atualizarEixoRotacao(bool)));
+	QObject::connect(radBtnRotacaoEixoZ, SIGNAL(toggled(bool)), this,
+			SLOT(atualizarEixoRotacao(bool)));
 }
 
 void FormPrincipal::inicializarMenu() {
@@ -135,10 +144,20 @@ void FormPrincipal::navegarBaixo() {
 }
 
 void FormPrincipal::rotacionarVisualizacao(int valorAtual) {
-	int angulo = valorAtual - this->valorRotacao;
-	this->valorRotacao = valorAtual;
+	int angulo = 0;
 
-	this->controladorUI->rotacionarWindow(angulo);
+	if(radBtnRotacaoEixoX->isChecked()) { // Eixo X
+		angulo = valorAtual - this->valorRotacaoX;
+		this->valorRotacaoX = valorAtual;
+	} else if(radBtnRotacaoEixoY->isChecked()) { // Eixo Y
+		angulo = valorAtual - this->valorRotacaoY;
+		this->valorRotacaoY = valorAtual;
+	} else { // Eixo Z
+		angulo = valorAtual - this->valorRotacaoZ;
+		this->valorRotacaoZ = valorAtual;
+	}
+
+	this->controladorUI->rotacionarWindow(angulo); // TODO
 }
 
 void FormPrincipal::reiniciarVisualizacao() {
@@ -147,10 +166,13 @@ void FormPrincipal::reiniciarVisualizacao() {
 	QObject::disconnect(dialBtnRotacao, SIGNAL(valueChanged(int)), this,
 			SLOT(rotacionarVisualizacao(int)));
 
-	this->sliderControleZoom->setValue(50);
 	this->valorZoom = 50;
+	this->valorRotacaoX = 0;
+	this->valorRotacaoY = 0;
+	this->valorRotacaoZ = 0;
+	this->sliderControleZoom->setValue(50);
 	this->dialBtnRotacao->setValue(0);
-	this->valorRotacao = 0;
+	this->radBtnRotacaoEixoX->setChecked(true);
 
 	QObject::connect(sliderControleZoom, SIGNAL(valueChanged(int)), this,
 			SLOT(atualizarZoom(int)));
@@ -256,6 +278,24 @@ void FormPrincipal::encerrarSistema() {
 	if (this->controladorUI->requisitarConfirmacaoUsuario(
 			"Você tem certeza que deseja encerrar o sistema?"))
 		QWidget::close();
+}
+
+void FormPrincipal::atualizarEixoRotacao(bool selecionado) {
+	QObject::disconnect(dialBtnRotacao, SIGNAL(valueChanged(int)), this,
+			SLOT(rotacionarVisualizacao(int)));
+
+	if(selecionado) {
+		if(radBtnRotacaoEixoX->isChecked()) { // Eixo X
+			this->dialBtnRotacao->setValue(this->valorRotacaoX);
+		} else if(radBtnRotacaoEixoY->isChecked()) { // Eixo Y
+			this->dialBtnRotacao->setValue(this->valorRotacaoY);
+		} else { // Eixo Z
+			this->dialBtnRotacao->setValue(this->valorRotacaoZ);
+		}
+	}
+
+	QObject::connect(dialBtnRotacao, SIGNAL(valueChanged(int)), this,
+			SLOT(rotacionarVisualizacao(int)));
 }
 
 void FormPrincipal::atualizarAlgoritmoClipping(bool cohenSutherland) {

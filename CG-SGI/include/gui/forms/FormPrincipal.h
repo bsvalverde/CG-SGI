@@ -152,6 +152,12 @@ private slots:
 	void encerrarSistema();
 
 	/**
+	 * Atualizar eixo de rotação atual.
+	 * @param selecionado opção foi selecionada.
+	 */
+	void atualizarEixoRotacao(bool selecionado);
+
+	/**
 	 * Atualizar algoritmo de clipping.
 	 */
 	void atualizarAlgoritmoClipping(bool cohenSutherland);
@@ -165,7 +171,9 @@ private:
 	ControladorUI* controladorUI;
 	Viewport* viewport;
 	int valorZoom;
-	int valorRotacao;
+	int valorRotacaoX;
+	int valorRotacaoY;
+	int valorRotacaoZ;
 
 };
 
