@@ -22,12 +22,7 @@ public:
 	 * Tipos de objetos geométricos
 	 */
 	enum Tipo {
-		CURVA_BSPLINE,
-		CURVA_BEZIER,
-		POLIGONO,
-		PONTO,
-		RETA,
-		WINDOW
+		CURVA_BSPLINE, CURVA_BEZIER, POLIGONO, PONTO, RETA, WINDOW
 	};
 
 	/**
@@ -47,7 +42,8 @@ public:
 	 * @param tipo tipo do objeto.
 	 * @param cor cor do objeto.
 	 */
-	ObjetoGeometrico(const String& nome, const Tipo tipo, const QColor& cor = QColor(0, 0, 0));
+	ObjetoGeometrico(const String& nome, const Tipo tipo, const QColor& cor =
+			QColor(0, 0, 0));
 
 	/**
 	 * Destrutor.
@@ -127,7 +123,8 @@ public:
 	 * @param o objeto geométrico.
 	 * @return o stream de saída.
 	 */
-	friend std::ostream& operator<<(std::ostream& out, const ObjetoGeometrico& o){
+	friend std::ostream& operator<<(std::ostream& out,
+			const ObjetoGeometrico& o) {
 		return out << o.toString();
 	}
 
@@ -148,17 +145,31 @@ public:
 	virtual void transladar(const double sX, const double sY, const double sZ);
 
 	/**
-	 * Rotacionar em relação a um ponto específico.
+	 * Rotacionar pelo eixo X, em relação a um ponto específico.
 	 * @param ponto ponto de rotação.
 	 * @param angulo ângulo de rotação em graus.
 	 */
-	virtual void rotacionarPorPonto(const Ponto& ponto, const double angulo);
+	virtual void rotacionarPorX(const Ponto& ponto, const double angulo);
 
 	/**
-	 * Rotacionar em relação ao centro geométrico.
+	 * Rotacionar pelo eixo Y em relação a um ponto específico.
+	 * @param ponto ponto de rotação.
 	 * @param angulo ângulo de rotação em graus.
 	 */
-	virtual void rotacionarPeloCentro(const double angulo);
+	virtual void rotacionarPorY(const Ponto& ponto, const double angulo);
+
+	/**
+	 * Rotacionar pelo eixo Z em relação a um ponto específico.
+	 * @param ponto ponto de rotação.
+	 * @param angulo ângulo de rotação em graus.
+	 */
+	virtual void rotacionarPorZ(const Ponto& ponto, const double angulo);
+
+	/**
+	 * Rotacionar em relação ao eixo definido pelo usuário.
+	 * @param angulo ângulo de rotação em graus.
+	 */
+	virtual void rotacionarPorEixo(const double angulo, const Reta Eixo);
 
 	/**
 	 * Aplicar uma transformação ao objeto.

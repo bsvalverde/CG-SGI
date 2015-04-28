@@ -23,6 +23,13 @@ public:
 	};
 
 	/**
+	 * Eixo do mundo.
+	 */
+	enum Eixo {
+		EIXO_X, EIXO_Y, EIXO_Z
+	};
+
+	/**
 	 * Construtor.
 	 */
 	Mundo();
@@ -112,7 +119,8 @@ public:
 	 * @param sY fator de escalonamento da coordenada y.
 	 * @param sZ fator de escalonamento da coordenada z.
 	 */
-	void escalonarObjeto(ObjetoGeometrico* const objeto, const double sX, const double sY, const double sZ);
+	void escalonarObjeto(ObjetoGeometrico* const objeto, const double sX,
+			const double sY, const double sZ);
 
 	/**
 	 * Transladar objeto.
@@ -121,22 +129,35 @@ public:
 	 * @param sY fator de translação da coordenada y.
 	 * @param sZ fator de translação da coordenada z.
 	 */
-	void transladarObjeto(ObjetoGeometrico* const objeto, const double sX, const double sY, const double sZ);
+	void transladarObjeto(ObjetoGeometrico* const objeto, const double sX,
+			const double sY, const double sZ);
 
 	/**
-	 * Rotacionar objeto em relação a um ponto específico.
+	 * Rotacionar objeto em relação a um ponto específico, pelo eixo definido.
 	 * @param objeto objeto a ser rotacionado.
 	 * @param ponto ponto de rotação.
 	 * @param angulo ângulo de rotação em graus.
+	 * @param eixo eixo pelo qual a rotação deve ser feita.
 	 */
-	void rotacionarObjetoPorPonto(ObjetoGeometrico* const objeto, const Ponto& ponto, const double angulo);
+	void rotacionarObjetoPorPonto(ObjetoGeometrico* const objeto,
+			const Ponto& ponto, const double angulo, Eixo eixo);
 
 	/**
-	 * Rotacionar objeto em relação ao centro geométrico.
+	 * Rotacionar objeto em relação ao centro geométrico, pelo eixo definido.
 	 * @param objeto objeto a ser rotacionado.
 	 * @param angulo ângulo de rotação em graus.
+	 * @param eixo eixo pelo qual a rotação deve ser feita.
 	 */
-	void rotacionarObjetoPeloCentro(ObjetoGeometrico* const objeto, const double angulo);
+	void rotacionarObjetoPeloCentro(ObjetoGeometrico* const objeto,
+			const double angulo, Eixo eixo);
+	/**
+	 * Rotacionar objeto em relação ao eixo definido pelo usuário.
+	 * @param objeto objeto a ser rotacionado.
+	 * @param angulo ângulo de rotação em graus.
+	 * @param eixo eixo pelo qual a rotação deve ser feita.
+	 */
+	void rotacionarObjetoPeloEixo(ObjetoGeometrico* const objeto,
+			const double angulo, Reta eixo);
 
 protected:
 	DisplayFile displayFile;

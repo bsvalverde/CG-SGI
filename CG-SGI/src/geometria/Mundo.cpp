@@ -5,12 +5,12 @@ Mundo::Mundo() {
 }
 
 Mundo::~Mundo() {
-	if(this->window)
+	if (this->window)
 		delete this->window;
 }
 
 void Mundo::setWindow(const Window& window) {
-	if(this->window)
+	if (this->window)
 		delete this->window;
 
 	this->window = new Window(window);
@@ -31,19 +31,19 @@ void Mundo::removerObjetos() {
 }
 
 void Mundo::navegar(const Direcao direcao, const double fator) {
-	switch(direcao) {
-		case Direcao::CIMA:
-			this->window->transladar(0, fator, 0);
-			break;
-		case Direcao::BAIXO:
-			this->window->transladar(0, -1 * fator, 0);
-			break;
-		case Direcao::DIREITA:
-			this->window->transladar(fator, 0, 0);
-			break;
-		case Direcao::ESQUERDA:
-			this->window->transladar(-1 * fator, 0, 0);
-			break;
+	switch (direcao) {
+	case Direcao::CIMA:
+		this->window->transladar(0, fator, 0);
+		break;
+	case Direcao::BAIXO:
+		this->window->transladar(0, -1 * fator, 0);
+		break;
+	case Direcao::DIREITA:
+		this->window->transladar(fator, 0, 0);
+		break;
+	case Direcao::ESQUERDA:
+		this->window->transladar(-1 * fator, 0, 0);
+		break;
 	}
 	this->window->atualizarDisplayFile(this->displayFile);
 }
@@ -87,22 +87,44 @@ bool Mundo::contemObjeto(const String& nome) const {
 	return this->displayFile.contem(nome);
 }
 
-void Mundo::escalonarObjeto(ObjetoGeometrico* const objeto, const double sX, const double sY, const double sZ) {
+void Mundo::escalonarObjeto(ObjetoGeometrico* const objeto, const double sX,
+		const double sY, const double sZ) {
 	objeto->escalonar(sX, sY, sZ);
 	this->window->atualizarDisplayFile(this->displayFile);
 }
 
-void Mundo::transladarObjeto(ObjetoGeometrico* const objeto, const double sX, const double sY, const double sZ) {
+void Mundo::transladarObjeto(ObjetoGeometrico* const objeto, const double sX,
+		const double sY, const double sZ) {
 	objeto->transladar(sX, sY, sZ);
 	this->window->atualizarDisplayFile(this->displayFile);
 }
 
-void Mundo::rotacionarObjetoPorPonto(ObjetoGeometrico* const objeto, const Ponto& ponto, const double angulo) {
-	objeto->rotacionarPorPonto(ponto, angulo);
+void Mundo::rotacionarObjetoPorPonto(ObjetoGeometrico* const objeto,
+		const Ponto& ponto, const double angulo, Eixo eixo) {
+	switch (eixo) {
+	case EIXO_X:
+		objeto->rotacionarPorX(ponto, angulo);
+		break;
+	case EIXO_Y:
+		objeto->rotacionarPorY(ponto, angulo);
+		break;
+	case EIXO_Z:
+		objeto->rotacionarPorZ(ponto, angulo);
+		break;
+	default:
+		break;
+	}
 	this->window->atualizarDisplayFile(this->displayFile);
 }
 
-void Mundo::rotacionarObjetoPeloCentro(ObjetoGeometrico* const objeto, const double angulo) {
-	objeto->rotacionarPeloCentro(angulo);
+void Mundo::rotacionarObjetoPeloCentro(ObjetoGeometrico* const objeto,
+		const double angulo, Eixo eixo) {
+	Ponto ponto = objeto->getCentroGeometrico();
+	this->rotacionarObjetoPorPonto(objeto, ponto, angulo, eixo);
+}
+
+void Mundo::rotacionarObjetoPeloEixo(ObjetoGeometrico* const objeto,
+		const double angulo, Reta eixo) {
+	objeto->rotacionarPorEixo(angulo, eixo);
 	this->window->atualizarDisplayFile(this->displayFile);
 }
