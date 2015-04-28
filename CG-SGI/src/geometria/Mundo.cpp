@@ -59,7 +59,7 @@ void Mundo::aplicarZoom(const double fator) {
 }
 
 void Mundo::rotacionarVisualizacao(const double angulo) {
-	this->window->rotacionarPeloCentro(angulo);
+	this->rotacionarObjetoPeloCentro(this->window, angulo, Mundo::EIXO_X); // TODO
 	this->window->atualizarDisplayFile(this->displayFile);
 }
 

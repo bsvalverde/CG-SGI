@@ -84,10 +84,10 @@ void ControladorMundo::transladarObjeto(const String& nome, const double sX, con
 
 void ControladorMundo::rotacionarObjetoPorPonto(const String& nome, const Ponto& ponto, const double angulo) {
 	ObjetoGeometrico* obj = this->mundo.getObjeto(nome);
-	this->mundo.rotacionarObjetoPorPonto(obj, ponto, angulo);
+	this->mundo.rotacionarObjetoPorPonto(obj, ponto, angulo, Mundo::EIXO_X); // TODO
 }
 
 void ControladorMundo::rotacionarObjetoPeloCentro(const String& nome, const double angulo) {
 	ObjetoGeometrico* obj = this->mundo.getObjeto(nome);
-	this->mundo.rotacionarObjetoPeloCentro(obj, angulo);
+	this->mundo.rotacionarObjetoPeloCentro(obj, angulo, Mundo::EIXO_X); // TODO
 }

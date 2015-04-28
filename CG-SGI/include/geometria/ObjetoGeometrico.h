@@ -11,6 +11,7 @@
 typedef std::string String;
 
 class Ponto;
+class Reta;
 
 /**
  * Objeto Geométrico.
@@ -169,7 +170,7 @@ public:
 	 * Rotacionar em relação ao eixo definido pelo usuário.
 	 * @param angulo ângulo de rotação em graus.
 	 */
-	virtual void rotacionarPorEixo(const double angulo, const Reta Eixo);
+	virtual void rotacionarPorEixo(const double angulo, const Reta& eixo);
 
 	/**
 	 * Aplicar uma transformação ao objeto.

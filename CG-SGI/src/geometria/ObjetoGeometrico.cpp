@@ -1,5 +1,6 @@
 #include "geometria/ObjetoGeometrico.h"
 #include "geometria/Ponto.h"
+#include "geometria/Reta.h"
 
 ObjetoGeometrico::ObjetoGeometrico(const ObjetoGeometrico& objeto) {
 	this->nome = objeto.nome;
@@ -137,8 +138,8 @@ void ObjetoGeometrico::rotacionarPorZ(const Ponto& ponto, const double angulo) {
 	this->aplicarTransformacao(matriz);
 }
 
-void ObjetoGeometrico::rotacionarPorEixo(const double angulo, const Reta eixo) {
-	QList<Ponto*> pontos = eixo.getPontos();
+void ObjetoGeometrico::rotacionarPorEixo(const double angulo, const Reta& eixo) {
+	QList<Ponto> pontos = eixo.getPontos();
 	Ponto p1 = pontos.at(0);
 	Ponto p2 = pontos.at(1);
 
@@ -152,9 +153,9 @@ void ObjetoGeometrico::rotacionarPorEixo(const double angulo, const Reta eixo) {
 	double anguloX = atan(tan);
 
 	if (x < 0 && y < 0) { // 3º quadrante
-		angulo += M_PI;
+		anguloX += M_PI;
 	} else if (x < 0 && y > 0) { // 4º quadrante
-		angulo += -M_PI;
+		anguloX += -M_PI;
 	}
 
 	//angulo com eixo Z
@@ -162,15 +163,15 @@ void ObjetoGeometrico::rotacionarPorEixo(const double angulo, const Reta eixo) {
 	double anguloZ = atan(tan);
 
 	if (z < 0 && y < 0) { // 3º quadrante
-		angulo += M_PI;
+		anguloX += M_PI;
 	} else if (z < 0 && y > 0) { // 4º quadrante
-		angulo += -M_PI;
+		anguloX += -M_PI;
 	}
 
 	//passo a passo
-	double x = p1.getX();
-	double y = p1.getY();
-	double z = p1.getZ();
+	x = p1.getX();
+	y = p1.getY();
+	z = p1.getZ();
 	double angRad = angulo * M_PI / 180;
 
 	this->transladar(-x, -y, -z);
