@@ -1,6 +1,8 @@
 #ifndef PROJETOR_H_
 #define PROJETOR_H_
 
+class Window;
+
 /**
  * Projetor.
  */
@@ -17,8 +19,10 @@ public:
 
 	/**
 	 * Construtor.
+	 * @param tipo tipo de projeção.
+	 * @param window janela de visualização.
 	 */
-	Projetor(const TipoProjecao& tipo);
+	Projetor(const TipoProjecao& tipo, Window* const window);
 
 	/**
 	 * Destrutor.
@@ -33,6 +37,7 @@ public:
 
 private:
 	TipoProjecao tipo;
+	Window* window;
 
 };
 

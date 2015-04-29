@@ -3,10 +3,21 @@
 
 #include "geometria/projecao/Projetor.h"
 
+/**
+ * Projetor paralelo ortogonal.
+ */
 class ProjetorParalelo : public Projetor {
 
 public:
-	ProjetorParalelo();
+	/**
+	 * Construtor.
+	 * @param window janela de visualização.
+	 */
+	ProjetorParalelo(Window* const window);
+
+	/**
+	 * Destrutor.
+	 */
 	virtual ~ProjetorParalelo();
 
 };

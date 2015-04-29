@@ -150,10 +150,10 @@ void Window::setTipoProjecao(const Projetor::TipoProjecao& tipoProjecao) {
 
 	switch(tipoProjecao) {
 		case Projetor::PARALELA_ORTOGONAL:
-			this->projetor = new ProjetorParalelo();
+			this->projetor = new ProjetorParalelo(this);
 			break;
 		case Projetor::PERSPECTIVA:
-			this->projetor = new ProjetorParalelo(); // TODO Alterar para Perspectiva
+			this->projetor = new ProjetorParalelo(this); // TODO Alterar para Perspectiva
 			break;
 	}
 }
