@@ -4,7 +4,7 @@ Window::Window() : ObjetoGeometrico("Window", Tipo::WINDOW) {
 	this->centro = Ponto("centro", 0, 0, 0);
 	this->viewUpVector = Ponto("viewUpVector", 0, 138.75, 0);
 	this->viewRightVector = Ponto("viewRightVector", 0, 118.75, 0);
-	this->vpnVector = Ponto("vpnVector", 0, 120, 0);
+	this->vpnVector = Ponto("vpnVector", 0, 0, 120);
 	this->projetor = 0;
 	this->setTipoProjecao(Projetor::PARALELA_ORTOGONAL);
 }
@@ -77,6 +77,10 @@ const double Window::getAltura() const {
 	return this->getTamanhoViewUpVector() * 2;
 }
 
+Ponto Window::getVpnVector() const {
+	return this->vpnVector;
+}
+
 void Window::atualizarDisplayFile(const DisplayFile& displayFile) {
 	this->displayFileNormalizado = displayFile;
 	int tam = this->displayFileNormalizado.getTamanho();
@@ -86,22 +90,19 @@ void Window::atualizarDisplayFile(const DisplayFile& displayFile) {
 }
 
 void Window::atualizarObjeto(ObjetoGeometrico* const obj) {
-	double angulo = this->anguloViewUpVectorEixoY();
 	double tamY = this->getTamanhoViewUpVector();
 	double tamX = this->getTamanhoViewRightVector();
-	double x = centro.getX();
-	double y = centro.getY();
-	double z = centro.getZ();
-	double matriz[4][4] = {{cos(-angulo)/tamX, -sin(-angulo)/tamY, 0, 0},
-						   {sin(-angulo)/tamX, cos(-angulo)/tamY, 0, 0},
-						   {0, 0, 1, 0},
-						   {-x*cos(-angulo)-y*sin(-angulo), x*sin(-angulo)-y*cos(-angulo), -z, 1}};
+	double matriz[4][4] = { {1/tamX, 0, 0, 0},
+						    {0, 1/tamY, 0, 0},
+						    {0, 0, 1, 0},
+						    {0, 0, 0, 1} };
 
 	if(!this->displayFileNormalizado.contem(obj->getNome())) {
 		this->displayFileNormalizado.inserirObjeto(*obj);
 	}
 
 	ObjetoGeometrico* objeto = this->displayFileNormalizado.getObjeto(obj->getNome());
+	this->projetor->projetarObjeto(objeto);
 	objeto->aplicarTransformacao(matriz);
 }
 

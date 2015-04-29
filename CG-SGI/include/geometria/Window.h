@@ -87,6 +87,12 @@ public:
 	const double getAltura() const;
 
 	/**
+	 * Obter o vetor VPN.
+	 * @return vetor normal ao plano de projeção.
+	 */
+	Ponto getVpnVector() const;
+
+	/**
 	 * Atualizar lista de objetos da Window.
 	 * @param displayFile lista de objetos nas coordenadas do mundo.
 	 */

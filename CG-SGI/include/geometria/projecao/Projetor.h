@@ -42,9 +42,11 @@ public:
 	 */
 	virtual void projetarObjeto(ObjetoGeometrico* const objeto) const = 0;
 
+protected:
+	Window* window;
+
 private:
 	TipoProjecao tipo;
-	Window* window;
 
 };
 

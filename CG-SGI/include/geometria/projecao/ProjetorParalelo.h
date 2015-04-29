@@ -1,6 +1,8 @@
 #ifndef PROJETORPARALELO_H_
 #define PROJETORPARALELO_H_
 
+#include <cmath>
+
 #include "geometria/projecao/Projetor.h"
 
 /**
