@@ -5,6 +5,8 @@ Window::Window() : ObjetoGeometrico("Window", Tipo::WINDOW) {
 	this->viewUpVector = Ponto("viewUpVector", 0, 138.75, 0);
 	this->viewRightVector = Ponto("viewRightVector", 0, 118.75, 0);
 	this->vpnVector = Ponto("vpnVector", 0, 120, 0);
+	this->projetor = 0;
+	this->setTipoProjecao(Projetor::PARALELA_ORTOGONAL);
 }
 
 Window::Window(const Window& window) : ObjetoGeometrico(window) {
@@ -13,6 +15,8 @@ Window::Window(const Window& window) : ObjetoGeometrico(window) {
 	this->viewRightVector = window.viewRightVector;
 	this->vpnVector = window.vpnVector;
 	this->displayFileNormalizado = window.displayFileNormalizado;
+	this->projetor = 0;
+	this->setTipoProjecao(window.projetor->getTipo());
 }
 
 Window::Window(const Ponto& centro, const double largura, const double altura) : ObjetoGeometrico("Window", Tipo::WINDOW) {
@@ -20,9 +24,14 @@ Window::Window(const Ponto& centro, const double largura, const double altura) :
 	this->viewUpVector = Ponto("viewUpVector", 0, altura/2, 0);
 	this->viewRightVector = Ponto("viewRightVector", 0, largura/2, 0);
 	this->vpnVector = Ponto("viewRightVector", 0, 120, 0);
+	this->projetor = 0;
+	this->setTipoProjecao(Projetor::PARALELA_ORTOGONAL);
 }
 
-Window::~Window() {}
+Window::~Window() {
+	if(this->projetor)
+		delete this->projetor;
+}
 
 Window& Window::operator=(const Window& window) {
 	this->ObjetoGeometrico::operator =(window);
@@ -31,6 +40,8 @@ Window& Window::operator=(const Window& window) {
 	this->viewRightVector = window.viewRightVector;
 	this->vpnVector = window.vpnVector;
 	this->displayFileNormalizado = window.displayFileNormalizado;
+	this->projetor = 0;
+	this->setTipoProjecao(window.projetor->getTipo());
 	return *this;
 }
 
@@ -131,6 +142,20 @@ QList<ObjetoGeometrico*> Window::getObjetos() const {
 
 void Window::removerObjetos() {
 	this->displayFileNormalizado.removerObjetos();
+}
+
+void Window::setTipoProjecao(const Projetor::TipoProjecao& tipoProjecao) {
+	if(this->projetor)
+		delete this->projetor;
+
+	switch(tipoProjecao) {
+		case Projetor::PARALELA_ORTOGONAL:
+			this->projetor = new ProjetorParalelo();
+			break;
+		case Projetor::PERSPECTIVA:
+			this->projetor = new ProjetorParalelo(); // TODO Alterar para Perspectiva
+			break;
+	}
 }
 
 QList<Ponto*> Window::getPontosObjeto() {

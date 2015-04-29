@@ -3,6 +3,7 @@
 
 #include "geometria/DisplayFile.h"
 #include "geometria/Ponto.h"
+#include "geometria/projecao/ProjetorParalelo.h"
 
 /**
  * Janela de visualização do mundo.
@@ -114,6 +115,12 @@ public:
 	 */
 	void removerObjetos();
 
+	/**
+	 * Definir o tipo de projeção utilizado.
+	 * @param tipoProjecao tipo de projeção utilizado na transformada de viewport.
+	 */
+	void setTipoProjecao(const Projetor::TipoProjecao& tipoProjecao);
+
 protected:
 	/**
 	 * Obter os pontos do objeto.
@@ -144,6 +151,7 @@ protected:
 	Ponto viewRightVector;
 	Ponto vpnVector;
 	DisplayFile displayFileNormalizado;
+	Projetor* projetor;
 
 };
 

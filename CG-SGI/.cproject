@@ -95,8 +95,8 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="src/gui/projecao|projecao" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
-						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src/gui/projecao"/>
+						<entry excluding="src/geometria/projecao|src/gui/projecao|projecao" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src/geometria/projecao"/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>

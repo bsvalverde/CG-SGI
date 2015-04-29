@@ -27,10 +27,10 @@ HEADERS  += include/gui/forms/*.h \
 # Arquivos fonte
 SOURCES += src/gui/*.cpp \
 src/gui/clipping/*.cpp \
-src/gui/projecao/*.cpp \
 src/gui/forms/*.cpp \
 src/controle/*.cpp \
 src/geometria/*.cpp \
+src/geometria/projecao/*.cpp \
 src/persistencia/*.cpp \
 
 # Arquivos de formulário

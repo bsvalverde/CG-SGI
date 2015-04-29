@@ -1,4 +1,4 @@
-#include "gui/projecao/ProjetorParalelo.h"
+#include "geometria/projecao/ProjetorParalelo.h"
 
 ProjetorParalelo::ProjetorParalelo() {}
 

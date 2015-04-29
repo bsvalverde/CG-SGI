@@ -1,5 +1,4 @@
 #include "gui/forms/FormPrincipal.h"
-#include <iostream>
 
 FormPrincipal::FormPrincipal(ControladorUI* controladorUI, QDialog* pai,
 		Qt::WindowFlags flags) :
@@ -308,8 +307,8 @@ void FormPrincipal::atualizarAlgoritmoClipping(bool cohenSutherland) {
 
 void FormPrincipal::atualizarTipoProjecao(bool projecaoParalela) {
 	if(projecaoParalela) {
-		this->viewport->setTipoProjecao(Projetor::PARALELA_ORTOGONAL);
+		// TODO
 	} else {
-		this->viewport->setTipoProjecao(Projetor::PERSPECTIVA);
+		// TODO
 	}
 }

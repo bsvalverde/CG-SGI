@@ -1,7 +1,7 @@
 #ifndef PROJETORPARALELO_H_
 #define PROJETORPARALELO_H_
 
-#include "gui/projecao/Projetor.h"
+#include "geometria/projecao/Projetor.h"
 
 class ProjetorParalelo : public Projetor {
 

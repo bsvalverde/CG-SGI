@@ -18,12 +18,21 @@ public:
 	/**
 	 * Construtor.
 	 */
-	Projetor();
+	Projetor(const TipoProjecao& tipo);
 
 	/**
 	 * Destrutor.
 	 */
 	virtual ~Projetor();
+
+	/**
+	 * Obter o tipo de projeção.
+	 * @return tipo de projeção.
+	 */
+	TipoProjecao getTipo() const;
+
+private:
+	TipoProjecao tipo;
 
 };
 

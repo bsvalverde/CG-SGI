@@ -5,9 +5,7 @@ Viewport::Viewport(QGraphicsView* const janelaGrafica, const double largura, con
 	this->largura = largura;
 	this->altura = altura;
 	this->clipping = 0;
-	this->projetor = 0;
 	this->setAlgoritmoClippingLinhas(Clipping::COHEN_SUTHERLAND);
-	this->setTipoProjecao(Projetor::PARALELA_ORTOGONAL);
 
 	// Área de clipping
 	QGraphicsScene* scene = this->janelaGrafica->scene();
@@ -90,20 +88,6 @@ void Viewport::setAlgoritmoClippingLinhas(Clipping::AlgoritmoClippingLinha algor
 			break;
 		case Clipping::LIANG_BARSKY:
 			this->clipping = new ClippingLiangBarsky(xvMin, xvMax, yvMin, yvMax);
-			break;
-	}
-}
-
-void Viewport::setTipoProjecao(Projetor::TipoProjecao tipoProjecao) {
-	if(this->projetor)
-		delete this->projetor;
-
-	switch(tipoProjecao) {
-		case Projetor::PARALELA_ORTOGONAL:
-			this->projetor = new ProjetorParalelo();
-			break;
-		case Projetor::PERSPECTIVA:
-			this->projetor = new ProjetorParalelo(); // TODO
 			break;
 	}
 }
