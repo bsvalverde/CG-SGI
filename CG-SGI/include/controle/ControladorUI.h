@@ -56,6 +56,12 @@ public:
 	void navegarNoMundo(const Mundo::Direcao direcao, const double fator);
 
 	/**
+	 * Definir o tipo de projeção da window.
+	 * @param tipoProjecao tipo de projeção.
+	 */
+	void setProjetorVisualizacao(const Projetor::TipoProjecao& tipoProjecao);
+
+	/**
 	 * Redimensionar a window do mundo (aplicação de zoom).
 	 * @param fator fator de escalonamento.
 	 */

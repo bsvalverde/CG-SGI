@@ -87,6 +87,12 @@ public:
 	void reiniciarVisualizacao();
 
 	/**
+	 * Definir o tipo de projeção da window.
+	 * @param tipoProjecao tipo de projeção.
+	 */
+	void setProjetorVisualizacao(const Projetor::TipoProjecao& tipoProjecao);
+
+	/**
 	 * Inserir objeto ao mundo.
 	 * @param objeto objeto a ser inserido.
 	 */

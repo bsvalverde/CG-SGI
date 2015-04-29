@@ -50,6 +50,10 @@ void ControladorUI::navegarNoMundo(const Mundo::Direcao direcao, const double fa
 	this->controladorPrincipal->navegarNoMundo(direcao, fator);
 }
 
+void ControladorUI::setProjetorVisualizacao(const Projetor::TipoProjecao& tipoProjecao) {
+	this->controladorPrincipal->setProjetorVisualizacao(tipoProjecao);
+}
+
 void ControladorUI::redimensionarWindow(const double fator) {
 	this->controladorPrincipal->aplicarZoomNoMundo(fator);
 }

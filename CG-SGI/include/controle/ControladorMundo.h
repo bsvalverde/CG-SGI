@@ -44,6 +44,12 @@ public:
 	void reiniciarVisualizacao();
 
 	/**
+	 * Definir o tipo de projeção da window.
+	 * @param tipoProjecao tipo de projeção.
+	 */
+	void setProjetorVisualizacao(const Projetor::TipoProjecao& tipoProjecao);
+
+	/**
 	 * Obter os objetos do mundo no sistemas de coordenadas do mundo.
 	 * @return lista de objetos reais do mundo.
 	 */

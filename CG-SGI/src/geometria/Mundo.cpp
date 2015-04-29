@@ -69,6 +69,11 @@ void Mundo::reiniciarVisualizacao() {
 	this->window->atualizarDisplayFile(this->displayFile);
 }
 
+void Mundo::setProjetorVisualizacao(const Projetor::TipoProjecao& tipoProjecao) {
+	this->window->setTipoProjecao(tipoProjecao);
+	this->window->atualizarDisplayFile(this->displayFile);
+}
+
 void Mundo::inserirObjeto(const ObjetoGeometrico& objeto) {
 	this->displayFile.inserirObjeto(objeto);
 	this->window->atualizarObjeto((ObjetoGeometrico*) &objeto);

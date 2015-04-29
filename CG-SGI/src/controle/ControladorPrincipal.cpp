@@ -44,6 +44,11 @@ void ControladorPrincipal::reiniciarVisualizacao() {
 	this->controladorUI->atualizarCena(this->controladorMundo->getObjetosNormalizados());
 }
 
+void ControladorPrincipal::setProjetorVisualizacao(const Projetor::TipoProjecao& tipoProjecao) {
+	this->controladorMundo->setProjetorVisualizacao(tipoProjecao);
+	this->controladorUI->atualizarCena(this->controladorMundo->getObjetosNormalizados());
+}
+
 void ControladorPrincipal::inserirObjeto(const String& nome, const QList<Ponto>& pontos,
 		ObjetoGeometrico::Tipo tipo, const QColor& cor) {
 	this->controladorMundo->inserirObjeto(nome, pontos, tipo, cor);

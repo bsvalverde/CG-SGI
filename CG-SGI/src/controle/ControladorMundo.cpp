@@ -20,6 +20,10 @@ void ControladorMundo::reiniciarVisualizacao(){
 	this->mundo.reiniciarVisualizacao();
 }
 
+void ControladorMundo::setProjetorVisualizacao(const Projetor::TipoProjecao& tipoProjecao) {
+	this->mundo.setProjetorVisualizacao(tipoProjecao);
+}
+
 QList<ObjetoGeometrico*> ControladorMundo::getObjetosReais() const {
 	return this->mundo.getObjetosReais();
 }
