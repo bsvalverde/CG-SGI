@@ -144,19 +144,22 @@ void FormPrincipal::navegarBaixo() {
 
 void FormPrincipal::rotacionarVisualizacao(int valorAtual) {
 	int angulo = 0;
+	Mundo::Eixo eixo = Mundo::EIXO_Z;
 
 	if(radBtnRotacaoEixoX->isChecked()) { // Eixo X
 		angulo = valorAtual - this->valorRotacaoX;
 		this->valorRotacaoX = valorAtual;
+		eixo = Mundo::EIXO_X;
 	} else if(radBtnRotacaoEixoY->isChecked()) { // Eixo Y
 		angulo = valorAtual - this->valorRotacaoY;
 		this->valorRotacaoY = valorAtual;
+		eixo = Mundo::EIXO_Y;
 	} else { // Eixo Z
 		angulo = valorAtual - this->valorRotacaoZ;
 		this->valorRotacaoZ = valorAtual;
 	}
 
-	this->controladorUI->rotacionarWindow(angulo); // TODO
+	this->controladorUI->rotacionarWindow(angulo, eixo);
 }
 
 void FormPrincipal::reiniciarVisualizacao() {

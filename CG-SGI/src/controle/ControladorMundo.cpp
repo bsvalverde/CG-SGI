@@ -12,8 +12,8 @@ void ControladorMundo::aplicarZoomNoMundo(const double fator) {
 	this->mundo.aplicarZoom(fator);
 }
 
-void ControladorMundo::rotacionarVisualizacao(const double angulo) {
-	this->mundo.rotacionarVisualizacao(angulo);
+void ControladorMundo::rotacionarVisualizacao(const double angulo, const Mundo::Eixo& eixo) {
+	this->mundo.rotacionarVisualizacao(angulo, eixo);
 }
 
 void ControladorMundo::reiniciarVisualizacao(){

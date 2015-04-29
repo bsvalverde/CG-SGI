@@ -34,8 +34,8 @@ void ControladorPrincipal::aplicarZoomNoMundo(const double fator) {
 	this->controladorUI->atualizarCena(this->controladorMundo->getObjetosNormalizados());
 }
 
-void ControladorPrincipal::rotacionarVisualizacao(const double angulo) {
-	this->controladorMundo->rotacionarVisualizacao(angulo);
+void ControladorPrincipal::rotacionarVisualizacao(const double angulo, const Mundo::Eixo& eixo) {
+	this->controladorMundo->rotacionarVisualizacao(angulo, eixo);
 	this->controladorUI->atualizarCena(this->controladorMundo->getObjetosNormalizados());
 }
 

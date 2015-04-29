@@ -70,8 +70,9 @@ public:
 	/**
 	 * Rotacionar a visualização.
 	 * @param angulo ângulo de rotação em graus.
+	 * @param eixo eixo de rotação.
 	 */
-	void rotacionarWindow(const double angulo);
+	void rotacionarWindow(const double angulo, const Mundo::Eixo& eixo);
 
 	/**
 	 * Escalonar objeto.

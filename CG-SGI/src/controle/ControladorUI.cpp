@@ -58,8 +58,8 @@ void ControladorUI::redimensionarWindow(const double fator) {
 	this->controladorPrincipal->aplicarZoomNoMundo(fator);
 }
 
-void ControladorUI::rotacionarWindow(const double angulo) {
-	this->controladorPrincipal->rotacionarVisualizacao(angulo);
+void ControladorUI::rotacionarWindow(const double angulo, const Mundo::Eixo& eixo) {
+	this->controladorPrincipal->rotacionarVisualizacao(angulo, eixo);
 }
 
 void ControladorUI::escalonarObjeto(const String& nome, const double sX, const double sY, const double sZ) {

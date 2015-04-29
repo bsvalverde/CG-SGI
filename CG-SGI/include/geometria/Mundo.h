@@ -78,8 +78,9 @@ public:
 	/**
 	 * Rotacionar a janela de visualização do mundo (window).
 	 * @param angulo ângulo de rotação em graus.
+	 * @param eixo eixo de rotação.
 	 */
-	void rotacionarVisualizacao(const double angulo);
+	void rotacionarVisualizacao(const double angulo, const Eixo& eixo);
 
 	/**
 	 * Reposicionar a visualização do mundo (window), reestabelecendo as coordenadas iniciais.
