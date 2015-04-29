@@ -20,6 +20,12 @@ public:
 	 */
 	virtual ~ProjetorParalelo();
 
+	/**
+	 * Projetar objeto geométrico na window.
+	 * @param objeto objeto a ser projetado.
+	 */
+	void projetarObjeto(ObjetoGeometrico* const objeto) const;
+
 };
 
 #endif /* PROJETORPARALELO_H_ */

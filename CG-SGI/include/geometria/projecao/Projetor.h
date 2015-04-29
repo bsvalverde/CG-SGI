@@ -1,6 +1,7 @@
 #ifndef PROJETOR_H_
 #define PROJETOR_H_
 
+class ObjetoGeometrico;
 class Window;
 
 /**
@@ -34,6 +35,12 @@ public:
 	 * @return tipo de projeção.
 	 */
 	TipoProjecao getTipo() const;
+
+	/**
+	 * Projetar objeto geométrico na window.
+	 * @param objeto objeto a ser projetado.
+	 */
+	virtual void projetarObjeto(ObjetoGeometrico* const objeto) const = 0;
 
 private:
 	TipoProjecao tipo;
