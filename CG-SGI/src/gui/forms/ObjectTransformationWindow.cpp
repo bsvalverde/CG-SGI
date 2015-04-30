@@ -58,7 +58,7 @@ bool ObjectTransformationWindow::validateFields() {
 		default:
 			this->fieldTranslateFactorX->text().toDouble(&ok1);
 			this->fieldTranslateFactorY->text().toDouble(&ok2);
-			ok3 = this->fieldTranslateFactorZ->text().toDouble(&ok3);
+			this->fieldTranslateFactorZ->text().toDouble(&ok3);
 
 			return ok1 && ok2 && ok3;
 	}

@@ -31,10 +31,9 @@ void ProjetorParalelo::projetarObjeto(ObjetoGeometrico* const objeto) const {
 		angX += -M_PI;
 	}
 
-	double matriz[4][4] = { { cos(angY), 0, -sin(angY), 0 },
-					{ sin(angX)*sin(angY), cos(angX), sin(angX)*cos(angY), 0 },
-					{ cos(angX)*sin(angY), -sin(angX), cos(angX)*cos(angY), 0 },
-					{ -xC*cos(angY) + sin(angY)*(-yC*sin(angX) -zC*cos(angX)),
-					-yC*cos(angX) + zC*sin(angX), xC*sin(angY) + cos(angY)*(-yC*sin(angX) -zC*cos(angX)), 1 } };
+	double matriz[4][4] = { { cos(-angY), 0, -sin(-angY), 0 },
+					{ sin(-angX)*sin(-angY), cos(-angX), sin(-angX)*cos(-angY), 0 },
+					{ cos(-angX)*sin(-angY), -sin(-angX), cos(-angX)*cos(-angY), 0 },
+					{ 0, 0, 0, 1 } };
 	objeto->aplicarTransformacao(matriz);
 }

@@ -99,7 +99,7 @@ void Window::atualizarObjeto(ObjetoGeometrico* const obj) {
 	double matriz[4][4] = {{cos(-angulo)/tamX, -sin(-angulo)/tamY, 0, 0},
 			{sin(-angulo)/tamX, cos(-angulo)/tamY, 0, 0},
 			{0, 0, 1, 0},
-			{-x*cos(-angulo)-y*sin(-angulo), x*sin(-angulo)-y*cos(-angulo), -z, 1}};
+			{(-x*cos(-angulo)-y*sin(-angulo))/tamX, (x*sin(-angulo)-y*cos(-angulo))/tamY, -z, 1}};
 
 	if(!this->displayFileNormalizado.contem(obj->getNome())) {
 		this->displayFileNormalizado.inserirObjeto(*obj);
