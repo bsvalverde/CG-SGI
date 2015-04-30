@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>321</height>
+    <height>390</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -28,7 +28,7 @@
   <property name="maximumSize">
    <size>
     <width>400</width>
-    <height>400</height>
+    <height>390</height>
    </size>
   </property>
   <property name="font">
@@ -49,7 +49,7 @@
      <x>9</x>
      <y>9</y>
      <width>381</width>
-     <height>301</height>
+     <height>371</height>
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout">
@@ -528,6 +528,74 @@ QGroupBox::title  {
            <widget class="QRadioButton" name="radBtnSpecificPoint">
             <property name="text">
              <string>Ponto Específico</string>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+       <widget class="QGroupBox" name="groupRotateDegree_2">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>230</y>
+          <width>351</width>
+          <height>61</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QGroupBox  {
+    border: 1px solid gray;
+    border-radius: 5px;
+    margin-top: 1ex;
+}
+ 
+QGroupBox::title  {
+    subcontrol-origin: margin;
+    subcontrol-position: top left;
+    padding: 0 8px;
+}</string>
+        </property>
+        <property name="title">
+         <string>Eixo de Rotação</string>
+        </property>
+        <widget class="QWidget" name="horizontalLayoutWidget">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>20</y>
+           <width>331</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+           <widget class="QRadioButton" name="radBtnRotacaoEixoX">
+            <property name="text">
+             <string>Eixo X</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="radBtnRotacaoEixoY">
+            <property name="text">
+             <string>Eixo Y</string>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="radBtnRotacaoEixoZ">
+            <property name="text">
+             <string>Eixo Z</string>
             </property>
             <property name="checked">
              <bool>false</bool>

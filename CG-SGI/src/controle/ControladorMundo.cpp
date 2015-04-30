@@ -86,12 +86,12 @@ void ControladorMundo::transladarObjeto(const String& nome, const double sX, con
 	this->mundo.transladarObjeto(obj, sX, sY, sZ);
 }
 
-void ControladorMundo::rotacionarObjetoPorPonto(const String& nome, const Ponto& ponto, const double angulo) {
+void ControladorMundo::rotacionarObjetoPorPonto(const String& nome, const Ponto& ponto, const double angulo, const Mundo::Eixo& eixo) {
 	ObjetoGeometrico* obj = this->mundo.getObjeto(nome);
-	this->mundo.rotacionarObjetoPorPonto(obj, ponto, angulo, Mundo::EIXO_X); // TODO
+	this->mundo.rotacionarObjetoPorPonto(obj, ponto, angulo, eixo);
 }
 
-void ControladorMundo::rotacionarObjetoPeloCentro(const String& nome, const double angulo) {
+void ControladorMundo::rotacionarObjetoPeloCentro(const String& nome, const double angulo, const Mundo::Eixo& eixo) {
 	ObjetoGeometrico* obj = this->mundo.getObjeto(nome);
-	this->mundo.rotacionarObjetoPeloCentro(obj, angulo, Mundo::EIXO_X); // TODO
+	this->mundo.rotacionarObjetoPeloCentro(obj, angulo, eixo);
 }

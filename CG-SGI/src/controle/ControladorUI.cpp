@@ -70,12 +70,12 @@ void ControladorUI::transladarObjeto(const String& nome, const double sX, const 
 	this->controladorPrincipal->transladarObjeto(nome, sX, sY, sZ);
 }
 
-void ControladorUI::rotacionarObjetoPorPonto(const String& nome, const Ponto& ponto, const double angulo) {
-	this->controladorPrincipal->rotacionarObjetoPorPonto(nome, ponto, angulo);
+void ControladorUI::rotacionarObjetoPorPonto(const String& nome, const Ponto& ponto, const double angulo, const Mundo::Eixo& eixo) {
+	this->controladorPrincipal->rotacionarObjetoPorPonto(nome, ponto, angulo, eixo);
 }
 
-void ControladorUI::rotacionarObjetoPeloCentro(const String& nome, const double angulo) {
-	this->controladorPrincipal->rotacionarObjetoPeloCentro(nome, angulo);
+void ControladorUI::rotacionarObjetoPeloCentro(const String& nome, const double angulo, const Mundo::Eixo& eixo) {
+	this->controladorPrincipal->rotacionarObjetoPeloCentro(nome, angulo, eixo);
 }
 
 void ControladorUI::inserirObjeto(const String& nome, const QList<Ponto> pontos,

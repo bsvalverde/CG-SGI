@@ -79,13 +79,13 @@ void ControladorPrincipal::transladarObjeto(const String& nome, const double sX,
 	this->controladorUI->atualizarCena(this->controladorMundo->getObjetosNormalizados());
 }
 
-void ControladorPrincipal::rotacionarObjetoPorPonto(const String& nome, const Ponto& ponto, const double angulo) {
-	this->controladorMundo->rotacionarObjetoPorPonto(nome, ponto, angulo);
+void ControladorPrincipal::rotacionarObjetoPorPonto(const String& nome, const Ponto& ponto, const double angulo, const Mundo::Eixo& eixo) {
+	this->controladorMundo->rotacionarObjetoPorPonto(nome, ponto, angulo, eixo);
 	this->controladorUI->atualizarCena(this->controladorMundo->getObjetosNormalizados());
 }
 
-void ControladorPrincipal::rotacionarObjetoPeloCentro(const String& nome, const double angulo) {
-	this->controladorMundo->rotacionarObjetoPeloCentro(nome, angulo);
+void ControladorPrincipal::rotacionarObjetoPeloCentro(const String& nome, const double angulo, const Mundo::Eixo& eixo) {
+	this->controladorMundo->rotacionarObjetoPeloCentro(nome, angulo, eixo);
 	this->controladorUI->atualizarCena(this->controladorMundo->getObjetosNormalizados());
 }
 

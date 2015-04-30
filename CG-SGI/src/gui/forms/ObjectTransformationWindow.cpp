@@ -29,6 +29,7 @@ void ObjectTransformationWindow::clearFields(){
 	this->fieldTranslateFactorX->clear();
 	this->fieldTranslateFactorY->clear();
 	this->fieldTranslateFactorZ->clear();
+	this->radBtnRotacaoEixoX->setChecked(true);
 
 	this->tabTransformations->setCurrentIndex(0);
 }
@@ -70,6 +71,7 @@ void ObjectTransformationWindow::transformObject() {
 	}
 
 	double degree, x, y, z;
+	Mundo::Eixo eixo = Mundo::EIXO_Z;
 
 	if(!this->controladorUI->contemObjeto(this->nomeObjeto)) {
 		this->controladorUI->exibirMensagemErro("Nenhum objeto com este nome encontrado!");
@@ -86,13 +88,19 @@ void ObjectTransformationWindow::transformObject() {
 		case 1: // Rotação
 			degree = this->fieldRotateDegree->text().toDouble();
 
+			if(radBtnRotacaoEixoX->isChecked()) {
+				eixo = Mundo::EIXO_X;
+			} else if(radBtnRotacaoEixoY->isChecked()) {
+				eixo = Mundo::EIXO_Y;
+			}
+
 			if(this->radBtnSpecificPoint->isChecked()) {
 				x = this->fieldRotatePointX->text().toDouble();
 				y = this->fieldRotatePointY->text().toDouble();
 				z = this->fieldRotatePointZ->text().toDouble();
-				this->controladorUI->rotacionarObjetoPorPonto(this->nomeObjeto, Ponto("", x, y, z), degree);
+				this->controladorUI->rotacionarObjetoPorPonto(this->nomeObjeto, Ponto("", x, y, z), degree, eixo);
 			} else {
-				this->controladorUI->rotacionarObjetoPeloCentro(this->nomeObjeto, degree);
+				this->controladorUI->rotacionarObjetoPeloCentro(this->nomeObjeto, degree, eixo);
 			}
 			break;
 		default: // Translação

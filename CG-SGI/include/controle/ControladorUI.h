@@ -99,16 +99,18 @@ public:
 	 * @nome nome do objeto.
 	 * @param ponto ponto de rotação.
 	 * @param angulo ângulo de rotação em graus.
+	 * @param eixo eixo de rotação.
 	 */
 	void rotacionarObjetoPorPonto(const String& nome, const Ponto& ponto,
-			const double angulo);
+			const double angulo, const Mundo::Eixo& eixo);
 
 	/**
 	 * Rotacionar objeto em relação ao centro geométrico.
 	 * @nome nome do objeto.
 	 * @param angulo ângulo de rotação em graus.
+	 * @param eixo eixo de rotação.
 	 */
-	void rotacionarObjetoPeloCentro(const String& nome, const double angulo);
+	void rotacionarObjetoPeloCentro(const String& nome, const double angulo, const Mundo::Eixo& eixo);
 
 	/**
 	 * Inserir objeto geométrico.
