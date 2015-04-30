@@ -90,12 +90,16 @@ void Window::atualizarDisplayFile(const DisplayFile& displayFile) {
 }
 
 void Window::atualizarObjeto(ObjetoGeometrico* const obj) {
+	double angulo = this->anguloViewUpVectorEixoY();
 	double tamY = this->getTamanhoViewUpVector();
 	double tamX = this->getTamanhoViewRightVector();
-	double matriz[4][4] = { {1/tamX, 0, 0, 0},
-						    {0, 1/tamY, 0, 0},
-						    {0, 0, 1, 0},
-						    {0, 0, 0, 1} };
+	double x = centro.getX();
+	double y = centro.getY();
+	double z = centro.getZ();
+	double matriz[4][4] = {{cos(-angulo)/tamX, -sin(-angulo)/tamY, 0, 0},
+			{sin(-angulo)/tamX, cos(-angulo)/tamY, 0, 0},
+			{0, 0, 1, 0},
+			{-x*cos(-angulo)-y*sin(-angulo), x*sin(-angulo)-y*cos(-angulo), -z, 1}};
 
 	if(!this->displayFileNormalizado.contem(obj->getNome())) {
 		this->displayFileNormalizado.inserirObjeto(*obj);
@@ -164,6 +168,7 @@ QList<Ponto*> Window::getPontosObjeto() {
 	pontos.insert(0, &this->centro);
 	pontos.insert(1, &this->viewUpVector);
 	pontos.insert(2, &this->viewRightVector);
+	pontos.insert(3, &this->vpnVector);
 	return pontos;
 }
 

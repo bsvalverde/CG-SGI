@@ -16,8 +16,20 @@ void ProjetorParalelo::projetarObjeto(ObjetoGeometrico* const objeto) const {
 	double yC = vpn.getY() - vrp.getY();
 	double zC = vpn.getZ() - vrp.getZ();
 
-	double angX = atan(yC / sqrt(xC * xC + zC * zC));
+	double angX = atan(yC / zC);
 	double angY = atan(xC / zC);
+
+	if (xC < 0 && zC < 0) { // 3º quadrante
+		angY += M_PI;
+	} else if (xC > 0 && zC < 0) { // 4º quadrante
+		angY += -M_PI;
+	}
+
+	if (yC < 0 && zC < 0) { // 3º quadrante
+		angX += M_PI;
+	} else if (yC > 0 && zC < 0) { // 4º quadrante
+		angX += -M_PI;
+	}
 
 	double matriz[4][4] = { { cos(angY), 0, -sin(angY), 0 },
 					{ sin(angX)*sin(angY), cos(angX), sin(angX)*cos(angY), 0 },
