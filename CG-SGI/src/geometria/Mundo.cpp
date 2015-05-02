@@ -54,7 +54,7 @@ void Mundo::aplicarZoom(const double fator) {
 	if (fator < 0)
 		fatorEscalonamento = (double) (fator * -0.1) + 1;
 
-	this->window->escalonar(fatorEscalonamento, fatorEscalonamento, 0);
+	this->window->escalonar(fatorEscalonamento, fatorEscalonamento, fatorEscalonamento);
 	this->window->atualizarDisplayFile(this->displayFile);
 }
 
