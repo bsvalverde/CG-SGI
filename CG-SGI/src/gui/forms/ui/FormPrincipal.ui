@@ -348,7 +348,7 @@ QGroupBox::title  {
            <x>9</x>
            <y>19</y>
            <width>161</width>
-           <height>71</height>
+           <height>82</height>
           </rect>
          </property>
          <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -513,20 +513,20 @@ QGroupBox::title  {
              <string>Paralela Ortogonal</string>
             </property>
             <property name="checked">
-             <bool>true</bool>
+             <bool>false</bool>
             </property>
            </widget>
           </item>
           <item>
            <widget class="QRadioButton" name="radBtnProjecaoPerspectiva">
             <property name="enabled">
-             <bool>false</bool>
+             <bool>true</bool>
             </property>
             <property name="text">
              <string>Perspectiva</string>
             </property>
             <property name="checked">
-             <bool>false</bool>
+             <bool>true</bool>
             </property>
            </widget>
           </item>

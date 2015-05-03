@@ -2,6 +2,7 @@
 
 Window::Window() : ObjetoGeometrico("Window", Tipo::WINDOW) {
 	this->centro = Ponto("centro", 0, 0, 0);
+	this->centroProjecao = Ponto("centroProjecao", 0, 0, -120);
 	this->viewUpVector = Ponto("viewUpVector", 0, 138.75, 0);
 	this->viewRightVector = Ponto("viewRightVector", 0, 118.75, 0);
 	this->vpnVector = Ponto("vpnVector", 0, 0, 120);
@@ -11,6 +12,7 @@ Window::Window() : ObjetoGeometrico("Window", Tipo::WINDOW) {
 
 Window::Window(const Window& window) : ObjetoGeometrico(window) {
 	this->centro = window.centro;
+	this->centroProjecao = window.centroProjecao;
 	this->viewUpVector = window.viewUpVector;
 	this->viewRightVector = window.viewRightVector;
 	this->vpnVector = window.vpnVector;
@@ -21,9 +23,10 @@ Window::Window(const Window& window) : ObjetoGeometrico(window) {
 
 Window::Window(const Ponto& centro, const double largura, const double altura) : ObjetoGeometrico("Window", Tipo::WINDOW) {
 	this->centro = centro;
+	this->centroProjecao = Ponto("viewRightVector", 0, 0, -120);
 	this->viewUpVector = Ponto("viewUpVector", 0, altura/2, 0);
 	this->viewRightVector = Ponto("viewRightVector", 0, largura/2, 0);
-	this->vpnVector = Ponto("viewRightVector", 0, 120, 0);
+	this->vpnVector = Ponto("viewRightVector", 0, 0, 120);
 	this->projetor = 0;
 	this->setTipoProjecao(Projetor::PARALELA_ORTOGONAL);
 }
@@ -36,6 +39,7 @@ Window::~Window() {
 Window& Window::operator=(const Window& window) {
 	this->ObjetoGeometrico::operator =(window);
 	this->centro = window.centro;
+	this->centroProjecao = window.centroProjecao;
 	this->viewUpVector = window.viewUpVector;
 	this->viewRightVector = window.viewRightVector;
 	this->vpnVector = window.vpnVector;
@@ -55,6 +59,7 @@ QList<Ponto> Window::getPontos() const {
 	pontos.insert(1, this->viewUpVector);
 	pontos.insert(2, this->viewRightVector);
 	pontos.insert(3, this->vpnVector);
+	pontos.insert(4, this->centroProjecao);
 	return pontos;
 }
 
@@ -62,7 +67,8 @@ const String Window::toString() const {
 	return this->nome + "[" + this->centro.toString() +
 				", " + this->viewUpVector.toString() +
 				", " + this->viewRightVector.toString() +
-				", " + this->vpnVector.toString() + "]";
+				", " + this->vpnVector.toString() +
+				", " + this->centroProjecao.toString() + "]";
 }
 
 const Ponto Window::getCentroGeometrico() const {
@@ -79,6 +85,10 @@ const double Window::getAltura() const {
 
 Ponto Window::getVpnVector() const {
 	return this->vpnVector;
+}
+
+Ponto Window::getCentroProjecao() const {
+	return this->centroProjecao;
 }
 
 void Window::atualizarDisplayFile(const DisplayFile& displayFile) {
@@ -158,7 +168,7 @@ void Window::setTipoProjecao(const Projetor::TipoProjecao& tipoProjecao) {
 			this->projetor = new ProjetorParalelo(this);
 			break;
 		case Projetor::PERSPECTIVA:
-			this->projetor = new ProjetorParalelo(this); // TODO Alterar para Perspectiva
+			this->projetor = new ProjetorPerspectiva(this);
 			break;
 	}
 }
@@ -169,6 +179,7 @@ QList<Ponto*> Window::getPontosObjeto() {
 	pontos.insert(1, &this->viewUpVector);
 	pontos.insert(2, &this->viewRightVector);
 	pontos.insert(3, &this->vpnVector);
+	pontos.insert(4, &this->centroProjecao);
 	return pontos;
 }
 

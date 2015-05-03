@@ -4,6 +4,7 @@
 #include "geometria/DisplayFile.h"
 #include "geometria/Ponto.h"
 #include "geometria/projecao/ProjetorParalelo.h"
+#include "geometria/projecao/ProjetorPerspectiva.h"
 
 /**
  * Janela de visualização do mundo.
@@ -93,6 +94,12 @@ public:
 	Ponto getVpnVector() const;
 
 	/**
+	 * Obter o centro de projeção.
+	 * @return centro de projeção.
+	 */
+	Ponto getCentroProjecao() const;
+
+	/**
 	 * Atualizar lista de objetos da Window.
 	 * @param displayFile lista de objetos nas coordenadas do mundo.
 	 */
@@ -153,6 +160,7 @@ protected:
 	double getTamanhoViewRightVector() const;
 
 	Ponto centro;
+	Ponto centroProjecao;
 	Ponto viewUpVector;
 	Ponto viewRightVector;
 	Ponto vpnVector;

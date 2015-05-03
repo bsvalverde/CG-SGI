@@ -127,19 +127,19 @@ void FormPrincipal::atualizarZoom(int valorAtual) {
 }
 
 void FormPrincipal::navegarCima() {
-	this->controladorUI->navegarNoMundo(Mundo::CIMA, 0.1);
+	this->controladorUI->navegarNoMundo(Mundo::CIMA, 3 / (this->valorZoom * 0.02));
 }
 
 void FormPrincipal::navegarEsquerda() {
-	this->controladorUI->navegarNoMundo(Mundo::ESQUERDA, 0.1);
+	this->controladorUI->navegarNoMundo(Mundo::ESQUERDA, 3 / (this->valorZoom * 0.02));
 }
 
 void FormPrincipal::navegarDireita() {
-	this->controladorUI->navegarNoMundo(Mundo::DIREITA, 0.1);
+	this->controladorUI->navegarNoMundo(Mundo::DIREITA, 3 / (this->valorZoom * 0.02));
 }
 
 void FormPrincipal::navegarBaixo() {
-	this->controladorUI->navegarNoMundo(Mundo::BAIXO, 0.1);
+	this->controladorUI->navegarNoMundo(Mundo::BAIXO, 3 / (this->valorZoom * 0.02));
 }
 
 void FormPrincipal::rotacionarVisualizacao(int valorAtual) {
