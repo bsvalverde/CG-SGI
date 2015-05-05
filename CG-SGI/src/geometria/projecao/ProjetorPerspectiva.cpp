@@ -10,5 +10,4 @@ ProjetorPerspectiva::~ProjetorPerspectiva() {
 }
 
 void ProjetorPerspectiva::projetarObjeto(ObjetoGeometrico* const objeto) const {
-
 }

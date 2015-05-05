@@ -182,6 +182,7 @@ void FormPrincipal::reiniciarVisualizacao() {
 			SLOT(rotacionarVisualizacao(int)));
 
 	this->controladorUI->reiniciarWindow();
+	this->atualizarTipoProjecao(this->radBtnProjecaoParalela->isChecked());
 }
 
 void FormPrincipal::inserirObjeto() {

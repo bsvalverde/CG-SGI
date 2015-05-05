@@ -7,7 +7,7 @@ Window::Window() : ObjetoGeometrico("Window", Tipo::WINDOW) {
 	this->viewRightVector = Ponto("viewRightVector", 0, 118.75, 0);
 	this->vpnVector = Ponto("vpnVector", 0, 0, 120);
 	this->projetor = 0;
-	this->setTipoProjecao(Projetor::PARALELA_ORTOGONAL);
+	this->setTipoProjecao(Projetor::PERSPECTIVA);
 }
 
 Window::Window(const Window& window) : ObjetoGeometrico(window) {
@@ -28,7 +28,7 @@ Window::Window(const Ponto& centro, const double largura, const double altura) :
 	this->viewRightVector = Ponto("viewRightVector", 0, largura/2, 0);
 	this->vpnVector = Ponto("viewRightVector", 0, 0, 120);
 	this->projetor = 0;
-	this->setTipoProjecao(Projetor::PARALELA_ORTOGONAL);
+	this->setTipoProjecao(Projetor::PERSPECTIVA);
 }
 
 Window::~Window() {
@@ -109,7 +109,7 @@ void Window::atualizarObjeto(ObjetoGeometrico* const obj) {
 	double matriz[4][4] = {{cos(-angulo)/tamX, -sin(-angulo)/tamY, 0, 0},
 			{sin(-angulo)/tamX, cos(-angulo)/tamY, 0, 0},
 			{0, 0, 1, 0},
-			{(-x*cos(-angulo)-y*sin(-angulo))/tamX, (x*sin(-angulo)-y*cos(-angulo))/tamY, -z, 1}};
+			{(-x*cos(-angulo)-y*sin(-angulo)), (x*sin(-angulo)-y*cos(-angulo)), -z, 1}};
 
 	if(!this->displayFileNormalizado.contem(obj->getNome())) {
 		this->displayFileNormalizado.inserirObjeto(*obj);

@@ -30,6 +30,7 @@ void ObjectTransformationWindow::clearFields(){
 	this->fieldTranslateFactorY->clear();
 	this->fieldTranslateFactorZ->clear();
 	this->radBtnRotacaoEixoX->setChecked(true);
+	this->radBtnGeometricCenter->setChecked(true);
 
 	this->tabTransformations->setCurrentIndex(0);
 }
@@ -51,7 +52,7 @@ bool ObjectTransformationWindow::validateFields() {
 			if(this->radBtnSpecificPoint->isChecked()) {
 				this->fieldRotatePointX->text().toDouble(&ok1);
 				this->fieldRotatePointY->text().toDouble(&ok2);
-				ok3 = this->fieldRotatePointZ->text().toDouble(&ok3);
+				this->fieldRotatePointZ->text().toDouble(&ok3);
 			}
 
 			return ok && ok1 && ok2 && ok3;

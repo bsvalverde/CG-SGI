@@ -348,7 +348,7 @@ QGroupBox::title  {
            <x>9</x>
            <y>19</y>
            <width>161</width>
-           <height>82</height>
+           <height>71</height>
           </rect>
          </property>
          <layout class="QHBoxLayout" name="horizontalLayout_4">

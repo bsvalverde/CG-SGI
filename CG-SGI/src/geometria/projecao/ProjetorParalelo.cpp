@@ -16,8 +16,8 @@ void ProjetorParalelo::projetarObjeto(ObjetoGeometrico* const objeto) const {
 	double yC = vpn.getY() - vrp.getY();
 	double zC = vpn.getZ() - vrp.getZ();
 
-	double angX = atan(yC / zC);
-	double angY = atan(xC / zC);
+	double angX = atan(yC / sqrt(xC * xC + zC * zC));
+	double angY = atan(xC / sqrt(yC * yC + zC * zC));
 
 	if (xC < 0 && zC < 0) { // 3º quadrante
 		angY += M_PI;
@@ -32,8 +32,10 @@ void ProjetorParalelo::projetarObjeto(ObjetoGeometrico* const objeto) const {
 	}
 
 	double matriz[4][4] = { { cos(-angY), 0, -sin(-angY), 0 },
-					{ sin(-angX)*sin(-angY), cos(-angX), sin(-angX)*cos(-angY), 0 },
-					{ cos(-angX)*sin(-angY), -sin(-angX), cos(-angX)*cos(-angY), 0 },
+					{ -sin(-angX)*sin(-angY), cos(-angX), -sin(-angX)*cos(-angY), 0 },
+					{ cos(-angX)*sin(-angY), sin(-angX), cos(-angX)*cos(-angY), 0 },
 					{ 0, 0, 0, 1 } };
 	objeto->aplicarTransformacao(matriz);
+	objeto->rotacionarPorX(Ponto("", 0, 0, 0), -angX);
+	objeto->rotacionarPorY(Ponto("", 0, 0, 0), -angY);
 }

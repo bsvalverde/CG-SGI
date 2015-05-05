@@ -72,18 +72,18 @@ bool FormInsercaoObjeto::validarCampos() {
 		case 0:
 			this->fdPontoX->text().toDouble(&ok1);
 			this->fdPontoY->text().toDouble(&ok2);
-			ok3 = this->fdPontoZ->text().toDouble(&ok3);
+			this->fdPontoZ->text().toDouble(&ok3);
 
 			return ok1 && ok2 && ok3;
 		case 1:
 			this->fdRetaX1->text().toDouble(&ok1);
 			this->fdRetaY1->text().toDouble(&ok2);
-			ok3 = this->fdRetaZ1->text().toDouble(&ok3);
+			this->fdRetaZ1->text().toDouble(&ok3);
 			ok = ok1 && ok2 && ok3;
 
 			this->fdRetaX2->text().toDouble(&ok1);
 			this->fdRetaY2->text().toDouble(&ok2);
-			ok3 = this->fdRetaZ2->text().toDouble(&ok3);
+			this->fdRetaZ2->text().toDouble(&ok3);
 
 			return ok && ok1 && ok2 && ok3;
 		case 2:
@@ -110,22 +110,22 @@ bool FormInsercaoObjeto::validarCampos() {
 		case 3:
 			this->fdBezierX1->text().toDouble(&ok1);
 			this->fdBezierY1->text().toDouble(&ok2);
-			ok3 = this->fdBezierZ1->text().toDouble(&ok3);
+			this->fdBezierZ1->text().toDouble(&ok3);
 			ok = ok1 && ok2 && ok3;
 
 			this->fdBezierX2->text().toDouble(&ok1);
 			this->fdBezierY2->text().toDouble(&ok2);
-			ok3 = this->fdBezierZ2->text().toDouble(&ok3);
+			this->fdBezierZ2->text().toDouble(&ok3);
 			ok = ok && ok1 && ok2 && ok3;
 
 			this->fdBezierX3->text().toDouble(&ok1);
 			this->fdBezierY3->text().toDouble(&ok2);
-			ok3 = this->fdBezierZ3->text().toDouble(&ok3);
+			this->fdBezierZ3->text().toDouble(&ok3);
 			ok = ok && ok1 && ok2 && ok3;
 
 			this->fdBezierX4->text().toDouble(&ok1);
 			this->fdBezierY4->text().toDouble(&ok2);
-			ok3 = this->fdBezierZ4->text().toDouble(&ok3);
+			this->fdBezierZ4->text().toDouble(&ok3);
 			ok = ok && ok1 && ok2 && ok3;
 			return ok;
 		default:
