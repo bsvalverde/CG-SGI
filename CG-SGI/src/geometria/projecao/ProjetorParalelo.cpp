@@ -36,6 +36,4 @@ void ProjetorParalelo::projetarObjeto(ObjetoGeometrico* const objeto) const {
 					{ cos(-angX)*sin(-angY), sin(-angX), cos(-angX)*cos(-angY), 0 },
 					{ 0, 0, 0, 1 } };
 	objeto->aplicarTransformacao(matriz);
-	objeto->rotacionarPorX(Ponto("", 0, 0, 0), -angX);
-	objeto->rotacionarPorY(Ponto("", 0, 0, 0), -angY);
 }
