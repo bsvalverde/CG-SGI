@@ -109,7 +109,7 @@ void Window::atualizarObjeto(ObjetoGeometrico* const obj) {
 	double matriz[4][4] = {{cos(-angulo)/tamX, -sin(-angulo)/tamY, 0, 0},
 			{sin(-angulo)/tamX, cos(-angulo)/tamY, 0, 0},
 			{0, 0, 1, 0},
-			{(-x*cos(-angulo)-y*sin(-angulo)), (x*sin(-angulo)-y*cos(-angulo)), -z, 1}};
+			{(-x*cos(-angulo)-y*sin(-angulo))/tamX, (x*sin(-angulo)-y*cos(-angulo))/tamY, -z, 1}};
 
 	if(!this->displayFileNormalizado.contem(obj->getNome())) {
 		this->displayFileNormalizado.inserirObjeto(*obj);
@@ -142,13 +142,17 @@ double Window::anguloViewUpVectorEixoY() const {
 double Window::getTamanhoViewUpVector() const {
 	double x = this->viewUpVector.getX() - this->centro.getX();
 	double y = this->viewUpVector.getY() - this->centro.getY();
-	return sqrt(pow(x, 2)+pow(y, 2));
+	double z = this->viewUpVector.getZ() - this->centro.getZ();
+	double hip = sqrt(pow(x, 2)+pow(z, 2));
+	return sqrt(pow(hip, 2)+pow(y, 2));
 }
 
 double Window::getTamanhoViewRightVector() const {
 	double x = this->viewRightVector.getX() - this->centro.getX();
 	double y = this->viewRightVector.getY() - this->centro.getY();
-	return sqrt(pow(x, 2)+pow(y, 2));
+	double z = this->viewRightVector.getZ() - this->centro.getZ();
+	double hip = sqrt(pow(x, 2)+pow(z, 2));
+	return sqrt(pow(hip, 2)+pow(y, 2));
 }
 
 QList<ObjetoGeometrico*> Window::getObjetos() const {
