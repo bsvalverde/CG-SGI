@@ -108,7 +108,7 @@ bool ControladorUI::requisitarConfirmacaoUsuario(const String& mensagem) const {
 	return false;
 }
 
-void ControladorUI::importarCena(const String& arquivo) {
+void ControladorUI::importarCena(const String& arquivo) throw(ExcecaoArquivoInvalido, ExcecaoLeituraArquivo) {
 	this->controladorPrincipal->importarCena(arquivo);
 }
 

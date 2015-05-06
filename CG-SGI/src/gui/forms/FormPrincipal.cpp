@@ -238,8 +238,11 @@ void FormPrincipal::importarCena() {
 
 	if (arquivo.compare("") == 0) // Usuário cancelou
 		return;
-
-	this->controladorUI->importarCena(arquivo);
+	try {
+		this->controladorUI->importarCena(arquivo);
+	} catch(Excecao& ex) {
+		this->controladorUI->exibirMensagemErro("Não foi possível importar a cena!\n\nDetalhes: " + ex.getMensagem(), this);
+	}
 }
 
 void FormPrincipal::exportarCena() {

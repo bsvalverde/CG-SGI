@@ -3,6 +3,8 @@
 
 #include <QtWidgets/qmessagebox.h>
 
+#include "excecao/ExcecaoArquivoInvalido.h"
+#include "excecao/ExcecaoLeituraArquivo.h"
 #include "geometria/Ponto.h"
 #include "geometria/Mundo.h"
 
@@ -153,8 +155,18 @@ public:
 	 */
 	bool requisitarConfirmacaoUsuario(const String& mensagem) const;
 
-	void importarCena(const String& arquivo);
+	/**
+	 * Importar cena de um arquivo OBJ (Wavefront).
+	 * @param arquivo nome completo do arquivo.
+	 * @throws ExcecaoArquivoInvalido caso o arquivo seja inválido.
+	 * @throws ExcecaoLeituraArquivo caso não seja possível ler a cena do arquivo.
+	 */
+	void importarCena(const String& arquivo) throw(ExcecaoArquivoInvalido, ExcecaoLeituraArquivo);
 
+	/**
+	 * Exportar cena para um arquivo OBJ (Wavefront).
+	 * @param arquivo nome completo do arquivo.
+	 */
 	void exportarCena(const String& arquivo);
 
 	/**

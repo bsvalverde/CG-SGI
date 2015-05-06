@@ -1,6 +1,8 @@
 #ifndef CONTROLADORPRINCIPAL_H_
 #define CONTROLADORPRINCIPAL_H_
 
+#include "excecao/ExcecaoArquivoInvalido.h"
+#include "excecao/ExcecaoLeituraArquivo.h"
 #include "geometria/Mundo.h"
 
 class ControladorMundo;
@@ -124,8 +126,10 @@ public:
 	/**
 	 * Importar cena de um arquivo OBJ (Wavefront).
 	 * @param nomeArquivo nome completo do arquivo.
+	 * @throws ExcecaoArquivoInvalido caso o arquivo seja inválido.
+	 * @throws ExcecaoLeituraArquivo caso não seja possível ler a cena do arquivo.
 	 */
-	void importarCena(const String& nomeArquivo);
+	void importarCena(const String& nomeArquivo) throw(ExcecaoArquivoInvalido, ExcecaoLeituraArquivo);
 
 	/**
 	 * Exportar cena para um arquivo OBJ (Wavefront).

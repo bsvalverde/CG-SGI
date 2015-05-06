@@ -1,4 +1,5 @@
 #include "persistencia/ArquivoOBJ.h"
+#include <iostream>
 
 ArquivoOBJ::ArquivoOBJ(const String& nome) : Arquivo(nome) {}
 
@@ -20,7 +21,9 @@ void ArquivoOBJ::carregar() throw(ExcecaoArquivoInvalido, ExcecaoLeituraArquivo)
 	while(std::getline(arquivo, linha)) {
 		std::stringstream buffer(linha);
 		String tipo;
-		buffer >> tipo;
+
+		if(!(buffer >> tipo))
+			throw ExcecaoArquivoInvalido(this->getNome());
 
 		if(tipo.compare("v") == 0) {
 			String nome = std::to_string(linhaAtual);
