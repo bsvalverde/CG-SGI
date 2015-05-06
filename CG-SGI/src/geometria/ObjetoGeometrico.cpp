@@ -176,7 +176,6 @@ void ObjetoGeometrico::rotacionarPorEixo(const double angulo, const Reta& eixo) 
 	x = p1.getX();
 	y = p1.getY();
 	z = p1.getZ();
-	double angRad = angulo * M_PI / 180;
 
 	this->transladar(-x, -y, -z);
 	this->rotacionarPorX(p1, -anguloX);

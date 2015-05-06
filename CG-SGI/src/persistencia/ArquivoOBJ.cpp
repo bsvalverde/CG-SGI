@@ -207,6 +207,9 @@ void ArquivoOBJ::gravar() const throw(ExcecaoEscritaArquivo) {
 				linhaAtual += 3;
 				pontos = "";
 				break;
+			case ObjetoGeometrico::CURVA_BEZIER:
+			case ObjetoGeometrico::CURVA_BSPLINE:
+				break;
 		}
 	}
 	arquivo.close();
@@ -233,6 +236,9 @@ void ArquivoOBJ::setObjetos(const QList<ObjetoGeometrico*>& objetos) {
 				break;
 			case ObjetoGeometrico::WINDOW:
 				obj = new Window((const Window&) *obj);
+				break;
+			case ObjetoGeometrico::CURVA_BEZIER:
+			case ObjetoGeometrico::CURVA_BSPLINE:
 				break;
 		}
 		this->objetos.insert(i, obj);
