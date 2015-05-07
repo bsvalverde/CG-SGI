@@ -23,7 +23,7 @@ public:
 	 * Tipos de objetos geométricos
 	 */
 	enum Tipo {
-		CURVA_BSPLINE, CURVA_BEZIER, POLIGONO, PONTO, RETA, WINDOW
+		CURVA_BSPLINE, CURVA_BEZIER, POLIGONO, PONTO, RETA, WINDOW, OBJETO3D
 	};
 
 	/**
