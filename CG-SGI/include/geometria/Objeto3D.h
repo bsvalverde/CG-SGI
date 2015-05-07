@@ -2,8 +2,7 @@
 #define OBJETO3D_H_
 
 #include "geometria/Ponto.h"
-#include "geometria/Reta.h"
-#include "geometria/Poligono.h"
+#include "geometria/Aresta.h"
 
 /*
  * Objeto3D
@@ -27,12 +26,10 @@ public:
 	 * @param nome nome do objeto.
 	 * @param pontos pontos do objeto3d.
 	 * @param arestas arestas do objeto3d.
-	 * @param faces faces do objeto3d.
 	 * @param cor cor do objeto3D.
 	 */
 	Objeto3D(const String& nome, const QList<Ponto>& pontos,
-			const QList<Reta>& arestas, const QList<Poligono>& faces,
-			const QColor& cor = QColor(0, 0, 0));
+			const QList<Aresta>& arestas, const QColor& cor = QColor(0, 0, 0));
 
 	/**
 	 * Destrutor.
@@ -72,27 +69,7 @@ public:
 	 */
 	QList<Reta> getArestas() const;
 
-	/**
-	 * Obter as arestas do objeto.
-	 * @return lista de arestas.
-	 */
-	QList<Reta*> getArestasObjeto();
-
 	void setArestas(const QList<Reta>& arestas);
-
-	/**
-	 * Obter as faces do objeto.
-	 * @return lista com a cópia das faces.
-	 */
-	QList<Poligono> getFaces() const;
-
-	/**
-	 * Obter as faces do objeto.
-	 * @return lista de faces.
-	 */
-	QList<Poligono*> getFacesObjeto();
-
-	void setFaces(const QList<Poligono>& faces);
 
 	/**
 	 * Converter o objeto em string.
@@ -102,8 +79,7 @@ public:
 
 private:
 	QList<Ponto> pontos;
-	QList<Reta> arestas;
-	QList<Poligono> faces;
+	QList<Aresta> arestas;
 
 };
 
