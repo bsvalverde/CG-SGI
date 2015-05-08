@@ -15,7 +15,7 @@ public:
 	 * @param final ponto final.
 	 * @param cor cor da aresta.
 	 */
-	Aresta(const Ponto& inicial, const Ponto& final);
+	Aresta(Ponto& inicial, Ponto& final);
 
 	/**
 	 * Destrutor.

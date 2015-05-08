@@ -67,9 +67,9 @@ public:
 	 * Obter as arestas do objeto.
 	 * @return lista com a cópia das arestas.
 	 */
-	QList<Reta> getArestas() const;
+	QList<Aresta> getArestas() const;
 
-	void setArestas(const QList<Reta>& arestas);
+	void setArestas(const QList<Aresta>& arestas);
 
 	/**
 	 * Converter o objeto em string.

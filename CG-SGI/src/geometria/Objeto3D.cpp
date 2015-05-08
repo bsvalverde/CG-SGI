@@ -55,11 +55,11 @@ void Objeto3D::setPontos(const QList<Ponto>& pontos) {
 	this->pontos = pontos;
 }
 
-QList<Reta> Objeto3D::getArestas() const {
+QList<Aresta> Objeto3D::getArestas() const {
 	return this->arestas;
 }
 
-void Objeto3D::setArestas(const QList<Reta>& arestas) {
+void Objeto3D::setArestas(const QList<Aresta>& arestas) {
 	this->arestas = arestas;
 }
 

@@ -1,6 +1,6 @@
 #include "geometria/Aresta.h"
 
-Aresta::Aresta(const Ponto& inicial, const Ponto& final) {
+Aresta::Aresta(Ponto& inicial, Ponto& final) {
 	this->v_inicial = &inicial;
 	this->v_final = &final;
 }
