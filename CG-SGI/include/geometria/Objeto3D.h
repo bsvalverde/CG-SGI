@@ -5,7 +5,7 @@
 #include "geometria/Aresta.h"
 
 /*
- * Objeto3D
+ * Objeto tridimensional.
  */
 class Objeto3D: public ObjetoGeometrico {
 
@@ -17,19 +17,18 @@ public:
 
 	/**
 	 * Construtor.
-	 * @param objeto3D objeto a ser copiado.
+	 * @param objeto3d objeto a ser copiado.
 	 */
 	Objeto3D(const Objeto3D& objeto3d);
 
 	/**
 	 * Construtor.
 	 * @param nome nome do objeto.
-	 * @param pontos pontos do objeto3d.
-	 * @param arestas arestas do objeto3d.
-	 * @param cor cor do objeto3D.
+	 * @param pontos pontos do objeto.
+	 * @param arestas arestas do objeto.
 	 */
 	Objeto3D(const String& nome, const QList<Ponto>& pontos,
-			const QList<Aresta>& arestas, const QColor& cor = QColor(0, 0, 0));
+			const QList<Aresta>& arestas);
 
 	/**
 	 * Destrutor.
@@ -61,15 +60,11 @@ public:
 	 */
 	QList<Ponto*> getPontosObjeto();
 
-	void setPontos(const QList<Ponto>& pontos);
-
 	/**
 	 * Obter as arestas do objeto.
 	 * @return lista com a cópia das arestas.
 	 */
 	QList<Aresta> getArestas() const;
-
-	void setArestas(const QList<Aresta>& arestas);
 
 	/**
 	 * Converter o objeto em string.

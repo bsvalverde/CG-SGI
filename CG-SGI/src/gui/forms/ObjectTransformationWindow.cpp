@@ -42,7 +42,7 @@ bool ObjectTransformationWindow::validateFields() {
 		case 0:
 			this->fieldScaleFactorX->text().toDouble(&ok1);
 			this->fieldScaleFactorY->text().toDouble(&ok2);
-			ok3 = this->fieldScaleFactorZ->text().toDouble(&ok3);
+			this->fieldScaleFactorZ->text().toDouble(&ok3);
 
 			return ok1 && ok2 && ok3;
 		case 1:

@@ -58,8 +58,6 @@ public:
 	 */
 	QList<Ponto*> getPontosObjeto();
 
-	void setPontos(const QList<Ponto>& pontos);
-
 	/**
 	 * Converter o objeto em string.
 	 * @return string representando o objeto.

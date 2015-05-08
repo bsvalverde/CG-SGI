@@ -8,14 +8,13 @@ CurvaBSpline::CurvaBSpline(const CurvaBSpline& curva) :
 		Curva(curva) {
 	for (int i = 0; i < curva.pontos.size(); i++)
 		this->pontos.insert(i, curva.pontos.at(i));
-	this->pontosParametricos = curva.pontosParametricos;
+	this->calcularPontosParametricos();
 }
 
 CurvaBSpline::CurvaBSpline(const String& nome, const QList<Ponto>& pontos,
 		const QColor& cor) :
 		Curva(nome, Tipo::CURVA_BSPLINE, cor) {
-	for (int i = 0; i < pontos.size(); i++)
-		this->pontos.insert(i, pontos.at(i));
+	this->pontos = pontos;
 	this->calcularPontosParametricos();
 }
 
@@ -27,7 +26,7 @@ CurvaBSpline& CurvaBSpline::operator=(const CurvaBSpline& curva) {
 	this->pontos.clear();
 	for (int i = 0; i < curva.pontos.size(); i++)
 		this->pontos.insert(i, curva.pontos.at(i));
-	this->pontosParametricos = curva.pontosParametricos;
+	this->calcularPontosParametricos();
 	return *this;
 }
 

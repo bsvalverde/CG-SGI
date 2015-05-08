@@ -13,8 +13,7 @@ Poligono::Poligono(const Poligono& poligono) :
 Poligono::Poligono(const String& nome, const QList<Ponto>& pontos,
 		const QColor& cor) :
 		ObjetoGeometrico(nome, Tipo::POLIGONO, cor) {
-	for (int i = 0; i < pontos.size(); i++)
-		this->pontos.insert(i, pontos.at(i));
+	this->pontos = pontos;
 }
 
 Poligono::~Poligono() {
@@ -43,10 +42,6 @@ QList<Ponto*> Poligono::getPontosObjeto() {
 		lista.insert(i, (Ponto*) &this->pontos.at(i));
 
 	return lista;
-}
-
-void Poligono::setPontos(const QList<Ponto>& pontos) {
-	this->pontos = pontos;
 }
 
 const String Poligono::toString() const {

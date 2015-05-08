@@ -1,8 +1,9 @@
 #include "geometria/Aresta.h"
 
-Aresta::Aresta(Ponto& inicial, Ponto& final) {
+Aresta::Aresta(Ponto& inicial, Ponto& final, const QColor& cor) {
 	this->v_inicial = &inicial;
 	this->v_final = &final;
+	this->cor = cor;
 }
 
 Aresta::~Aresta() {
