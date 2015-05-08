@@ -1,6 +1,11 @@
 #include "persistencia/ArquivoOBJ.h"
 #include <iostream>
 
+const String ArquivoOBJ::BASIC_MAN = "samples/basicman.sample";
+const String ArquivoOBJ::CRISTO_REDENTOR = "samples/cristo.sample";
+const String ArquivoOBJ::DINO_MECH = "samples/dinomech.sample";
+const String ArquivoOBJ::SUB_ZERO = "samples/subzero.sample";
+
 ArquivoOBJ::ArquivoOBJ(const String& nome) : Arquivo(nome) {}
 
 ArquivoOBJ::~ArquivoOBJ() {}
@@ -66,7 +71,7 @@ void ArquivoOBJ::carregar() throw(ExcecaoArquivoInvalido, ExcecaoLeituraArquivo)
 			ArquivoMTL arqMTL(this->getDiretorio() + nomeMTL);
 
 			if(!arqMTL.existe())
-				throw ExcecaoArquivoInvalido(nomeMTL);
+				throw ExcecaoLeituraArquivo(nomeMTL);
 
 			arqMTL.carregar();
 			materiais = arqMTL.getMateriais();

@@ -1,4 +1,5 @@
 #include "gui/forms/FormPrincipal.h"
+#include "persistencia/ArquivoOBJ.h"
 
 FormPrincipal::FormPrincipal(ControladorUI* controladorUI, QDialog* pai,
 		Qt::WindowFlags flags) :
@@ -90,13 +91,28 @@ void FormPrincipal::conectarSinaisSlots() {
 
 void FormPrincipal::inicializarMenu() {
 	QMenu* menuArquivo = menuBar()->addMenu("&Arquivo");
+
 	QAction* itemImportar = menuArquivo->addAction("&Importar cena...");
+	itemImportar->setShortcut(QKeySequence("CTRL+SHIFT+I", QKeySequence::NativeText));
+	QMenu* itemImportarPre = menuArquivo->addMenu("Importar cena &pré-definida");
+	QAction* itemCenaBasicMan = itemImportarPre->addAction("Basic Man");
+	itemCenaBasicMan->setData(QString::fromStdString(ArquivoOBJ::BASIC_MAN));
+	QAction* itemCenaCristo = itemImportarPre->addAction("Cristo Redentor");
+	itemCenaCristo->setData(QString::fromStdString(ArquivoOBJ::CRISTO_REDENTOR));
+	QAction* itemCenaDinoMech= itemImportarPre->addAction("Dino-Mech");
+	itemCenaDinoMech->setData(QString::fromStdString(ArquivoOBJ::DINO_MECH));
+	QAction* itemCenaSubZero = itemImportarPre->addAction("Sub-Zero");
+	itemCenaSubZero->setData(QString::fromStdString(ArquivoOBJ::SUB_ZERO));
+
 	QAction* itemExportar = menuArquivo->addAction("&Exportar cena...");
+	itemExportar->setShortcut(QKeySequence("CTRL+SHIFT+E", QKeySequence::NativeText));
 	QAction* itemLimparCena = menuArquivo->addAction("&Limpar cena");
+	itemLimparCena->setShortcut(QKeySequence("CTRL+SHIFT+L", QKeySequence::NativeText));
 	menuArquivo->addSeparator();
 	QAction* itemSair = menuArquivo->addAction("&Sair");
+	itemSair->setShortcut(QKeySequence("CTRL+SHIFT+S", QKeySequence::NativeText));
 
-	QAction* itemAtalhos = menuBar()->addAction("A&talhos");
+	QAction* itemAtalhos = menuBar()->addAction("Ata&lhos");
 	QAction* itemSobre = menuBar()->addAction("&Sobre");
 
 	QObject::connect(itemImportar, SIGNAL(triggered()), this, SLOT(importarCena()));
@@ -105,6 +121,10 @@ void FormPrincipal::inicializarMenu() {
 	QObject::connect(itemSair, SIGNAL(triggered()), this, SLOT(encerrarSistema()));
 	QObject::connect(itemAtalhos, SIGNAL(triggered()), this, SLOT(atalhosSistema()));
 	QObject::connect(itemSobre, SIGNAL(triggered()), this, SLOT(sobreSistema()));
+	QObject::connect(itemCenaBasicMan, SIGNAL(triggered()), this, SLOT(importarCenaPreDefinida()));
+	QObject::connect(itemCenaCristo, SIGNAL(triggered()), this, SLOT(importarCenaPreDefinida()));
+	QObject::connect(itemCenaDinoMech, SIGNAL(triggered()), this, SLOT(importarCenaPreDefinida()));
+	QObject::connect(itemCenaSubZero, SIGNAL(triggered()), this, SLOT(importarCenaPreDefinida()));
 
 	menuBar()->setVisible(true);
 }
@@ -245,6 +265,17 @@ void FormPrincipal::importarCena() {
 	}
 }
 
+void FormPrincipal::importarCenaPreDefinida() {
+	QAction* btn = (QAction*) QObject::sender();
+	String cena = btn->data().toString().toStdString();
+
+	try {
+		this->controladorUI->importarCena(cena);
+	} catch(Excecao& ex) {
+		this->controladorUI->exibirMensagemErro("Não foi possível importar a cena!\n\nDetalhes: " + ex.getMensagem(), this);
+	}
+}
+
 void FormPrincipal::exportarCena() {
 	String arquivo = QFileDialog::getSaveFileName(0,
 			"Salvar arquivo Wavefront (OBJ)", "", "*.obj").toStdString();
@@ -262,7 +293,7 @@ void FormPrincipal::exportarCena() {
 }
 
 void FormPrincipal::limparCena() {
-	if(this->controladorUI->requisitarConfirmacaoUsuario("Você tem certeza que deseja limpar a cena?")) {
+	if(this->controladorUI->requisitarConfirmacaoUsuario("Você tem certeza que deseja limpar a cena?", this)) {
 		this->controladorUI->removerObjetosMundo();
 		this->reiniciarVisualizacao();
 	}
@@ -282,7 +313,7 @@ void FormPrincipal::sobreSistema() {
 
 void FormPrincipal::encerrarSistema() {
 	if (this->controladorUI->requisitarConfirmacaoUsuario(
-			"Você tem certeza que deseja encerrar o sistema?"))
+			"Você tem certeza que deseja encerrar o sistema?", this))
 		QWidget::close();
 }
 

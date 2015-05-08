@@ -100,9 +100,15 @@ void ControladorUI::exibirMensagemErro(const String& mensagem, QWidget* parent) 
 	messageBox.critical(parent, "Erro", QString::fromStdString(mensagem));
 }
 
-bool ControladorUI::requisitarConfirmacaoUsuario(const String& mensagem) const {
-	QMessageBox messageBox;
-	if(messageBox.question(0, "Confirmação", QString::fromStdString(mensagem)) == QMessageBox::Yes)
+bool ControladorUI::requisitarConfirmacaoUsuario(const String& mensagem, QWidget* parent) const {
+	QMessageBox messageBox(parent);
+	messageBox.setText(QString::fromStdString(mensagem));
+	QAbstractButton *btnSim = messageBox.addButton("&Sim", QMessageBox::YesRole);
+	messageBox.addButton("&Não", QMessageBox::NoRole);
+	messageBox.setIcon(QMessageBox::Question);
+	messageBox.exec();
+
+	if(messageBox.clickedButton() == btnSim)
 		return true;
 
 	return false;

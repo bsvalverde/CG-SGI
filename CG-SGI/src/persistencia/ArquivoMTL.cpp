@@ -17,7 +17,9 @@ void ArquivoMTL::carregar() throw(ExcecaoArquivoInvalido, ExcecaoLeituraArquivo)
 	while(std::getline(arquivo, linha)) {
 		std::stringstream buffer(linha);
 		String tipo;
-		buffer >> tipo;
+
+		if(!(buffer >> tipo))
+			throw ExcecaoArquivoInvalido(this->getNome());
 
 		if(tipo.compare("newmtl") == 0) { // Definir nome do material
 			if(!(buffer >> nomeMaterial))

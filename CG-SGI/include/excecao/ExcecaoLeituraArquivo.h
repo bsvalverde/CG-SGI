@@ -26,7 +26,8 @@ public:
 	 * @return A mensagem correspondente.
 	 */
 	virtual String getMensagem() const {
-		return "Não foi possível ler o arquivo " + this->arquivo + ".";
+		return "Não foi possível ler o arquivo " + this->arquivo + ". Verifique "
+				"se o arquivo existe e/ou possui permissão de leitura!";
 	}
 
 protected:

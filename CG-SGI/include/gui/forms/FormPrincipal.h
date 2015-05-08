@@ -127,6 +127,11 @@ private slots:
 	void importarCena();
 
 	/**
+	 * Botão de importar cena pressionado.
+	 */
+	void importarCenaPreDefinida();
+
+	/**
 	 * Botão de exportar cena pressionado.
 	 */
 	void exportarCena();

@@ -153,7 +153,7 @@ public:
 	 * @param mensagem mensagem de confirmação.
 	 * @return true caso o usuário responda sim.
 	 */
-	bool requisitarConfirmacaoUsuario(const String& mensagem) const;
+	bool requisitarConfirmacaoUsuario(const String& mensagem, QWidget* parent = 0) const;
 
 	/**
 	 * Importar cena de um arquivo OBJ (Wavefront).

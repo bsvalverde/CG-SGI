@@ -20,6 +20,11 @@
 class ArquivoOBJ : public Arquivo {
 
 public:
+	static const String BASIC_MAN;
+	static const String CRISTO_REDENTOR;
+	static const String DINO_MECH;
+	static const String SUB_ZERO;
+
 	/**
 	 * Construtor.
 	 * @param nome nome completo do arquivo.
