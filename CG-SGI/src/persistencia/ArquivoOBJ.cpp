@@ -1,5 +1,4 @@
 #include "persistencia/ArquivoOBJ.h"
-#include <iostream>
 
 const String ArquivoOBJ::BASIC_MAN = "samples/basicman.sample";
 const String ArquivoOBJ::CRISTO_REDENTOR = "samples/cristo.sample";
