@@ -26,6 +26,9 @@ void ArquivoOBJ::carregar() throw(ExcecaoArquivoInvalido, ExcecaoLeituraArquivo)
 		std::stringstream buffer(linha);
 		String tipo;
 
+		if(linha.compare("") == 0)
+			continue;
+
 		if(!(buffer >> tipo))
 			throw ExcecaoArquivoInvalido(this->getNome());
 
@@ -41,14 +44,13 @@ void ArquivoOBJ::carregar() throw(ExcecaoArquivoInvalido, ExcecaoLeituraArquivo)
 			pontos.insert(linhaAtual, p);
 		}
 
-		if(tipo.at(0) != '#')
+		if(tipo.compare("v") == 0)
 			linhaAtual++;
 	}
 
 	// Reposicionar o leitor no começo do arquivo
 	arquivo.clear();
 	arquivo.seekg(0, arquivo.beg);
-	linhaAtual = 1;
 
 	int indice, indice2;
 	QColor corAtual = QColor(0, 0, 0);
@@ -135,9 +137,6 @@ void ArquivoOBJ::carregar() throw(ExcecaoArquivoInvalido, ExcecaoLeituraArquivo)
 
 			nomeObjeto = "";
 		}
-
-		if(tipo.at(0) != '#')
-			linhaAtual++;
 	}
 
 	arquivo.close();

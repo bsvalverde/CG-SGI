@@ -18,6 +18,9 @@ void ArquivoMTL::carregar() throw(ExcecaoArquivoInvalido, ExcecaoLeituraArquivo)
 		std::stringstream buffer(linha);
 		String tipo;
 
+		if(linha.compare("") == 0)
+			continue;
+
 		if(!(buffer >> tipo))
 			throw ExcecaoArquivoInvalido(this->getNome());
 

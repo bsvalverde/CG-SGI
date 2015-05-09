@@ -40,7 +40,8 @@ void ControladorMundo::atualizarObjetos(const QList<ObjetoGeometrico*>& objetos)
 	this->mundo.removerObjetos();
 
 	for(ObjetoGeometrico* obj : objetos)
-		this->mundo.inserirObjeto(*obj);
+		if(obj->getTipo() != ObjetoGeometrico::WINDOW) // TODO Remover quando criar cena
+			this->mundo.inserirObjeto(*obj);
 }
 
 void ControladorMundo::inserirObjeto(const String& nome, const QList<Ponto>& pontos, ObjetoGeometrico::Tipo tipo, const QColor& cor) {
