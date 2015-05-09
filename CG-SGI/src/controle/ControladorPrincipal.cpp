@@ -90,12 +90,10 @@ void ControladorPrincipal::rotacionarObjetoPeloCentro(const String& nome, const 
 }
 
 void ControladorPrincipal::importarCena(const String& nomeArquivo) throw(ExcecaoArquivoInvalido, ExcecaoLeituraArquivo) {
-	QList<ObjetoGeometrico*> objetos = this->controladorPersistencia->importarCena(nomeArquivo);
-	this->controladorMundo->atualizarObjetos(objetos);
+	Cena* cena = this->controladorPersistencia->importarCena(nomeArquivo);
+	this->controladorMundo->atualizarObjetos(cena->getObjetos());
+	delete cena;
 	this->controladorUI->atualizarCena(this->controladorMundo->getObjetosNormalizados());
-
-	for(ObjetoGeometrico* obj : objetos)
-		delete obj;
 }
 
 void ControladorPrincipal::exportarCena(const String& nomeArquivo) {

@@ -6,6 +6,7 @@
 #include <QtCore/qmap.h>
 #include <QtGui/qcolor.h>
 
+#include "geometria/Cena.h"
 #include "geometria/Objeto3D.h"
 #include "geometria/ObjetoGeometrico.h"
 #include "geometria/Ponto.h"
@@ -57,10 +58,10 @@ public:
 	void setObjetos(const QList<ObjetoGeometrico*>& objetos);
 
 	/**
-	 * Obter objetos do arquivo.
-	 * @return objetos do arquivo.
+	 * Obter a cena carregada do arquivo.
+	 * @return cena do arquivo.
 	 */
-	QList<ObjetoGeometrico*> getObjetos() const;
+	Cena* getCena() const;
 
 protected:
 	/**
@@ -81,6 +82,7 @@ protected:
 	void limpar(QList<Ponto*> pontos) const;
 
 	QList<ObjetoGeometrico*> objetos;
+	Window* window;
 
 };
 

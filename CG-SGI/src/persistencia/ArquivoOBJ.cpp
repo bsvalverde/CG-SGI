@@ -1,11 +1,14 @@
 #include "persistencia/ArquivoOBJ.h"
+#include <iostream>
 
 const String ArquivoOBJ::BASIC_MAN = "samples/basicman.sample";
 const String ArquivoOBJ::CRISTO_REDENTOR = "samples/cristo.sample";
 const String ArquivoOBJ::DINO_MECH = "samples/dinomech.sample";
 const String ArquivoOBJ::SUB_ZERO = "samples/subzero.sample";
 
-ArquivoOBJ::ArquivoOBJ(const String& nome) : Arquivo(nome) {}
+ArquivoOBJ::ArquivoOBJ(const String& nome) : Arquivo(nome) {
+	this->window = 0;
+}
 
 ArquivoOBJ::~ArquivoOBJ() {}
 
@@ -129,7 +132,7 @@ void ArquivoOBJ::carregar() throw(ExcecaoArquivoInvalido, ExcecaoLeituraArquivo)
 				double largura = pontos.value(indice2)->getX();
 				double altura = pontos.value(indice2)->getY();
 
-				this->objetos.insert(this->objetos.size() - 1, new Window(*centroWindow, largura, altura));
+				this->window = new Window(*centroWindow, largura, altura);
 			} else {
 				this->limpar(pontos.values());
 				throw ExcecaoArquivoInvalido(this->getNome());
@@ -152,51 +155,48 @@ void ArquivoOBJ::gravar() const throw(ExcecaoEscritaArquivo) {
 
 	arquivo << "# Arquivo OBJ (Wavefront) - Sistema Gráfico Interativo\n";
 
-	int linhaAtual = 1; // Linha de comentário não é contada!
+	int verticeAtual = 1; // Vértice atual.
 	QMap<String, QColor> materiais;
 
 	arquivo << "mtllib " << this->getNomeCurto() + ".mtl" << "\n";
-	linhaAtual++;
 
 	for(int i = 0; i < this->objetos.size(); i++) {
 		ObjetoGeometrico* objeto = this->objetos.at(i);
 		QList<Ponto> pontosObjeto = objeto->getPontos();
-		int primeiroPonto = linhaAtual;
+		int primeiroPonto = verticeAtual;
 
 		String nomeMaterial = "m_" + objeto->getNome();
 		materiais.insert(nomeMaterial, objeto->getCor());
 
-		String pontos = std::to_string(linhaAtual);
+		String pontos = std::to_string(verticeAtual);
 		arquivo << "v " << pontosObjeto.at(0).getX() << " " << pontosObjeto.at(0).getY() <<
 					" " << pontosObjeto.at(0).getZ() << "\n";
-		linhaAtual++;
+		verticeAtual++;
 
 		if(objeto->getTipo() != ObjetoGeometrico::WINDOW) {
 			for(int j = 1; j < pontosObjeto.size(); j++) {
 				Ponto p = pontosObjeto.at(j);
 				arquivo << "v " << p.getX() << " " << p.getY() << " " << p.getZ() << "\n";
-				pontos += " " + std::to_string(linhaAtual);
-				linhaAtual++;
+				pontos += " " + std::to_string(verticeAtual);
+				verticeAtual++;
 			}
 		} else {
 			Window* w = (Window*) objeto;
 			arquivo << "v " << w->getLargura() << " " << w->getAltura() << " 0\n";
-			pontos += " " + std::to_string(linhaAtual);
-			linhaAtual++;
+			pontos += " " + std::to_string(verticeAtual);
+			verticeAtual++;
 		}
 
 		switch(objeto->getTipo()) {
 			case ObjetoGeometrico::WINDOW:
 				arquivo << "o " << objeto->getNome() << "\n";
 				arquivo << "w " << pontos.c_str() << "\n";
-				linhaAtual += 2;
 				pontos = "";
 				break;
 			case ObjetoGeometrico::PONTO:
 				arquivo << "o " << objeto->getNome() << "\n";
 				arquivo << "usemtl " << nomeMaterial << "\n";
 				arquivo << "p " << pontos.c_str() << "\n";
-				linhaAtual += 3;
 				pontos = "";
 				break;
 			case ObjetoGeometrico::POLIGONO:
@@ -207,7 +207,6 @@ void ArquivoOBJ::gravar() const throw(ExcecaoEscritaArquivo) {
 				arquivo << "o " << objeto->getNome() << "\n";
 				arquivo << "usemtl " << nomeMaterial << "\n";
 				arquivo << "l " << pontos.c_str() << "\n";
-				linhaAtual += 3;
 				pontos = "";
 				break;
 			case ObjetoGeometrico::OBJETO3D: // TODO
@@ -239,7 +238,7 @@ void ArquivoOBJ::setObjetos(const QList<ObjetoGeometrico*>& objetos) {
 				obj = new Reta((const Reta&) *obj);
 				break;
 			case ObjetoGeometrico::WINDOW:
-				obj = new Window((const Window&) *obj);
+				this->window = new Window((const Window&) *obj);
 				break;
 			case ObjetoGeometrico::OBJETO3D:
 				obj = new Objeto3D((const Objeto3D&) *obj);
@@ -252,8 +251,8 @@ void ArquivoOBJ::setObjetos(const QList<ObjetoGeometrico*>& objetos) {
 	}
 }
 
-QList<ObjetoGeometrico*> ArquivoOBJ::getObjetos() const {
-	return this->objetos;
+Cena* ArquivoOBJ::getCena() const {
+	return new Cena(this->window, this->objetos);
 }
 
 void ArquivoOBJ::removerObjetos() {

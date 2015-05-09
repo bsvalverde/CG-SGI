@@ -31,11 +31,11 @@ public:
 	/**
 	 * Importar uma cena.
 	 * @param arquivo nome completo do arquivo do qual a cena será importada.
-	 * @return objetos da cena.
+	 * @return cena importada.
 	 * @throws ExcecaoArquivoInvalido caso o arquivo seja inválido.
 	 * @throws ExcecaoLeituraArquivo caso não seja possível ler a cena do arquivo.
 	 */
-	QList<ObjetoGeometrico*> importarCena(const String& arquivo) const
+	Cena* importarCena(const String& arquivo) const
 			throw(ExcecaoArquivoInvalido, ExcecaoLeituraArquivo);
 
 };
