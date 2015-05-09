@@ -17,25 +17,6 @@ void ControladorUI::exibirFormPrincipal() {
 	this->formPrincipal->show();
 }
 
-void ControladorUI::exibirAtalhos() {
-	String atalhos = ":: Navegação ::\n\n"
-			"CTRL + UP\t\tCima\n"
-			"CTRL + DOWN\tBaixo\n"
-			"CTRL + LEFT\tEsquerda\n"
-			"CTRL + RIGHT\tDireita\n"
-			"CTRL + HOME\tCentralizar\n\n"
-			":: Zoom ::\n\n"
-			"CTRL + I\t\tZoom In\n"
-			"CTRL + O\t\tZoom Out\n\n"
-			":: Manipulação de Objetos ::\n\n"
-			"ALT + I\t\tInserir Objeto\n"
-			"ALT + R\t\tRemover Objeto\n"
-			"ALT + T\t\tTransformar Objeto";
-
-	QMessageBox messageBox;
-	messageBox.information(0, "Atalhos do Sistema", QString::fromStdString(atalhos));
-}
-
 void ControladorUI::exibirFormInsercaoObjeto() {
 	this->objectInsertionWindow->limparCampos();
 	this->objectInsertionWindow->show();
@@ -44,6 +25,30 @@ void ControladorUI::exibirFormInsercaoObjeto() {
 void ControladorUI::exibirFormTransformacaoObjeto(const String& nomeObjeto) {
 	this->objectTransformationWindow->clearFields();
 	this->objectTransformationWindow->show(nomeObjeto);
+}
+
+void ControladorUI::exibirMensagemErro(const String& mensagem, QWidget* pai) const {
+	QMessageBox messageBox;
+	messageBox.critical(pai, "Erro", QString::fromStdString(mensagem));
+}
+
+void ControladorUI::exibirMensagemInformacao(const String& mensagem, QWidget* pai) const {
+	QMessageBox messageBox;
+	messageBox.information(pai, "Informação", QString::fromStdString(mensagem));
+}
+
+bool ControladorUI::requisitarConfirmacaoUsuario(const String& mensagem, QWidget* pai) const {
+	QMessageBox messageBox(pai);
+	messageBox.setText(QString::fromStdString(mensagem));
+	QAbstractButton *btnSim = messageBox.addButton("&Sim", QMessageBox::YesRole);
+	messageBox.addButton("&Não", QMessageBox::NoRole);
+	messageBox.setIcon(QMessageBox::Question);
+	messageBox.exec();
+
+	if(messageBox.clickedButton() == btnSim)
+		return true;
+
+	return false;
 }
 
 void ControladorUI::navegarNoMundo(const Mundo::Direcao direcao, const double fator) {
@@ -93,25 +98,6 @@ void ControladorUI::removerObjetosMundo() {
 
 bool ControladorUI::contemObjeto(const String& nome) {
 	return this->controladorPrincipal->contemObjeto(nome);
-}
-
-void ControladorUI::exibirMensagemErro(const String& mensagem, QWidget* parent) const {
-	QMessageBox messageBox;
-	messageBox.critical(parent, "Erro", QString::fromStdString(mensagem));
-}
-
-bool ControladorUI::requisitarConfirmacaoUsuario(const String& mensagem, QWidget* parent) const {
-	QMessageBox messageBox(parent);
-	messageBox.setText(QString::fromStdString(mensagem));
-	QAbstractButton *btnSim = messageBox.addButton("&Sim", QMessageBox::YesRole);
-	messageBox.addButton("&Não", QMessageBox::NoRole);
-	messageBox.setIcon(QMessageBox::Question);
-	messageBox.exec();
-
-	if(messageBox.clickedButton() == btnSim)
-		return true;
-
-	return false;
 }
 
 void ControladorUI::importarCena(const String& arquivo) throw(ExcecaoArquivoInvalido, ExcecaoLeituraArquivo) {

@@ -300,15 +300,30 @@ void FormPrincipal::limparCena() {
 }
 
 void FormPrincipal::atalhosSistema() {
-	this->controladorUI->exibirAtalhos();
+	String atalhos = ":: Navegação ::\n\n"
+				"CTRL + UP\t\tCima\n"
+				"CTRL + DOWN\tBaixo\n"
+				"CTRL + LEFT\tEsquerda\n"
+				"CTRL + RIGHT\tDireita\n"
+				"CTRL + HOME\tCentralizar\n\n"
+				":: Zoom ::\n\n"
+				"CTRL + I\t\tZoom In\n"
+				"CTRL + O\t\tZoom Out\n\n"
+				":: Manipulação de Objetos ::\n\n"
+				"ALT + I\t\tInserir Objeto\n"
+				"ALT + R\t\tRemover Objeto\n"
+				"ALT + T\t\tTransformar Objeto";
+
+	this->controladorUI->exibirMensagemInformacao(atalhos, this);
 }
 
 void FormPrincipal::sobreSistema() {
-	QMessageBox msg;
-	msg.information(this, "Sobre", "Sistema Gráfico Interativo desenvolvido na discplina "
+	String sobre = "Sistema Gráfico Interativo desenvolvido na discplina "
 			"de Computação Gráfica do curso de Ciência da Computação da "
 			"Universidade Federal de Santa Catarina pelos alunos "
-			"Bernardo de Sousa Valverde e Lucas May Petry.");
+			"Bernardo de Sousa Valverde e Lucas May Petry.";
+
+	this->controladorUI->exibirMensagemInformacao(sobre, this);
 }
 
 void FormPrincipal::encerrarSistema() {

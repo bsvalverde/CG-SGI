@@ -35,11 +35,6 @@ public:
 	void exibirFormPrincipal();
 
 	/**
-	 * Exibir os atalhos do sistema.
-	 */
-	void exibirAtalhos();
-
-	/**
 	 * Exibir janela de inserção de objetos.
 	 */
 	void exibirFormInsercaoObjeto();
@@ -49,6 +44,25 @@ public:
 	 * @param nomeObjeto nome do objeto a ser transformado.
 	 */
 	void exibirFormTransformacaoObjeto(const String& nomeObjeto);
+
+	/**
+	 * Exibir mensagem de erro.
+	 * @param mensagem mensagem de erro.
+	 */
+	void exibirMensagemErro(const String& mensagem, QWidget* pai = 0) const;
+
+	/**
+	 * Exibir mensagem de informação.
+	 * @param mensagem mensagem de informação.
+	 */
+	void exibirMensagemInformacao(const String& mensagem, QWidget* pai = 0) const;
+
+	/**
+	 * Exibir mensagem de confirmação.
+	 * @param mensagem mensagem de confirmação.
+	 * @return true caso o usuário responda sim.
+	 */
+	bool requisitarConfirmacaoUsuario(const String& mensagem, QWidget* pai = 0) const;
 
 	/**
 	 * Navegar no mundo (mover a window).
@@ -141,19 +155,6 @@ public:
 	 * @return true se o objeto existe.
 	 */
 	bool contemObjeto(const String& nome);
-
-	/**
-	 * Exibir mensagem de erro.
-	 * @param mensagem mensagem de erro.
-	 */
-	void exibirMensagemErro(const String& mensagem, QWidget* parent = 0) const;
-
-	/**
-	 * Exibir mensagem de confirmação.
-	 * @param mensagem mensagem de confirmação.
-	 * @return true caso o usuário responda sim.
-	 */
-	bool requisitarConfirmacaoUsuario(const String& mensagem, QWidget* parent = 0) const;
 
 	/**
 	 * Importar cena de um arquivo OBJ (Wavefront).

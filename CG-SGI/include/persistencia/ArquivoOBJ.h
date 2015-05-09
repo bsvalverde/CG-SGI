@@ -6,6 +6,7 @@
 #include <QtCore/qmap.h>
 #include <QtGui/qcolor.h>
 
+#include "geometria/Objeto3D.h"
 #include "geometria/ObjetoGeometrico.h"
 #include "geometria/Ponto.h"
 #include "geometria/Poligono.h"
