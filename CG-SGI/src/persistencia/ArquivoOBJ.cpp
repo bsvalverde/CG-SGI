@@ -56,14 +56,26 @@ void ArquivoOBJ::carregar() throw(ExcecaoArquivoInvalido, ExcecaoLeituraArquivo)
 	arquivo.seekg(0, arquivo.beg);
 
 	int indice, indice2;
+	bool anteriorEraFace = false;
 	QColor corAtual = QColor(0, 0, 0);
 	String nomeObjeto = "";
+	QList<Aresta> arestas;
+	QList<Ponto> pontosObjeto3dCopia;
+	QList<Ponto*> pontosObjeto3d;
 
 	// Criar os objetos
 	while(std::getline(arquivo, linha)) {
 		std::stringstream buffer(linha);
 		String tipo;
 		buffer >> tipo;
+
+		if(tipo.compare("f") != 0 && tipo.compare("usemtl") != 0 && anteriorEraFace) {
+			this->objetos.append(new Objeto3D(nomeObjeto, pontosObjeto3d, arestas));
+			pontosObjeto3d.clear();
+			pontosObjeto3dCopia.clear();
+			arestas.clear();
+			anteriorEraFace = false;
+		}
 
 		if(tipo.compare("mtllib") == 0) {
 			String nomeMTL;
@@ -126,6 +138,61 @@ void ArquivoOBJ::carregar() throw(ExcecaoArquivoInvalido, ExcecaoLeituraArquivo)
 			}
 
 			nomeObjeto = "";
+		} else if(tipo.compare("f") == 0) {
+			if(nomeObjeto.compare("") != 0) {
+				QList<Ponto> pontosObj;
+				anteriorEraFace = true;
+
+				QList<int> indices;
+				String indiceString;
+
+				while(std::getline(buffer, indiceString, ' ')) {
+					std::stringstream bufferVertices(indiceString);
+					int num = -1;
+
+					if(indiceString.find('/') >= 0) {
+						while(std::getline(bufferVertices, indiceString, '/')) {
+							if(num == -1) {
+								std::stringstream bufferNum(indiceString);
+								bufferNum >> num;
+								indices.append(num);
+							}
+						}
+					} else {
+						bufferVertices >> num;
+						indices.append(num);
+					}
+				}
+
+				if(indices.size() == 0) {
+					this->limpar(pontos.values());
+					throw ExcecaoArquivoInvalido(this->getNome());
+				}
+
+				Ponto* p1 = new Ponto(*pontos.value(indices.at(0)));
+				Ponto* pInicial = p1;
+				Ponto* p2;
+
+				for(int i = 1; i < indices.size(); i++) {
+					p2 = new Ponto(*pontos.value(indices.at(i)));
+					arestas.append(Aresta(p1, p2, corAtual));
+
+					if(!pontosObjeto3dCopia.contains(*p1)) {
+						pontosObjeto3d.append(p1);
+						pontosObjeto3dCopia.append(*p1);
+					}
+					p1 = p2;
+				}
+				arestas.append(Aresta(pInicial, p1, corAtual));
+
+				if(!pontosObjeto3dCopia.contains(*p1)) {
+					pontosObjeto3d.append(p1);
+					pontosObjeto3dCopia.append(*p1);
+				}
+			} else {
+				this->limpar(pontos.values());
+				throw ExcecaoArquivoInvalido(this->getNome());
+			}
 		} else if(tipo.compare("w") == 0) {
 			if(nomeObjeto.compare("") != 0 && buffer >> indice && buffer >> indice2) {
 				Ponto* centroWindow = pontos.value(indice);
@@ -140,6 +207,15 @@ void ArquivoOBJ::carregar() throw(ExcecaoArquivoInvalido, ExcecaoLeituraArquivo)
 
 			nomeObjeto = "";
 		}
+
+	}
+
+	if(arestas.size() > 0) {
+		this->objetos.append(new Objeto3D(nomeObjeto, pontosObjeto3d, arestas));
+		pontosObjeto3d.clear();
+		pontosObjeto3dCopia.clear();
+		arestas.clear();
+		anteriorEraFace = false;
 	}
 
 	arquivo.close();

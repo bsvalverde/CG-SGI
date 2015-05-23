@@ -3,6 +3,7 @@
 
 #include "geometria/CurvaBSpline.h"
 #include "geometria/CurvaBezier.h"
+#include "geometria/Objeto3D.h"
 #include "geometria/Poligono.h"
 #include "geometria/Ponto.h"
 #include "geometria/Reta.h"
@@ -48,6 +49,13 @@ public:
 	 * @return lista de pontos recortados.
 	 */
 	QList<Ponto> clip(ObjetoGeometrico* const objeto) const;
+
+	/**
+	 * Recortar o objeto 3D.
+	 * @param objeto objeto 3D a ser recortado.
+	 * @return lista de arestas recortadas.
+	 */
+	QList<Aresta> clipObjeto3D(Objeto3D* const objeto) const;
 
 protected:
 	/**

@@ -2,6 +2,7 @@
 #define ARQUIVOOBJ_H_
 
 #include <sstream>
+#include <istream>
 
 #include <QtCore/qmap.h>
 #include <QtGui/qcolor.h>

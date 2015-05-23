@@ -15,7 +15,7 @@ public:
 	 * @param final ponto final.
 	 * @param cor cor da aresta.
 	 */
-	Aresta(Ponto& inicial, Ponto& final, const QColor& cor = QColor(0, 0, 0));
+	Aresta(Ponto* const inicial, Ponto* const final, const QColor& cor = QColor(0, 0, 0));
 
 	/**
 	 * Destrutor.
@@ -27,6 +27,18 @@ public:
 	 * @return lista com a cópia dos pontos.
 	 */
 	QList<Ponto> getPontos() const;
+
+	/**
+	 * Obter os pontos da aresta.
+	 * @return lista com a cópia dos pontos.
+	 */
+	QList<Ponto*> getPontosObjeto();
+
+	/**
+	 * Obter a cor da aresta.
+	 * @return a cor da aresta.
+	 */
+	QColor getCor() const;
 
 protected:
 	Ponto* v_inicial;

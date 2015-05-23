@@ -12,7 +12,7 @@ Objeto3D::Objeto3D(const Objeto3D& objeto3d) :
 		this->arestas.insert(i, objeto3d.arestas.at(i));
 }
 
-Objeto3D::Objeto3D(const String& nome, const QList<Ponto>& pontos,
+Objeto3D::Objeto3D(const String& nome, const QList<Ponto*>& pontos,
 		const QList<Aresta>& arestas) :
 		ObjetoGeometrico(nome, Tipo::OBJETO3D) {
 	this->pontos = pontos;
@@ -38,16 +38,16 @@ ObjetoGeometrico* Objeto3D::clonar() const {
 }
 
 QList<Ponto> Objeto3D::getPontos() const {
-	return this->pontos;
+	QList<Ponto> lista;
+
+	for (int i = 0; i < this->pontos.size(); i++)
+		lista.insert(i, *this->pontos.at(i));
+
+	return lista;
 }
 
 QList<Ponto*> Objeto3D::getPontosObjeto() {
-	QList<Ponto*> lista;
-
-	for (int i = 0; i < this->pontos.size(); i++)
-		lista.insert(i, (Ponto*) &this->pontos.at(i));
-
-	return lista;
+	return this->pontos;
 }
 
 QList<Aresta> Objeto3D::getArestas() const {
@@ -55,10 +55,10 @@ QList<Aresta> Objeto3D::getArestas() const {
 }
 
 const String Objeto3D::toString() const {
-	String str = this->pontos.at(0).toString();
+	String str = this->pontos.at(0)->toString();
 
 	for (int i = 1; i < this->pontos.size(); i++)
-		str += ", " + this->pontos.at(i).toString();
+		str += ", " + this->pontos.at(i)->toString();
 
 	return "[" + str + "]";
 }

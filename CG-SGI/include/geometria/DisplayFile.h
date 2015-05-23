@@ -4,6 +4,7 @@
 #include <QtCore/qmap.h>
 #include <string>
 
+#include "geometria/Objeto3D.h"
 #include "geometria/ObjetoGeometrico.h"
 #include "geometria/CurvaBezier.h"
 #include "geometria/CurvaBSpline.h"

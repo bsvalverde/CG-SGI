@@ -91,7 +91,7 @@ void ControladorPrincipal::rotacionarObjetoPeloCentro(const String& nome, const 
 
 void ControladorPrincipal::importarCena(const String& nomeArquivo) throw(ExcecaoArquivoInvalido, ExcecaoLeituraArquivo) {
 	Cena* cena = this->controladorPersistencia->importarCena(nomeArquivo);
-	this->controladorMundo->atualizarObjetos(cena->getObjetos());
+	this->controladorMundo->atualizarObjetos(cena->getObjetos()); // TODO atualizar window
 	delete cena;
 	this->controladorUI->atualizarCena(this->controladorMundo->getObjetosNormalizados());
 }

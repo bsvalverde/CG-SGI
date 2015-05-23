@@ -27,7 +27,7 @@ public:
 	 * @param pontos pontos do objeto.
 	 * @param arestas arestas do objeto.
 	 */
-	Objeto3D(const String& nome, const QList<Ponto>& pontos,
+	Objeto3D(const String& nome, const QList<Ponto*>& pontos,
 			const QList<Aresta>& arestas);
 
 	/**
@@ -73,7 +73,7 @@ public:
 	const String toString() const;
 
 private:
-	QList<Ponto> pontos;
+	QList<Ponto*> pontos;
 	QList<Aresta> arestas;
 
 };

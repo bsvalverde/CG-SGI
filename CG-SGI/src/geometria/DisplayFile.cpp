@@ -30,6 +30,9 @@ void DisplayFile::inserirObjeto(const ObjetoGeometrico& objeto) {
 		case ObjetoGeometrico::RETA:
 			obj = new Reta((const Reta&) objeto);
 			break;
+		case ObjetoGeometrico::OBJETO3D:
+			obj = new Objeto3D((const Objeto3D&) objeto);
+			break;
 		default:
 			return;
 	}

@@ -1,8 +1,8 @@
 #include "geometria/Aresta.h"
 
-Aresta::Aresta(Ponto& inicial, Ponto& final, const QColor& cor) {
-	this->v_inicial = &inicial;
-	this->v_final = &final;
+Aresta::Aresta(Ponto* const inicial, Ponto* const final, const QColor& cor) {
+	this->v_inicial = inicial;
+	this->v_final = final;
 	this->cor = cor;
 }
 
@@ -14,4 +14,13 @@ QList<Ponto> Aresta::getPontos() const {
 	pontos.insert(0, *this->v_inicial);
 	pontos.insert(1, *this->v_final);
 	return pontos;
+}
+
+QList<Ponto*> Aresta::getPontosObjeto() {
+	QList<Ponto*> pontos = {this->v_inicial, this->v_final};
+	return pontos;
+}
+
+QColor Aresta::getCor() const {
+	return this->cor;
 }

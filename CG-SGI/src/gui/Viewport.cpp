@@ -36,32 +36,43 @@ void Viewport::atualizarCena(const QList<ObjetoGeometrico*>& objetos) {
 	for(int i = 0; i < objetos.size(); i++) {
 		ObjetoGeometrico* objeto = objetos.at(i)->clonar();
 
-		QList<Ponto> pontos = this->clipping->clip(objeto);
+		if(objeto->getTipo() != ObjetoGeometrico::OBJETO3D) {
+			QList<Ponto> pontos = this->clipping->clip(objeto);
 
-		if(pontos.size() == 0) {
-			delete objeto;
-			continue;
-		}
-
-		pontos = this->transformarObjeto(pontos);
-		QPen pen(objeto->getCor());
-		QLineF line;
-		Ponto ponto1 = pontos.at(0);
-
-		if(pontos.size() > 1) {
-			Ponto ant = ponto1;
-
-			for(int i = 1; i < pontos.size(); i++) {
-				line = QLineF(ant.getX(), ant.getY(), pontos.at(i).getX(), pontos.at(i).getY());
-				scene->addLine(line, pen);
-				ant = pontos.at(i);
+			if(pontos.size() == 0) {
+				delete objeto;
+				continue;
 			}
-			if(objeto->getTipo() == ObjetoGeometrico::POLIGONO) {
-				line = QLineF(ant.getX(), ant.getY(), ponto1.getX(), ponto1.getY());
-				scene->addLine(line, pen);
+
+			pontos = this->transformarObjeto(pontos);
+			QPen pen(objeto->getCor());
+			QLineF line;
+			Ponto ponto1 = pontos.at(0);
+
+			if(pontos.size() > 1) {
+				Ponto ant = ponto1;
+
+				for(int i = 1; i < pontos.size(); i++) {
+					line = QLineF(ant.getX(), ant.getY(), pontos.at(i).getX(), pontos.at(i).getY());
+					scene->addLine(line, pen);
+					ant = pontos.at(i);
+				}
+				if(objeto->getTipo() == ObjetoGeometrico::POLIGONO) {
+					line = QLineF(ant.getX(), ant.getY(), ponto1.getX(), ponto1.getY());
+					scene->addLine(line, pen);
+				}
+			} else {
+				scene->addEllipse(ponto1.getX(), ponto1.getY(), 3, 3, pen, QBrush(objeto->getCor()));
 			}
 		} else {
-			scene->addEllipse(ponto1.getX(), ponto1.getY(), 3, 3, pen, QBrush(objeto->getCor()));
+			QList<Aresta> arestas = this->clipping->clipObjeto3D((Objeto3D*) objeto);
+
+			for(Aresta a : arestas) {
+				QList<Ponto> pontos = this->transformarObjeto(a.getPontos());
+				QPen pen(a.getCor());
+				QLineF line = QLineF(pontos.at(0).getX(), pontos.at(0).getY(), pontos.at(1).getX(), pontos.at(1).getY());
+				scene->addLine(line, pen);
+			}
 		}
 
 		delete objeto;
