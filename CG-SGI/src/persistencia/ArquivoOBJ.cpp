@@ -2,8 +2,6 @@
 
 const String ArquivoOBJ::BASIC_MAN = "samples/basicman.sample";
 const String ArquivoOBJ::CRISTO_REDENTOR = "samples/cristo.sample";
-const String ArquivoOBJ::DINO_MECH = "samples/dinomech.sample";
-const String ArquivoOBJ::SUB_ZERO = "samples/subzero.sample";
 
 ArquivoOBJ::ArquivoOBJ(const String& nome) : Arquivo(nome) {
 	this->window = 0;
@@ -71,7 +69,8 @@ void ArquivoOBJ::carregar() throw(ExcecaoArquivoInvalido, ExcecaoLeituraArquivo)
 		if(linha.size() == 0)
 			continue;
 
-		if(tipo.compare("f") != 0 && tipo.at(0) != '#' && tipo.compare("usemtl") != 0 && anteriorEraFace) {
+		if(tipo.compare("f") != 0 && tipo.at(0) != '#' && tipo.compare("v") != 0
+				&& tipo.compare("usemtl") != 0 && anteriorEraFace) {
 			this->objetos.append(new Objeto3D(nomeObjeto, pontosObjeto3d.values(), arestas));
 			pontosObjeto3d.clear();
 			pontosObjeto3dCopia.clear();

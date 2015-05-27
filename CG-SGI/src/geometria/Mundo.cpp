@@ -49,10 +49,10 @@ void Mundo::navegar(const Direcao direcao, const double fator) {
 }
 
 void Mundo::aplicarZoom(const double fator) {
-	double fatorEscalonamento = (double) 1 / ((fator * 0.1) + 1);
+	double fatorEscalonamento = (double) 1 / ((fator * 0.2) + 1);
 
 	if (fator < 0)
-		fatorEscalonamento = (double) (fator * -0.1) + 1;
+		fatorEscalonamento = (double) (fator * -0.2) + 1;
 
 	this->window->escalonar(fatorEscalonamento, fatorEscalonamento, fatorEscalonamento);
 	this->window->atualizarDisplayFile(this->displayFile);

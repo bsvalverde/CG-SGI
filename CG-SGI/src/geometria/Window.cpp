@@ -2,7 +2,7 @@
 
 Window::Window() : ObjetoGeometrico("Window", Tipo::WINDOW) {
 	this->centro = Ponto("centro", 0, 0, 0);
-	this->centroProjecao = Ponto("centroProjecao", 0, 0, -80);
+	this->centroProjecao = Ponto("centroProjecao", 0, 0, -120);
 	this->viewUpVector = Ponto("viewUpVector", 0, 138.75, 0);
 	this->viewRightVector = Ponto("viewRightVector", 0, 118.75, 0);
 	this->vpnVector = Ponto("vpnVector", 0, 0, 120);

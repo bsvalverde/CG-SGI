@@ -72,6 +72,8 @@ void Viewport::atualizarCena(const QList<ObjetoGeometrico*>& objetos) {
 				QPen pen(a.getCor());
 				QLineF line = QLineF(pontos.at(0).getX(), pontos.at(0).getY(), pontos.at(1).getX(), pontos.at(1).getY());
 				scene->addLine(line, pen);
+				delete a.getPontosObjeto().at(0);
+				delete a.getPontosObjeto().at(1);
 			}
 		}
 

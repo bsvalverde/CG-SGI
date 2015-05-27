@@ -9,11 +9,6 @@ Aresta::Aresta(Ponto* const inicial, Ponto* const final, const QColor& cor) {
 Aresta::~Aresta() {
 }
 
-bool Aresta::operator==(const Aresta& rhs) const {
-	return rhs.getPontos().at(0) == *this->v_inicial &&
-			rhs.getPontos().at(1) == *this->v_final;
-}
-
 QList<Ponto> Aresta::getPontos() const {
 	QList<Ponto> pontos;
 	pontos.insert(0, *this->v_inicial);

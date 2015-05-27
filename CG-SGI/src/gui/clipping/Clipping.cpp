@@ -36,12 +36,7 @@ QList<Aresta> Clipping::clipObjeto3D(Objeto3D* const objeto) const {
 		QList<Ponto> pontos = this->clipReta(&r);
 
 		if(pontos.size() == 2) {
-			QList<Ponto*> pontosAresta = a.getPontosObjeto();
-			pontosAresta.at(0)->setX(pontos.at(0).getX());
-			pontosAresta.at(0)->setY(pontos.at(0).getY());
-			pontosAresta.at(1)->setX(pontos.at(1).getX());
-			pontosAresta.at(1)->setY(pontos.at(1).getY());
-			novasArestas.append(a);
+			novasArestas.append(Aresta(new Ponto(pontos.at(0)), new Ponto(pontos.at(1)), a.getCor()));
 		}
 	}
 
