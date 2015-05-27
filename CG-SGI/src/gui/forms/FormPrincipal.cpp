@@ -97,12 +97,15 @@ void FormPrincipal::inicializarMenu() {
 	QMenu* itemImportarPre = menuArquivo->addMenu("Importar cena &pré-definida");
 	QAction* itemCenaBasicMan = itemImportarPre->addAction("Basic Man");
 	itemCenaBasicMan->setData(QString::fromStdString(ArquivoOBJ::BASIC_MAN));
+	itemCenaBasicMan->setEnabled(false);
 	QAction* itemCenaCristo = itemImportarPre->addAction("Cristo Redentor");
 	itemCenaCristo->setData(QString::fromStdString(ArquivoOBJ::CRISTO_REDENTOR));
 	QAction* itemCenaDinoMech= itemImportarPre->addAction("Dino-Mech");
 	itemCenaDinoMech->setData(QString::fromStdString(ArquivoOBJ::DINO_MECH));
+	itemCenaDinoMech->setEnabled(false);
 	QAction* itemCenaSubZero = itemImportarPre->addAction("Sub-Zero");
 	itemCenaSubZero->setData(QString::fromStdString(ArquivoOBJ::SUB_ZERO));
+	itemCenaSubZero->setEnabled(false);
 
 	QAction* itemExportar = menuArquivo->addAction("&Exportar cena...");
 	itemExportar->setShortcut(QKeySequence("CTRL+SHIFT+E", QKeySequence::NativeText));
