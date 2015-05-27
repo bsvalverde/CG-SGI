@@ -23,6 +23,13 @@ public:
 	~Aresta();
 
 	/**
+	 * Operador de comparação de igualdade.
+	 * @param rhs aresta a ser comparada.
+	 * @return true caso as arestas sejam iguais.
+	 */
+	bool operator==(const Aresta& rhs) const;
+
+	/**
 	 * Obter os pontos da aresta.
 	 * @return lista com a cópia dos pontos.
 	 */

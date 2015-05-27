@@ -29,19 +29,23 @@ QList<Ponto> Clipping::clip(ObjetoGeometrico* const objeto) const {
 
 QList<Aresta> Clipping::clipObjeto3D(Objeto3D* const objeto) const {
 	QList<Aresta> arestas = objeto->getArestas();
-	/* TODO clipping objetos 3d
+	QList<Aresta> novasArestas;
+
 	for(Aresta a : arestas) {
 		Reta r("", a.getPontos().at(0), a.getPontos().at(1));
 		QList<Ponto> pontos = this->clipReta(&r);
 
-		QList<Ponto*> pontosAresta = a.getPontosObjeto();
-		pontosAresta.at(0)->setX(pontos.at(0).getX());
-		pontosAresta.at(0)->setY(pontos.at(0).getY());
-		pontosAresta.at(1)->setX(pontos.at(1).getX());
-		pontosAresta.at(1)->setY(pontos.at(1).getY());
-	}*/
+		if(pontos.size() == 2) {
+			QList<Ponto*> pontosAresta = a.getPontosObjeto();
+			pontosAresta.at(0)->setX(pontos.at(0).getX());
+			pontosAresta.at(0)->setY(pontos.at(0).getY());
+			pontosAresta.at(1)->setX(pontos.at(1).getX());
+			pontosAresta.at(1)->setY(pontos.at(1).getY());
+			novasArestas.append(a);
+		}
+	}
 
-	return arestas;
+	return novasArestas;
 }
 
 QList<Ponto> Clipping::clipCurva(const Curva* const curva) const {

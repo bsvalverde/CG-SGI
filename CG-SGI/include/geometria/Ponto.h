@@ -42,7 +42,12 @@ public:
 	 */
 	Ponto& operator=(const Ponto& ponto);
 
-	bool operator==(const Ponto& rhs);
+	/**
+	 * Operador de comparação de igualdade.
+	 * @param rhs ponto a ser comparado.
+	 * @return true caso os pontos sejam iguais.
+	 */
+	bool operator==(const Ponto& rhs) const;
 
 	/**
 	 * Clonar o objeto.
