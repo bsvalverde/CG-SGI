@@ -1,5 +1,4 @@
 #include "gui/Viewport.h"
-#include <iostream>
 
 Viewport::Viewport(QGraphicsView* const janelaGrafica, const double largura, const double altura) {
 	this->janelaGrafica = janelaGrafica;
@@ -68,7 +67,7 @@ void Viewport::atualizarCena(const QList<ObjetoGeometrico*>& objetos) {
 		} else {
 			QList<Aresta> arestas = this->clipping->clipObjeto3D((Objeto3D*) objeto);
 			for(Aresta a : arestas) {
-				std::cout << a.getPontos().at(0) << ", " << a.getPontos().at(1) << std::endl;
+
 				QList<Ponto> pontos = this->transformarObjeto(a.getPontos());
 				QPen pen(a.getCor());
 				QLineF line = QLineF(pontos.at(0).getX(), pontos.at(0).getY(), pontos.at(1).getX(), pontos.at(1).getY());
