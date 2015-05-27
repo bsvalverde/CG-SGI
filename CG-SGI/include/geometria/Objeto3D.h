@@ -1,6 +1,8 @@
 #ifndef OBJETO3D_H_
 #define OBJETO3D_H_
 
+#include <QtCore/qmap.h>
+
 #include "geometria/Ponto.h"
 #include "geometria/Aresta.h"
 

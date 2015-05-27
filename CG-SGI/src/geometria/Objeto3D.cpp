@@ -6,10 +6,21 @@ Objeto3D::Objeto3D() :
 
 Objeto3D::Objeto3D(const Objeto3D& objeto3d) :
 		ObjetoGeometrico(objeto3d) {
-	for (int i = 0; i < objeto3d.pontos.size(); i++)
-		this->pontos.insert(i, objeto3d.pontos.at(i));
-	for (int i = 0; i < objeto3d.arestas.size(); i++)
-		this->arestas.insert(i, objeto3d.arestas.at(i));
+	QMap<long, Ponto*> novosPontos;
+
+	for (int i = 0; i < objeto3d.pontos.size(); i++) {
+		Ponto* p = (Ponto*) objeto3d.pontos.at(i)->clonar();
+		novosPontos.insert((long) objeto3d.pontos.at(i), p);
+	}
+
+	this->pontos = novosPontos.values();
+
+	for (int i = 0; i < objeto3d.arestas.size(); i++) {
+		Aresta a = objeto3d.arestas.at(i);
+		Ponto* p1 = novosPontos.value((long) a.getPontosObjeto().at(0));
+		Ponto* p2 = novosPontos.value((long) a.getPontosObjeto().at(1));
+		this->arestas.append(Aresta(p1, p2, a.getCor()));
+	}
 }
 
 Objeto3D::Objeto3D(const String& nome, const QList<Ponto*>& pontos,
@@ -26,10 +37,21 @@ Objeto3D& Objeto3D::operator=(const Objeto3D& objeto3d) {
 	this->ObjetoGeometrico::operator =(objeto3d);
 	this->pontos.clear();
 	this->arestas.clear();
-	for (int i = 0; i < objeto3d.pontos.size(); i++)
-		this->pontos.insert(i, objeto3d.pontos.at(i));
-	for (int i = 0; i < objeto3d.arestas.size(); i++)
-		this->arestas.insert(i, objeto3d.arestas.at(i));
+	QMap<long, Ponto*> novosPontos;
+
+	for (int i = 0; i < objeto3d.pontos.size(); i++) {
+		Ponto* p = (Ponto*) objeto3d.pontos.at(i)->clonar();
+		novosPontos.insert((long) objeto3d.pontos.at(i), p);
+	}
+
+	this->pontos = novosPontos.values();
+
+	for (int i = 0; i < objeto3d.arestas.size(); i++) {
+		Aresta a = objeto3d.arestas.at(i);
+		Ponto* p1 = novosPontos.value((long) a.getPontosObjeto().at(0));
+		Ponto* p2 = novosPontos.value((long) a.getPontosObjeto().at(1));
+		this->arestas.append(Aresta(p1, p2, a.getCor()));
+	}
 	return *this;
 }
 

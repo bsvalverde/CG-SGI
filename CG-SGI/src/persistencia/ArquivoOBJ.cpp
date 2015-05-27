@@ -1,5 +1,4 @@
 #include "persistencia/ArquivoOBJ.h"
-#include <iostream>
 
 const String ArquivoOBJ::BASIC_MAN = "samples/basicman.sample";
 const String ArquivoOBJ::CRISTO_REDENTOR = "samples/cristo.sample";
@@ -61,7 +60,7 @@ void ArquivoOBJ::carregar() throw(ExcecaoArquivoInvalido, ExcecaoLeituraArquivo)
 	String nomeObjeto = "";
 	QList<Aresta> arestas;
 	QList<Ponto> pontosObjeto3dCopia;
-	QList<Ponto*> pontosObjeto3d;
+	QMap<long, Ponto*> pontosObjeto3d;
 
 	// Criar os objetos
 	while(std::getline(arquivo, linha)) {
@@ -69,8 +68,11 @@ void ArquivoOBJ::carregar() throw(ExcecaoArquivoInvalido, ExcecaoLeituraArquivo)
 		String tipo;
 		buffer >> tipo;
 
-		if(tipo.compare("f") != 0 && tipo.compare("usemtl") != 0 && anteriorEraFace) {
-			this->objetos.append(new Objeto3D(nomeObjeto, pontosObjeto3d, arestas));
+		if(linha.size() == 0)
+			continue;
+
+		if(tipo.compare("f") != 0 && tipo.at(0) != '#' && tipo.compare("usemtl") != 0 && anteriorEraFace) {
+			this->objetos.append(new Objeto3D(nomeObjeto, pontosObjeto3d.values(), arestas));
 			pontosObjeto3d.clear();
 			pontosObjeto3dCopia.clear();
 			arestas.clear();
@@ -169,26 +171,32 @@ void ArquivoOBJ::carregar() throw(ExcecaoArquivoInvalido, ExcecaoLeituraArquivo)
 					throw ExcecaoArquivoInvalido(this->getNome());
 				}
 
-				Ponto* p1 = new Ponto(*pontos.value(indices.at(0)));
-				Ponto* pInicial = p1;
-				Ponto* p2;
+				Ponto* p1 = 0;
+				Ponto* p2 = 0;
+				Ponto* pInicial = 0;
+
+				if(!pontosObjeto3dCopia.contains(*pontos.value(indices.at(0)))) {
+					p1 = new Ponto(*pontos.value(indices.at(0)));
+					pontosObjeto3d.insert((long) pontos.value(indices.at(0)), p1);
+					pontosObjeto3dCopia.append(*p1);
+				} else {
+					p1 = pontosObjeto3d.value((long) pontos.value(indices.at(0)));
+				}
+
+				pInicial = p1;
 
 				for(int i = 1; i < indices.size(); i++) {
-					p2 = new Ponto(*pontos.value(indices.at(i)));
-					arestas.append(Aresta(p1, p2, corAtual));
-
-					if(!pontosObjeto3dCopia.contains(*p1)) {
-						pontosObjeto3d.append(p1);
-						pontosObjeto3dCopia.append(*p1);
+					if(!pontosObjeto3dCopia.contains(*pontos.value(indices.at(i)))) {
+						p2 = new Ponto(*pontos.value(indices.at(i)));
+						pontosObjeto3d.insert((long) pontos.value(indices.at(i)), p2);
+						pontosObjeto3dCopia.append(*p2);
+					} else {
+						p2 = pontosObjeto3d.value((long) pontos.value(indices.at(i)));
 					}
+					arestas.append(Aresta(p1, p2, corAtual));
 					p1 = p2;
 				}
 				arestas.append(Aresta(pInicial, p1, corAtual));
-
-				if(!pontosObjeto3dCopia.contains(*p1)) {
-					pontosObjeto3d.append(p1);
-					pontosObjeto3dCopia.append(*p1);
-				}
 			} else {
 				this->limpar(pontos.values());
 				throw ExcecaoArquivoInvalido(this->getNome());
@@ -210,13 +218,8 @@ void ArquivoOBJ::carregar() throw(ExcecaoArquivoInvalido, ExcecaoLeituraArquivo)
 
 	}
 
-	if(arestas.size() > 0) {
-		this->objetos.append(new Objeto3D(nomeObjeto, pontosObjeto3d, arestas));
-		pontosObjeto3d.clear();
-		pontosObjeto3dCopia.clear();
-		arestas.clear();
-		anteriorEraFace = false;
-	}
+	if(arestas.size() > 0)
+		this->objetos.append(new Objeto3D(nomeObjeto, pontosObjeto3d.values(), arestas));
 
 	arquivo.close();
 	this->limpar(pontos.values());
