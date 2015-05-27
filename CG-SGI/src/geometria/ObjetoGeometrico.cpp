@@ -50,9 +50,13 @@ ObjetoGeometrico::Tipo ObjetoGeometrico::getTipo() const {
 const String ObjetoGeometrico::getTipoString() const {
 	switch (this->tipo) {
 	case Tipo::CURVA_BEZIER:
-		return "Bezier";
+		return "Curv Bezier";
 	case Tipo::CURVA_BSPLINE:
-		return "B-Spline";
+		return "Curv B-Spline";
+	case Tipo::SUPERFICIE_BEZIER:
+		return "Sup Bezier";
+	case Tipo::SUPERFICIE_BSPLINE:
+		return "Sup B-Spline";
 	case Tipo::OBJETO3D:
 		return "Objeto 3D";
 	case Tipo::PONTO:

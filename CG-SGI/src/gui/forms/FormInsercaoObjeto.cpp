@@ -54,6 +54,12 @@ void FormInsercaoObjeto::limparCampos(){
 	this->inserirPontoBSpline();
 	this->inserirPontoBSpline();
 
+	while(this->tablePontosSuperficieBezier->rowCount() > 0)
+		this->tablePontosSuperficieBezier->removeRow(0);
+
+	for(int i = 0; i < 16; i++)
+		this->tablePontosSuperficieBezier->insertRow(this->tablePontosSuperficieBezier->rowCount());
+
 	this->tabObjects->setCurrentIndex(0);
 
 	QString style = QString("QPushButton  {"
@@ -128,7 +134,7 @@ bool FormInsercaoObjeto::validarCampos() {
 			this->fdBezierZ4->text().toDouble(&ok3);
 			ok = ok && ok1 && ok2 && ok3;
 			return ok;
-		default:
+		case 4:
 			if(this->tablePontosBSpline->rowCount() < 3)
 				return false;
 
@@ -137,6 +143,24 @@ bool FormInsercaoObjeto::validarCampos() {
 				i1 = this->tablePontosBSpline->item(i, 0);
 				i2 = this->tablePontosBSpline->item(i, 1);
 				i3 = this->tablePontosBSpline->item(i, 2);
+
+				if(!i1 || !i2 || !i3)
+					return false;
+
+				i1->text().toDouble(&ok1);
+				i2->text().toDouble(&ok2);
+				i3->text().toDouble(&ok3);
+
+				if(!(ok1 && ok2 && ok3))
+					return false;
+			}
+			return true;
+		default:
+			for(int i = 0; i < this->tablePontosSuperficieBezier->rowCount(); i++) {
+				QTableWidgetItem *i1, *i2, *i3;
+				i1 = this->tablePontosSuperficieBezier->item(i, 0);
+				i2 = this->tablePontosSuperficieBezier->item(i, 1);
+				i3 = this->tablePontosSuperficieBezier->item(i, 2);
 
 				if(!i1 || !i2 || !i3)
 					return false;
@@ -231,7 +255,7 @@ void FormInsercaoObjeto::inserirObjeto() {
 			pontos.insert(3, p);
 			tipo = ObjetoGeometrico::CURVA_BEZIER;
 			break;
-		default:
+		case 4:
 			for(int i = 0; i < this->tablePontosBSpline->rowCount(); i++) {
 				String nomePonto = this->fdNome->text().toStdString();
 
@@ -244,11 +268,24 @@ void FormInsercaoObjeto::inserirObjeto() {
 			}
 			tipo = ObjetoGeometrico::CURVA_BSPLINE;
 			break;
+		default:
+			for(int i = 0; i < this->tablePontosSuperficieBezier->rowCount(); i++) {
+				String nomePonto = this->fdNome->text().toStdString();
+
+				x = this->tablePontosSuperficieBezier->item(i, 0)->text().toDouble();
+				y = this->tablePontosSuperficieBezier->item(i, 1)->text().toDouble();
+				z = this->tablePontosSuperficieBezier->item(i, 2)->text().toDouble();
+
+				p = Ponto(nomePonto, x, y, z);
+				pontos.insert(i, p);
+			}
+			tipo = ObjetoGeometrico::SUPERFICIE_BEZIER;
+			break;
 	}
 
-	QColor color = this->btnCor->palette().color(this->btnCor->backgroundRole());
+	QColor cor = this->btnCor->palette().color(this->btnCor->backgroundRole());
 
-	this->controladorUI->inserirObjeto(name, pontos, tipo, color);
+	this->controladorUI->inserirObjeto(name, pontos, tipo, cor);
 	this->accept();
 }
 

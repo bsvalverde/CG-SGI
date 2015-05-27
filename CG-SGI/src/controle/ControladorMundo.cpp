@@ -54,6 +54,12 @@ void ControladorMundo::inserirObjeto(const String& nome, const QList<Ponto>& pon
 		case ObjetoGeometrico::CURVA_BSPLINE:
 			this->mundo.inserirObjeto(CurvaBSpline(nome, pontos, cor));
 			break;
+		case ObjetoGeometrico::SUPERFICIE_BEZIER:
+			// TODO
+			break;
+		case ObjetoGeometrico::SUPERFICIE_BSPLINE:
+			// TODO
+			break;
 		case ObjetoGeometrico::POLIGONO:
 			this->mundo.inserirObjeto(Poligono(nome, pontos, cor));
 			break;
