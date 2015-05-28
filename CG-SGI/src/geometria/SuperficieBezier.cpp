@@ -126,22 +126,14 @@ void SuperficieBezier::calcularPontosParametricos(const double t) {
 	this->multiplicarMatrizes(fwdZ, dt, fwdZ);
 
 	//duplica e transpõe forward differences
-	double fwdXt[4][4];
+	double fwdXs[4][4];
+	double fwdYs[4][4];
+	double fwdZs[4][4];
 	for (int i = 0; i < 4; i++) {
 		for (int j = 0; j < 4; j++) {
-			fwdXt[j][i] = fwdX[i][j];
-		}
-	}
-	double fwdYt[4][4];
-	for (int i = 0; i < 4; i++) {
-		for (int j = 0; j < 4; j++) {
-			fwdYt[j][i] = fwdY[i][j];
-		}
-	}
-	double fwdZt[4][4];
-	for (int i = 0; i < 4; i++) {
-		for (int j = 0; j < 4; j++) {
-			fwdZt[j][i] = fwdZ[i][j];
+			fwdXs[j][i] = fwdX[i][j];
+			fwdYs[j][i] = fwdY[i][j];
+			fwdZs[j][i] = fwdZ[i][j];
 		}
 	}
 
@@ -162,13 +154,13 @@ void SuperficieBezier::calcularPontosParametricos(const double t) {
 	//desenha curvas no sentido de s
 	for (double i = 0; i < 1; i += t) {
 		pontosParametricos.append(
-				this->geraCurva(fwdXt[0], fwdYt[0], fwdZt[0], t));
+				this->geraCurva(fwdXs[0], fwdYs[0], fwdZs[0], t));
 		//atualiza forward differences
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 4; j++) {
-				fwdXt[i][j] += fwdXt[i + 1][j];
-				fwdYt[i][j] += fwdYt[i + 1][j];
-				fwdZt[i][j] += fwdZt[i + 1][j];
+				fwdXs[i][j] += fwdXs[i + 1][j];
+				fwdYs[i][j] += fwdYs[i + 1][j];
+				fwdZs[i][j] += fwdZs[i + 1][j];
 			}
 		}
 	}
