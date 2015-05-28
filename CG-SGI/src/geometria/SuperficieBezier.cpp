@@ -148,7 +148,7 @@ void SuperficieBezier::calcularPontosParametricos(const double t) {
 	//desenha curvas no sentido de t
 	for (double i = 0; i < 1; i += t) {
 		pontosParametricos.append(
-				this->desenhaCurva(fwdX[0], fwdY[0], fwdZ[0], t));
+				this->geraCurva(fwdX[0], fwdY[0], fwdZ[0], t));
 		//atualiza forward differences
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 4; j++) {
@@ -162,7 +162,7 @@ void SuperficieBezier::calcularPontosParametricos(const double t) {
 	//desenha curvas no sentido de s
 	for (double i = 0; i < 1; i += t) {
 		pontosParametricos.append(
-				this->desenhaCurva(fwdXt[0], fwdYt[0], fwdZt[0], t));
+				this->geraCurva(fwdXt[0], fwdYt[0], fwdZt[0], t));
 		//atualiza forward differences
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 4; j++) {
@@ -190,7 +190,7 @@ void SuperficieBezier::multiplicarMatrizes(double mat1[4][4], double mat2[4][4],
 	}
 }
 
-QList<Ponto> SuperficieBezier::desenhaCurva(double x[4], double y[4],
+QList<Ponto> SuperficieBezier::geraCurva(double x[4], double y[4],
 		double z[4], double t) {
 	QList<Ponto> pontos;
 	pontos.append(Ponto("", x[0], y[0], z[0]));

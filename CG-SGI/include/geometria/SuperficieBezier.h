@@ -81,7 +81,7 @@ protected:
 	 */
 	void multiplicarMatrizes(double mat1[4][4], double mat2[4][4], double resultado[4][4]);
 
-	QList<Ponto> desenhaCurva(double x[4], double y[4], double z[4], double t);
+	QList<Ponto> geraCurva(double x[4], double y[4], double z[4], double t);
 
 	Ponto pontos[4][4];
 	QList<QList<Ponto>> pontosParametricos;
