@@ -22,7 +22,7 @@ void DisplayFile::inserirObjeto(const ObjetoGeometrico& objeto) {
 			obj = new CurvaBSpline((const CurvaBSpline&) objeto);
 			break;
 		case ObjetoGeometrico::SUPERFICIE_BEZIER:
-			// TODO
+			obj = new SuperficieBezier((const SuperficieBezier&) objeto);
 			break;
 		case ObjetoGeometrico::SUPERFICIE_BSPLINE:
 			// TODO

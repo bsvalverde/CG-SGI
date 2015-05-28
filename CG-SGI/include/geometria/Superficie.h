@@ -46,12 +46,14 @@ public:
 	 */
 	void aplicarTransformacao(const double matriz[4][4]);
 
+	virtual QList<QList<Ponto>> getPontosParametricos() const = 0;
+
 protected:
 	/**
 	 * Calcular pontos paramétricos da superficie.
 	 * @param t passo de iteração.
 	 */
-	virtual void calcularPontosParametricos(const double t = 0.01) = 0;
+	virtual void calcularPontosParametricos(const double t = 0.1) = 0;
 
 };
 

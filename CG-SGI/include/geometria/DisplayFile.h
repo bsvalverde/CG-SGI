@@ -10,6 +10,7 @@
 #include "geometria/CurvaBSpline.h"
 #include "geometria/Poligono.h"
 #include "geometria/Reta.h"
+#include "geometria/SuperficieBezier.h"
 
 typedef std::string String;
 

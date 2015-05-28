@@ -6,6 +6,7 @@
 #include <QtWidgets/qgraphicsview.h>
 
 #include "geometria/Ponto.h"
+#include "geometria/Superficie.h"
 #include "gui/clipping/ClippingCohenSutherland.h"
 #include "gui/clipping/ClippingLiangBarsky.h"
 

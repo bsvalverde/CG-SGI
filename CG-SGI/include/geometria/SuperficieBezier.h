@@ -64,14 +64,14 @@ public:
 	 */
 	const String toString() const;
 
-	QList<QList<Ponto>> getPontosParametricos();
+	QList<QList<Ponto>> getPontosParametricos() const;
 
 protected:
 	/**
 	 * Calcular pontos paramétricos da superficie.
 	 * @param t passo de iteração.
 	 */
-	void calcularPontosParametricos(const double t = 0.01);
+	void calcularPontosParametricos(const double t = 0.1);
 
 	/**
 	 * Multiplicar duas matrizes 4x4

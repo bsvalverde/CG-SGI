@@ -77,7 +77,7 @@ const String SuperficieBezier::toString() const {
 	return r;
 }
 
-QList<QList<Ponto>> SuperficieBezier::getPontosParametricos(){
+QList<QList<Ponto>> SuperficieBezier::getPontosParametricos() const {
 	return this->pontosParametricos;
 }
 
