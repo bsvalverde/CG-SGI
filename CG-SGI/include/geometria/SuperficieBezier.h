@@ -1,6 +1,8 @@
 #ifndef SUPERFICIEBEZIER_H_
 #define SUPERFICIEBEZIER_H_
 
+#include <qmatrix.h>
+
 #include "geometria/Superficie.h"
 
 /**
@@ -74,12 +76,12 @@ protected:
 	void calcularPontosParametricos(const double t = 0.1);
 
 	/**
-	 * Multiplicar duas matrizes 4x4
-	 * @param mat1 primeira matriz a ser multiplicada
-	 * @param mat2 segunda matriz a ser multiplicada
-	 * @param resultado matriz onde o resultado será colocado
+	 * Multiplicar duas matrizes 4x4.
+	 * @param mat1 primeira matriz a ser multiplicada.
+	 * @param mat2 segunda matriz a ser multiplicada.
+	 * @param resultado matriz onde o resultado será colocado.
 	 */
-	void multiplicarMatrizes(double mat1[4][4], double mat2[4][4], double resultado[4][4]);
+	void multiplicarMatrizes(double** mat1, double** mat2, double** resultado);
 
 	QList<Ponto> geraCurva(double x[4], double y[4], double z[4], double t);
 

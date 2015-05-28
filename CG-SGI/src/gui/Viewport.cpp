@@ -1,5 +1,4 @@
 #include "gui/Viewport.h"
-#include <iostream>
 
 Viewport::Viewport(QGraphicsView* const janelaGrafica, const double largura, const double altura) {
 	this->janelaGrafica = janelaGrafica;
@@ -39,7 +38,6 @@ void Viewport::atualizarCena(const QList<ObjetoGeometrico*>& objetos) {
 
 		if(objeto->getTipo() == ObjetoGeometrico::SUPERFICIE_BEZIER ||
 			objeto->getTipo() == ObjetoGeometrico::SUPERFICIE_BSPLINE) {
-			std::cout << "Desenhando superficie..." << std::endl; // TODO remover
 			Superficie* superficie = (Superficie*) objeto;
 			QList<QList<Ponto>> matrizPontos = superficie->getPontosParametricos();
 
