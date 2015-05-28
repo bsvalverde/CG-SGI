@@ -47,7 +47,7 @@ ObjetoGeometrico* SuperficieBezier::clonar() const {
 QList<Ponto> SuperficieBezier::getPontos() const {
 	QList<Ponto> pontos;
 	for (int i = 0; i < 4; i++) {
-		for (int j = 0; i < 4; i++) {
+		for (int j = 0; j < 4; j++) {
 			pontos.insert(i * 4 + j, this->pontos[i][j]);
 		}
 	}
@@ -57,7 +57,7 @@ QList<Ponto> SuperficieBezier::getPontos() const {
 QList<Ponto*> SuperficieBezier::getPontosObjeto() {
 	QList<Ponto*> pontos;
 	for (int i = 0; i < 4; i++) {
-		for (int j = 0; i < 4; i++) {
+		for (int j = 0; j < 4; j++) {
 			pontos.insert(i * 4 + j, &this->pontos[i][j]);
 		}
 	}
@@ -67,7 +67,7 @@ QList<Ponto*> SuperficieBezier::getPontosObjeto() {
 const String SuperficieBezier::toString() const {
 	String r = "[";
 	for (int i = 0; i < 4; i++) {
-		for (int j = 0; i < 4; i++) {
+		for (int j = 0; j < 4; j++) {
 			r += this->pontos[i][j].toString();
 			if (i != 4 && j != 4)
 				r += ", ";
@@ -142,11 +142,11 @@ void SuperficieBezier::calcularPontosParametricos(const double t) {
 		pontosParametricos.append(
 				this->geraCurva(fwdX[0], fwdY[0], fwdZ[0], t));
 		//atualiza forward differences
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 4; j++) {
-				fwdX[i][j] += fwdX[i + 1][j];
-				fwdY[i][j] += fwdY[i + 1][j];
-				fwdZ[i][j] += fwdZ[i + 1][j];
+		for (int a = 0; a < 3; a++) {
+			for (int b = 0; b < 4; b++) {
+				fwdX[a][b] += fwdX[a + 1][b];
+				fwdY[a][b] += fwdY[a + 1][b];
+				fwdZ[a][b] += fwdZ[a + 1][b];
 			}
 		}
 	}
@@ -156,11 +156,11 @@ void SuperficieBezier::calcularPontosParametricos(const double t) {
 		pontosParametricos.append(
 				this->geraCurva(fwdXs[0], fwdYs[0], fwdZs[0], t));
 		//atualiza forward differences
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 4; j++) {
-				fwdXs[i][j] += fwdXs[i + 1][j];
-				fwdYs[i][j] += fwdYs[i + 1][j];
-				fwdZs[i][j] += fwdZs[i + 1][j];
+		for (int a = 0; a < 3; a++) {
+			for (int b = 0; b < 4; b++) {
+				fwdXs[a][b] += fwdXs[a + 1][b];
+				fwdYs[a][b] += fwdYs[a + 1][b];
+				fwdZs[a][b] += fwdZs[a + 1][b];
 			}
 		}
 	}
