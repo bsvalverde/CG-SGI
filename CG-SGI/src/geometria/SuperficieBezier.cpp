@@ -186,7 +186,7 @@ QList<Ponto> SuperficieBezier::geraCurva(double x[4], double y[4],
 		double z[4], double t) {
 	QList<Ponto> pontos;
 	pontos.append(Ponto("", x[0], y[0], z[0]));
-	for (int i = 0; i < 1; i += t) {
+	for (double i = 0; i < 1; i += t) {
 		for (int j = 0; j < 3; j++) {
 			x[j] += x[j + 1];
 			y[j] += y[j + 1];
