@@ -24,7 +24,7 @@ public:
 	 * Construtor.
 	 * @param nome nome do objeto.
 	 * @param tipo tipo da curva.
-	 * @param cor cor da reta.
+	 * @param cor cor da curva.
 	 */
 	Curva(const String& nome, const Tipo tipo, const QColor& cor = QColor(0, 0, 0));
 

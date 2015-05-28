@@ -27,7 +27,7 @@ public:
 	 * @param p2 ponto de controle.
 	 * @param p3 ponto de controle.
 	 * @param p4 ponto final.
-	 * @param cor cor da reta.
+	 * @param cor cor da curva.
 	 */
 	CurvaBezier(const String& nome, const Ponto& p1, const Ponto& p2,
 			const Ponto& p3, const Ponto& p4, const QColor& cor = QColor(0, 0, 0));
