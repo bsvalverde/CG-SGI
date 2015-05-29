@@ -1,8 +1,6 @@
 #ifndef SUPERFICIEBEZIER_H_
 #define SUPERFICIEBEZIER_H_
 
-#include <qmatrix.h>
-
 #include "geometria/Superficie.h"
 
 /**

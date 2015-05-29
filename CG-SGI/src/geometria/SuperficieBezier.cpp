@@ -1,5 +1,4 @@
 #include "geometria/SuperficieBezier.h"
-#include <iostream>
 
 SuperficieBezier::SuperficieBezier() :
 		Superficie() {
@@ -79,11 +78,6 @@ const String SuperficieBezier::toString() const {
 }
 
 QList<QList<Ponto>> SuperficieBezier::getPontosParametricos() const {
-	for (int i = 0; i < pontosParametricos.size(); i++) {
-		for (int j = 0; j < pontosParametricos.at(i).size(); j++) {
-		//	std::cout << pontosParametricos.at(i).at(j).toString() << std::endl;
-		}
-	}
 	return this->pontosParametricos;
 }
 
