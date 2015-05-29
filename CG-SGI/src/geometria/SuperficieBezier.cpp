@@ -81,22 +81,18 @@ const String SuperficieBezier::toString() const {
 QList<QList<Ponto>> SuperficieBezier::getPontosParametricos() const {
 	for (int i = 0; i < pontosParametricos.size(); i++) {
 		for (int j = 0; j < pontosParametricos.at(i).size(); j++) {
-			std::cout << pontosParametricos.at(i).at(j).toString() << std::endl;
+		//	std::cout << pontosParametricos.at(i).at(j).toString() << std::endl;
 		}
 	}
 	return this->pontosParametricos;
 }
 
 void SuperficieBezier::calcularPontosParametricos(const double t) {
-	double** x = new double*[4];
-	double** y = new double*[4];
-	double** z = new double*[4];
+	double x[4][4];
+	double y[4][4];
+	double z[4][4];
 
 	for (int i = 0; i < 4; i++) {
-		x[i] = new double[4];
-		y[i] = new double[4];
-		z[i] = new double[4];
-
 		for (int j = 0; j < 4; j++) {
 			x[i][j] = pontos[i][j].getX();
 			y[i][j] = pontos[i][j].getY();
@@ -106,140 +102,117 @@ void SuperficieBezier::calcularPontosParametricos(const double t) {
 	pontosParametricos.clear();
 
 	//calcular matrizes de coeficientes
-	double** bezier = new double*[4];
-	double** coeficientesX = new double*[4];
-	double** coeficientesY = new double*[4];
-	double** coeficientesZ = new double*[4];
+	double coefX[4][4];
+	double coefY[4][4];
+	double coefZ[4][4];
 
 	for (int i = 0; i < 4; i++) {
-		bezier[i] = new double[4];
-		coeficientesX[i] = new double[4];
-		coeficientesY[i] = new double[4];
-		coeficientesZ[i] = new double[4];
+		coefX[0][i] = -x[0][i] + 3 * x[1][i] - 3 * x[2][i] + x[3][i];
+		coefX[1][i] = 3 * x[0][i] - 6 * x[1][i] + 3 * x[2][i];
+		coefX[2][i] = -3 * x[0][i] + 3 * x[1][i];
+		coefX[3][i] = x[0][i];
+		coefY[0][i] = -y[0][i] + 3 * y[1][i] - 3 * y[2][i] + y[3][i];
+		coefY[1][i] = 3 * y[0][i] - 6 * y[1][i] + 3 * y[2][i];
+		coefY[2][i] = -3 * y[0][i] + 3 * y[1][i];
+		coefY[3][i] = y[0][i];
+		coefZ[0][i] = -z[0][i] + 3 * z[1][i] - 3 * z[2][i] + z[3][i];
+		coefZ[1][i] = 3 * z[0][i] - 6 * z[1][i] + 3 * z[2][i];
+		coefZ[2][i] = -3 * z[0][i] + 3 * z[1][i];
+		coefZ[3][i] = z[0][i];
 	}
-
-	bezier[0][0] = -1; bezier[0][1] = 3; bezier[0][2] = -3; bezier[0][3] = 1;
-	bezier[1][0] = 3; bezier[1][1] = -6; bezier[1][2] = 3; bezier[1][3] = 0;
-	bezier[2][0] = -3; bezier[2][1] = 3; bezier[2][2] = 0; bezier[2][3] = 0;
-	bezier[3][0] = 1; bezier[3][1] = 0; bezier[3][2] = 0; bezier[3][3] = 0;
-
-	this->multiplicarMatrizes(bezier, x, coeficientesX);
-	this->multiplicarMatrizes(coeficientesX, bezier, coeficientesX);
-	this->multiplicarMatrizes(bezier, y, coeficientesY);
-	this->multiplicarMatrizes(coeficientesY, bezier, coeficientesY);
-	this->multiplicarMatrizes(bezier, z, coeficientesZ);
-	this->multiplicarMatrizes(coeficientesZ, bezier, coeficientesZ);
-
-	double** ds = new double*[4];
-	double** dt = new double*[4];
-	double** fwdX = new double*[4];
-	double** fwdY = new double*[4];
-	double** fwdZ = new double*[4];
-
+	double cX[4][4];
+	double cY[4][4];
+	double cZ[4][4];
 	for (int i = 0; i < 4; i++) {
-		ds[i] = new double[4];
-		dt[i] = new double[4];
-		fwdX[i] = new double[4];
-		fwdY[i] = new double[4];
-		fwdZ[i] = new double[4];
+		cX[i][0] = -coefX[i][0] + 3 * coefX[i][1] - 3 * coefX[i][2]
+				+ coefX[i][3];
+		cX[i][1] = 3 * coefX[i][0] - 6 * coefX[i][1] + 3 * coefX[i][2];
+		cX[i][2] = -3 * coefX[i][9] + 3 * coefX[i][1];
+		cX[i][3] = coefX[i][0];
+		cY[i][0] = -coefY[i][0] + 3 * coefY[i][1] - 3 * coefY[i][2]
+				+ coefY[i][3];
+		cY[i][1] = 3 * coefY[i][0] - 6 * coefY[i][1] + 3 * coefY[i][2];
+		cY[i][2] = -3 * coefY[i][9] + 3 * coefY[i][1];
+		cY[i][3] = coefY[i][0];
+		cZ[i][0] = -coefZ[i][0] + 3 * coefZ[i][1] - 3 * coefZ[i][2]
+				+ coefZ[i][3];
+		cZ[i][1] = 3 * coefZ[i][0] - 6 * coefZ[i][1] + 3 * coefZ[i][2];
+		cZ[i][2] = -3 * coefZ[i][9] + 3 * coefZ[i][1];
+		cZ[i][3] = coefZ[i][0];
 	}
 
 	//calcular matrizes de forward differences
-	dt[0][0] = 0; dt[0][1] = t * t * t; dt[0][2] = 6 * t * t * t; dt[0][3] = 6 * t * t * t;
-	dt[1][0] = 0; dt[1][1] = t * t; dt[1][2] = 2 * t * t; dt[1][3] = 0;
-	dt[2][0] = 0; dt[2][1] = t; dt[2][2] = 0; dt[2][3] = 0;
-	dt[3][0] = 1; dt[3][1] = 0; dt[3][2] = 0; dt[3][3] = 0;
+	double fwdX[4][4];
+	double fwdY[4][4];
+	double fwdZ[4][4];
+	for (int i = 0; i < 4; i++) {
+		fwdX[0][i] = cX[3][i];
+		fwdX[1][i] = t * t * t * cX[0][i] + t * t * cX[1][i] + t * cX[2][i];
+		fwdX[2][i] = 6 * t * t * t * cX[0][i] + 2 * t * t * cX[1][i];
+		fwdX[3][i] = 6 * t * t * t * cX[0][i];
+		fwdY[0][i] = cY[3][i];
+		fwdY[1][i] = t * t * t * cY[0][i] + t * t * cY[1][i] + t * cY[2][i];
+		fwdY[2][i] = 6 * t * t * t * cY[0][i] + 2 * t * t * cY[1][i];
+		fwdY[3][i] = 6 * t * t * t * cY[0][i];
+		fwdZ[0][i] = cZ[3][i];
+		fwdZ[1][i] = t * t * t * cZ[0][i] + t * t * cZ[1][i] + t * cZ[2][i];
+		fwdZ[2][i] = 6 * t * t * t * cZ[0][i] + 2 * t * t * cZ[1][i];
+		fwdZ[3][i] = 6 * t * t * t * cZ[0][i];
+	}
 
-	ds[0][0] = 0; ds[0][1] = 0; ds[0][2] = 0; ds[0][3] = 1;
-	ds[1][0] = t * t * t; ds[1][1] = t * t; ds[1][2] = t; ds[1][3] = 0;
-	ds[2][0] = 6 * t * t * t; ds[2][1] = 2 * t * t; ds[2][2] = 0; ds[2][3] = 0;
-	ds[3][0] = 6 * t * t * t; ds[3][1] = 0; ds[3][2] = 0; ds[3][3] = 0;
-
-	this->multiplicarMatrizes(ds, coeficientesX, coeficientesX);
-	this->multiplicarMatrizes(coeficientesX, dt, fwdX);
-	this->multiplicarMatrizes(ds, coeficientesY, coeficientesY);
-	this->multiplicarMatrizes(coeficientesY, dt, fwdY);
-	this->multiplicarMatrizes(ds, coeficientesZ, coeficientesZ);
-	this->multiplicarMatrizes(coeficientesZ, dt, fwdZ);
+	double fX[4][4];
+	double fY[4][4];
+	double fZ[4][4];
+	for (int i = 0; i < 4; i++) {
+		fX[i][0] = fwdX[i][3];
+		fX[i][1] = t * t * t * fwdX[i][0] + t * t * fwdX[i][1] + t * fwdX[i][2];
+		fX[i][2] = 6 * t * t * t * fwdX[i][0] + 2 * t * t * fwdX[i][1];
+		fX[i][3] = 6 * t * t * t * fwdX[i][0];
+		fY[i][0] = fwdY[i][3];
+		fY[i][1] = t * t * t * fwdY[i][0] + t * t * fwdY[i][1] + t * fwdY[i][2];
+		fY[i][2] = 6 * t * t * t * fwdY[i][0] + 2 * t * t * fwdY[i][1];
+		fY[i][3] = 6 * t * t * t * fwdY[i][0];
+		fZ[i][0] = fwdZ[i][3];
+		fZ[i][1] = t * t * t * fwdZ[i][0] + t * t * fwdZ[i][1] + t * fwdZ[i][2];
+		fZ[i][2] = 6 * t * t * t * fwdZ[i][0] + 2 * t * t * fwdZ[i][1];
+		fZ[i][3] = 6 * t * t * t * fwdZ[i][0];
+	}
 
 	//duplica e transpõe forward differences
-	double fwdXs[4][4];
-	double fwdYs[4][4];
-	double fwdZs[4][4];
+	double fXs[4][4];
+	double fYs[4][4];
+	double fZs[4][4];
 	for (int i = 0; i < 4; i++) {
 		for (int j = 0; j < 4; j++) {
-			fwdXs[j][i] = fwdX[i][j];
-			fwdYs[j][i] = fwdY[i][j];
-			fwdZs[j][i] = fwdZ[i][j];
+			fXs[j][i] = fX[i][j];
+			fYs[j][i] = fY[i][j];
+			fZs[j][i] = fZ[i][j];
 		}
 	}
 
 	//desenha curvas no sentido de t
 	for (double i = 0; i < 1; i += t) {
-		pontosParametricos.append(
-				this->geraCurva(fwdX[0], fwdY[0], fwdZ[0], t));
+		pontosParametricos.append(this->geraCurva(fX[0], fY[0], fZ[0], t));
 		//atualiza forward differences
 		for (int a = 0; a < 3; a++) {
 			for (int b = 0; b < 4; b++) {
-				fwdX[a][b] += fwdX[a + 1][b];
-				fwdY[a][b] += fwdY[a + 1][b];
-				fwdZ[a][b] += fwdZ[a + 1][b];
+				fX[a][b] += fX[a + 1][b];
+				fY[a][b] += fY[a + 1][b];
+				fZ[a][b] += fZ[a + 1][b];
 			}
 		}
 	}
 
 	//desenha curvas no sentido de s
 	for (double i = 0; i < 1; i += t) {
-		pontosParametricos.append(
-				this->geraCurva(fwdXs[0], fwdYs[0], fwdZs[0], t));
+		pontosParametricos.append(this->geraCurva(fXs[0], fYs[0], fZs[0], t));
 		//atualiza forward differences
 		for (int a = 0; a < 3; a++) {
 			for (int b = 0; b < 4; b++) {
-				fwdXs[a][b] += fwdXs[a + 1][b];
-				fwdYs[a][b] += fwdYs[a + 1][b];
-				fwdZs[a][b] += fwdZs[a + 1][b];
+				fXs[a][b] += fXs[a + 1][b];
+				fYs[a][b] += fYs[a + 1][b];
+				fZs[a][b] += fZs[a + 1][b];
 			}
-		}
-	}
-
-	for (int i = 0; i < 4; i++) {
-		delete bezier[i];
-		delete coeficientesX[i];
-		delete coeficientesY[i];
-		delete coeficientesZ[i];
-		delete ds[i];
-		delete dt[i];
-		delete fwdX[i];
-		delete fwdY[i];
-		delete fwdZ[i];
-	}
-
-	delete bezier;
-	delete coeficientesX;
-	delete coeficientesY;
-	delete coeficientesZ;
-	delete ds;
-	delete dt;
-	delete fwdX;
-	delete fwdY;
-	delete fwdZ;
-}
-
-void SuperficieBezier::multiplicarMatrizes(double** mat1, double** mat2,
-		double** resultado) {
-	double buffer[4][4] = {{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}};
-
-	for (int i = 0; i < 4; i++) {
-		for (int j = 0; j < 4; j++) {
-			for (int k = 0; k < 4; k++) {
-				buffer[i][j] += mat1[i][k] * mat2[k][j];
-			}
-		}
-	}
-
-	for (int i = 0; i < 4; i++) {
-		for (int j = 0; j < 4; j++) {
-			resultado[i][j] = buffer[i][j];
 		}
 	}
 }
