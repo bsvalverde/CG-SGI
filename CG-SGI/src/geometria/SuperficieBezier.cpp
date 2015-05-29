@@ -110,14 +110,12 @@ void SuperficieBezier::calcularPontosParametricos(const double t) {
 	double** coeficientesX = new double*[4];
 	double** coeficientesY = new double*[4];
 	double** coeficientesZ = new double*[4];
-	double** buffer = new double*[4];
 
 	for (int i = 0; i < 4; i++) {
 		bezier[i] = new double[4];
 		coeficientesX[i] = new double[4];
 		coeficientesY[i] = new double[4];
 		coeficientesZ[i] = new double[4];
-		buffer[i] = new double[4];
 	}
 
 	bezier[0][0] = -1; bezier[0][1] = 3; bezier[0][2] = -3; bezier[0][3] = 1;
@@ -125,12 +123,12 @@ void SuperficieBezier::calcularPontosParametricos(const double t) {
 	bezier[2][0] = -3; bezier[2][1] = 3; bezier[2][2] = 0; bezier[2][3] = 0;
 	bezier[3][0] = 1; bezier[3][1] = 0; bezier[3][2] = 0; bezier[3][3] = 0;
 
-	this->multiplicarMatrizes(bezier, x, buffer);
-	this->multiplicarMatrizes(buffer, bezier, coeficientesX);
-	this->multiplicarMatrizes(bezier, y, buffer);
-	this->multiplicarMatrizes(buffer, bezier, coeficientesY);
-	this->multiplicarMatrizes(bezier, z, buffer);
-	this->multiplicarMatrizes(buffer, bezier, coeficientesZ);
+	this->multiplicarMatrizes(bezier, x, coeficientesX);
+	this->multiplicarMatrizes(coeficientesX, bezier, coeficientesX);
+	this->multiplicarMatrizes(bezier, y, coeficientesY);
+	this->multiplicarMatrizes(coeficientesY, bezier, coeficientesY);
+	this->multiplicarMatrizes(bezier, z, coeficientesZ);
+	this->multiplicarMatrizes(coeficientesZ, bezier, coeficientesZ);
 
 	double** ds = new double*[4];
 	double** dt = new double*[4];
@@ -157,12 +155,12 @@ void SuperficieBezier::calcularPontosParametricos(const double t) {
 	ds[2][0] = 6 * t * t * t; ds[2][1] = 2 * t * t; ds[2][2] = 0; ds[2][3] = 0;
 	ds[3][0] = 6 * t * t * t; ds[3][1] = 0; ds[3][2] = 0; ds[3][3] = 0;
 
-	this->multiplicarMatrizes(ds, coeficientesX, buffer);
-	this->multiplicarMatrizes(buffer, dt, fwdX);
-	this->multiplicarMatrizes(ds, coeficientesY, buffer);
-	this->multiplicarMatrizes(buffer, dt, fwdY);
-	this->multiplicarMatrizes(ds, coeficientesZ, buffer);
-	this->multiplicarMatrizes(buffer, dt, fwdZ);
+	this->multiplicarMatrizes(ds, coeficientesX, coeficientesX);
+	this->multiplicarMatrizes(coeficientesX, dt, fwdX);
+	this->multiplicarMatrizes(ds, coeficientesY, coeficientesY);
+	this->multiplicarMatrizes(coeficientesY, dt, fwdY);
+	this->multiplicarMatrizes(ds, coeficientesZ, coeficientesZ);
+	this->multiplicarMatrizes(coeficientesZ, dt, fwdZ);
 
 	//duplica e transpõe forward differences
 	double fwdXs[4][4];
@@ -214,7 +212,6 @@ void SuperficieBezier::calcularPontosParametricos(const double t) {
 		delete fwdX[i];
 		delete fwdY[i];
 		delete fwdZ[i];
-		delete buffer[i];
 	}
 
 	delete bezier;
@@ -226,21 +223,23 @@ void SuperficieBezier::calcularPontosParametricos(const double t) {
 	delete fwdX;
 	delete fwdY;
 	delete fwdZ;
-	delete buffer;
 }
 
 void SuperficieBezier::multiplicarMatrizes(double** mat1, double** mat2,
 		double** resultado) {
-	for (int i = 0; i < 4; i++) {
-		for (int j = 0; j < 4; j++) {
-			resultado[i][j] = 0;
-		}
-	}
+	double buffer[4][4];
+
 	for (int i = 0; i < 4; i++) {
 		for (int j = 0; j < 4; j++) {
 			for (int k = 0; k < 4; k++) {
-				resultado[i][j] += mat1[i][k] * mat2[k][j];
+				buffer[i][j] += mat1[i][k] * mat2[k][j];
 			}
+		}
+	}
+
+	for (int i = 0; i < 4; i++) {
+		for (int j = 0; j < 4; j++) {
+			resultado[i][j] = buffer[i][j];
 		}
 	}
 }
