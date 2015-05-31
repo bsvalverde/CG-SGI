@@ -6,7 +6,7 @@
 /**
  * Superfície Bicúbica de Bezier.
  */
-class SuperficieBezier : public Superficie {
+class SuperficieBezier: public Superficie {
 
 public:
 	/**
@@ -26,7 +26,8 @@ public:
 	 * @param pontos[4][4] pontos de controle.
 	 * @param cor cor da superficie.
 	 */
-	SuperficieBezier(const String& nome, const QList<Ponto>& pontos, const QColor& cor = QColor(0, 0, 0));
+	SuperficieBezier(const String& nome, const QList<Ponto>& pontos,
+			const QColor& cor = QColor(0, 0, 0));
 
 	/**
 	 * Destrutor.
@@ -73,7 +74,9 @@ protected:
 	 */
 	void calcularPontosParametricos(const double t = 0.1);
 
-	QList<Ponto> geraCurva(double x[4], double y[4], double z[4], double t);
+	QList<Ponto> geraCurva(double x1, double x2, double x3, double x4,
+			double y1, double y2, double y3, double y4, double z1, double z2,
+			double z3, double z4, double t);
 
 	Ponto pontos[4][4];
 	QList<QList<Ponto>> pontosParametricos;
