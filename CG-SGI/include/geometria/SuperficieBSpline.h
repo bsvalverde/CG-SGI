@@ -1,24 +1,24 @@
-#ifndef SUPERFICIEBEZIER_H_
-#define SUPERFICIEBEZIER_H_
+#ifndef SUPERFICIEBSPLINE_H_
+#define SUPERFICIEBSPLINE_H_
 
 #include "geometria/Superficie.h"
 
 /**
- * Superfície Bicúbica de Bezier.
+ * Superfície Bicúbica B-Spline.
  */
-class SuperficieBezier: public Superficie {
+class SuperficieBSpline: public Superficie {
 
 public:
 	/**
 	 * Construtor.
 	 */
-	SuperficieBezier();
+	SuperficieBSpline();
 
 	/**
 	 * Construtor.
 	 * @param superficie objeto a ser copiado.
 	 */
-	SuperficieBezier(const SuperficieBezier& superficie);
+	SuperficieBSpline(const SuperficieBSpline& superficie);
 
 	/**
 	 * Construtor.
@@ -26,20 +26,20 @@ public:
 	 * @param pontos[4][4] pontos de controle.
 	 * @param cor cor da superficie.
 	 */
-	SuperficieBezier(const String& nome, const QList<Ponto>& pontos,
+	SuperficieBSpline(const String& nome, const QList<Ponto>& pontos,
 			const QColor& cor = QColor(0, 0, 0));
 
 	/**
 	 * Destrutor.
 	 */
-	virtual ~SuperficieBezier();
+	virtual ~SuperficieBSpline();
 
 	/**
 	 * Operador de atribuição.
 	 * @param superficie objeto a ser copiado.
 	 * @return superficie copiada.
 	 */
-	SuperficieBezier& operator=(const SuperficieBezier& superficie);
+	SuperficieBSpline& operator=(const SuperficieBSpline& superficie);
 
 	/**
 	 * Clonar o objeto.
@@ -79,7 +79,7 @@ protected:
 	void calcularPontosParametricos(const double t = 0.1);
 
 	/**
-	 * Gerar uma curva de bezier.
+	 * Gerar uma curva b-spline.
 	 * @param x1 parâmetro x da curva.
 	 * @param x2 parâmetro x da curva.
 	 * @param x3 parâmetro x da curva.
@@ -95,7 +95,7 @@ protected:
 	 * @param t parâmetro da curva.
 	 * @return lista de pontos da curva gerada.
 	 */
-	QList<Ponto> gerarCurva(double x1, double x2, double x3, double x4,
+	QList<Ponto> geraCurva(double x1, double x2, double x3, double x4,
 			double y1, double y2, double y3, double y4, double z1, double z2,
 			double z3, double z4, double t);
 
@@ -104,4 +104,4 @@ protected:
 
 };
 
-#endif /* SUPERFICIEBEZIER_H_ */
+#endif /* SUPERFICIEBSPLINE_H_ */

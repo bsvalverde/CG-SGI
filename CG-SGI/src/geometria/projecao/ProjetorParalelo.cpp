@@ -22,17 +22,17 @@ void ProjetorParalelo::projetarObjeto(ObjetoGeometrico* const objeto) const {
 	double angX = atan(yC / sqrt(xC * xC + zC * zC));
 	double angY = atan(xC / sqrt(yC * yC + zC * zC));
 
-	if (xC > 0 && zC < 0) {
-		angY += M_PI;
-	} else if (xC < 0 && zC < 0) {
-		angY += -M_PI;
-	}
-
-	if (yC > 0 && zC < 0) {
-		angX += M_PI;
-	} else if (yC < 0 && zC < 0) {
-		angX += -M_PI;
-	}
+//	if (xC > 0 && zC < 0) {
+//		angY += M_PI;
+//	} else if (xC < 0 && zC < 0) {
+//		angY += -M_PI;
+//	}
+//
+//	if (yC > 0 && zC < 0) {
+//		angX += M_PI;
+//	} else if (yC < 0 && zC < 0) {
+//		angX += -M_PI;
+//	}
 
 	double matriz[4][4] = { { cos(-angY), 0, sin(-angY), 0 },
 					{ sin(-angX)*sin(-angY), cos(-angX), -sin(-angX)*cos(-angY), 0 },

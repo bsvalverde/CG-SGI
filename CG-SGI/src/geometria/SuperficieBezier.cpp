@@ -187,7 +187,7 @@ void SuperficieBezier::calcularPontosParametricos(const double t) {
 	//desenha curvas no sentido de t
 	for (double i = 0; i < 1; i += t) {
 		pontosParametricos.append(
-				this->geraCurva(fX[0][0], fX[0][1], fX[0][2], fX[0][3],
+				this->gerarCurva(fX[0][0], fX[0][1], fX[0][2], fX[0][3],
 						fY[0][0], fY[0][1], fY[0][2], fY[0][3], fZ[0][0],
 						fZ[0][1], fZ[0][2], fZ[0][3], t));
 		//atualiza forward differences
@@ -203,7 +203,7 @@ void SuperficieBezier::calcularPontosParametricos(const double t) {
 	//desenha curvas no sentido de s
 	for (double i = 0; i < 1; i += t) {
 		pontosParametricos.append(
-				this->geraCurva(fXs[0][0], fXs[0][1], fXs[0][2], fXs[0][3],
+				this->gerarCurva(fXs[0][0], fXs[0][1], fXs[0][2], fXs[0][3],
 						fYs[0][0], fYs[0][1], fYs[0][2], fYs[0][3], fZs[0][0],
 						fZs[0][1], fZs[0][2], fZs[0][3], t));
 		//atualiza forward differences
@@ -217,7 +217,7 @@ void SuperficieBezier::calcularPontosParametricos(const double t) {
 	}
 }
 
-QList<Ponto> SuperficieBezier::geraCurva(double x1, double x2, double x3,
+QList<Ponto> SuperficieBezier::gerarCurva(double x1, double x2, double x3,
 		double x4, double y1, double y2, double y3, double y4, double z1,
 		double z2, double z3, double z4, double t) {
 	QList<Ponto> pontos;
