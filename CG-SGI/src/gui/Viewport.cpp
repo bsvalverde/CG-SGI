@@ -59,6 +59,8 @@ void Viewport::atualizarCena(const QList<ObjetoGeometrico*>& objetos) {
 				delete objeto;
 				continue;
 			}
+			//RASTERIZAÇÃO ANTES DE TRANSFORMADA DE VIEWPORT
+			//penso em clipar todos e mandar pra um displayfileclipado, e mandar esse dpf pro iluminador
 
 			pontos = this->transformarObjeto(pontos);
 			QPen pen(objeto->getCor());
@@ -82,6 +84,8 @@ void Viewport::atualizarCena(const QList<ObjetoGeometrico*>& objetos) {
 			}
 		} else {
 			QList<Aresta> arestas = this->clipping->clipObjeto3D((Objeto3D*) objeto);
+			//RASTERIZAÇÃO ANTES DA TRANSFORMADA DE VIEWPORT
+
 			for(Aresta a : arestas) {
 
 				QList<Ponto> pontos = this->transformarObjeto(a.getPontos());
