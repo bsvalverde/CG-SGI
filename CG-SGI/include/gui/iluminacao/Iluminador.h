@@ -27,24 +27,33 @@ public:
 
 private:
 	/**
-	 * Transforma os objetos clipados em trapézios.
-	 * @param objetos objetos a serem transformados.
+	 * Divide o objeto clipado em triângulos.
+	 * @param objeto objeto a ser transformado.
 	 */
-	void transformarObjetos(const QList<ObjetoGeometrico*>& objetos);
+	QList<Poligono> triangularObjeto(const ObjetoGeometrico* objeto);
 
 	/**
-	 * Cada um dos seguintes métodos é chamado conforme o tipo do objeto
+	 * Verifica se o ponto p está dentro do polígono formado por pontos
+	 * @param p ponto a verificar
+	 * @param pontos pontos que formam o polígono
 	 */
-	QList<Ponto> transformarNormal(QList<Ponto> pontos);
-	void transformarObjeto3D(Objeto3D* obj);
+	bool estaDentro(Ponto p, QList<Ponto> pontos);
+
+	/**
+	 * Divide os triângulos em triângulos que tenham bordas com y constante.
+	 * @param triangulos triângulos a serem transformados.
+	 */
+	void adaptarTriangulos(const QList<Poligono> triangulos);
 
 	/*
-	 *Calcula a projeção de p3 na reta p1, p2 por y
+	 *Calcula a projeção de p em y na reta r
+	 *@param p ponto a ser projetado
+	 *@param r reta onde o ponto deve estar
 	 */
-	Ponto calcularInterseccao(Ponto p1, Ponto p2, Ponto p3);
+	Ponto calcularInterseccao(Ponto p, Reta r);
 
 	Viewport viewport;
-	QList<Poligono> trapezios;
+	QList<Poligono> triangulos;
 };
 
 #endif /* ILUMINADOR_H_ */

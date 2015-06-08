@@ -6,7 +6,7 @@
 /**
  * Reta.
  */
-class Reta : public ObjetoGeometrico {
+class Reta: public ObjetoGeometrico {
 
 public:
 	/**
@@ -27,7 +27,8 @@ public:
 	 * @param final ponto final.
 	 * @param cor cor da reta.
 	 */
-	Reta(const String& nome, const Ponto& inicial, const Ponto& final, const QColor& cor = QColor(0, 0, 0));
+	Reta(const String& nome, const Ponto& inicial, const Ponto& final,
+			const QColor& cor = QColor(0, 0, 0));
 
 	/**
 	 * Destrutor.
@@ -70,6 +71,12 @@ public:
 	 * @return coeficiente angular.
 	 */
 	double coeficienteAngular() const;
+
+	/**
+	 * Obter o coeficiente angular da reta em relação ao eixo Z.
+	 * @return coeficiente angular.
+	 */
+	double coeficienteAngularZ() const;
 
 protected:
 	Ponto v_inicial;
