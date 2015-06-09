@@ -8,14 +8,6 @@ Rasterizador::Rasterizador(const unsigned int tamX, const unsigned int tamY) {
 Rasterizador::~Rasterizador() {
 }
 
-void Rasterizador::rasterizarCena(const QList<ObjetoGeometrico*>& objetos) {
-	QList<Poligono> triangulos;
-	for (int i = 0; i < objetos.size(); i++) {
-		triangulos.append(this->triangularObjeto(objetos.at(i)));
-	}
-	this->adaptarTriangulos(triangulos);
-}
-
 QList<Poligono> Rasterizador::rasterizarObjeto(ObjetoGeometrico* const objeto) {
 	this->triangulos.clear(); // TODO
 	QList<Poligono> triangulos = this->triangularObjeto(objeto);

@@ -42,7 +42,7 @@ void Viewport::atualizarCena(const QList<ObjetoGeometrico*>& objetos) {
 	for(int i = 0; i < objetos.size(); i++) {
 		ObjetoGeometrico* objeto = objetos.at(i)->clonar();
 		std::cout << "pontosAnt: " << objeto->getPontos().size() << std::endl;
-		ObjetoGeometrico* objetoRecortado = objeto;//this->clipping->clip(objeto);
+		ObjetoGeometrico* objetoRecortado = this->clipping->clip(objeto);
 		std::cout << "pontosDep: " << objetoRecortado->getPontos().size() << std::endl;
 
 		if(objetoRecortado != 0) {
@@ -152,10 +152,13 @@ void Viewport::setAlgoritmoClippingLinhas(Clipping::AlgoritmoClippingLinha algor
 	if(this->clipping)
 		delete this->clipping;
 
-	double xvMin = 2 * CLIPPING_MARGIN / this->largura - 1;
-	double xvMax = 2 * (this->largura - CLIPPING_MARGIN) / this->largura - 1;
-	double yvMin = 2 * CLIPPING_MARGIN / this->altura - 1;
-	double yvMax = 2 * (this->altura - CLIPPING_MARGIN - 1) / this->altura - 1;
+	double larguraD = (double) this->largura;
+	double alturaD = (double) this->altura;
+
+	double xvMin = 2 * MARGEM_CLIPPING / larguraD - 1;
+	double xvMax = 2 * (larguraD - MARGEM_CLIPPING) / larguraD - 1;
+	double yvMin = 2 * MARGEM_CLIPPING / alturaD - 1;
+	double yvMax = 2 * (alturaD - MARGEM_CLIPPING - 1) / alturaD - 1;
 
 	switch(algoritmo) {
 		case Clipping::COHEN_SUTHERLAND:
@@ -169,10 +172,10 @@ void Viewport::setAlgoritmoClippingLinhas(Clipping::AlgoritmoClippingLinha algor
 
 QList<Ponto> Viewport::getPontos() const {
 	QList<Ponto> pontos;
-	pontos.insert(0, Ponto("vwp-p1", CLIPPING_MARGIN, CLIPPING_MARGIN, 0));
-	pontos.insert(1, Ponto("vwp-p2", this->largura - CLIPPING_MARGIN, CLIPPING_MARGIN, 0));
-	pontos.insert(2, Ponto("vwp-p3", this->largura - CLIPPING_MARGIN, this->altura - CLIPPING_MARGIN, 0));
-	pontos.insert(3, Ponto("vwp-p4", CLIPPING_MARGIN, this->altura - CLIPPING_MARGIN, 0));
+	pontos.insert(0, Ponto("vwp-p1", MARGEM_CLIPPING, MARGEM_CLIPPING, 0));
+	pontos.insert(1, Ponto("vwp-p2", this->largura - MARGEM_CLIPPING, MARGEM_CLIPPING, 0));
+	pontos.insert(2, Ponto("vwp-p3", this->largura - MARGEM_CLIPPING, this->altura - MARGEM_CLIPPING, 0));
+	pontos.insert(3, Ponto("vwp-p4", MARGEM_CLIPPING, this->altura - MARGEM_CLIPPING, 0));
 
 	return pontos;
 }
@@ -204,10 +207,10 @@ QList<Ponto> Viewport::transformarObjeto(const QList<Ponto>& pontos) {
 
 void Viewport::desenharAreaClipping(QGraphicsScene* const scene) {
 	QPen pen(QColor(255, 0, 0));
-	QLineF linha1 = QLineF(CLIPPING_MARGIN, CLIPPING_MARGIN, this->largura - CLIPPING_MARGIN, CLIPPING_MARGIN);
-	QLineF linha2 = QLineF(this->largura - CLIPPING_MARGIN, CLIPPING_MARGIN, this->largura - CLIPPING_MARGIN, this->altura - CLIPPING_MARGIN);
-	QLineF linha3 = QLineF(CLIPPING_MARGIN, CLIPPING_MARGIN, CLIPPING_MARGIN, this->altura - CLIPPING_MARGIN);
-	QLineF linha4 = QLineF(CLIPPING_MARGIN, this->altura - CLIPPING_MARGIN, this->largura - CLIPPING_MARGIN, this->altura - CLIPPING_MARGIN);
+	QLineF linha1 = QLineF(MARGEM_CLIPPING, MARGEM_CLIPPING, this->largura - MARGEM_CLIPPING, MARGEM_CLIPPING);
+	QLineF linha2 = QLineF(this->largura - MARGEM_CLIPPING, MARGEM_CLIPPING, this->largura - MARGEM_CLIPPING, this->altura - MARGEM_CLIPPING);
+	QLineF linha3 = QLineF(MARGEM_CLIPPING, MARGEM_CLIPPING, MARGEM_CLIPPING, this->altura - MARGEM_CLIPPING);
+	QLineF linha4 = QLineF(MARGEM_CLIPPING, this->altura - MARGEM_CLIPPING, this->largura - MARGEM_CLIPPING, this->altura - MARGEM_CLIPPING);
 
 	scene->addLine(linha1, pen);
 	scene->addLine(linha2, pen);

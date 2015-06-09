@@ -12,6 +12,8 @@ class Rasterizador {
 public:
 	/**
 	 * Construtor.
+	 * @param tamX largura da viewport.
+	 * @param tamY altura da viewport.
 	 */
 	Rasterizador(const unsigned int tamX, const unsigned int tamY);
 
@@ -21,11 +23,10 @@ public:
 	~Rasterizador();
 
 	/**
-	 * Calcula iluminação e desenha na viewport.
-	 * @param objetos objetos do DisplayFile já clipados.
+	 * Rasterizar um objeto.
+	 * @param objeto objeto a ser rasterizado.
+	 * @return TODO
 	 */
-	void rasterizarCena(const QList<ObjetoGeometrico*>& objetos);
-
 	QList<Poligono> rasterizarObjeto(ObjetoGeometrico* const objeto);
 
 private:

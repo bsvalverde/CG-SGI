@@ -69,7 +69,7 @@ private:
 	 */
 	void desenharAreaClipping(QGraphicsScene* const scene);
 
-	const unsigned int CLIPPING_MARGIN = 20;
+	const unsigned int MARGEM_CLIPPING = 20;
 	QGraphicsView* janelaGrafica;
 	Clipping* clipping;
 	Rasterizador* rasterizador;
