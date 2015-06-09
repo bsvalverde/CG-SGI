@@ -8,7 +8,7 @@ ClippingCohenSutherland::ClippingCohenSutherland(const double xvMin,
 ClippingCohenSutherland::~ClippingCohenSutherland() {
 }
 
-QList<Ponto> ClippingCohenSutherland::clipReta(const Reta* const reta) const {
+ObjetoGeometrico* ClippingCohenSutherland::clipReta(const Reta* const reta) const {
 	QList<Ponto> pontos = reta->getPontos();
 	Ponto p1 = pontos.at(0);
 	Ponto p2 = pontos.at(1);
@@ -21,22 +21,22 @@ QList<Ponto> ClippingCohenSutherland::clipReta(const Reta* const reta) const {
 
 	if ((rc1[0] * rc2[0] + rc1[1] * rc2[1] + rc1[2] * rc2[2] + rc1[3] * rc2[3])
 			!= 0)
-		return QList<Ponto>();
+		return 0;
 
 	if ((rc1[0] + rc2[0] + rc1[1] + rc2[1] + rc1[2] + rc2[2] + rc1[3] + rc2[3])
 			== 0)
-		return pontos;
+		return new Reta(*reta);
 
 	double coefAngular = reta->coeficienteAngular();
 
 	switch (rc1[0] + rc1[1] + rc1[2] + rc1[3]) {
 		case 1:
 			if (!this->clippingBasico(rc1, &p1, coefAngular))
-				return QList<Ponto>();
+				return 0;
 			break;
 		case 2:
 			if (!this->clippingComposto(rc1, &p1, coefAngular))
-				return QList<Ponto>();
+				return 0;
 			break;
 		default:
 			break;
@@ -53,10 +53,7 @@ QList<Ponto> ClippingCohenSutherland::clipReta(const Reta* const reta) const {
 			break;
 	}
 
-	pontos.clear();
-	pontos.append(p1);
-	pontos.append(p2);
-	return pontos;
+	return new Reta(reta->getNome(), p1, p2, reta->getCor());
 }
 
 void ClippingCohenSutherland::carregarRcPonto(const Ponto* const p, short rc[4]) const {

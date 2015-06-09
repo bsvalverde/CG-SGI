@@ -8,7 +8,7 @@ ClippingLiangBarsky::ClippingLiangBarsky(const double xvMin, const double xvMax,
 ClippingLiangBarsky::~ClippingLiangBarsky() {
 }
 
-QList<Ponto> ClippingLiangBarsky::clipReta(const Reta* const reta) const {
+ObjetoGeometrico* ClippingLiangBarsky::clipReta(const Reta* const reta) const {
 	QList<Ponto> pontos = reta->getPontos();
 	Ponto p1 = pontos.at(0);
 	Ponto p2 = pontos.at(1);
@@ -28,7 +28,7 @@ QList<Ponto> ClippingLiangBarsky::clipReta(const Reta* const reta) const {
 	double csi2 = this->csi2(p, q);
 
 	if (csi1 > csi2) // Reta está fora da viewport
-		return QList<Ponto>();
+		return 0;
 
 	if (csi1 != 0) {
 		double x = x1 + csi1 * p[1];
@@ -43,10 +43,8 @@ QList<Ponto> ClippingLiangBarsky::clipReta(const Reta* const reta) const {
 		p2.setX(x);
 		p2.setY(y);
 	}
-	pontos.clear();
-	pontos.append(p1);
-	pontos.append(p2);
-	return pontos;
+
+	return new Reta(reta->getNome(), p1, p2, reta->getCor());
 }
 
 double ClippingLiangBarsky::csi1(double *p, double *q) const {

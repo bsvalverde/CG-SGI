@@ -30,7 +30,7 @@ protected:
 	 * @param reta reta a ser recortada.
 	 * @return lista de pontos recortados.
 	 */
-	virtual QList<Ponto> clipReta(const Reta* const reta) const;
+	virtual ObjetoGeometrico* clipReta(const Reta* const reta) const;
 
 private:
 	/**

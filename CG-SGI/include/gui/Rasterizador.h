@@ -3,16 +3,17 @@
 
 #include <QtCore/qlist.h>
 
-#include "gui/Viewport.h"
 #include "geometria/ObjetoGeometrico.h"
 #include "geometria/Poligono.h"
+#include "geometria/Reta.h"
 
 class Rasterizador {
+
 public:
 	/**
 	 * Construtor.
 	 */
-	Rasterizador(Viewport viewport);
+	Rasterizador(const unsigned int tamX, const unsigned int tamY);
 
 	/**
 	 * Destrutor.
@@ -23,7 +24,9 @@ public:
 	 * Calcula iluminação e desenha na viewport.
 	 * @param objetos objetos do DisplayFile já clipados.
 	 */
-	void iluminarCena(const QList<ObjetoGeometrico*>& objetos);
+	void rasterizarCena(const QList<ObjetoGeometrico*>& objetos);
+
+	QList<Poligono> rasterizarObjeto(ObjetoGeometrico* const objeto);
 
 private:
 	/**
@@ -52,7 +55,8 @@ private:
 	 */
 	Ponto calcularInterseccao(Ponto p, Reta r);
 
-	Viewport viewport;
+	unsigned int tamX;
+	unsigned int tamY;
 	QList<Poligono> triangulos;
 };
 

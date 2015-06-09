@@ -48,14 +48,14 @@ public:
 	 * @param objeto objeto a ser recortado.
 	 * @return lista de pontos recortados.
 	 */
-	QList<Ponto> clip(ObjetoGeometrico* const objeto) const;
+	ObjetoGeometrico* clip(ObjetoGeometrico* const objeto) const;
 
 	/**
 	 * Recortar o objeto 3D.
 	 * @param objeto objeto 3D a ser recortado.
 	 * @return lista de arestas recortadas.
 	 */
-	QList<Aresta> clipObjeto3D(Objeto3D* const objeto) const;
+	ObjetoGeometrico* clipObjeto3D(Objeto3D* const objeto) const;
 
 protected:
 	/**
@@ -63,28 +63,28 @@ protected:
 	 * @param curva curva a ser recortada.
 	 * @return lista de pontos recortados.
 	 */
-	virtual QList<Ponto> clipCurva(const Curva* const curva) const;
+	virtual ObjetoGeometrico* clipCurva(const Curva* const curva) const;
 
 	/**
 	 * Recortar um polígono.
 	 * @param poligono polígono a ser recortado.
 	 * @return lista de pontos recortados.
 	 */
-	virtual QList<Ponto> clipPoligono(const Poligono* const poligono) const;
+	virtual ObjetoGeometrico* clipPoligono(const Poligono* const poligono) const;
 
 	/**
 	 * Recortar um ponto.
 	 * @param ponto ponto a ser recortado.
 	 * @return lista de pontos recortados.
 	 */
-	virtual QList<Ponto> clipPonto(const Ponto* const ponto) const;
+	virtual ObjetoGeometrico* clipPonto(const Ponto* const ponto) const;
 
 	/**
 	 * Recortar uma reta.
 	 * @param reta reta a ser recortada.
 	 * @return lista de pontos recortados.
 	 */
-	virtual QList<Ponto> clipReta(const Reta* const reta) const = 0;
+	virtual ObjetoGeometrico* clipReta(const Reta* const reta) const = 0;
 
 	double xvMin;
 	double xvMax;

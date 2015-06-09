@@ -9,6 +9,7 @@
 #include "geometria/Superficie.h"
 #include "gui/clipping/ClippingCohenSutherland.h"
 #include "gui/clipping/ClippingLiangBarsky.h"
+#include "gui/Rasterizador.h"
 
 /**
  * Janela de visualização da interface gráfica.
@@ -22,7 +23,7 @@ public:
 	 * @param largura largura da viewport.
 	 * @param altura altura da viewport.
 	 */
-	Viewport(QGraphicsView* const janelaGrafica, const double largura, const double altura);
+	Viewport(QGraphicsView* const janelaGrafica, const unsigned int largura, const unsigned int altura);
 
 	/**
 	 * Destrutor.
@@ -71,8 +72,9 @@ private:
 	const unsigned int CLIPPING_MARGIN = 20;
 	QGraphicsView* janelaGrafica;
 	Clipping* clipping;
-	double largura;
-	double altura;
+	Rasterizador* rasterizador;
+	unsigned int largura;
+	unsigned int altura;
 
 };
 

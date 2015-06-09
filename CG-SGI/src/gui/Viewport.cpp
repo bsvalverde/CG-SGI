@@ -1,10 +1,12 @@
 #include "gui/Viewport.h"
+#include <iostream>
 
-Viewport::Viewport(QGraphicsView* const janelaGrafica, const double largura, const double altura) {
+Viewport::Viewport(QGraphicsView* const janelaGrafica, const unsigned int largura, const unsigned int altura) {
 	this->janelaGrafica = janelaGrafica;
 	this->largura = largura;
 	this->altura = altura;
 	this->clipping = 0;
+	this->rasterizador = new Rasterizador(this->largura, this->altura);
 	this->setAlgoritmoClippingLinhas(Clipping::COHEN_SUTHERLAND);
 
 	// Área de clipping
@@ -22,6 +24,9 @@ Viewport::Viewport(QGraphicsView* const janelaGrafica, const double largura, con
 Viewport::~Viewport() {
 	if(this->clipping)
 		delete this->clipping;
+
+	if(this->rasterizador)
+		delete this->rasterizador;
 }
 
 void Viewport::atualizarCena(const QList<ObjetoGeometrico*>& objetos) {
@@ -33,73 +38,110 @@ void Viewport::atualizarCena(const QList<ObjetoGeometrico*>& objetos) {
 	scene = new QGraphicsScene(0, 0, this->largura - 5,
 								this->altura - 5, this->janelaGrafica);
 
+	std::cout << objetos.size() << std::endl;
 	for(int i = 0; i < objetos.size(); i++) {
 		ObjetoGeometrico* objeto = objetos.at(i)->clonar();
+		std::cout << "pontosAnt: " << objeto->getPontos().size() << std::endl;
+		ObjetoGeometrico* objetoRecortado = objeto;//this->clipping->clip(objeto);
+		std::cout << "pontosDep: " << objetoRecortado->getPontos().size() << std::endl;
 
-		if(objeto->getTipo() == ObjetoGeometrico::SUPERFICIE_BEZIER ||
-			objeto->getTipo() == ObjetoGeometrico::SUPERFICIE_BSPLINE) {
-			Superficie* superficie = (Superficie*) objeto;
-			QList<QList<Ponto>> matrizPontos = superficie->getPontosParametricos();
+		if(objetoRecortado != 0) {
+			QList<Poligono> poligonos = this->rasterizador->rasterizarObjeto(objetoRecortado);
 
-			for(QList<Ponto> pontos : matrizPontos) {
-				Ponto ant = pontos.at(0);
-				QPen pen(superficie->getCor());
+			for(Poligono p : poligonos) {
+				QList<Ponto> pontos = p.getPontos();
+
+				pontos = this->transformarObjeto(pontos);
+				QPen pen(objeto->getCor());
 				QLineF line;
+				Ponto ponto1 = pontos.at(0);
 
-				for(int i = 1; i < pontos.size(); i++) {
-					line = QLineF(ant.getX(), ant.getY(), pontos.at(i).getX(), pontos.at(i).getY());
-					scene->addLine(line, pen);
-					ant = pontos.at(i);
+				if(pontos.size() > 1) {
+					Ponto ant = ponto1;
+
+					for(int i = 1; i < pontos.size(); i++) {
+						line = QLineF(ant.getX(), ant.getY(), pontos.at(i).getX(), pontos.at(i).getY());
+						scene->addLine(line, pen);
+						ant = pontos.at(i);
+					}
+					if(p.getTipo() == ObjetoGeometrico::POLIGONO) {
+						line = QLineF(ant.getX(), ant.getY(), ponto1.getX(), ponto1.getY());
+						scene->addLine(line, pen);
+					}
+				} else {
+					scene->addEllipse(ponto1.getX(), ponto1.getY(), 3, 3, pen, QBrush(objeto->getCor()));
 				}
 			}
-		} else if(objeto->getTipo() != ObjetoGeometrico::OBJETO3D) {
-			QList<Ponto> pontos = this->clipping->clip(objeto);
 
-			if(pontos.size() == 0) {
-				delete objeto;
-				continue;
-			}
-			//RASTERIZAÇÃO ANTES DE TRANSFORMADA DE VIEWPORT
-			//penso em clipar todos e mandar pra um displayfileclipado, e mandar esse dpf pro iluminador
-
-			pontos = this->transformarObjeto(pontos);
-			QPen pen(objeto->getCor());
-			QLineF line;
-			Ponto ponto1 = pontos.at(0);
-
-			if(pontos.size() > 1) {
-				Ponto ant = ponto1;
-
-				for(int i = 1; i < pontos.size(); i++) {
-					line = QLineF(ant.getX(), ant.getY(), pontos.at(i).getX(), pontos.at(i).getY());
-					scene->addLine(line, pen);
-					ant = pontos.at(i);
-				}
-				if(objeto->getTipo() == ObjetoGeometrico::POLIGONO) {
-					line = QLineF(ant.getX(), ant.getY(), ponto1.getX(), ponto1.getY());
-					scene->addLine(line, pen);
-				}
-			} else {
-				scene->addEllipse(ponto1.getX(), ponto1.getY(), 3, 3, pen, QBrush(objeto->getCor()));
-			}
-		} else {
-			QList<Aresta> arestas = this->clipping->clipObjeto3D((Objeto3D*) objeto);
-			//RASTERIZAÇÃO ANTES DA TRANSFORMADA DE VIEWPORT
-
-			for(Aresta a : arestas) {
-
-				QList<Ponto> pontos = this->transformarObjeto(a.getPontos());
-				QPen pen(a.getCor());
-				QLineF line = QLineF(pontos.at(0).getX(), pontos.at(0).getY(), pontos.at(1).getX(), pontos.at(1).getY());
-				scene->addLine(line, pen);
-				delete a.getPontosObjeto().at(0);
-				delete a.getPontosObjeto().at(1);
-			}
+			delete objetoRecortado;
 		}
 
-		delete objeto;
-	}
+//		if(objeto != 0)
+//			delete objeto;
 
+//		if(objeto->getTipo() == ObjetoGeometrico::SUPERFICIE_BEZIER ||
+//			objeto->getTipo() == ObjetoGeometrico::SUPERFICIE_BSPLINE) {
+//			Superficie* superficie = (Superficie*) objeto;
+//			QList<QList<Ponto>> matrizPontos = superficie->getPontosParametricos();
+//
+//			for(QList<Ponto> pontos : matrizPontos) {
+//				Ponto ant = pontos.at(0);
+//				QPen pen(superficie->getCor());
+//				QLineF line;
+//
+//				for(int i = 1; i < pontos.size(); i++) {
+//					line = QLineF(ant.getX(), ant.getY(), pontos.at(i).getX(), pontos.at(i).getY());
+//					scene->addLine(line, pen);
+//					ant = pontos.at(i);
+//				}
+//			}
+//		} else if(objeto->getTipo() != ObjetoGeometrico::OBJETO3D) {
+//			QList<Ponto> pontos = this->clipping->clip(objeto);
+//
+//			if(pontos.size() == 0) {
+//				delete objeto;
+//				continue;
+//			}
+//			//RASTERIZAÇÃO ANTES DE TRANSFORMADA DE VIEWPORT
+//			//penso em clipar todos e mandar pra um displayfileclipado, e mandar esse dpf pro iluminador
+//
+//			pontos = this->transformarObjeto(pontos);
+//			QPen pen(objeto->getCor());
+//			QLineF line;
+//			Ponto ponto1 = pontos.at(0);
+//
+//			if(pontos.size() > 1) {
+//				Ponto ant = ponto1;
+//
+//				for(int i = 1; i < pontos.size(); i++) {
+//					line = QLineF(ant.getX(), ant.getY(), pontos.at(i).getX(), pontos.at(i).getY());
+//					scene->addLine(line, pen);
+//					ant = pontos.at(i);
+//				}
+//				if(objeto->getTipo() == ObjetoGeometrico::POLIGONO) {
+//					line = QLineF(ant.getX(), ant.getY(), ponto1.getX(), ponto1.getY());
+//					scene->addLine(line, pen);
+//				}
+//			} else {
+//				scene->addEllipse(ponto1.getX(), ponto1.getY(), 3, 3, pen, QBrush(objeto->getCor()));
+//			}
+//		} else {
+//			QList<Aresta> arestas = this->clipping->clipObjeto3D((Objeto3D*) objeto);
+//			//RASTERIZAÇÃO ANTES DA TRANSFORMADA DE VIEWPORT
+//
+//			for(Aresta a : arestas) {
+//
+//				QList<Ponto> pontos = this->transformarObjeto(a.getPontos());
+//				QPen pen(a.getCor());
+//				QLineF line = QLineF(pontos.at(0).getX(), pontos.at(0).getY(), pontos.at(1).getX(), pontos.at(1).getY());
+//				scene->addLine(line, pen);
+//				delete a.getPontosObjeto().at(0);
+//				delete a.getPontosObjeto().at(1);
+//			}
+//		}
+//
+//		delete objeto;
+	}
 
 	this->desenharAreaClipping(scene);
 	this->janelaGrafica->setScene(scene);

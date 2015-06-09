@@ -1,19 +1,26 @@
 #include "gui/Rasterizador.h"
 
-Rasterizador::Rasterizador(Viewport viewport) {
-	this->viewport = viewport;
+Rasterizador::Rasterizador(const unsigned int tamX, const unsigned int tamY) {
+	this->tamX = tamX;
+	this->tamY = tamY;
 }
 
 Rasterizador::~Rasterizador() {
-
 }
 
-void Rasterizador::iluminarCena(const QList<ObjetoGeometrico*>& objetos) {
+void Rasterizador::rasterizarCena(const QList<ObjetoGeometrico*>& objetos) {
 	QList<Poligono> triangulos;
 	for (int i = 0; i < objetos.size(); i++) {
-		triangulos.append(this->triangularObjeto(objetos.at(i)->clonar()));
+		triangulos.append(this->triangularObjeto(objetos.at(i)));
 	}
 	this->adaptarTriangulos(triangulos);
+}
+
+QList<Poligono> Rasterizador::rasterizarObjeto(ObjetoGeometrico* const objeto) {
+	this->triangulos.clear(); // TODO
+	QList<Poligono> triangulos = this->triangularObjeto(objeto);
+	this->adaptarTriangulos(triangulos);
+	return triangulos;
 }
 
 QList<Poligono> Rasterizador::triangularObjeto(const ObjetoGeometrico* objeto) {
@@ -59,7 +66,7 @@ QList<Poligono> Rasterizador::triangularObjeto(const ObjetoGeometrico* objeto) {
 }
 
 bool Rasterizador::estaDentro(Ponto p, QList<Ponto> pontos) {
-	int numero = 0;
+	int interseccoes = 0;
 	for (int i = 0; i < pontos.size(); i++) {
 		Ponto p1 = pontos.at(i);
 		Ponto p2 = pontos.at((i + 1) % pontos.size());
@@ -71,11 +78,14 @@ bool Rasterizador::estaDentro(Ponto p, QList<Ponto> pontos) {
 		Reta r("", p1, p2);
 		double m = r.coeficienteAngular();
 		double x = p1.getX() + (p.getY() - p1.getY()) / m;
-		if (x > p1.getX() && x < p2.getX() && x > p.getX()) {
-			numero++;
+		if (x >= p1.getX() && x <= p2.getX() && x > p.getX()) {
+			interseccoes++;
+			if (p1.getY() == p.getY() || p2.getY() == p.getY()) {
+				i++;
+			}
 		}
 	}
-	return ((numero % 2) == 1);
+	return ((interseccoes % 2) == 1);
 }
 
 void Rasterizador::adaptarTriangulos(const QList<Poligono> triangulos) {
@@ -129,6 +139,6 @@ Ponto Rasterizador::calcularInterseccao(Ponto p, Reta r) {
 	Ponto pr = r.getPontos().at(0);
 	double x = pr.getX() + (y - pr.getY()) / mX;
 	double z = pr.getZ() + (y - pr.getY()) / mZ;
-	Ponto p4 = ("", x, y, z);
+	Ponto p4("", x, y, z);
 	return p4;
 }

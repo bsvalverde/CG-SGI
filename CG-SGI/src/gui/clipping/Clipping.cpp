@@ -1,4 +1,5 @@
 #include "gui/clipping/Clipping.h"
+#include <iostream>
 
 Clipping::Clipping(const double xvMin, const double xvMax, const double yvMin,
 		const double yvMax) {
@@ -11,7 +12,7 @@ Clipping::Clipping(const double xvMin, const double xvMax, const double yvMin,
 Clipping::~Clipping() {
 }
 
-QList<Ponto> Clipping::clip(ObjetoGeometrico* const objeto) const {
+ObjetoGeometrico* Clipping::clip(ObjetoGeometrico* const objeto) const {
 	switch (objeto->getTipo()) {
 		case ObjetoGeometrico::CURVA_BEZIER:
 		case ObjetoGeometrico::CURVA_BSPLINE:
@@ -23,27 +24,27 @@ QList<Ponto> Clipping::clip(ObjetoGeometrico* const objeto) const {
 		case ObjetoGeometrico::RETA:
 			return this->clipReta((Reta* const) objeto);
 		default:
-			return objeto->getPontos();
+			return 0;
 	}
 }
 
-QList<Aresta> Clipping::clipObjeto3D(Objeto3D* const objeto) const {
-	QList<Aresta> arestas = objeto->getArestas();
-	QList<Aresta> novasArestas;
+ObjetoGeometrico* Clipping::clipObjeto3D(Objeto3D* const objeto) const {
+//	QList<Aresta> arestas = objeto->getArestas();
+//	QList<Aresta> novasArestas;
+//
+//	for(Aresta a : arestas) {
+//		Reta r("", a.getPontos().at(0), a.getPontos().at(1));
+//		this->clipReta(&r);
+//
+//		if(pontos.size() == 2) {
+//			novasArestas.append(Aresta(new Ponto(pontos.at(0)), new Ponto(pontos.at(1)), a.getCor()));
+//		}
+//	}
 
-	for(Aresta a : arestas) {
-		Reta r("", a.getPontos().at(0), a.getPontos().at(1));
-		QList<Ponto> pontos = this->clipReta(&r);
-
-		if(pontos.size() == 2) {
-			novasArestas.append(Aresta(new Ponto(pontos.at(0)), new Ponto(pontos.at(1)), a.getCor()));
-		}
-	}
-
-	return novasArestas;
+	return 0; // TODO new Objeto3D(objeto->getNome(), novasArestas);
 }
 
-QList<Ponto> Clipping::clipCurva(const Curva* const curva) const {
+ObjetoGeometrico* Clipping::clipCurva(const Curva* const curva) const {
 	QList<Ponto> pontosCurva = curva->getPontos();
 	QList<Ponto> novosPontos;
 	QList<BordaClipping> bordas = { DIREITA, ESQUERDA, FUNDO, TOPO };
@@ -65,15 +66,18 @@ QList<Ponto> Clipping::clipCurva(const Curva* const curva) const {
 		novosPontos.clear();
 	}
 
-	return pontosCurva;
+	return 0; // TODO
 }
 
-QList<Ponto> Clipping::clipPoligono(const Poligono* const poligono) const {
+ObjetoGeometrico* Clipping::clipPoligono(const Poligono* const poligono) const {
 	QList<Ponto> pontosPoligono = poligono->getPontos();
-	QList<Ponto> novosPontos;
 	QList<BordaClipping> bordas = { DIREITA, ESQUERDA, FUNDO, TOPO };
 
+	std::cout << pontosPoligono.size() << std::endl;
+
 	for (BordaClipping borda : bordas) {
+
+		QList<Ponto> novosPontos;
 		for (int i = 0; i < pontosPoligono.size(); i++) {
 			Ponto p1 = pontosPoligono.at(i);
 			Ponto p2 = pontosPoligono.at((i + 1) % pontosPoligono.size());
@@ -86,20 +90,23 @@ QList<Ponto> Clipping::clipPoligono(const Poligono* const poligono) const {
 				novosPontos.insert(novosPontos.size(), p2);
 			}
 		}
-		pontosPoligono = novosPontos;
-		novosPontos.clear();
+		std::cout << pontosPoligono.size() << std::endl;
+		pontosPoligono.clear();
+
+		for(Ponto p : novosPontos)
+			pontosPoligono.append(p);
+		std::cout << pontosPoligono.size() << std::endl;
 	}
 
-	return pontosPoligono;
+	return new Poligono(poligono->getNome(), pontosPoligono, poligono->getCor());
 }
 
-QList<Ponto> Clipping::clipPonto(const Ponto* const ponto) const {
-	QList<Ponto> pontos;
+ObjetoGeometrico* Clipping::clipPonto(const Ponto* const ponto) const {
 	if((ponto->getX() > xvMin && ponto->getX() < xvMax
 			&& ponto->getY() > yvMin && ponto->getY() < yvMax)) {
-		pontos.insert(0, Ponto(*ponto));
+		return new Ponto(*ponto);
 	}
-	return pontos;
+	return 0;
 }
 
 bool Clipping::clipPontosPorBorda(Ponto* const p1, Ponto* const p2,
