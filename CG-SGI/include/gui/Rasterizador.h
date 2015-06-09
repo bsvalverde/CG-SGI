@@ -1,5 +1,5 @@
-#ifndef ILUMINADOR_H_
-#define ILUMINADOR_H_
+#ifndef RASTERIZADOR_H_
+#define RASTERIZADOR_H_
 
 #include <QtCore/qlist.h>
 
@@ -7,17 +7,17 @@
 #include "geometria/ObjetoGeometrico.h"
 #include "geometria/Poligono.h"
 
-class Iluminador {
+class Rasterizador {
 public:
 	/**
 	 * Construtor.
 	 */
-	Iluminador(Viewport viewport);
+	Rasterizador(Viewport viewport);
 
 	/**
 	 * Destrutor.
 	 */
-	~Iluminador();
+	~Rasterizador();
 
 	/**
 	 * Calcula iluminação e desenha na viewport.
@@ -56,4 +56,4 @@ private:
 	QList<Poligono> triangulos;
 };
 
-#endif /* ILUMINADOR_H_ */
+#endif /* RASTERIZADOR_H_ */

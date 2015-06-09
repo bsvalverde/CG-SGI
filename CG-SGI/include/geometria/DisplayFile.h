@@ -11,6 +11,7 @@
 #include "geometria/Poligono.h"
 #include "geometria/Reta.h"
 #include "geometria/SuperficieBezier.h"
+#include "geometria/SuperficieBSpline.h"
 
 typedef std::string String;
 

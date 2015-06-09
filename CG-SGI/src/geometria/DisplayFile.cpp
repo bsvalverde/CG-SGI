@@ -25,7 +25,7 @@ void DisplayFile::inserirObjeto(const ObjetoGeometrico& objeto) {
 			obj = new SuperficieBezier((const SuperficieBezier&) objeto);
 			break;
 		case ObjetoGeometrico::SUPERFICIE_BSPLINE:
-			// TODO
+			obj = new SuperficieBSpline((const SuperficieBSpline&) objeto);
 			break;
 		case ObjetoGeometrico::POLIGONO:
 			obj = new Poligono((const Poligono&) objeto);

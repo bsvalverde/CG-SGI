@@ -1,14 +1,14 @@
-#include "gui/iluminacao/Iluminador.h"
+#include "gui/Rasterizador.h"
 
-Iluminador::Iluminador(Viewport viewport) {
+Rasterizador::Rasterizador(Viewport viewport) {
 	this->viewport = viewport;
 }
 
-Iluminador::~Iluminador() {
+Rasterizador::~Rasterizador() {
 
 }
 
-void Iluminador::iluminarCena(const QList<ObjetoGeometrico*>& objetos) {
+void Rasterizador::iluminarCena(const QList<ObjetoGeometrico*>& objetos) {
 	QList<Poligono> triangulos;
 	for (int i = 0; i < objetos.size(); i++) {
 		triangulos.append(this->triangularObjeto(objetos.at(i)->clonar()));
@@ -16,7 +16,7 @@ void Iluminador::iluminarCena(const QList<ObjetoGeometrico*>& objetos) {
 	this->adaptarTriangulos(triangulos);
 }
 
-QList<Poligono> Iluminador::triangularObjeto(const ObjetoGeometrico* objeto) {
+QList<Poligono> Rasterizador::triangularObjeto(const ObjetoGeometrico* objeto) {
 	QList<Poligono> triangulos;
 	QList<Ponto> pontos = objeto->getPontos();
 	while (pontos.size() > 3) {
@@ -58,7 +58,7 @@ QList<Poligono> Iluminador::triangularObjeto(const ObjetoGeometrico* objeto) {
 	return triangulos;
 }
 
-bool Iluminador::estaDentro(Ponto p, QList<Ponto> pontos) {
+bool Rasterizador::estaDentro(Ponto p, QList<Ponto> pontos) {
 	int numero = 0;
 	for (int i = 0; i < pontos.size(); i++) {
 		Ponto p1 = pontos.at(i);
@@ -71,14 +71,14 @@ bool Iluminador::estaDentro(Ponto p, QList<Ponto> pontos) {
 		Reta r("", p1, p2);
 		double m = r.coeficienteAngular();
 		double x = p1.getX() + (p.getY() - p1.getY()) / m;
-		if (x > p1.getX() && x < p2.getX()) {
+		if (x > p1.getX() && x < p2.getX() && x > p.getX()) {
 			numero++;
 		}
 	}
 	return ((numero % 2) == 1);
 }
 
-void Iluminador::adaptarTriangulos(const QList<Poligono> triangulos) {
+void Rasterizador::adaptarTriangulos(const QList<Poligono> triangulos) {
 	for (int i = 0; i < triangulos.size(); i++) {
 		Poligono triangulo = triangulos.at(i);
 		QList<Ponto> pontos = triangulo.getPontos();
@@ -122,7 +122,7 @@ void Iluminador::adaptarTriangulos(const QList<Poligono> triangulos) {
 	}
 }
 
-Ponto Iluminador::calcularInterseccao(Ponto p, Reta r) {
+Ponto Rasterizador::calcularInterseccao(Ponto p, Reta r) {
 	double mX = r.coeficienteAngular();
 	double mZ = r.coeficienteAngularZ();
 	double y = p.getY();
