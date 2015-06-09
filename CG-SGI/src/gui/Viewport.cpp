@@ -1,5 +1,4 @@
 #include "gui/Viewport.h"
-#include <iostream>
 
 Viewport::Viewport(QGraphicsView* const janelaGrafica, const unsigned int largura, const unsigned int altura) {
 	this->janelaGrafica = janelaGrafica;
@@ -38,12 +37,9 @@ void Viewport::atualizarCena(const QList<ObjetoGeometrico*>& objetos) {
 	scene = new QGraphicsScene(0, 0, this->largura - 5,
 								this->altura - 5, this->janelaGrafica);
 
-	std::cout << objetos.size() << std::endl;
 	for(int i = 0; i < objetos.size(); i++) {
 		ObjetoGeometrico* objeto = objetos.at(i)->clonar();
-		std::cout << "pontosAnt: " << objeto->getPontos().size() << std::endl;
 		ObjetoGeometrico* objetoRecortado = this->clipping->clip(objeto);
-		std::cout << "pontosDep: " << objetoRecortado->getPontos().size() << std::endl;
 
 		if(objetoRecortado != 0) {
 			QList<Poligono> poligonos = this->rasterizador->rasterizarObjeto(objetoRecortado);

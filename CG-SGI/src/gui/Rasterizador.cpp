@@ -12,7 +12,7 @@ QList<Poligono> Rasterizador::rasterizarObjeto(ObjetoGeometrico* const objeto) {
 	this->triangulos.clear(); // TODO
 	QList<Poligono> triangulos = this->triangularObjeto(objeto);
 	this->adaptarTriangulos(triangulos);
-	return triangulos;
+	return this->triangulos;
 }
 
 QList<Poligono> Rasterizador::triangularObjeto(const ObjetoGeometrico* objeto) {

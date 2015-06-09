@@ -1,5 +1,4 @@
 #include "gui/clipping/Clipping.h"
-#include <iostream>
 
 Clipping::Clipping(const double xvMin, const double xvMax, const double yvMin,
 		const double yvMax) {
@@ -23,6 +22,8 @@ ObjetoGeometrico* Clipping::clip(ObjetoGeometrico* const objeto) const {
 			return this->clipPonto((Ponto* const) objeto);
 		case ObjetoGeometrico::RETA:
 			return this->clipReta((Reta* const) objeto);
+		case ObjetoGeometrico::OBJETO3D:
+			return this->clipObjeto3D((Objeto3D* const) objeto);
 		default:
 			return 0;
 	}
@@ -71,13 +72,10 @@ ObjetoGeometrico* Clipping::clipCurva(const Curva* const curva) const {
 
 ObjetoGeometrico* Clipping::clipPoligono(const Poligono* const poligono) const {
 	QList<Ponto> pontosPoligono = poligono->getPontos();
+	QList<Ponto> novosPontos;
 	QList<BordaClipping> bordas = { DIREITA, ESQUERDA, FUNDO, TOPO };
 
-	std::cout << pontosPoligono.size() << std::endl;
-
 	for (BordaClipping borda : bordas) {
-
-		QList<Ponto> novosPontos;
 		for (int i = 0; i < pontosPoligono.size(); i++) {
 			Ponto p1 = pontosPoligono.at(i);
 			Ponto p2 = pontosPoligono.at((i + 1) % pontosPoligono.size());
@@ -86,18 +84,17 @@ ObjetoGeometrico* Clipping::clipPoligono(const Poligono* const poligono) const {
 				if (novosPontos.size() > 0 && novosPontos.last() == p1)
 					novosPontos.removeLast();
 
-				novosPontos.insert(novosPontos.size(), p1);
-				novosPontos.insert(novosPontos.size(), p2);
+				novosPontos.append(p1);
+				novosPontos.append(p2);
 			}
 		}
-		std::cout << pontosPoligono.size() << std::endl;
-		pontosPoligono.clear();
 
-		for(Ponto p : novosPontos)
-			pontosPoligono.append(p);
-		std::cout << pontosPoligono.size() << std::endl;
+		if(novosPontos.last() == novosPontos.first())
+			novosPontos.removeLast();
+
+		pontosPoligono = novosPontos;
+		novosPontos.clear();
 	}
-
 	return new Poligono(poligono->getNome(), pontosPoligono, poligono->getCor());
 }
 
