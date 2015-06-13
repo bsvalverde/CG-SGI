@@ -35,7 +35,7 @@ private:
 	 * Divide o objeto clipado em triângulos.
 	 * @param objeto objeto a ser transformado.
 	 */
-	QList<Poligono> triangularObjeto(const ObjetoGeometrico* objeto);
+	QList<Poligono> triangularObjeto(ObjetoGeometrico* const objeto);
 
 	QList<Pixel> pixelarTriangulo(const Poligono& triangulo);
 
@@ -44,13 +44,13 @@ private:
 	 * @param p ponto a verificar
 	 * @param pontos pontos que formam o polígono
 	 */
-	bool estaDentro(Ponto p, QList<Ponto> pontos);
+	bool poligonoContemPonto(const QList<Ponto>& pontos, const Ponto& p);
 
 	/**
 	 * Divide os triângulos em triângulos que tenham bordas com y constante.
 	 * @param triangulos triângulos a serem transformados.
 	 */
-	void adaptarTriangulos(const QList<Poligono> triangulos);
+	QList<Poligono> paralelizarTriangulos(const QList<Poligono>& triangulos);
 
 	/*
 	 *Calcula a projeção de p em y na reta r
@@ -61,7 +61,6 @@ private:
 
 	unsigned int tamX;
 	unsigned int tamY;
-	QList<Poligono> triangulos;
 };
 
 #endif /* RASTERIZADOR_H_ */

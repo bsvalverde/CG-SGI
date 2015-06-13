@@ -10,129 +10,118 @@ Rasterizador::~Rasterizador() {
 }
 
 QList<Pixel> Rasterizador::rasterizarObjeto(ObjetoGeometrico* const objeto) {
-	this->triangulos.clear(); // TODO
 	QList<Poligono> triangulos = this->triangularObjeto(objeto);
-	this->adaptarTriangulos(triangulos);
+	QList<Poligono> trapezios = this->paralelizarTriangulos(triangulos);
 
 	QList<Pixel> pixels;
-	for(Poligono p : this->triangulos) {
+	for(Poligono p : trapezios) {
 		pixels.append(this->pixelarTriangulo(p));
 	}
 
 	return pixels;
 }
 
-QList<Poligono> Rasterizador::triangularObjeto(const ObjetoGeometrico* objeto) {
+QList<Poligono> Rasterizador::triangularObjeto(ObjetoGeometrico* const objeto) {
 	QList<Poligono> triangulos;
 	QList<Ponto> pontos = objeto->getPontos();
 
 	while (pontos.size() > 3) {
-		for (int i = 0; i < pontos.size(); i++) {
-			QList<Ponto> novosPontos;
-			//Seleciona três pontos do polígono
-			Ponto p1 = pontos.at(i);
-			Ponto p2 = pontos.at((i + 1) % pontos.size());
-			Ponto p3 = pontos.at((i + 2) % pontos.size());
-			novosPontos.append(p1);
-			novosPontos.append(p2);
-			novosPontos.append(p3);
-			bool continua = true;
-			int k = i + 3;
-			//Verifica se algum dos demais pontos está dentro do triângulo
-			for (int j = 0; j < pontos.size() - 3; j++) {
-				if (this->estaDentro(pontos.at((k) % pontos.size()),
-						novosPontos)) {
-					//se há algum ponto dentro, esta triangularização não funciona
-					continua = false;
+		int numPontos = pontos.size();
+		for (int i = 0; i < numPontos; i++) {
+			// Selecionar três pontos do polígono
+			Ponto p1 = pontos[i];
+			Ponto p2 = pontos[(i + 1) % numPontos];
+			Ponto p3 = pontos[(i + 2) % numPontos];
+			QList<Ponto> novosPontos = {p1, p2, p3};
+
+			bool trianguloInvalido = false;
+
+			QList<Ponto> pontosRest = pontos;
+			pontosRest.removeOne(p1);
+			pontosRest.removeOne(p2);
+			pontosRest.removeOne(p3);
+
+			for(int j = 0; j < pontosRest.size(); j++) {
+				if(this->poligonoContemPonto(novosPontos, pontosRest[j])) {
+					trianguloInvalido = true;
 					break;
 				}
-				k = (k + 1) % pontos.size();
 			}
-			if (continua) {
-				//verifica se o triangulo formado está dentro do polígono
-				double x = (p1.getX() + p2.getX() + p3.getX()) / 3;
-				double y = (p1.getY() + p2.getY() + p3.getY()) / 3;
-				if (this->estaDentro(Ponto("", x, y, 0), pontos)) {
-					Poligono p("", novosPontos, objeto->getCor());
-					triangulos.append(p);
-					pontos.removeAt(i + 1);
-				}
+
+			// Se algum dos outros pontos do polígono está no triângulo, vai pra próxima iteração
+			if(trianguloInvalido)
+				continue;
+
+			// Verificar se o triângulo formado está dentro do polígono
+			double x = (p1.getX() + p2.getX() + p3.getX()) / 3;
+			double y = (p1.getY() + p2.getY() + p3.getY()) / 3;
+
+			if(this->poligonoContemPonto(pontos, Ponto("", x, y, 0))) {
+				// Criar o triângulo
+				Poligono p("", novosPontos, objeto->getCor());
+				triangulos.append(p);
+				pontos.removeAt((i + 1) % numPontos);
+				break;
 			}
 		}
 	}
+
 	Poligono p("", pontos, objeto->getCor());
 	triangulos.append(p);
 	return triangulos;
 }
 
-bool Rasterizador::estaDentro(Ponto p, QList<Ponto> pontos) {
-	int interseccoes = 0;
-	double y = p.getY();
-	for (int i = 0; i < pontos.size(); i++) {
-		Ponto p1 = pontos.at(i);
-		Ponto p2 = pontos.at((i + 1) % pontos.size());
-		double y1 = p1.getY();
-		double y2 = p2.getY();
-		Reta r("", p1, p2);
-		double m = r.coeficienteAngular();
-		double xR = p1.getX() + (y - y1) / m;
-		if (xR > p.getX()) {
-			if ((y1 > y && y2 < y) || (y1 < y && y2 > y)) {
-				interseccoes++;
-			} else if (y2 == y) {
-				Ponto p3 = pontos.at((i + 2) % pontos.size());
-				double y3 = p3.getY();
-				if ((y1 > y && y3 < y) || (y1 < y && y3 > y)) {
-					interseccoes++;
-				}
-			}
-		}
+bool Rasterizador::poligonoContemPonto(const QList<Ponto>& pontos, const Ponto& p) {
+	bool contem = false;
+	int numPontos = pontos.size();
+
+	for(int i = 0, j = numPontos - 1; i < numPontos; j = i++) {
+		if( ((pontos[i].getY() > p.getY()) != (pontos[j].getY() > p.getY())) &&
+				(p.getX() < (pontos[j].getX()-pontos[i].getX()) *
+						(p.getY()-pontos[i].getY()) / (pontos[j].getY()-pontos[i].getY()) + pontos[i].getX()) )
+			contem = !contem;
 	}
-	return ((interseccoes % 2) == 1);
+
+	return contem;
 }
 
-void Rasterizador::adaptarTriangulos(const QList<Poligono> triangulos) {
-	for (int i = 0; i < triangulos.size(); i++) {
-		Poligono triangulo = triangulos.at(i);
-		QList<Ponto> pontos = triangulo.getPontos();
-		//calcula o ponto mais alto
+QList<Poligono> Rasterizador::paralelizarTriangulos(const QList<Poligono>& triangulos) {
+	QList<Poligono> trapezios;
+
+	for(Poligono p : triangulos) {
+		QList<Ponto> pontos = p.getPontos();
+
+		// Definir P1, P2, P3 do maior para o menor Y
 		Ponto p1 = pontos.at(0);
-		int posicao = 0;
-		for (int j = 1; j < pontos.size(); j++) {
-			Ponto p = pontos.at(j);
-			if (p1.getY() < p.getY()) {
-				p1 = p;
-				posicao = j;
-			}
+
+		for (int i = 1; i < pontos.size(); i++) {
+			Ponto pt = pontos.at(i);
+			if (p1.getY() < pt.getY())
+				p1 = pt;
 		}
-		int pos = (posicao + 1) % pontos.size();
-		int ant = (posicao - 1 + pontos.size()) % pontos.size();
-		Ponto p2 = pontos.at(pos);
-		Ponto p3 = pontos.at(ant);
-		double y1 = p1.getY();
-		double y2 = p2.getY();
-		double y3 = p3.getY();
-		if (y1 == y2 || y1 == y3 || y2 == y3) {
-			this->triangulos.append(triangulo);
-		} else if (y2 < y3) {
+		pontos.removeOne(p1);
+		Ponto p2 = pontos.at(0);
+		Ponto p3 = pontos.at(1);
+
+		if(p2.getY() < p3.getY()) {
 			Ponto temp = p2;
 			p2 = p3;
 			p3 = temp;
 		}
-		Ponto p4 = this->calcularInterseccao(p2, Reta("", p1, p3));
-		QList<Ponto> novosPontos1;
-		novosPontos1.append(p1);
-		novosPontos1.append(p2);
-		novosPontos1.append(p4);
-		Poligono t1("", novosPontos1, triangulo.getCor());
-		this->triangulos.append(t1);
-		QList<Ponto> novosPontos2;
-		novosPontos2.append(p2);
-		novosPontos2.append(p3);
-		novosPontos2.append(p4);
-		Poligono t2("", novosPontos2, triangulo.getCor());
-		this->triangulos.append(t2);
+
+		if(p1.getY() == p2.getY() || p2.getY() == p3.getY()) { // Lado (P1, P2) ou (P2, P3) paralelo ao eixo Y
+			trapezios.append(Poligono("", {p1, p2, p3}, p.getCor()));
+		} else { // Triângulo é dividido em dois
+			Ponto p4 = this->calcularInterseccao(p2, Reta("", p1, p3));
+
+			Poligono trapezio1("", {p1, p2, p4}, p.getCor());
+			Poligono trapezio2("", {p2, p3, p4}, p.getCor());
+			trapezios.append(trapezio1);
+			trapezios.append(trapezio2);
+		}
 	}
+
+	return trapezios;
 }
 
 Ponto Rasterizador::calcularInterseccao(Ponto p, Reta r) {
@@ -230,7 +219,7 @@ QList<Pixel> Rasterizador::pixelarTriangulo(const Poligono& triangulo) {
 		int xDir = p4.getX() + (y - p4.getY()) / mXDir;
 
 		for (int x = xEsq; x <= xDir; x++) {
-			pixels.append(Pixel(x, (1 - y / (double) this->tamY) * this->tamY, 0/*z a determinar*/, triangulo.getCor()));
+			pixels.append(Pixel(x, this->tamY - y, 0/*z a determinar*/, triangulo.getCor()));
 		}
 	}
 
