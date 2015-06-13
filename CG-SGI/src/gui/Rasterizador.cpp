@@ -59,21 +59,24 @@ QList<Poligono> Rasterizador::triangularObjeto(const ObjetoGeometrico* objeto) {
 
 bool Rasterizador::estaDentro(Ponto p, QList<Ponto> pontos) {
 	int interseccoes = 0;
+	double y = p.getY();
 	for (int i = 0; i < pontos.size(); i++) {
 		Ponto p1 = pontos.at(i);
 		Ponto p2 = pontos.at((i + 1) % pontos.size());
-		if (p1.getX() > p2.getX()) {
-			Ponto temp = p1;
-			p1 = p2;
-			p2 = temp;
-		}
+		double y1 = p1.getY();
+		double y2 = p2.getY();
 		Reta r("", p1, p2);
 		double m = r.coeficienteAngular();
-		double x = p1.getX() + (p.getY() - p1.getY()) / m;
-		if (x >= p1.getX() && x <= p2.getX() && x > p.getX()) {
-			interseccoes++;
-			if (p1.getY() == p.getY() || p2.getY() == p.getY()) {
-				i++;
+		double xR = p1.getX() + (y - y1) / m;
+		if (xR > p.getX()) {
+			if ((y1 > y && y2 < y) || (y1 < y && y2 > y)) {
+				interseccoes++;
+			} else if (y2 == y) {
+				Ponto p3 = pontos.at((i + 2) % pontos.size());
+				double y3 = p3.getY();
+				if ((y1 > y && y3 < y) || (y1 < y && y3 > y)) {
+					interseccoes++;
+				}
 			}
 		}
 	}
