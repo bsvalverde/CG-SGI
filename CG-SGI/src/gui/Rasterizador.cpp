@@ -1,4 +1,5 @@
 #include "gui/Rasterizador.h"
+#include <iostream>
 
 Rasterizador::Rasterizador(const unsigned int tamX, const unsigned int tamY) {
 	this->tamX = tamX;
@@ -140,58 +141,79 @@ Ponto Rasterizador::calcularInterseccao(Ponto p, Reta r) {
 
 QList<Pixel> Rasterizador::pixelarTriangulo(const Poligono triangulo) {
 	QList<Ponto> pontos = triangulo.getPontos();
+
+	// Padronizar as posições dos pontos
+	// P1  P4
+	// P2  P3
+
+	// Definir P1, P2, P3 do maior para o menor Y
 	Ponto p1 = pontos.at(0);
-	//padroniza as posições dos pontos
+
 	for (int i = 1; i < pontos.size(); i++) {
 		Ponto p = pontos.at(i);
-		if (p1.getY() < p.getY()) {
+		if (p1.getY() < p.getY())
 			p1 = p;
-			pontos.removeAt(i);
-		}
 	}
+	pontos.removeOne(p1);
 	Ponto p2 = pontos.at(0);
 	Ponto p3 = pontos.at(1);
-	if (p2.getY() > p3.getY()) {
+	Ponto p4;
+
+	if(p2.getY() < p3.getY()) {
 		Ponto temp = p2;
 		p2 = p3;
 		p3 = temp;
 	}
-	Ponto p4;
-	if (p3.getY() == p1.getY()) {
-		p4 = p3;
-		p3 = p2;
-		if (p4.getX() < p1.getX()) {
+
+	if(p1.getY() == p2.getY()) { // Lado Paralelo = (P1, P2)
+		if(p1.getX() > p2.getX()) {
 			Ponto temp = p1;
-			p1 = p4;
-			p4 = temp;
+			p1 = p2;
+			p2 = temp;
 		}
-	} else {
-		p4 = p1;
-		if (p3.getX() < p2.getX()) {
+
+		p4 = p2;
+		p2 = p3;
+	} else { // Lado Paralelo = (P2, P3)
+		if(p2.getX() > p3.getX()) {
 			Ponto temp = p2;
 			p2 = p3;
 			p3 = temp;
 		}
+
+		p4 = p1;
 	}
 
-	//normaliza pontos para a viewport
+	// Normalizar os pontos para as medidas da Viewport
+
+	// Transladar para deixar os pontos entre 0 e 2
 	p1.transladar(1, 1, 0);
 	p2.transladar(1, 1, 0);
 	p3.transladar(1, 1, 0);
 	p4.transladar(1, 1, 0);
-	p1.escalonar(this->tamX, this->tamY, 0);
-	p2.escalonar(this->tamX, this->tamY, 0);
-	p3.escalonar(this->tamX, this->tamY, 0);
-	p4.escalonar(this->tamX, this->tamY, 0);
 
-	//cria pixels
+	// Escalonar para colocar nas medidas da Viewport
+	double fatorX = (double) this->tamX / 2;
+	double fatorY = (double) this->tamY / 2;
+
+	p1.setX(p1.getX() * fatorX);
+	p2.setX(p2.getX() * fatorX);
+	p3.setX(p3.getX() * fatorX);
+	p4.setX(p4.getX() * fatorX);
+	p1.setY(p1.getY() * fatorY);
+	p2.setY(p2.getY() * fatorY);
+	p3.setY(p3.getY() * fatorY);
+	p4.setY(p4.getY() * fatorY);
+
+	// Criar pixels
 	QList<Pixel> pixels;
+
 	Reta esq("", p1, p2);
 	Reta dir("", p3, p4);
+
 	double mXEsq = esq.coeficienteAngular();
-	//double mZEsq = esq.coeficienteAngularZ();
 	double mXDir = dir.coeficienteAngular();
-	//double mZDir = dir.coeficienteAngularZ();
+
 	int inicial = this->tamY - (int) p1.getY();
 	if (inicial == 0) {
 		inicial++;

@@ -30,6 +30,8 @@ public:
 	 */
 	QList<Poligono> rasterizarObjeto(ObjetoGeometrico* const objeto);
 
+	QList<Pixel> pixelarTriangulo(const Poligono triangulo);
+
 private:
 	/**
 	 * Divide o objeto clipado em triângulos.
@@ -56,8 +58,6 @@ private:
 	 *@param r reta onde o ponto deve estar
 	 */
 	Ponto calcularInterseccao(Ponto p, Reta r);
-
-	QList<Pixel> pixelarTriangulo(const Poligono Triangulo);
 
 	unsigned int tamX;
 	unsigned int tamY;

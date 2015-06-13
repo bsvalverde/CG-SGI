@@ -1,4 +1,5 @@
 #include "gui/Viewport.h"
+#include <iostream>
 
 Viewport::Viewport(QGraphicsView* const janelaGrafica, const unsigned int largura, const unsigned int altura) {
 	this->janelaGrafica = janelaGrafica;
@@ -45,28 +46,35 @@ void Viewport::atualizarCena(const QList<ObjetoGeometrico*>& objetos) {
 			QList<Poligono> poligonos = this->rasterizador->rasterizarObjeto(objetoRecortado);
 
 			for(Poligono p : poligonos) {
-				QList<Ponto> pontos = p.getPontos();
+				QList<Pixel> pixels = this->rasterizador->pixelarTriangulo(p);
+				QPen pen(p.getCor());
 
-				pontos = this->transformarObjeto(pontos);
-				QPen pen(objeto->getCor());
-				QLineF line;
-				Ponto ponto1 = pontos.at(0);
-
-				if(pontos.size() > 1) {
-					Ponto ant = ponto1;
-
-					for(int i = 1; i < pontos.size(); i++) {
-						line = QLineF(ant.getX(), ant.getY(), pontos.at(i).getX(), pontos.at(i).getY());
-						scene->addLine(line, pen);
-						ant = pontos.at(i);
-					}
-					if(p.getTipo() == ObjetoGeometrico::POLIGONO) {
-						line = QLineF(ant.getX(), ant.getY(), ponto1.getX(), ponto1.getY());
-						scene->addLine(line, pen);
-					}
-				} else {
-					scene->addEllipse(ponto1.getX(), ponto1.getY(), 3, 3, pen, QBrush(objeto->getCor()));
+				for(Pixel px : pixels) {
+					scene->addEllipse(px.getX(), px.getY(), 2, 2, pen, QBrush(p.getCor()));
 				}
+
+//				QList<Ponto> pontos = p.getPontos();
+//
+//				pontos = this->transformarObjeto(pontos);
+//				QPen pen(objeto->getCor());
+//				QLineF line;
+//				Ponto ponto1 = pontos.at(0);
+//
+//				if(pontos.size() > 1) {
+//					Ponto ant = ponto1;
+//
+//					for(int i = 1; i < pontos.size(); i++) {
+//						line = QLineF(ant.getX(), ant.getY(), pontos.at(i).getX(), pontos.at(i).getY());
+//						scene->addLine(line, pen);
+//						ant = pontos.at(i);
+//					}
+//					if(p.getTipo() == ObjetoGeometrico::POLIGONO) {
+//						line = QLineF(ant.getX(), ant.getY(), ponto1.getX(), ponto1.getY());
+//						scene->addLine(line, pen);
+//					}
+//				} else {
+//					scene->addEllipse(ponto1.getX(), ponto1.getY(), 3, 3, pen, QBrush(objeto->getCor()));
+//				}
 			}
 
 			delete objetoRecortado;
