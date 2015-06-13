@@ -137,3 +137,75 @@ Ponto Rasterizador::calcularInterseccao(Ponto p, Reta r) {
 	Ponto p4("", x, y, z);
 	return p4;
 }
+
+QList<Pixel> Rasterizador::pixelarTriangulo(const Poligono triangulo) {
+	QList<Ponto> pontos = triangulo.getPontos();
+	Ponto p1 = pontos.at(0);
+	//padroniza as posições dos pontos
+	for (int i = 1; i < pontos.size(); i++) {
+		Ponto p = pontos.at(i);
+		if (p1.getY() < p.getY()) {
+			p1 = p;
+			pontos.removeAt(i);
+		}
+	}
+	Ponto p2 = pontos.at(0);
+	Ponto p3 = pontos.at(1);
+	if (p2.getY() > p3.getY()) {
+		Ponto temp = p2;
+		p2 = p3;
+		p3 = temp;
+	}
+	Ponto p4;
+	if (p3.getY() == p1.getY()) {
+		p4 = p3;
+		p3 = p2;
+		if (p4.getX() < p1.getX()) {
+			Ponto temp = p1;
+			p1 = p4;
+			p4 = temp;
+		}
+	} else {
+		p4 = p1;
+		if (p3.getX() < p2.getX()) {
+			Ponto temp = p2;
+			p2 = p3;
+			p3 = temp;
+		}
+	}
+
+	//normaliza pontos para a viewport
+	p1.transladar(1, 1, 0);
+	p2.transladar(1, 1, 0);
+	p3.transladar(1, 1, 0);
+	p4.transladar(1, 1, 0);
+	p1.escalonar(this->tamX, this->tamY, 0);
+	p2.escalonar(this->tamX, this->tamY, 0);
+	p3.escalonar(this->tamX, this->tamY, 0);
+	p4.escalonar(this->tamX, this->tamY, 0);
+
+	//cria pixels
+	QList<Pixel> pixels;
+	Reta esq("", p1, p2);
+	Reta dir("", p3, p4);
+	double mXEsq = esq.coeficienteAngular();
+	//double mZEsq = esq.coeficienteAngularZ();
+	double mXDir = dir.coeficienteAngular();
+	//double mZDir = dir.coeficienteAngularZ();
+	int inicial = this->tamY - (int) p1.getY();
+	if (inicial == 0) {
+		inicial++;
+	}
+	int final = (int) (this->tamY - p2.getY());
+	if (final == 0) {
+		final++;
+	}
+	for (int i = inicial; i <= final; i++) {
+		double xEsq = p1.getX() + (i - p1.getY()) / mXEsq;
+		double xDir = p4.getX() + (i - p4.getY()) / mXDir;
+		for (int j = (int) xEsq; j <= (int) xDir; j++) {
+			pixels.append(Pixel(j, i, 0/*z a determinar*/, triangulo.getCor()));
+		}
+	}
+	return pixels;
+}

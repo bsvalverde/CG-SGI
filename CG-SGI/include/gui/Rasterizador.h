@@ -6,6 +6,7 @@
 #include "geometria/ObjetoGeometrico.h"
 #include "geometria/Poligono.h"
 #include "geometria/Reta.h"
+#include "gui/Pixel.h"
 
 class Rasterizador {
 
@@ -55,6 +56,8 @@ private:
 	 *@param r reta onde o ponto deve estar
 	 */
 	Ponto calcularInterseccao(Ponto p, Reta r);
+
+	QList<Pixel> pixelarTriangulo(const Poligono Triangulo);
 
 	unsigned int tamX;
 	unsigned int tamY;
