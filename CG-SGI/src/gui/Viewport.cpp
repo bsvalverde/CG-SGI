@@ -43,15 +43,12 @@ void Viewport::atualizarCena(const QList<ObjetoGeometrico*>& objetos) {
 		ObjetoGeometrico* objetoRecortado = this->clipping->clip(objeto);
 
 		if(objetoRecortado != 0) {
-			QList<Poligono> poligonos = this->rasterizador->rasterizarObjeto(objetoRecortado);
+			QList<Pixel> pixels = this->rasterizador->rasterizarObjeto(objetoRecortado);
+			QPen pen(objetoRecortado->getCor());
 
-			for(Poligono p : poligonos) {
-				QList<Pixel> pixels = this->rasterizador->pixelarTriangulo(p);
-				QPen pen(p.getCor());
-
-				for(Pixel px : pixels) {
-					scene->addEllipse(px.getX(), px.getY(), 2, 2, pen, QBrush(p.getCor()));
-				}
+			for(Pixel px : pixels) {
+				scene->addEllipse(px.getX(), px.getY(), 1, 1, pen, QBrush(px.getCor()));
+			}
 
 //				QList<Ponto> pontos = p.getPontos();
 //
@@ -75,9 +72,11 @@ void Viewport::atualizarCena(const QList<ObjetoGeometrico*>& objetos) {
 //				} else {
 //					scene->addEllipse(ponto1.getX(), ponto1.getY(), 3, 3, pen, QBrush(objeto->getCor()));
 //				}
-			}
 
 			delete objetoRecortado;
+
+			if(objetoRecortado != objeto)
+				delete objeto;
 		}
 
 //		if(objeto != 0)
@@ -182,31 +181,6 @@ QList<Ponto> Viewport::getPontos() const {
 	pontos.insert(3, Ponto("vwp-p4", MARGEM_CLIPPING, this->altura - MARGEM_CLIPPING, 0));
 
 	return pontos;
-}
-
-QVector<double> Viewport::transformarPonto(const QVector<double>& coordenadas) {
-	double xwMin = -1;
-	double xwMax = 1;
-	double ywMin = -1;
-	double ywMax = 1;
-
-	double xp = ((coordenadas[0] - xwMin) / (xwMax - xwMin)) * this->largura;
-	double yp = (1 - (coordenadas[1] - ywMin) / (ywMax - ywMin)) * this->altura;
-	QVector<double> novoPonto = {xp, yp, 1};
-	return novoPonto;
-}
-
-QList<Ponto> Viewport::transformarObjeto(const QList<Ponto>& pontos) {
-	QList<Ponto> novosPontos;
-
-	for(int i = 0; i < pontos.size(); i++) {
-		Ponto p = pontos.at(i);
-		QVector<double> coordenadas = {p.getX(), p.getY(), p.getZ()};
-		QVector<double> novoPonto = this->transformarPonto(coordenadas);
-		novosPontos.insert(i, Ponto(p.getNome(), novoPonto[0], novoPonto[1], novoPonto[2], p.getCor()));
-	}
-
-	return novosPontos;
 }
 
 void Viewport::desenharAreaClipping(QGraphicsScene* const scene) {

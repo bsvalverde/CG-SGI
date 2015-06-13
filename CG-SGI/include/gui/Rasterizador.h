@@ -28,9 +28,7 @@ public:
 	 * @param objeto objeto a ser rasterizado.
 	 * @return TODO
 	 */
-	QList<Poligono> rasterizarObjeto(ObjetoGeometrico* const objeto);
-
-	QList<Pixel> pixelarTriangulo(const Poligono triangulo);
+	QList<Pixel> rasterizarObjeto(ObjetoGeometrico* const objeto);
 
 private:
 	/**
@@ -38,6 +36,8 @@ private:
 	 * @param objeto objeto a ser transformado.
 	 */
 	QList<Poligono> triangularObjeto(const ObjetoGeometrico* objeto);
+
+	QList<Pixel> pixelarTriangulo(const Poligono& triangulo);
 
 	/**
 	 * Verifica se o ponto p está dentro do polígono formado por pontos

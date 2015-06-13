@@ -9,16 +9,23 @@ Rasterizador::Rasterizador(const unsigned int tamX, const unsigned int tamY) {
 Rasterizador::~Rasterizador() {
 }
 
-QList<Poligono> Rasterizador::rasterizarObjeto(ObjetoGeometrico* const objeto) {
+QList<Pixel> Rasterizador::rasterizarObjeto(ObjetoGeometrico* const objeto) {
 	this->triangulos.clear(); // TODO
 	QList<Poligono> triangulos = this->triangularObjeto(objeto);
 	this->adaptarTriangulos(triangulos);
-	return this->triangulos;
+
+	QList<Pixel> pixels;
+	for(Poligono p : this->triangulos) {
+		pixels.append(this->pixelarTriangulo(p));
+	}
+
+	return pixels;
 }
 
 QList<Poligono> Rasterizador::triangularObjeto(const ObjetoGeometrico* objeto) {
 	QList<Poligono> triangulos;
 	QList<Ponto> pontos = objeto->getPontos();
+
 	while (pontos.size() > 3) {
 		for (int i = 0; i < pontos.size(); i++) {
 			QList<Ponto> novosPontos;
@@ -46,14 +53,14 @@ QList<Poligono> Rasterizador::triangularObjeto(const ObjetoGeometrico* objeto) {
 				double x = (p1.getX() + p2.getX() + p3.getX()) / 3;
 				double y = (p1.getY() + p2.getY() + p3.getY()) / 3;
 				if (this->estaDentro(Ponto("", x, y, 0), pontos)) {
-					Poligono p("", novosPontos);
+					Poligono p("", novosPontos, objeto->getCor());
 					triangulos.append(p);
 					pontos.removeAt(i + 1);
 				}
 			}
 		}
 	}
-	Poligono p("", pontos);
+	Poligono p("", pontos, objeto->getCor());
 	triangulos.append(p);
 	return triangulos;
 }
@@ -117,13 +124,13 @@ void Rasterizador::adaptarTriangulos(const QList<Poligono> triangulos) {
 		novosPontos1.append(p1);
 		novosPontos1.append(p2);
 		novosPontos1.append(p4);
-		Poligono t1("", novosPontos1);
+		Poligono t1("", novosPontos1, triangulo.getCor());
 		this->triangulos.append(t1);
 		QList<Ponto> novosPontos2;
 		novosPontos2.append(p2);
 		novosPontos2.append(p3);
 		novosPontos2.append(p4);
-		Poligono t2("", novosPontos2);
+		Poligono t2("", novosPontos2, triangulo.getCor());
 		this->triangulos.append(t2);
 	}
 }
@@ -139,7 +146,7 @@ Ponto Rasterizador::calcularInterseccao(Ponto p, Reta r) {
 	return p4;
 }
 
-QList<Pixel> Rasterizador::pixelarTriangulo(const Poligono triangulo) {
+QList<Pixel> Rasterizador::pixelarTriangulo(const Poligono& triangulo) {
 	QList<Ponto> pontos = triangulo.getPontos();
 
 	// Padronizar as posições dos pontos
@@ -214,20 +221,18 @@ QList<Pixel> Rasterizador::pixelarTriangulo(const Poligono triangulo) {
 	double mXEsq = esq.coeficienteAngular();
 	double mXDir = dir.coeficienteAngular();
 
-	int inicial = this->tamY - (int) p1.getY();
-	if (inicial == 0) {
-		inicial++;
-	}
-	int final = (int) (this->tamY - p2.getY());
-	if (final == 0) {
-		final++;
-	}
-	for (int i = inicial; i <= final; i++) {
-		double xEsq = p1.getX() + (i - p1.getY()) / mXEsq;
-		double xDir = p4.getX() + (i - p4.getY()) / mXDir;
-		for (int j = (int) xEsq; j <= (int) xDir; j++) {
-			pixels.append(Pixel(j, i, 0/*z a determinar*/, triangulo.getCor()));
+	int inicial = (int) p1.getY();
+	int final = (int) p2.getY();
+
+	for (int y = inicial; y >= final; y--) {
+
+		int xEsq = p1.getX() + (y - p1.getY()) / mXEsq;
+		int xDir = p4.getX() + (y - p4.getY()) / mXDir;
+
+		for (int x = xEsq; x <= xDir; x++) {
+			pixels.append(Pixel(x, (1 - y / (double) this->tamY) * this->tamY, 0/*z a determinar*/, triangulo.getCor()));
 		}
 	}
+
 	return pixels;
 }

@@ -49,19 +49,6 @@ public:
 	QList<Ponto> getPontos() const;
 
 private:
-	/**
-	 * Transformar ponto.
-	 * @param coordenadas coordenadas do ponto.
-	 * @return coordenadas transformadas.
-	 */
-	QVector<double> transformarPonto(const QVector<double>& coordenadas);
-
-	/**
-	 * Transformar objeto.
-	 * @param pontos pontos do objeto.
-	 * @return pontos do objeto transformados.
-	 */
-	QList<Ponto> transformarObjeto(const QList<Ponto>& pontos);
 
 	/**
 	 * Desenhar a área de clipping.
