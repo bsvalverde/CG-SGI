@@ -15,19 +15,22 @@ Objeto3D::Objeto3D(const Objeto3D& objeto3d) :
 
 	this->pontos = novosPontos.values();
 
-	for (int i = 0; i < objeto3d.arestas.size(); i++) {
-		Aresta a = objeto3d.arestas.at(i);
-		Ponto* p1 = novosPontos.value((long) a.getPontosObjeto().at(0));
-		Ponto* p2 = novosPontos.value((long) a.getPontosObjeto().at(1));
-		this->arestas.append(Aresta(p1, p2, a.getCor()));
+	for (int i = 0; i < objeto3d.facetas.size(); i++) {
+		Faceta face = objeto3d.facetas.at(i);
+		QList<Ponto*> pontosFaceta;
+
+		for(Ponto *p : face.getPontosObjeto()) {
+			pontosFaceta.append(novosPontos.value((long) p));
+		}
+		this->facetas.append(Faceta(pontosFaceta, face.getCor()));
 	}
 }
 
 Objeto3D::Objeto3D(const String& nome, const QList<Ponto*>& pontos,
-		const QList<Aresta>& arestas) :
+		const QList<Faceta>& facetas) :
 		ObjetoGeometrico(nome, Tipo::OBJETO3D) {
 	this->pontos = pontos;
-	this->arestas = arestas;
+	this->facetas = facetas;
 }
 
 Objeto3D::~Objeto3D() {
@@ -36,7 +39,7 @@ Objeto3D::~Objeto3D() {
 Objeto3D& Objeto3D::operator=(const Objeto3D& objeto3d) {
 	this->ObjetoGeometrico::operator =(objeto3d);
 	this->pontos.clear();
-	this->arestas.clear();
+	this->facetas.clear();
 	QMap<long, Ponto*> novosPontos;
 
 	for (int i = 0; i < objeto3d.pontos.size(); i++) {
@@ -46,11 +49,14 @@ Objeto3D& Objeto3D::operator=(const Objeto3D& objeto3d) {
 
 	this->pontos = novosPontos.values();
 
-	for (int i = 0; i < objeto3d.arestas.size(); i++) {
-		Aresta a = objeto3d.arestas.at(i);
-		Ponto* p1 = novosPontos.value((long) a.getPontosObjeto().at(0));
-		Ponto* p2 = novosPontos.value((long) a.getPontosObjeto().at(1));
-		this->arestas.append(Aresta(p1, p2, a.getCor()));
+	for (int i = 0; i < objeto3d.facetas.size(); i++) {
+		Faceta face = objeto3d.facetas.at(i);
+		QList<Ponto*> pontosFaceta;
+
+		for(Ponto *p : face.getPontosObjeto()) {
+			pontosFaceta.append(novosPontos.value((long) p));
+		}
+		this->facetas.append(Faceta(pontosFaceta, face.getCor()));
 	}
 	return *this;
 }
@@ -72,8 +78,8 @@ QList<Ponto*> Objeto3D::getPontosObjeto() {
 	return this->pontos;
 }
 
-QList<Aresta> Objeto3D::getArestas() const {
-	return this->arestas;
+QList<Faceta> Objeto3D::getFacetas() const {
+	return this->facetas;
 }
 
 const String Objeto3D::toString() const {

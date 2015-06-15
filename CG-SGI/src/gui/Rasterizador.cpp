@@ -1,5 +1,4 @@
 #include "gui/Rasterizador.h"
-#include <iostream>
 
 Rasterizador::Rasterizador(const unsigned int tamX, const unsigned int tamY) {
 	this->tamX = tamX;

@@ -1,5 +1,4 @@
 #include "gui/Viewport.h"
-#include <iostream>
 
 Viewport::Viewport(QGraphicsView* const janelaGrafica, const unsigned int largura, const unsigned int altura) {
 	this->janelaGrafica = janelaGrafica;
@@ -42,7 +41,16 @@ void Viewport::atualizarCena(const QList<ObjetoGeometrico*>& objetos) {
 		ObjetoGeometrico* objeto = objetos.at(i)->clonar();
 		ObjetoGeometrico* objetoRecortado = this->clipping->clip(objeto);
 
-		if(objetoRecortado != 0) {
+		// Objeto está fora da window
+		if(objetoRecortado == 0) {
+			delete objeto;
+			continue;
+		}
+
+		if(objetoRecortado->getTipo() == ObjetoGeometrico::OBJETO3D) {
+			QList<Faceta> facetas = ((Objeto3D*) objetoRecortado)->getFacetas();
+
+		} else {
 			QList<Pixel> pixels = this->rasterizador->rasterizarObjeto(objetoRecortado);
 			QPen pen(objetoRecortado->getCor());
 
@@ -73,8 +81,9 @@ void Viewport::atualizarCena(const QList<ObjetoGeometrico*>& objetos) {
 //					scene->addEllipse(ponto1.getX(), ponto1.getY(), 3, 3, pen, QBrush(objeto->getCor()));
 //				}
 
-			delete objetoRecortado;
 		}
+
+		delete objetoRecortado;
 
 		if(objetoRecortado != objeto)
 			delete objeto;

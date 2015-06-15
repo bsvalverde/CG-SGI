@@ -30,19 +30,9 @@ ObjetoGeometrico* Clipping::clip(ObjetoGeometrico* const objeto) const {
 }
 
 ObjetoGeometrico* Clipping::clipObjeto3D(Objeto3D* const objeto) const {
-//	QList<Aresta> arestas = objeto->getArestas();
-//	QList<Aresta> novasArestas;
-//
-//	for(Aresta a : arestas) {
-//		Reta r("", a.getPontos().at(0), a.getPontos().at(1));
-//		this->clipReta(&r);
-//
-//		if(pontos.size() == 2) {
-//			novasArestas.append(Aresta(new Ponto(pontos.at(0)), new Ponto(pontos.at(1)), a.getCor()));
-//		}
-//	}
+	Objeto3D* novoObjeto = (Objeto3D*) objeto->clonar();
 
-	return 0; // TODO new Objeto3D(objeto->getNome(), novasArestas);
+	return novoObjeto; // TODO Fazer novo clipping;
 }
 
 ObjetoGeometrico* Clipping::clipCurva(const Curva* const curva) const {

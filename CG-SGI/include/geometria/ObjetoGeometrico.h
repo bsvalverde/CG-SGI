@@ -31,7 +31,8 @@ public:
 		PONTO,
 		RETA,
 		WINDOW,
-		OBJETO3D
+		OBJETO3D,
+		FACETA
 	};
 
 	/**

@@ -4,12 +4,12 @@
 #include <QtCore/qmap.h>
 
 #include "geometria/Ponto.h"
-#include "geometria/Aresta.h"
+#include "geometria/Faceta.h"
 
 /*
  * Objeto tridimensional.
  */
-class Objeto3D: public ObjetoGeometrico {
+class Objeto3D : public ObjetoGeometrico {
 
 public:
 	/**
@@ -30,7 +30,7 @@ public:
 	 * @param arestas arestas do objeto.
 	 */
 	Objeto3D(const String& nome, const QList<Ponto*>& pontos,
-			const QList<Aresta>& arestas);
+			const QList<Faceta>& facetas);
 
 	/**
 	 * Destrutor.
@@ -66,7 +66,7 @@ public:
 	 * Obter as arestas do objeto.
 	 * @return lista com a cópia das arestas.
 	 */
-	QList<Aresta> getArestas() const;
+	QList<Faceta> getFacetas() const;
 
 	/**
 	 * Converter o objeto em string.
@@ -76,7 +76,7 @@ public:
 
 private:
 	QList<Ponto*> pontos;
-	QList<Aresta> arestas;
+	QList<Faceta> facetas;
 
 };
 
