@@ -74,10 +74,10 @@ void Viewport::atualizarCena(const QList<ObjetoGeometrico*>& objetos) {
 //				}
 
 			delete objetoRecortado;
-
-			if(objetoRecortado != objeto)
-				delete objeto;
 		}
+
+		if(objetoRecortado != objeto)
+			delete objeto;
 
 //		if(objeto != 0)
 //			delete objeto;

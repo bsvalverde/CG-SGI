@@ -63,6 +63,10 @@ ObjetoGeometrico* Clipping::clipCurva(const Curva* const curva) const {
 				novosPontos.insert(novosPontos.size(), p2);
 			}
 		}
+
+		if(novosPontos.size() == 0)
+			return 0;
+
 		pontosCurva = novosPontos;
 		novosPontos.clear();
 	}
@@ -88,6 +92,9 @@ ObjetoGeometrico* Clipping::clipPoligono(const Poligono* const poligono) const {
 				novosPontos.append(p2);
 			}
 		}
+
+		if(novosPontos.size() == 0)
+			return 0;
 
 		if(novosPontos.last() == novosPontos.first())
 			novosPontos.removeLast();
