@@ -13,7 +13,7 @@ QList<Pixel> Rasterizador::rasterizarObjeto(ObjetoGeometrico* const objeto) {
 	QList<Poligono> trapezios = this->paralelizarTriangulos(triangulos);
 
 	QList<Pixel> pixels;
-	for(Poligono p : trapezios) {
+	for (Poligono p : trapezios) {
 		pixels.append(this->pixelarTriangulo(p));
 	}
 
@@ -31,7 +31,7 @@ QList<Poligono> Rasterizador::triangularObjeto(ObjetoGeometrico* const objeto) {
 			Ponto p1 = pontos[i];
 			Ponto p2 = pontos[(i + 1) % numPontos];
 			Ponto p3 = pontos[(i + 2) % numPontos];
-			QList<Ponto> novosPontos = {p1, p2, p3};
+			QList<Ponto> novosPontos = { p1, p2, p3 };
 
 			bool trianguloInvalido = false;
 
@@ -40,22 +40,22 @@ QList<Poligono> Rasterizador::triangularObjeto(ObjetoGeometrico* const objeto) {
 			pontosRest.removeOne(p2);
 			pontosRest.removeOne(p3);
 
-			for(int j = 0; j < pontosRest.size(); j++) {
-				if(this->poligonoContemPonto(novosPontos, pontosRest[j])) {
+			for (int j = 0; j < pontosRest.size(); j++) {
+				if (this->poligonoContemPonto(novosPontos, pontosRest[j])) {
 					trianguloInvalido = true;
 					break;
 				}
 			}
 
 			// Se algum dos outros pontos do polígono está no triângulo, vai pra próxima iteração
-			if(trianguloInvalido)
+			if (trianguloInvalido)
 				continue;
 
 			// Verificar se o triângulo formado está dentro do polígono
 			double x = (p1.getX() + p2.getX() + p3.getX()) / 3;
 			double y = (p1.getY() + p2.getY() + p3.getY()) / 3;
 
-			if(this->poligonoContemPonto(pontos, Ponto("", x, y, 0))) {
+			if (this->poligonoContemPonto(pontos, Ponto("", x, y, 0))) {
 				// Criar o triângulo
 				Poligono p("", novosPontos, objeto->getCor());
 				triangulos.append(p);
@@ -70,27 +70,32 @@ QList<Poligono> Rasterizador::triangularObjeto(ObjetoGeometrico* const objeto) {
 	return triangulos;
 }
 
-bool Rasterizador::poligonoContemPonto(const QList<Ponto>& pontos, const Ponto& p) {
+bool Rasterizador::poligonoContemPonto(const QList<Ponto>& pontos,
+		const Ponto& p) {
 	bool contem = false;
 	int numPontos = pontos.size();
 
-	for(int i = 0, j = numPontos - 1; i < numPontos; j = i++) {
-		if( ((pontos[i].getY() > p.getY()) != (pontos[j].getY() > p.getY())) &&
-				(p.getX() < (pontos[j].getX()-pontos[i].getX()) *
-						(p.getY()-pontos[i].getY()) / (pontos[j].getY()-pontos[i].getY()) + pontos[i].getX()) )
+	for (int i = 0, j = numPontos - 1; i < numPontos; j = i++) {
+		if (((pontos[i].getY() > p.getY()) != (pontos[j].getY() > p.getY()))
+				&& (p.getX()
+						< (pontos[j].getX() - pontos[i].getX())
+								* (p.getY() - pontos[i].getY())
+								/ (pontos[j].getY() - pontos[i].getY())
+								+ pontos[i].getX()))
 			contem = !contem;
 	}
 
 	return contem;
 }
 
-QList<Poligono> Rasterizador::paralelizarTriangulos(const QList<Poligono>& triangulos) {
+QList<Poligono> Rasterizador::paralelizarTriangulos(
+		const QList<Poligono>& triangulos) {
 	QList<Poligono> trapezios;
 
-	for(Poligono p : triangulos) {
+	for (Poligono p : triangulos) {
 		QList<Ponto> pontos = p.getPontos();
 
-		// Definir P1, P2, P3 do maior para o menor Y
+		// Definir P1 com o maior Y
 		Ponto p1 = pontos.at(0);
 
 		for (int i = 1; i < pontos.size(); i++) {
@@ -102,19 +107,39 @@ QList<Poligono> Rasterizador::paralelizarTriangulos(const QList<Poligono>& trian
 		Ponto p2 = pontos.at(0);
 		Ponto p3 = pontos.at(1);
 
-		if(p2.getY() < p3.getY()) {
+		// Definir P2 com o menor Y
+		if (p3.getY() < p2.getY()) {
 			Ponto temp = p2;
 			p2 = p3;
 			p3 = temp;
 		}
 
-		if(p1.getY() == p2.getY() || p2.getY() == p3.getY()) { // Lado (P1, P2) ou (P2, P3) paralelo ao eixo Y
-			trapezios.append(Poligono("", {p1, p2, p3}, p.getCor()));
+		//Normalizar
+		// P1 P4
+		// P2 P3
+		if (p1.getY() == p3.getY()) { // Lado (P1, P3) paralelo ao eixo Y
+			if (p3.getX() < p1.getX()) {
+				Ponto temp = p1;
+				p1 = p3;
+				p3 = temp;
+			}
+			trapezios.append(Poligono("", { p1, p2, p2, p3 }, p.getCor()));
+		} else if (p2.getY() == p3.getY()) { // Lado (P2, P3) paralelo ao eixo Y
+			if (p3.getX() < p2.getX()) {
+				Ponto temp = p2;
+				p2 = p3;
+				p3 = temp;
+			}
+			trapezios.append(Poligono("", { p1, p2, p3, p1 }, p.getCor()));
 		} else { // Triângulo é dividido em dois
-			Ponto p4 = this->calcularInterseccao(p2, Reta("", p1, p3));
-
-			Poligono trapezio1("", {p1, p2, p4}, p.getCor());
-			Poligono trapezio2("", {p2, p3, p4}, p.getCor());
+			Ponto p4 = this->calcularInterseccao(p3, Reta("", p1, p2));
+			if (p4.getX() < p3.getX()) {
+				Ponto temp = p4;
+				p4 = p3;
+				p3 = temp;
+			}
+			Poligono trapezio1("", { p1, p3, p4, p1 }, p.getCor());
+			Poligono trapezio2("", { p3, p2, p2, p4 }, p.getCor());
 			trapezios.append(trapezio1);
 			trapezios.append(trapezio2);
 		}
@@ -137,48 +162,10 @@ Ponto Rasterizador::calcularInterseccao(Ponto p, Reta r) {
 QList<Pixel> Rasterizador::pixelarTriangulo(const Poligono& triangulo) {
 	QList<Ponto> pontos = triangulo.getPontos();
 
-	// Padronizar as posições dos pontos
-	// P1  P4
-	// P2  P3
-
-	// Definir P1, P2, P3 do maior para o menor Y
 	Ponto p1 = pontos.at(0);
-
-	for (int i = 1; i < pontos.size(); i++) {
-		Ponto p = pontos.at(i);
-		if (p1.getY() < p.getY())
-			p1 = p;
-	}
-	pontos.removeOne(p1);
-	Ponto p2 = pontos.at(0);
-	Ponto p3 = pontos.at(1);
-	Ponto p4;
-
-	if(p2.getY() < p3.getY()) {
-		Ponto temp = p2;
-		p2 = p3;
-		p3 = temp;
-	}
-
-	if(p1.getY() == p2.getY()) { // Lado Paralelo = (P1, P2)
-		if(p1.getX() > p2.getX()) {
-			Ponto temp = p1;
-			p1 = p2;
-			p2 = temp;
-		}
-
-		p4 = p2;
-		p2 = p3;
-	} else { // Lado Paralelo = (P2, P3)
-		if(p2.getX() > p3.getX()) {
-			Ponto temp = p2;
-			p2 = p3;
-			p3 = temp;
-		}
-
-		p4 = p1;
-	}
-
+	Ponto p2 = pontos.at(1);
+	Ponto p3 = pontos.at(2);
+	Ponto p4 = pontos.at(3);
 	// Normalizar os pontos para as medidas da Viewport
 
 	// Transladar para deixar os pontos entre 0 e 2
@@ -212,14 +199,20 @@ QList<Pixel> Rasterizador::pixelarTriangulo(const Poligono& triangulo) {
 	int inicial = (int) p1.getY();
 	int final = (int) p2.getY();
 
+	double xEsq = p1.getX() + ((double) inicial - p1.getY()) / mXEsq;
+	double xDir = p4.getX() + ((double) inicial - p4.getY()) / mXDir;
+
+	double incXEsq = -1 / mXEsq;
+	double incXDir = -1 / mXDir;
+
 	for (int y = inicial; y >= final; y--) {
-
-		int xEsq = p1.getX() + (y - p1.getY()) / mXEsq;
-		int xDir = p4.getX() + (y - p4.getY()) / mXDir;
-
-		for (int x = xEsq; x <= xDir; x++) {
-			pixels.append(Pixel(x, this->tamY - y, 0/*z a determinar*/, triangulo.getCor()));
+		for (int x = (int) xEsq; x <= (int) xDir; x++) {
+			pixels.append(
+					Pixel(x, this->tamY - y, 0/*z a determinar*/,
+							triangulo.getCor()));
 		}
+		xEsq += incXEsq;
+		xDir += incXDir;
 	}
 
 	return pixels;
