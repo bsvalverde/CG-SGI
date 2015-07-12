@@ -40,7 +40,7 @@ private:
 	/**
 	 * Calcula a componente ambiente da luz do pixel.
 	 */
-	QColor zN(Pixel p);
+	QColor calcularComponenteAmbiente(Pixel p);
 
 	unsigned int tamX;
 	unsigned int tamY;

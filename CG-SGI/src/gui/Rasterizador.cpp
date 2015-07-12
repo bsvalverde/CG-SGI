@@ -218,32 +218,21 @@ QList<Pixel> Rasterizador::pixelarTriangulo(const Poligono& triangulo) {
 			- vetor1.getZ() * vetor2.getX();
 	double zNormal = vetor1.getX() * vetor2.getY()
 			- vetor1.getY() * vetor2.getX();
-	double max = xNormal;
-	if (yNormal > max)
-		max = yNormal;
-	if (zNormal > max)
-		max = zNormal;
 
-	if (zNormal > 0) {
-		xNormal *= -1;
-		yNormal *= -1;
-		zNormal *= -1;
-	}
-
-	Ponto normal("", xNormal/max, yNormal/max, zNormal/max);
+	double comprimento = sqrt(xNormal*xNormal + yNormal*yNormal + zNormal*zNormal);
+	Ponto normal("", xNormal / comprimento, yNormal / comprimento, zNormal / comprimento);
 
 	double mZVer = esq.coeficienteAngularZ();
-	double incZVer = -1 / mZVer;
-	double incZHor = -normal.getX() / normal.getZ();
-
+	double incZVer = -1/mZVer;
+	double incZHor = 0;
+	if(normal.getZ()!= 0)
+		incZHor = -normal.getX() / normal.getZ();
 	double zRef = p1.getZ() + ((double) inicial - p1.getY()) / mZVer;
-
 	for (int y = inicial; y >= final; y--) {
-		double zPix = zRef + ((double) ((int) xEsq) - xEsq) * incZHor;
+		double zPix = zRef + (((double) ((int) xEsq)) - xEsq) * incZHor;
 		for (int x = (int) xEsq; x <= (int) xDir; x++) {
 			pixels.append(
-					Pixel(x, this->tamY - y, zPix, triangulo.getCor(),
-							normal));
+					Pixel(x, this->tamY - y, zPix, triangulo.getCor(), normal));
 			zPix += incZHor;
 		}
 		xEsq += incXEsq;

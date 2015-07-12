@@ -56,10 +56,11 @@ void Viewport::atualizarCena(const QList<ObjetoGeometrico*>& objetos) {
 
 		} else {
 			QList<Pixel> pixels = this->rasterizador->rasterizarObjeto(objetoRecortado);
-			pixels = this->iluminador->iluminarCena(pixels);
+			QList<Pixel> novosPixels = this->iluminador->iluminarCena(pixels);
 			QPen pen(objetoRecortado->getCor());
 
-			for(Pixel px : pixels) {
+			for(Pixel px : novosPixels) {
+				QPen pen(px.getCor());
 				scene->addEllipse(px.getX(), px.getY(), 1, 1, pen, QBrush(px.getCor()));
 			}
 
