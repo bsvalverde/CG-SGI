@@ -70,10 +70,13 @@ QColor Iluminador::calcularComponenteDifusa(Pixel p) {
 	int b;
 	int a;
 	cor.getRgb(&r, &g, &b, &a);
-	double kD = 0.85; //coeficiente de reflectividade difusa
+	double kD = 0.9; //coeficiente de reflectividade difusa
 	int rDif = (int) (kD * r * multVetores);
 	int gDif = (int) (kD * g * multVetores);
 	int bDif = (int) (kD * b * multVetores);
+	cout << "r" << rDif << endl;
+	//cout << "g" << gDif << endl;
+	//cout << "b" << bDif << endl;
 	return QColor(rDif, gDif, bDif);
 }
 
@@ -85,18 +88,14 @@ QColor Iluminador::calcularComponenteEspecular(Pixel p) {
 	double comprimento = sqrt(xR * xR + yR * yR + zR * zR);
 	Ponto vRef("", xR / comprimento, yR / comprimento, zR / comprimento);
 	Ponto normal = p.getNormal();
-	double cos = (vRef.getX() * normal.getX() + vRef.getY() * normal.getY()
-			+ vRef.getZ() * normal.getZ())
-			/ sqrt(
-					vRef.getX() * vRef.getX() + vRef.getY() * vRef.getY()
-							+ vRef.getZ() * vRef.getZ())
-			* sqrt(
-					normal.getX() * normal.getX()
-							+ normal.getY() * normal.getY()
-							+ normal.getZ() * normal.getZ()); //angulo entre vetor e a normal
-	double arc = acos(cos);
-	double angulo = arc * 180 / M_PI;
-	vRef.rotacionarPorY(Ponto("", 0, 0, 0), angulo);
+	double cosX = (vRef.getY() * normal.getY() + vRef.getZ() * normal.getZ()); //angulo entre vetor e a normal pelo eixo x
+	double arcX = acos(cosX);
+	double anguloX = arcX * 180 / M_PI;
+	double cosZ = (vRef.getX() * normal.getX() + vRef.getY() * normal.getY()); // angulo entre vetor e a normal pelo eixo z
+	double arcZ = acos(cosZ);
+	double anguloZ = arcZ * 180 / M_PI;
+	vRef.rotacionarPorX(Ponto("", 0, 0, 0), 2 * anguloX);
+	vRef.rotacionarPorZ(Ponto("", 0, 0, 0), 2 * anguloZ);
 	//calcular vetor observador
 	double xO = p.getX() - this->tamX / 2;
 	double yO = p.getY() - this->tamY / 2;
@@ -111,6 +110,9 @@ QColor Iluminador::calcularComponenteEspecular(Pixel p) {
 	int rEsp = (int) (kE * 255 * multVetores);
 	int gEsp = (int) (kE * 255 * multVetores);
 	int bEsp = (int) (kE * 255 * multVetores);
+	cout << "r" << rEsp << endl;
+	//cout << "g" << gEsp << endl;
+	//cout << "b" << bEsp << endl;
 	if (rEsp > 255) {
 		rEsp = 255;
 	}
@@ -130,7 +132,7 @@ QColor Iluminador::calcularComponenteAmbiente(Pixel p) {
 	int b;
 	int a;
 	cor.getRgb(&r, &g, &b, &a);
-	double kA = 0.3;
+	double kA = 0.4;
 	int rAmb = (int) (kA * r);
 	int gAmb = (int) (kA * g);
 	int bAmb = (int) (kA * b);
