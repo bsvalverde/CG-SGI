@@ -10,6 +10,7 @@
 #include "gui/clipping/ClippingCohenSutherland.h"
 #include "gui/clipping/ClippingLiangBarsky.h"
 #include "gui/Rasterizador.h"
+#include "gui/Iluminador.h"
 
 /**
  * Janela de visualização da interface gráfica.
@@ -62,6 +63,7 @@ private:
 	Rasterizador* rasterizador;
 	unsigned int largura;
 	unsigned int altura;
+	Iluminador* iluminador;
 
 };
 

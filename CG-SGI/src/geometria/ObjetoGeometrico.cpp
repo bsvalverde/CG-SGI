@@ -116,11 +116,10 @@ void ObjetoGeometrico::rotacionarPorX(const Ponto& ponto, const double angulo) {
 	double y = ponto.getY();
 	double z = ponto.getZ();
 	double angRad = angulo * M_PI / 180;
-	double matriz[4][4] = { { 1, 0, 0, 0 },
-							{ 0, cos(angRad), -sin(angRad), 0 },
-							{ 0, sin(angRad), cos(angRad), 0 },
-							{ 0, y - y * cos(angRad) - z * sin(angRad),
-								z + y * sin(angRad)	- z * cos(angRad), 1 } };
+	double matriz[4][4] = { { 1, 0, 0, 0 }, { 0, cos(angRad), -sin(angRad), 0 },
+			{ 0, sin(angRad), cos(angRad), 0 },
+			{ 0, y - y * cos(angRad) - z * sin(angRad), z + y * sin(angRad)
+					- z * cos(angRad), 1 } };
 	this->aplicarTransformacao(matriz);
 }
 
@@ -128,11 +127,10 @@ void ObjetoGeometrico::rotacionarPorY(const Ponto& ponto, const double angulo) {
 	double x = ponto.getX();
 	double z = ponto.getZ();
 	double angRad = angulo * M_PI / 180;
-	double matriz[4][4] = { { cos(angRad), 0, sin(angRad), 0 },
-							{ 0, 1, 0, 0 },
-							{ -sin(angRad), 0, cos(angRad), 0 },
-							{ x - x * cos(angRad) + z * sin(angRad),
-								0, z - x * sin(angRad) - z * cos(angRad), 1 } };
+	double matriz[4][4] = { { cos(angRad), 0, sin(angRad), 0 }, { 0, 1, 0, 0 },
+			{ -sin(angRad), 0, cos(angRad), 0 }, { x - x * cos(angRad)
+					+ z * sin(angRad), 0, z - x * sin(angRad) - z * cos(angRad),
+					1 } };
 	this->aplicarTransformacao(matriz);
 }
 
@@ -140,15 +138,14 @@ void ObjetoGeometrico::rotacionarPorZ(const Ponto& ponto, const double angulo) {
 	double x = ponto.getX();
 	double y = ponto.getY();
 	double angRad = angulo * M_PI / 180;
-	double matriz[4][4] = { { cos(angRad), -sin(angRad), 0, 0 },
-							{ sin(angRad), cos(angRad), 0, 0 },
-							{ 0, 0, 1, 0 },
-							{ x - x * cos(angRad) - y * sin(angRad),
-								y + x * sin(angRad) - y * cos(angRad), 0, 1 } };
+	double matriz[4][4] = { { cos(angRad), -sin(angRad), 0, 0 }, { sin(angRad),
+			cos(angRad), 0, 0 }, { 0, 0, 1, 0 }, { x - x * cos(angRad)
+			- y * sin(angRad), y + x * sin(angRad) - y * cos(angRad), 0, 1 } };
 	this->aplicarTransformacao(matriz);
 }
 
-void ObjetoGeometrico::rotacionarPorEixo(const double angulo, const Reta& eixo) {
+void ObjetoGeometrico::rotacionarPorEixo(const double angulo,
+		const Reta& eixo) {
 	QList<Ponto> pontos = eixo.getPontos();
 	Ponto p1 = pontos.at(0);
 	Ponto p2 = pontos.at(1);

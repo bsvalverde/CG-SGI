@@ -6,6 +6,7 @@ Viewport::Viewport(QGraphicsView* const janelaGrafica, const unsigned int largur
 	this->altura = altura;
 	this->clipping = 0;
 	this->rasterizador = new Rasterizador(this->largura, this->altura);
+	this->iluminador = new Iluminador(this->largura, this->altura);
 	this->setAlgoritmoClippingLinhas(Clipping::COHEN_SUTHERLAND);
 
 	// Área de clipping
@@ -26,6 +27,9 @@ Viewport::~Viewport() {
 
 	if(this->rasterizador)
 		delete this->rasterizador;
+
+	if(this->iluminador)
+		delete this->iluminador;
 }
 
 void Viewport::atualizarCena(const QList<ObjetoGeometrico*>& objetos) {
@@ -52,6 +56,7 @@ void Viewport::atualizarCena(const QList<ObjetoGeometrico*>& objetos) {
 
 		} else {
 			QList<Pixel> pixels = this->rasterizador->rasterizarObjeto(objetoRecortado);
+			pixels = this->iluminador->iluminarCena(pixels);
 			QPen pen(objetoRecortado->getCor());
 
 			for(Pixel px : pixels) {

@@ -130,7 +130,8 @@ QList<Poligono> Rasterizador::paralelizarTriangulos(
 				p2 = p3;
 				p3 = temp;
 			}
-			trapezios.append(Poligono("", { p1, p2, p3, p1 }, p.getCor()));
+			Poligono pol("", { p1, p2, p3, p1 }, p.getCor());
+			trapezios.append(pol);
 		} else { // Triângulo é dividido em dois
 			Ponto p4 = this->calcularInterseccao(p3, Reta("", p1, p2));
 			if (p4.getX() < p3.getX()) {
@@ -205,14 +206,49 @@ QList<Pixel> Rasterizador::pixelarTriangulo(const Poligono& triangulo) {
 	double incXEsq = -1 / mXEsq;
 	double incXDir = -1 / mXDir;
 
+	//definir a normal
+	Ponto vetor1("", p1.getX() - p2.getX(), p1.getY() - p2.getY(),
+			p1.getZ() - p2.getZ());
+	Ponto vetor2("", p3.getX() - p4.getX(), p3.getY() - p4.getY(),
+			p3.getZ() - p4.getZ());
+
+	double xNormal = vetor1.getY() * vetor2.getZ()
+			- vetor1.getZ() * vetor2.getY();
+	double yNormal = vetor1.getX() * vetor2.getZ()
+			- vetor1.getZ() * vetor2.getX();
+	double zNormal = vetor1.getX() * vetor2.getY()
+			- vetor1.getY() * vetor2.getX();
+	double max = xNormal;
+	if (yNormal > max)
+		max = yNormal;
+	if (zNormal > max)
+		max = zNormal;
+
+	if (zNormal > 0) {
+		xNormal *= -1;
+		yNormal *= -1;
+		zNormal *= -1;
+	}
+
+	Ponto normal("", xNormal/max, yNormal/max, zNormal/max);
+
+	double mZVer = esq.coeficienteAngularZ();
+	double incZVer = -1 / mZVer;
+	double incZHor = -normal.getX() / normal.getZ();
+
+	double zRef = p1.getZ() + ((double) inicial - p1.getY()) / mZVer;
+
 	for (int y = inicial; y >= final; y--) {
+		double zPix = zRef + ((double) ((int) xEsq) - xEsq) * incZHor;
 		for (int x = (int) xEsq; x <= (int) xDir; x++) {
 			pixels.append(
-					Pixel(x, this->tamY - y, 0/*z a determinar*/,
-							triangulo.getCor()));
+					Pixel(x, this->tamY - y, zPix, triangulo.getCor(),
+							normal));
+			zPix += incZHor;
 		}
 		xEsq += incXEsq;
 		xDir += incXDir;
+		zRef += incZVer;
 	}
 
 	return pixels;
