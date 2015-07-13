@@ -12,47 +12,37 @@ Iluminador::Iluminador(const unsigned int tamX, const unsigned int tamY) {
 Iluminador::~Iluminador() {
 }
 
-QList<Pixel> Iluminador::iluminarCena(QList<Pixel> pixels) {
-	//for (int x = 0; x < this->tamX; x++) {
-	//for (int y = 0; y < this->tamY; y++) {
-	//Pixel p = pixels[x][y];
-	QList<Pixel> novosPixels;
-	for (int i = 0; i < pixels.size(); i++) {
-		Pixel p = pixels.at(i);
-		QColor corDif = this->calcularComponenteDifusa(p);
-		QColor corEsp = this->calcularComponenteEspecular(p);
-		QColor corAmb = this->calcularComponenteAmbiente(p);
-		int rDif;
-		int gDif;
-		int bDif;
-		int rEsp;
-		int gEsp;
-		int bEsp;
-		int rAmb;
-		int gAmb;
-		int bAmb;
-		int a;
-		corDif.getRgb(&rDif, &gDif, &bDif, &a);
-		corEsp.getRgb(&rEsp, &gEsp, &bEsp, &a);
-		corAmb.getRgb(&rAmb, &gAmb, &bAmb, &a);
-		int iR = rDif + rEsp + rAmb;
-		if (iR > 255) {
-			iR = 255;
-		}
-		int iG = gDif + gEsp + gAmb;
-		if (iG > 255) {
-			iG = 255;
-		}
-		int iB = bDif + bEsp + bAmb;
-		if (iB > 255) {
-			iB = 255;
-		}
-		p.setCor(QColor(iR, iG, iB));
-		novosPixels.append(p);
-		//}
-		//}
+Pixel Iluminador::iluminarPixel(Pixel p) {
+	QColor corDif = this->calcularComponenteDifusa(p);
+	QColor corEsp = this->calcularComponenteEspecular(p);
+	QColor corAmb = this->calcularComponenteAmbiente(p);
+	int rDif;
+	int gDif;
+	int bDif;
+	int rEsp;
+	int gEsp;
+	int bEsp;
+	int rAmb;
+	int gAmb;
+	int bAmb;
+	int a;
+	corDif.getRgb(&rDif, &gDif, &bDif, &a);
+	corEsp.getRgb(&rEsp, &gEsp, &bEsp, &a);
+	corAmb.getRgb(&rAmb, &gAmb, &bAmb, &a);
+	int iR = rDif + rEsp + rAmb;
+	if (iR > 255) {
+		iR = 255;
 	}
-	return novosPixels;
+	int iG = gDif + gEsp + gAmb;
+	if (iG > 255) {
+		iG = 255;
+	}
+	int iB = bDif + bEsp + bAmb;
+	if (iB > 255) {
+		iB = 255;
+	}
+	p.setCor(QColor(iR, iG, iB));
+	return p;
 }
 
 QColor Iluminador::calcularComponenteDifusa(Pixel p) {
@@ -74,7 +64,7 @@ QColor Iluminador::calcularComponenteDifusa(Pixel p) {
 	int rDif = (int) (kD * r * multVetores);
 	int gDif = (int) (kD * g * multVetores);
 	int bDif = (int) (kD * b * multVetores);
-	cout << "r" << rDif << endl;
+	//cout << "r" << rDif << endl;
 	//cout << "g" << gDif << endl;
 	//cout << "b" << bDif << endl;
 	return QColor(rDif, gDif, bDif);
@@ -110,7 +100,7 @@ QColor Iluminador::calcularComponenteEspecular(Pixel p) {
 	int rEsp = (int) (kE * 255 * multVetores);
 	int gEsp = (int) (kE * 255 * multVetores);
 	int bEsp = (int) (kE * 255 * multVetores);
-	cout << "r" << rEsp << endl;
+	//cout << "r" << rEsp << endl;
 	//cout << "g" << gEsp << endl;
 	//cout << "b" << bEsp << endl;
 	if (rEsp > 255) {

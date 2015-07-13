@@ -24,7 +24,7 @@ public:
 	/**
 	 * Calcula a cor de cada pixel da viewport
 	 */
-	QList<Pixel> iluminarCena(QList<Pixel> pixels);
+	Pixel iluminarPixel(Pixel p);
 
 private:
 	/**

@@ -1,6 +1,11 @@
 #include "gui/Viewport.h"
 
-Viewport::Viewport(QGraphicsView* const janelaGrafica, const unsigned int largura, const unsigned int altura) {
+#include <cfloat>
+#include <iostream>
+using namespace std;
+
+Viewport::Viewport(QGraphicsView* const janelaGrafica,
+		const unsigned int largura, const unsigned int altura) {
 	this->janelaGrafica = janelaGrafica;
 	this->largura = largura;
 	this->altura = altura;
@@ -8,166 +13,90 @@ Viewport::Viewport(QGraphicsView* const janelaGrafica, const unsigned int largur
 	this->rasterizador = new Rasterizador(this->largura, this->altura);
 	this->iluminador = new Iluminador(this->largura, this->altura);
 	this->setAlgoritmoClippingLinhas(Clipping::COHEN_SUTHERLAND);
+	this->matrizPixels = new Pixel*[this->largura];
+	for (unsigned int i = 0; i < this->largura; i++) {
+		this->matrizPixels[i] = new Pixel[this->altura];
+	}
 
 	// Área de clipping
 	QGraphicsScene* scene = this->janelaGrafica->scene();
 
-	if(scene)
+	if (scene)
 		delete scene;
 
-	scene = new QGraphicsScene(0, 0, this->largura - 5,
-								this->altura - 5, this->janelaGrafica);
+	scene = new QGraphicsScene(0, 0, this->largura - 5, this->altura - 5,
+			this->janelaGrafica);
 	this->desenharAreaClipping(scene);
 	this->janelaGrafica->setScene(scene);
 }
 
 Viewport::~Viewport() {
-	if(this->clipping)
+	if (this->clipping)
 		delete this->clipping;
 
-	if(this->rasterizador)
+	if (this->rasterizador)
 		delete this->rasterizador;
 
-	if(this->iluminador)
+	if (this->iluminador)
 		delete this->iluminador;
+
+	for (unsigned int i = 0; i < this->largura; i++) {
+		delete this->matrizPixels[i];
+	}
+	delete this->matrizPixels;
 }
 
 void Viewport::atualizarCena(const QList<ObjetoGeometrico*>& objetos) {
+	this->reiniciarMatrizPixels();
 	QGraphicsScene* scene = this->janelaGrafica->scene();
 
-	if(scene)
+	if (scene)
 		delete scene;
 
-	scene = new QGraphicsScene(0, 0, this->largura - 5,
-								this->altura - 5, this->janelaGrafica);
+	scene = new QGraphicsScene(0, 0, this->largura - 5, this->altura - 5,
+			this->janelaGrafica);
 
-	for(int i = 0; i < objetos.size(); i++) {
+	for (int i = 0; i < objetos.size(); i++) {
 		ObjetoGeometrico* objeto = objetos.at(i)->clonar();
 		ObjetoGeometrico* objetoRecortado = this->clipping->clip(objeto);
 
 		// Objeto está fora da window
-		if(objetoRecortado == 0) {
+		if (objetoRecortado == 0) {
 			delete objeto;
 			continue;
 		}
 
-		if(objetoRecortado->getTipo() == ObjetoGeometrico::OBJETO3D) {
+		if (objetoRecortado->getTipo() == ObjetoGeometrico::OBJETO3D) {
 			QList<Faceta> facetas = ((Objeto3D*) objetoRecortado)->getFacetas();
 
 		} else {
-			QList<Pixel> pixels = this->rasterizador->rasterizarObjeto(objetoRecortado);
-			QList<Pixel> novosPixels = this->iluminador->iluminarCena(pixels);
-			QPen pen(objetoRecortado->getCor());
+			QList<Pixel> pixels = this->rasterizador->rasterizarObjeto(
+					objetoRecortado);
 
-			for(Pixel px : novosPixels) {
-				QPen pen(px.getCor());
-				scene->addEllipse(px.getX(), px.getY(), 1, 1, pen, QBrush(px.getCor()));
+			for (Pixel px : pixels) {
+				int x = px.getX();
+				int y = px.getY();
+				if (this->matrizPixels[x][y].getZ() > px.getZ()) {
+					this->matrizPixels[x][y] = px;
+				}
 			}
-
-//				QList<Ponto> pontos = p.getPontos();
-//
-//				pontos = this->transformarObjeto(pontos);
-//				QPen pen(objeto->getCor());
-//				QLineF line;
-//				Ponto ponto1 = pontos.at(0);
-//
-//				if(pontos.size() > 1) {
-//					Ponto ant = ponto1;
-//
-//					for(int i = 1; i < pontos.size(); i++) {
-//						line = QLineF(ant.getX(), ant.getY(), pontos.at(i).getX(), pontos.at(i).getY());
-//						scene->addLine(line, pen);
-//						ant = pontos.at(i);
-//					}
-//					if(p.getTipo() == ObjetoGeometrico::POLIGONO) {
-//						line = QLineF(ant.getX(), ant.getY(), ponto1.getX(), ponto1.getY());
-//						scene->addLine(line, pen);
-//					}
-//				} else {
-//					scene->addEllipse(ponto1.getX(), ponto1.getY(), 3, 3, pen, QBrush(objeto->getCor()));
-//				}
-
 		}
 
 		delete objetoRecortado;
 
-		if(objetoRecortado != objeto)
+		if (objetoRecortado != objeto)
 			delete objeto;
-
-//		if(objeto != 0)
-//			delete objeto;
-
-//		if(objeto->getTipo() == ObjetoGeometrico::SUPERFICIE_BEZIER ||
-//			objeto->getTipo() == ObjetoGeometrico::SUPERFICIE_BSPLINE) {
-//			Superficie* superficie = (Superficie*) objeto;
-//			QList<QList<Ponto>> matrizPontos = superficie->getPontosParametricos();
-//
-//			for(QList<Ponto> pontos : matrizPontos) {
-//				Ponto ant = pontos.at(0);
-//				QPen pen(superficie->getCor());
-//				QLineF line;
-//
-//				for(int i = 1; i < pontos.size(); i++) {
-//					line = QLineF(ant.getX(), ant.getY(), pontos.at(i).getX(), pontos.at(i).getY());
-//					scene->addLine(line, pen);
-//					ant = pontos.at(i);
-//				}
-//			}
-//		} else if(objeto->getTipo() != ObjetoGeometrico::OBJETO3D) {
-//			QList<Ponto> pontos = this->clipping->clip(objeto);
-//
-//			if(pontos.size() == 0) {
-//				delete objeto;
-//				continue;
-//			}
-//			//RASTERIZAÇÃO ANTES DE TRANSFORMADA DE VIEWPORT
-//			//penso em clipar todos e mandar pra um displayfileclipado, e mandar esse dpf pro iluminador
-//
-//			pontos = this->transformarObjeto(pontos);
-//			QPen pen(objeto->getCor());
-//			QLineF line;
-//			Ponto ponto1 = pontos.at(0);
-//
-//			if(pontos.size() > 1) {
-//				Ponto ant = ponto1;
-//
-//				for(int i = 1; i < pontos.size(); i++) {
-//					line = QLineF(ant.getX(), ant.getY(), pontos.at(i).getX(), pontos.at(i).getY());
-//					scene->addLine(line, pen);
-//					ant = pontos.at(i);
-//				}
-//				if(objeto->getTipo() == ObjetoGeometrico::POLIGONO) {
-//					line = QLineF(ant.getX(), ant.getY(), ponto1.getX(), ponto1.getY());
-//					scene->addLine(line, pen);
-//				}
-//			} else {
-//				scene->addEllipse(ponto1.getX(), ponto1.getY(), 3, 3, pen, QBrush(objeto->getCor()));
-//			}
-//		} else {
-//			QList<Aresta> arestas = this->clipping->clipObjeto3D((Objeto3D*) objeto);
-//			//RASTERIZAÇÃO ANTES DA TRANSFORMADA DE VIEWPORT
-//
-//			for(Aresta a : arestas) {
-//
-//				QList<Ponto> pontos = this->transformarObjeto(a.getPontos());
-//				QPen pen(a.getCor());
-//				QLineF line = QLineF(pontos.at(0).getX(), pontos.at(0).getY(), pontos.at(1).getX(), pontos.at(1).getY());
-//				scene->addLine(line, pen);
-//				delete a.getPontosObjeto().at(0);
-//				delete a.getPontosObjeto().at(1);
-//			}
-//		}
-//
-//		delete objeto;
 	}
 
+	this->desenharCena(scene);
 	this->desenharAreaClipping(scene);
 	this->janelaGrafica->setScene(scene);
 	this->janelaGrafica->repaint();
 }
 
-void Viewport::setAlgoritmoClippingLinhas(Clipping::AlgoritmoClippingLinha algoritmo) {
-	if(this->clipping)
+void Viewport::setAlgoritmoClippingLinhas(
+		Clipping::AlgoritmoClippingLinha algoritmo) {
+	if (this->clipping)
 		delete this->clipping;
 
 	double larguraD = (double) this->largura;
@@ -178,32 +107,73 @@ void Viewport::setAlgoritmoClippingLinhas(Clipping::AlgoritmoClippingLinha algor
 	double yvMin = 2 * MARGEM_CLIPPING / alturaD - 1;
 	double yvMax = 2 * (alturaD - MARGEM_CLIPPING - 1) / alturaD - 1;
 
-	switch(algoritmo) {
-		case Clipping::COHEN_SUTHERLAND:
-			this->clipping = new ClippingCohenSutherland(xvMin, xvMax, yvMin, yvMax);
-			break;
-		case Clipping::LIANG_BARSKY:
-			this->clipping = new ClippingLiangBarsky(xvMin, xvMax, yvMin, yvMax);
-			break;
+	switch (algoritmo) {
+	case Clipping::COHEN_SUTHERLAND:
+		this->clipping = new ClippingCohenSutherland(xvMin, xvMax, yvMin,
+				yvMax);
+		break;
+	case Clipping::LIANG_BARSKY:
+		this->clipping = new ClippingLiangBarsky(xvMin, xvMax, yvMin, yvMax);
+		break;
 	}
 }
 
 QList<Ponto> Viewport::getPontos() const {
 	QList<Ponto> pontos;
 	pontos.insert(0, Ponto("vwp-p1", MARGEM_CLIPPING, MARGEM_CLIPPING, 0));
-	pontos.insert(1, Ponto("vwp-p2", this->largura - MARGEM_CLIPPING, MARGEM_CLIPPING, 0));
-	pontos.insert(2, Ponto("vwp-p3", this->largura - MARGEM_CLIPPING, this->altura - MARGEM_CLIPPING, 0));
-	pontos.insert(3, Ponto("vwp-p4", MARGEM_CLIPPING, this->altura - MARGEM_CLIPPING, 0));
+	pontos.insert(1,
+			Ponto("vwp-p2", this->largura - MARGEM_CLIPPING, MARGEM_CLIPPING,
+					0));
+	pontos.insert(2,
+			Ponto("vwp-p3", this->largura - MARGEM_CLIPPING,
+					this->altura - MARGEM_CLIPPING, 0));
+	pontos.insert(3,
+			Ponto("vwp-p4", MARGEM_CLIPPING, this->altura - MARGEM_CLIPPING,
+					0));
 
 	return pontos;
 }
 
+void Viewport::reiniciarMatrizPixels() {
+	Pixel px = Pixel();
+	for (unsigned int x = 0; x < this->largura; x++) {
+		for (unsigned int y = 0; y < this->altura; y++) {
+			this->matrizPixels[x][y] = px;
+		}
+	}
+}
+
+void Viewport::desenharCena(QGraphicsScene * const scene) {
+	for (unsigned int x = 0; x < this->largura; x++) {
+		for (unsigned int y = 0; y < this->altura; y++) {
+			Pixel px = this->matrizPixels[x][y];
+			px = iluminador->iluminarPixel(px);
+			cout << "iluminou" << x << "," << y << endl;
+			QPen pen(px.getCor());
+			scene->addLine(px.getX(), px.getY(), px.getX(), px.getY(), pen);
+			//scene->addEllipse(px.getX(), px.getY(), 1, 1, pen,
+			//		QBrush(px.getCor()));
+			//cout << "pixel:" << px.getX() << "," << px.getY() << endl;
+			int r;
+			int g;
+			int b;
+			int a;
+			px.getCor().getRgb(&r, &g, &b, &a);
+			//cout << "r/g/b:" << r << "/" << g << "/" << b << endl;
+		}
+	}
+}
+
 void Viewport::desenharAreaClipping(QGraphicsScene* const scene) {
 	QPen pen(QColor(255, 0, 0));
-	QLineF linha1 = QLineF(MARGEM_CLIPPING, MARGEM_CLIPPING, this->largura - MARGEM_CLIPPING, MARGEM_CLIPPING);
-	QLineF linha2 = QLineF(this->largura - MARGEM_CLIPPING, MARGEM_CLIPPING, this->largura - MARGEM_CLIPPING, this->altura - MARGEM_CLIPPING);
-	QLineF linha3 = QLineF(MARGEM_CLIPPING, MARGEM_CLIPPING, MARGEM_CLIPPING, this->altura - MARGEM_CLIPPING);
-	QLineF linha4 = QLineF(MARGEM_CLIPPING, this->altura - MARGEM_CLIPPING, this->largura - MARGEM_CLIPPING, this->altura - MARGEM_CLIPPING);
+	QLineF linha1 = QLineF(MARGEM_CLIPPING, MARGEM_CLIPPING,
+			this->largura - MARGEM_CLIPPING, MARGEM_CLIPPING);
+	QLineF linha2 = QLineF(this->largura - MARGEM_CLIPPING, MARGEM_CLIPPING,
+			this->largura - MARGEM_CLIPPING, this->altura - MARGEM_CLIPPING);
+	QLineF linha3 = QLineF(MARGEM_CLIPPING, MARGEM_CLIPPING, MARGEM_CLIPPING,
+			this->altura - MARGEM_CLIPPING);
+	QLineF linha4 = QLineF(MARGEM_CLIPPING, this->altura - MARGEM_CLIPPING,
+			this->largura - MARGEM_CLIPPING, this->altura - MARGEM_CLIPPING);
 
 	scene->addLine(linha1, pen);
 	scene->addLine(linha2, pen);

@@ -49,6 +49,9 @@ public:
 	 */
 	QList<Ponto> getPontos() const;
 
+	void reiniciarMatrizPixels();
+	void desenharCena(QGraphicsScene* const scene);
+
 private:
 
 	/**
@@ -64,6 +67,7 @@ private:
 	unsigned int largura;
 	unsigned int altura;
 	Iluminador* iluminador;
+	Pixel **matrizPixels;
 
 };
 

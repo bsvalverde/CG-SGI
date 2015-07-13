@@ -1,6 +1,6 @@
 #include "gui/Pixel.h"
 
-#include <float.h>
+#include <cfloat>
 
 Pixel::Pixel() {
 	this->x = 0;
