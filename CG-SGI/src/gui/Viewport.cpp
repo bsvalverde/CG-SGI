@@ -65,22 +65,30 @@ void Viewport::atualizarCena(const QList<ObjetoGeometrico*>& objetos) {
 			delete objeto;
 			continue;
 		}
-
+		QList<Pixel> pixels;
 		if (objetoRecortado->getTipo() == ObjetoGeometrico::OBJETO3D) {
 			QList<Faceta> facetas = ((Objeto3D*) objetoRecortado)->getFacetas();
+			for (Faceta f : facetas) {
+				QList<Ponto> pontos = f.getPontos();
+				Poligono p("", pontos, objetoRecortado->getCor());
+				pixels.append(
+						this->rasterizador->rasterizarObjeto(&p));
+			}
 
 		} else {
-			QList<Pixel> pixels = this->rasterizador->rasterizarObjeto(
-					objetoRecortado);
-
-			for (Pixel px : pixels) {
-				int x = px.getX();
-				int y = px.getY();
-				if (this->matrizPixels[x][y].getZ() > px.getZ()) {
-					this->matrizPixels[x][y] = px;
-				}
-			}
+			pixels = this->rasterizador->rasterizarObjeto(objetoRecortado);
 		}
+		for (Pixel px : pixels) {
+			int x = px.getX();
+			int y = px.getY();
+			if (this->matrizPixels[x][y].getZ() > px.getZ()) {
+				this->matrizPixels[x][y] = px;
+				cout<<"colocou:"<<x<<","<<y<<endl;
+			}
+			cout<<"terminou:"<<x<<","<<y<<endl;
+			//cout<<"chegou aqui"<<endl;
+		}
+		cout<<"aqui tambem"<<endl;
 
 		delete objetoRecortado;
 
