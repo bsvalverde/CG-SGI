@@ -70,7 +70,7 @@ void Viewport::atualizarCena(const QList<ObjetoGeometrico*>& objetos) {
 			QList<Faceta> facetas = ((Objeto3D*) objetoRecortado)->getFacetas();
 			for (Faceta f : facetas) {
 				QList<Ponto> pontos = f.getPontos();
-				Poligono p("", pontos, objetoRecortado->getCor());
+				Poligono p("", pontos, f.getCor());
 				pixels.append(this->rasterizador->rasterizarObjeto(&p));
 			}
 
@@ -78,15 +78,15 @@ void Viewport::atualizarCena(const QList<ObjetoGeometrico*>& objetos) {
 			pixels = this->rasterizador->rasterizarObjeto(objetoRecortado);
 		}
 		for (Pixel px : pixels) {
-			px = iluminador->iluminarPixel(px);
+			/*px = iluminador->iluminarPixel(px);
 			QPen pen(px.getCor());
-			scene->addLine(px.getX(), px.getY(), px.getX(), px.getY(), pen);
-			//int x = px.getX();
-			//int y = px.getY();
-			//int z = px.getZ();
-			//if (this->matrizPixels[x][y].getZ() > z) {
-			//	this->matrizPixels[x][y] = px;
-			//}
+			scene->addLine(px.getX(), px.getY(), px.getX(), px.getY(), pen);*/
+			int x = px.getX();
+			int y = px.getY();
+			int z = px.getZ();
+			if (this->matrizPixels[x][y].getZ() > z) {
+				this->matrizPixels[x][y] = px;
+			}
 		}
 
 		delete objetoRecortado;
@@ -95,7 +95,7 @@ void Viewport::atualizarCena(const QList<ObjetoGeometrico*>& objetos) {
 			delete objeto;
 	}
 
-	//this->desenharCena(scene);
+	this->desenharCena(scene);
 	this->desenharAreaClipping(scene);
 	this->janelaGrafica->setScene(scene);
 	this->janelaGrafica->repaint();
