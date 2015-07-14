@@ -71,24 +71,23 @@ void Viewport::atualizarCena(const QList<ObjetoGeometrico*>& objetos) {
 			for (Faceta f : facetas) {
 				QList<Ponto> pontos = f.getPontos();
 				Poligono p("", pontos, objetoRecortado->getCor());
-				pixels.append(
-						this->rasterizador->rasterizarObjeto(&p));
+				pixels.append(this->rasterizador->rasterizarObjeto(&p));
 			}
 
 		} else {
 			pixels = this->rasterizador->rasterizarObjeto(objetoRecortado);
 		}
 		for (Pixel px : pixels) {
-			int x = px.getX();
-			int y = px.getY();
-			if (this->matrizPixels[x][y].getZ() > px.getZ()) {
-				this->matrizPixels[x][y] = px;
-				cout<<"colocou:"<<x<<","<<y<<endl;
-			}
-			cout<<"terminou:"<<x<<","<<y<<endl;
-			//cout<<"chegou aqui"<<endl;
+			px = iluminador->iluminarPixel(px);
+			QPen pen(px.getCor());
+			scene->addLine(px.getX(), px.getY(), px.getX(), px.getY(), pen);
+			//int x = px.getX();
+			//int y = px.getY();
+			//int z = px.getZ();
+			//if (this->matrizPixels[x][y].getZ() > z) {
+			//	this->matrizPixels[x][y] = px;
+			//}
 		}
-		cout<<"aqui tambem"<<endl;
 
 		delete objetoRecortado;
 
@@ -96,7 +95,7 @@ void Viewport::atualizarCena(const QList<ObjetoGeometrico*>& objetos) {
 			delete objeto;
 	}
 
-	this->desenharCena(scene);
+	//this->desenharCena(scene);
 	this->desenharAreaClipping(scene);
 	this->janelaGrafica->setScene(scene);
 	this->janelaGrafica->repaint();
@@ -162,12 +161,6 @@ void Viewport::desenharCena(QGraphicsScene * const scene) {
 			//scene->addEllipse(px.getX(), px.getY(), 1, 1, pen,
 			//		QBrush(px.getCor()));
 			//cout << "pixel:" << px.getX() << "," << px.getY() << endl;
-			int r;
-			int g;
-			int b;
-			int a;
-			px.getCor().getRgb(&r, &g, &b, &a);
-			//cout << "r/g/b:" << r << "/" << g << "/" << b << endl;
 		}
 	}
 }

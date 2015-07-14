@@ -1,5 +1,8 @@
 #include "gui/Rasterizador.h"
 
+#include <iostream>
+using namespace std;
+
 Rasterizador::Rasterizador(const unsigned int tamX, const unsigned int tamY) {
 	this->tamX = tamX;
 	this->tamY = tamY;
@@ -203,8 +206,18 @@ QList<Pixel> Rasterizador::pixelarTriangulo(const Poligono& triangulo) {
 	double xEsq = p1.getX() + ((double) inicial - p1.getY()) / mXEsq;
 	double xDir = p4.getX() + ((double) inicial - p4.getY()) / mXDir;
 
+	if (xEsq != xEsq)
+		xEsq = p1.getX();
+	if (xDir != xDir)
+		xDir = p4.getX();
+
 	double incXEsq = -1 / mXEsq;
 	double incXDir = -1 / mXDir;
+
+	if (incXEsq != incXEsq)
+		incXEsq = 0;
+	if (incXDir != incXDir)
+		incXDir = 0;
 
 	//definir a normal
 	Ponto vetor1("", p1.getX() - p2.getX(), p1.getY() - p2.getY(),
@@ -219,15 +232,31 @@ QList<Pixel> Rasterizador::pixelarTriangulo(const Poligono& triangulo) {
 	double zNormal = vetor1.getX() * vetor2.getY()
 			- vetor1.getY() * vetor2.getX();
 
-	double comprimento = sqrt(xNormal*xNormal + yNormal*yNormal + zNormal*zNormal);
-	Ponto normal("", xNormal / comprimento, yNormal / comprimento, zNormal / comprimento);
+	if (zNormal > 0) {
+		xNormal *= -1;
+		yNormal *= -1;
+		zNormal *= -1;
+	}
+
+	double comprimento = sqrt(
+			xNormal * xNormal + yNormal * yNormal + zNormal * zNormal);
+	if (comprimento == 0)
+		comprimento = 1;
+	Ponto normal("", xNormal / comprimento, -yNormal / comprimento,
+			zNormal / comprimento);
 
 	double mZVer = esq.coeficienteAngularZ();
-	double incZVer = -1/mZVer;
+	double incZVer = -1 / mZVer;
+
+	if (incZVer != incZVer)
+		incZVer = 0;
+
 	double incZHor = 0;
-	if(normal.getZ()!= 0)
+	if (normal.getZ() != 0)
 		incZHor = -normal.getX() / normal.getZ();
 	double zRef = p1.getZ() + ((double) inicial - p1.getY()) / mZVer;
+	if (zRef != zRef)
+		zRef = p1.getZ();
 	for (int y = inicial; y >= final; y--) {
 		double zPix = zRef + (((double) ((int) xEsq)) - xEsq) * incZHor;
 		for (int x = (int) xEsq; x <= (int) xDir; x++) {

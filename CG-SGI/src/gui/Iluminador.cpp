@@ -54,6 +54,8 @@ QColor Iluminador::calcularComponenteDifusa(Pixel p) {
 	Ponto vN("", xN / comprimento, yN / comprimento, zN / comprimento); //vetor normalizado apontando para a fonte de luz
 	double multVetores = normal.getX() * vN.getX() + normal.getY() * vN.getY()
 			+ normal.getZ() * vN.getZ();
+	if(multVetores<0)
+		multVetores = 0;
 	QColor cor = p.getCor();
 	int r;
 	int g;
@@ -72,23 +74,22 @@ QColor Iluminador::calcularComponenteDifusa(Pixel p) {
 
 QColor Iluminador::calcularComponenteEspecular(Pixel p) {
 	//calcular vetor raio refletido
-	double xR = this->fonteDeLuz.getX() - p.getX();
-	double yR = this->fonteDeLuz.getY() - p.getY();
-	double zR = this->fonteDeLuz.getZ() - p.getZ();
-	double comprimento = sqrt(xR * xR + yR * yR + zR * zR);
-	Ponto vRef("", xR / comprimento, yR / comprimento, zR / comprimento);
+	double xL = this->fonteDeLuz.getX() - p.getX();
+	double yL = this->fonteDeLuz.getY() - p.getY();
+	double zL = this->fonteDeLuz.getZ() - p.getZ();
+	double comprimento = sqrt(xL * xL + yL * yL + zL * zL);
+	Ponto vLuz("", xL / comprimento, yL / comprimento, zL / comprimento);
 	Ponto normal = p.getNormal();
-	double cosX = (vRef.getY() * normal.getY() + vRef.getZ() * normal.getZ()); //angulo entre vetor e a normal pelo eixo x
-	double arcX = acos(cosX);
-	double anguloX = arcX * 180 / M_PI;
-	double cosZ = (vRef.getX() * normal.getX() + vRef.getY() * normal.getY()); // angulo entre vetor e a normal pelo eixo z
-	double arcZ = acos(cosZ);
-	double anguloZ = arcZ * 180 / M_PI;
-	vRef.rotacionarPorX(Ponto("", 0, 0, 0), 2 * anguloX);
-	vRef.rotacionarPorZ(Ponto("", 0, 0, 0), 2 * anguloZ);
+	double mult = 2
+			* (vLuz.getX() * normal.getX() + vLuz.getY() * normal.getY()
+					+ vLuz.getZ() * normal.getZ());
+	double xR = mult * normal.getX() - vLuz.getX();
+	double yR = mult * normal.getY() - vLuz.getY();
+	double zR = mult * normal.getZ() - vLuz.getZ();
+	Ponto vRef("", xR, yR, zR);
 	//calcular vetor observador
-	double xO = p.getX() - this->tamX / 2;
-	double yO = p.getY() - this->tamY / 2;
+	double xO = p.getX() - this->tamX;
+	double yO = p.getY() - this->tamY;
 	double zO = p.getZ() + 15;
 	comprimento = sqrt(xO * xO + yO * yO + zO * zO);
 	Ponto vObs("", xO / comprimento, yO / comprimento, zO / comprimento);
