@@ -9,8 +9,8 @@ TARGET = SGI.app
 # C++ flags
 QMAKE_CXX = g++
 QMAKE_CXXFLAGS_WARN_ON = -Wall
-QMAKE_CXXFLAGS_RELEASE = -std=c++11 -g
-QMAKE_CXXFLAGS_DEBUG = -std=c++11 -g
+QMAKE_CXXFLAGS_RELEASE = -std=c++0x -g
+QMAKE_CXXFLAGS_DEBUG = -std=c++0x -g
 
 # Inclusões e bibliotecas
 INCLUDEPATH += include
