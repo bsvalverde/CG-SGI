@@ -7,7 +7,7 @@ install:
 - sudo apt-get install bash
 - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
 - sudo apt-get update
-- sudo apt-get install g++-5
+- sudo apt-get -qq install g++-5
 
 script:
 - cd CG-SGI
