@@ -4,7 +4,8 @@ compiler:
 - g++
 
 install:
+- sudo apt-get install bash
 
 script:
 - cd CG-SGI
-- sudo ./genMake all
+- sudo bash ./genMake all
