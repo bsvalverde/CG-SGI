@@ -4,7 +4,7 @@ compiler:
 - g++
 
 install:
-- sudo apt-get install qt5-default
+- sudo apt-get install qt4-default
 
 script:
 - cd CG-SGI
