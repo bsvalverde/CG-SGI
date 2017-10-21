@@ -10,4 +10,10 @@ Sistema Gráfico Interativo desenvolvido na disciplina de Computação Gráfica 
 - Qt 5.
 
 <b>Diagrama de Classes:</b>
+
 ![Alt Text](https://github.com/lucaspetry/CG-SGI/blob/master/CG-SGI/doc/DiagramaDeClasses.png)
+
+
+<b>Overview:</b>
+
+![Overview](https://github.com/lucaspetry/CG-SGI/blob/master/cg-sgi.png)
